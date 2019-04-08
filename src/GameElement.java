@@ -19,6 +19,14 @@ public class GameElement {
 	 */
 	private String spriteFile;
 	/**
+	 * The width in pixels of the game element's image
+	 */
+	private int width;
+	/**
+	 * The height in pixels of the game element's image
+	 */
+	private int height;
+	/**
 	 * The current x-axis speed of the GameElement
 	 */
 	private int xSpeed;
@@ -89,5 +97,29 @@ public class GameElement {
 	 */
 	public void setySpeed(int ySpeed) {
 		this.ySpeed = ySpeed;
+	}
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }
