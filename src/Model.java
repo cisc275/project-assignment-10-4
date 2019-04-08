@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Contains the different componenets of the bird game. As the game updates, 
+ * Contains the different components of the bird game. As the game updates, 
  * this handles the movement of elements and their current states.
  * 
  * @author 10-4
@@ -17,11 +17,11 @@ public class Model {
 	 */
 	private List<Collidable>onScreenCollidables;
 	/**
-	 * The distance currently traveled
+	 * The distance currently travelled
 	 */
 	private int distance;
 	/**
-	 * The total distance needed to be traveled
+	 * The total distance needed to be travelled
 	 */
 	private int endDistance;
 	/**
@@ -69,7 +69,7 @@ public class Model {
 	void updateBackground() {}
 	
 	/**
-	 * Updates the MiniMap to display the current traveled status
+	 * Updates the MiniMap to display the current travelled status
 	 */
 	void updateMiniMap() {}
 	
@@ -83,7 +83,7 @@ public class Model {
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
 	 * 
-	 * @return The quiz question that will be diplayed for the player to answer.
+	 * @return The quiz question that will be displayed for the player to answer.
 	 */
 	QuizQuestion startQuiz() {return new QuizQuestion();}
 	
@@ -103,34 +103,128 @@ public class Model {
 	 */
 	void enterNest() {}
 
+	/**
+	 * @return the distance
+	 */
+	public int getDistance() {
+		return distance;
+	}
+
+	/**
+	 * @param distance the distance to set
+	 */
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+
+	/**
+	 * @return the endDistance
+	 */
+	public int getEndDistance() {
+		return endDistance;
+	}
+
+	/**
+	 * @param endDistance the endDistance to set
+	 */
+	public void setEndDistance(int endDistance) {
+		this.endDistance = endDistance;
+	}
+
+	/**
+	 * @return the miniMap
+	 */
+	public MiniMap getMiniMap() {
+		return miniMap;
+	}
+
+	/**
+	 * @param miniMap the miniMap to set
+	 */
+	public void setMiniMap(MiniMap miniMap) {
+		this.miniMap = miniMap;
+	}
+
+	/**
+	 * @return the points
+	 */
+	public int getPoints() {
+		return points;
+	}
+
+	/**
+	 * @param points the points to set
+	 */
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	/**
+	 * @return the quizQuestions
+	 */
+	public List<QuizQuestion> getQuizQuestions() {
+		return quizQuestions;
+	}
+
+	/**
+	 * @param quizQuestions the quizQuestions to set
+	 */
+	public void setQuizQuestions(List<QuizQuestion> quizQuestions) {
+		this.quizQuestions = quizQuestions;
+	}
+
+	/**
+	 * @return the bird
+	 */
 	public Bird getBird() {
 		return bird;
 	}
 
+	/**
+	 * @param bird the bird to set
+	 */
 	public void setBird(Bird bird) {
 		this.bird = bird;
 	}
 
+	/**
+	 * @return the onScreenCollidables
+	 */
 	public List<Collidable> getOnScreenCollidables() {
 		return onScreenCollidables;
 	}
 
+	/**
+	 * @param onScreenCollidables the onScreenCollidables to set
+	 */
 	public void setOnScreenCollidables(List<Collidable> onScreenCollidables) {
 		this.onScreenCollidables = onScreenCollidables;
 	}
 
+	/**
+	 * @return the birdMode
+	 */
 	public boolean isBirdMode() {
 		return birdMode;
 	}
 
+	/**
+	 * @param birdMode the birdMode to set
+	 */
 	public void setBirdMode(boolean birdMode) {
 		this.birdMode = birdMode;
 	}
 
+	/**
+	 * @return the quizMode
+	 */
 	public boolean isQuizMode() {
 		return quizMode;
 	}
 
+	/**
+	 * @param quizMode the quizMode to set
+	 */
 	public void setQuizMode(boolean quizMode) {
 		this.quizMode = quizMode;
 	}

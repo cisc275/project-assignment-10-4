@@ -28,4 +28,28 @@ public class Food extends GameElement implements Collidable{
 	public boolean isOffScreen() {
 		return true;
 	}
+	/**
+	 * @return the staminaValue
+	 */
+	public int getStaminaValue() {
+		return staminaValue;
+	}
+	/**
+	 * @param staminaValue the staminaValue to set
+	 */
+	public void setStaminaValue(int staminaValue) {
+		this.staminaValue = staminaValue;
+	}
+	/**
+	 * @return the isSpecialFood
+	 */
+	public boolean isSpecialFood() {
+		return isSpecialFood;
+	}
+	/**
+	 * @param isSpecialFood the isSpecialFood to set
+	 */
+	public void setSpecialFood(boolean isSpecialFood) {
+		this.isSpecialFood = isSpecialFood;
+	}
 }

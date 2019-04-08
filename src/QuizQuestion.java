@@ -27,4 +27,46 @@ public class QuizQuestion {
 	 * @return True is answered correct, false otherwise.
 	 */
 	boolean checkCorrect() {return false;}
+
+	/**
+	 * @return the correctAnswer
+	 */
+	public int getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	/**
+	 * @param correctAnswer the correctAnswer to set
+	 */
+	public void setCorrectAnswer(int correctAnswer) {
+		this.correctAnswer = correctAnswer;
+	}
+
+	/**
+	 * @return the question
+	 */
+	public String getQuestion() {
+		return question;
+	}
+
+	/**
+	 * @param question the question to set
+	 */
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	/**
+	 * @return the answers
+	 */
+	public List<String> getAnswers() {
+		return answers;
+	}
+
+	/**
+	 * @param answers the answers to set
+	 */
+	public void setAnswers(List<String> answers) {
+		this.answers = answers;
+	}
 }

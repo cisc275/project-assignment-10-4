@@ -12,6 +12,7 @@ import java.awt.Dimension;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class View extends JPanel{
 	/**
 	 * The frame used to display the game
@@ -26,7 +27,7 @@ public class View extends JPanel{
 	 */
 	private int frameWidth;
 	/**
-	 * Height of the frame to dislpay the game
+	 * Height of the frame to display the game
 	 */
 	private int frameHeight;
 	/**
@@ -95,7 +96,76 @@ public class View extends JPanel{
 	 */
 	void updateBackground() {}
 
-	@SuppressWarnings("serial")
+	/**
+	 * @return the frame
+	 */
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	/**
+	 * @param frame the frame to set
+	 */
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	/**
+	 * @return the drawPanel
+	 */
+	public DrawPanel getDrawPanel() {
+		return drawPanel;
+	}
+
+	/**
+	 * @param drawPanel the drawPanel to set
+	 */
+	public void setDrawPanel(DrawPanel drawPanel) {
+		this.drawPanel = drawPanel;
+	}
+
+	/**
+	 * @return the frameWidth
+	 */
+	public int getFrameWidth() {
+		return frameWidth;
+	}
+
+	/**
+	 * @param frameWidth the frameWidth to set
+	 */
+	public void setFrameWidth(int frameWidth) {
+		this.frameWidth = frameWidth;
+	}
+
+	/**
+	 * @return the frameHeight
+	 */
+	public int getFrameHeight() {
+		return frameHeight;
+	}
+
+	/**
+	 * @param frameHeight the frameHeight to set
+	 */
+	public void setFrameHeight(int frameHeight) {
+		this.frameHeight = frameHeight;
+	}
+
+	/**
+	 * @return the background
+	 */
+	public BufferedImage getViewBackground() {
+		return background;
+	}
+
+	/**
+	 * @param background the background to set
+	 */
+	public void setViewBackground(BufferedImage background) {
+		this.background = background;
+	}
+
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);			

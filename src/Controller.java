@@ -64,4 +64,60 @@ public class Controller implements KeyListener{
 	public static void main(String[] args) {
 		System.out.println("Welcome");
 	}
+
+	/**
+	 * @return the view
+	 */
+	public View getView() {
+		return view;
+	}
+
+	/**
+	 * @param view the view to set
+	 */
+	public void setView(View view) {
+		this.view = view;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public Model getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the button
+	 */
+	public JButton getButton() {
+		return button;
+	}
+
+	/**
+	 * @param button the button to set
+	 */
+	public void setButton(JButton button) {
+		this.button = button;
+	}
+
+	/**
+	 * @return the keyInputs
+	 */
+	public KeyEvent getKeyInputs() {
+		return keyInputs;
+	}
+
+	/**
+	 * @param keyInputs the keyInputs to set
+	 */
+	public void setKeyInputs(KeyEvent keyInputs) {
+		this.keyInputs = keyInputs;
+	}
 }

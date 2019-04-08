@@ -20,4 +20,40 @@ public class MiniMap extends GameElement{
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
 	private String mapSpriteFile;
+	/**
+	 * @return the mapXLoc
+	 */
+	public int getMapXLoc() {
+		return mapXLoc;
+	}
+	/**
+	 * @param mapXLoc the mapXLoc to set
+	 */
+	public void setMapXLoc(int mapXLoc) {
+		this.mapXLoc = mapXLoc;
+	}
+	/**
+	 * @return the mapYLoc
+	 */
+	public int getMapYLoc() {
+		return mapYLoc;
+	}
+	/**
+	 * @param mapYLoc the mapYLoc to set
+	 */
+	public void setMapYLoc(int mapYLoc) {
+		this.mapYLoc = mapYLoc;
+	}
+	/**
+	 * @return the mapSpriteFile
+	 */
+	public String getMapSpriteFile() {
+		return mapSpriteFile;
+	}
+	/**
+	 * @param mapSpriteFile the mapSpriteFile to set
+	 */
+	public void setMapSpriteFile(String mapSpriteFile) {
+		this.mapSpriteFile = mapSpriteFile;
+	}
 }
