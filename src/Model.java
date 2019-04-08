@@ -15,7 +15,7 @@ public class Model {
 	/**
 	 * A list containing all Collidable objects that are currently on the screen
 	 */
-	private List<Collidable>onScreenCollidables;
+	private List<GameElement>onScreenCollidables;
 	/**
 	 * The distance currently travelled
 	 */
@@ -190,14 +190,14 @@ public class Model {
 	/**
 	 * @return the onScreenCollidables
 	 */
-	public List<Collidable> getOnScreenCollidables() {
+	public List<GameElement> getOnScreenCollidables() {
 		return onScreenCollidables;
 	}
 
 	/**
 	 * @param onScreenCollidables the onScreenCollidables to set
 	 */
-	public void setOnScreenCollidables(List<Collidable> onScreenCollidables) {
+	public void setOnScreenCollidables(List<GameElement> onScreenCollidables) {
 		this.onScreenCollidables = onScreenCollidables;
 	}
 
