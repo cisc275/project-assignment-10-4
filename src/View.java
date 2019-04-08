@@ -1,5 +1,7 @@
 import java.util.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -46,8 +48,12 @@ public class View extends JPanel{
 	
 	/**
 	 * Creates an image to be displayed
+	 * @param f a File to generate image from
+	 * @return BufferedImage the generated image
 	 */
-	void createImage() {}
+	BufferedImage createImage(File f) {
+		return null;
+	}
 	
 	/**
 	 * Draws an image onto the frame
