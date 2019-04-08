@@ -1,4 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 
 class ViewTest {
@@ -10,6 +14,9 @@ class ViewTest {
 	
 	@Test
 	void createImageTest() {
+		View view = new View();
+		BufferedImage i = view.createImage(new File("images/test-image.jpg"));
+		assertTrue(i != null);
 		fail("Not yet implemented");
 	}
 	
