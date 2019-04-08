@@ -102,4 +102,36 @@ public class Model {
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */
 	void enterNest() {}
+
+	public Bird getBird() {
+		return bird;
+	}
+
+	public void setBird(Bird bird) {
+		this.bird = bird;
+	}
+
+	public List<Collidable> getOnScreenCollidables() {
+		return onScreenCollidables;
+	}
+
+	public void setOnScreenCollidables(List<Collidable> onScreenCollidables) {
+		this.onScreenCollidables = onScreenCollidables;
+	}
+
+	public boolean isBirdMode() {
+		return birdMode;
+	}
+
+	public void setBirdMode(boolean birdMode) {
+		this.birdMode = birdMode;
+	}
+
+	public boolean isQuizMode() {
+		return quizMode;
+	}
+
+	public void setQuizMode(boolean quizMode) {
+		this.quizMode = quizMode;
+	}
 }

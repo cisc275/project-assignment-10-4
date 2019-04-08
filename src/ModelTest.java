@@ -10,7 +10,7 @@ class ModelTest {
 	}
 
 	@Test
-	void updateBirdTest() {
+	void updateBirdTest() { 
 		fail("Not yet implemented");
 	}
 
@@ -36,12 +36,22 @@ class ModelTest {
 
 	@Test
 	void startQuizTest() {
-		fail("Not yet implemented");
+		Model model = new Model(); 
+		assertFalse(model.isQuizMode()); 
+		assertTrue(model.isBirdMode());
+		model.startQuiz(); 
+		assertTrue(model.isQuizMode());
+		assertFalse(model.isBirdMode()); 
 	}
 
 	@Test
 	void endQuizTest() {
-		fail("Not yet implemented");
+		Model model = new Model(); 
+		model.startQuiz(); 
+		model.endQuiz(); 
+		assertTrue(model.isBirdMode());
+		assertFalse(model.isQuizMode()); 
+		
 	}
 
 	@Test
