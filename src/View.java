@@ -72,11 +72,11 @@ public class View extends JPanel{
 	void nestAnimation() {}
 	
 	/**
-	 * The player selects whehter it wants to play as the Osprey or the Nothern Harrier.
+	 * The player selects whether it wants to play as the Osprey or the Northern Harrier.
 	 * 
 	 * @return An int representing the bird chosen. 0 = Osprey, 1 = Northern Harrier
 	 */
-	int selectBird() {return 0;}
+	int selectBird() {return -1;}
 	
 	/**
 	 * Updates the display of the bird
