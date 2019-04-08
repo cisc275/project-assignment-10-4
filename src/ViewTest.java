@@ -17,7 +17,6 @@ class ViewTest {
 		View view = new View();
 		BufferedImage i = view.createImage(new File("images/test-image.jpg"));
 		assertTrue(i != null);
-		fail("Not yet implemented");
 	}
 	
 	@Test
@@ -37,7 +36,8 @@ class ViewTest {
 	
 	@Test
 	void selectBirdTest() {
-		fail("Not yet implemented");
+		View view = new View();
+		assertTrue(view.selectBird() == 1 || view.selectBird() == 0);
 	}
 	
 	@Test
