@@ -11,7 +11,14 @@ class ModelTest {
 
 	@Test
 	void updateBirdTest() { 
-		fail("Not yet implemented");
+		Model model = new Model(); 
+		Bird bird = model.getBird(); 
+		bird.getXloc(); 
+		model.updateBird(); 
+		Bird newBird = model.getBird(); 
+		
+		assertTrue(newBird.getXloc() == bird.getXloc() + bird.getxSpeed() + bird.getFlyingSpeed());
+		assertTrue(newBird.getYloc() == bird.getYloc() + bird.getySpeed()); 
 	}
 
 	@Test
@@ -31,6 +38,7 @@ class ModelTest {
 
 	@Test
 	void collisionDetectionTest() {
+		
 		fail("Not yet implemented");
 	}
 
