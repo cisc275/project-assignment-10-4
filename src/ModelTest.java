@@ -13,12 +13,13 @@ class ModelTest {
 	void updateBirdTest() { 
 		Model model = new Model(); 
 		Bird bird = model.getBird(); 
-		bird.getXloc(); 
 		model.updateBird(); 
 		Bird newBird = model.getBird(); 
-		
-		assertTrue(newBird.getXloc() == bird.getXloc() + bird.getxSpeed() + bird.getFlyingSpeed());
-		assertTrue(newBird.getYloc() == bird.getYloc() + bird.getySpeed()); 
+		/**No implementation since bird and new bird are NULL
+		 * 
+		 */
+		assertTrue(1 == -1);
+		 
 	}
 
 	@Test
