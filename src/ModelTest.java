@@ -39,7 +39,6 @@ class ModelTest {
 
 	@Test
 	void collisionDetectionTest() {
-		
 		fail("Not yet implemented");
 	}
 
