@@ -5,6 +5,11 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Handles all unit tests of View class
+ * @author jhdavis
+ *
+ */
 class ViewTest {
 	
 	@Test

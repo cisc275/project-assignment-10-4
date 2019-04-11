@@ -2,6 +2,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Handles all unit testing of Model class
+ * @author eakresho
+ * @author LandonJones
+ */
 class ModelTest {
 
 	@Test
@@ -15,11 +20,8 @@ class ModelTest {
 		//Bird bird = model.getBird(); 
 		model.updateBird(); 
 		//Bird newBird = model.getBird(); 
-		/**No implementation since bird and new bird are NULL
-		 * 
-		 */
+		//No implementation since bird and new bird are NULL
 		fail("Not fully implemented");
-		 
 	}
 
 	@Test
@@ -59,7 +61,6 @@ class ModelTest {
 		model.endQuiz(); 
 		assertTrue(model.isBirdMode());
 		assertFalse(model.isQuizMode()); 
-		
 	}
 
 	@Test
