@@ -19,23 +19,23 @@ public class View extends JPanel{
 	/**
 	 * The frame used to display the game
 	 */
-	private JFrame frame;
+	private JFrame frame;	
 	/**
 	 * The panel that will be drawn on to display the game
 	 */
-	private DrawPanel drawPanel;
+	private DrawPanel drawPanel;	
 	/**
 	 * Width of the frame to display the game
 	 */
-	private int frameWidth;
+	private int frameWidth;	
 	/**
 	 * Height of the frame to display the game
 	 */
-	private int frameHeight;
+	private int frameHeight;	
 	/**
 	 * Image for the background
 	 */
-	private BufferedImage background;
+	private BufferedImage background;	
 	
 	/**
 	 * Will update the game display based on changes to different game components.
@@ -76,7 +76,7 @@ public class View extends JPanel{
 	 * 
 	 * @return An int representing the bird chosen. 0 = Osprey, 1 = Northern Harrier
 	 */
-	int selectBird() {return -1;}
+	int selectBirdType() {return -1;}
 	
 	/**
 	 * Updates the display of the bird

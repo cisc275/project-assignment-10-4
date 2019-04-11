@@ -30,7 +30,11 @@ public class Controller implements KeyListener{
 	 * Starts the game play. Will then prompt user to choose a bird to play as.
 	 * Will update game as it progresses and end the game when the nest is reached.
 	 */
-	void start() {}
+	void start() {
+		model = new Model();
+		view = new View();
+		model.setBirdType(view.selectBirdType());
+	}
 	
 	/**
 	 * Required from KeyListener. Will handle any key presses by the player
@@ -55,15 +59,6 @@ public class Controller implements KeyListener{
 	 */
 	@Override
 	public void keyTyped(KeyEvent k) {}
-	
-	/**
-	 * Will call the start method when run.
-	 * 
-	 * @param args Unused
-	 */
-	public static void main(String[] args) {
-		System.out.println("Welcome");
-	}
 
 	/**
 	 * @return the view

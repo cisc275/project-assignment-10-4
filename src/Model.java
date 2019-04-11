@@ -11,39 +11,43 @@ public class Model {
 	/**
 	 * The Bird the player will control
 	 */
-	private Bird bird;
+	private Bird bird;	
+	/**
+	 * Which bird the player is currently using. 0 = Osprey, 1 = Northern Harrier
+	 */
+	private int birdType;
 	/**
 	 * A list containing all GameElement objects that are currently on the screen
 	 */
-	private List<GameElement>onScreenCollidables;
+	private List<GameElement>onScreenCollidables;	
 	/**
-	 * The distance currently traveled
+	 * The distance currently travelled
 	 */
-	private int distance;
+	private int distance;	
 	/**
-	 * The total distance needed to be traveled
+	 * The total distance needed to be travelled
 	 */
-	private int endDistance;
+	private int endDistance;	
 	/**
 	 * The MiniMap that will update as the game progresses
 	 */
-	private MiniMap miniMap;
+	private MiniMap miniMap;	
 	/**
 	 * The current score for the game
 	 */
-	private int points;
+	private int points;	
 	/**
 	 * Stores whether the bird is in a powerup state
 	 */
-	private boolean birdMode;
+	private boolean birdMode;	
 	/**
 	 * Stores whether there is currently a quiz
 	 */
-	private boolean quizMode;
+	private boolean quizMode;	
 	/**
 	 * A list of all the different potential quiz questions
 	 */
-	private List<QuizQuestion>quizQuestions;
+	private List<QuizQuestion>quizQuestions;	
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
@@ -228,4 +232,19 @@ public class Model {
 	public void setQuizMode(boolean quizMode) {
 		this.quizMode = quizMode;
 	}
+
+	/**
+	 * @return the birdType
+	 */
+	public int getBirdType() {
+		return birdType;
+	}
+
+	/**
+	 * @param birdType the birdType to set
+	 */
+	public void setBirdType(int birdType) {
+		this.birdType = birdType;
+	}
+	
 }
