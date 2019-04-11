@@ -19,7 +19,7 @@ class ViewTest {
 	
 	@Test
 	void createImageTest() {
-		View view = new View();
+		View view = new View(new Controller());
 		BufferedImage i = view.createImage(new File("images/test-image.jpg"));
 		assertTrue(i != null);
 	}
@@ -41,8 +41,8 @@ class ViewTest {
 	
 	@Test
 	void selectBirdTest() {
-		View view = new View();
-		assertTrue(view.selectBird() == 1 || view.selectBird() == 0);
+		View view = new View(new Controller());
+		assertTrue(view.selectBirdType() == 1 || view.selectBirdType() == 0);
 	}
 	
 	@Test

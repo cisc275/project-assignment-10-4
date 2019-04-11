@@ -31,8 +31,8 @@ public class Controller implements KeyListener{
 	 * Will update game as it progresses and end the game when the nest is reached.
 	 */
 	void start() {
-		model = new Model();
-		view = new View();
+		model = new Model(10,10);
+		view = new View(this);
 		model.setBirdType(view.selectBirdType());
 	}
 	

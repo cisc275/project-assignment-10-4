@@ -47,7 +47,25 @@ public class Model {
 	/**
 	 * A list of all the different potential quiz questions
 	 */
-	private List<QuizQuestion>quizQuestions;	
+	private List<QuizQuestion>quizQuestions;
+	/**
+	 * The width of the game frame
+	 */
+	private int frameWidth;
+	/**
+	 * The height of the game frame
+	 */
+    private int frameHeight;
+	
+	/**
+	 * Model constructor, sets up frame dimensions
+	 * @param frameWidth
+	 * @param frameHeight
+	 */
+	public Model(int frameWidth,int frameHeight) {
+		this.setFrameWidth(frameWidth);
+		this.setFrameHeight(frameHeight);
+	}
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
@@ -245,6 +263,34 @@ public class Model {
 	 */
 	public void setBirdType(int birdType) {
 		this.birdType = birdType;
+	}
+
+	/**
+	 * @return the frameWidth
+	 */
+	public int getFrameWidth() {
+		return frameWidth;
+	}
+
+	/**
+	 * @param frameWidth the frameWidth to set
+	 */
+	public void setFrameWidth(int frameWidth) {
+		this.frameWidth = frameWidth;
+	}
+
+	/**
+	 * @return the frameHeight
+	 */
+	public int getFrameHeight() {
+		return frameHeight;
+	}
+
+	/**
+	 * @param frameHeight the frameHeight to set
+	 */
+	public void setFrameHeight(int frameHeight) {
+		this.frameHeight = frameHeight;
 	}
 	
 }

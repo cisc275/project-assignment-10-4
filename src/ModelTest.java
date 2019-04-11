@@ -16,7 +16,7 @@ class ModelTest {
 
 	@Test
 	void updateBirdTest() { 
-		Model model = new Model(); 
+		Model model = new Model(10,10); 
 		//Bird bird = model.getBird(); 
 		model.updateBird(); 
 		//Bird newBird = model.getBird(); 
@@ -46,7 +46,7 @@ class ModelTest {
 
 	@Test
 	void startQuizTest() {
-		Model model = new Model(); 
+		Model model = new Model(10,10); 
 		assertFalse(model.isQuizMode()); 
 		assertTrue(model.isBirdMode());
 		model.startQuiz(); 
@@ -56,7 +56,7 @@ class ModelTest {
 
 	@Test
 	void endQuizTest() {
-		Model model = new Model(); 
+		Model model = new Model(10,10); 
 		model.startQuiz(); 
 		model.endQuiz(); 
 		assertTrue(model.isBirdMode());

@@ -3,6 +3,7 @@
  */
 
 /**
+ * Main class for running the bird game
  * @author jhdavis
  *
  */

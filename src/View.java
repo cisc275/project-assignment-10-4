@@ -38,6 +38,14 @@ public class View extends JPanel{
 	private BufferedImage background;	
 	
 	/**
+	 * View constructor, sets up the frame and its contents
+	 * @param c reference to the Controller object in use
+	 */
+	public View(Controller c) {
+		
+	}
+	
+	/**
 	 * Will update the game display based on changes to different game components.
 	 * 
 	 * @param bird The bird the user controls
