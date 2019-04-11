@@ -12,13 +12,13 @@ class ModelTest {
 	@Test
 	void updateBirdTest() { 
 		Model model = new Model(); 
-		Bird bird = model.getBird(); 
+		//Bird bird = model.getBird(); 
 		model.updateBird(); 
-		Bird newBird = model.getBird(); 
+		//Bird newBird = model.getBird(); 
 		/**No implementation since bird and new bird are NULL
 		 * 
 		 */
-		assertTrue(1 == -1);
+		fail("Not fully implemented");
 		 
 	}
 
