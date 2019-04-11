@@ -13,15 +13,15 @@ public class Model {
 	 */
 	private Bird bird;
 	/**
-	 * A list containing all Collidable objects that are currently on the screen
+	 * A list containing all GameElement objects that are currently on the screen
 	 */
 	private List<GameElement>onScreenCollidables;
 	/**
-	 * The distance currently travelled
+	 * The distance currently traveled
 	 */
 	private int distance;
 	/**
-	 * The total distance needed to be travelled
+	 * The total distance needed to be traveled
 	 */
 	private int endDistance;
 	/**
@@ -58,10 +58,10 @@ public class Model {
 	void updateBird() {}
 	
 	/**
-	 * Updates the collidable objects to update positions and remove objects with positions
+	 * Updates the GameElement objects to update positions and remove objects with positions
 	 * not on the screen.
 	 */
-	void updateCollides() {}
+	void updateGameElements() {}
 	
 	/**
 	 * Updates the background depending on the distance the player has reached.
