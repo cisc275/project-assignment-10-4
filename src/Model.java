@@ -76,15 +76,15 @@ public class Model {
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
 		Collection<GameElement> onScreenCollidables = new ArrayList<GameElement>();
-		Food food1 = new Food();
-		food1.setXloc(frameWidth + 50);
-		Food food2 = new Food();
-		food2.setXloc(frameWidth + 75);
-		Obstacle obstacle1 = new Obstacle();
-		obstacle1.setXloc(frameWidth + 75);
-		onScreenCollidables.add(food1);
-		onScreenCollidables.add(food2);
+		GameElement obstacle1 = new Obstacle();
+		obstacle1.setXloc(frameWidth + 50);
+		GameElement obstacle2 = new Obstacle();
+		obstacle2.setXloc(frameWidth + 75);
+		GameElement obstacle3 = new Obstacle();
+		obstacle3.setXloc(frameWidth + 100);
 		onScreenCollidables.add(obstacle1);
+		onScreenCollidables.add(obstacle2);
+		onScreenCollidables.add(obstacle3);
 	}
 	
 	/**
