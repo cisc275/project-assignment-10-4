@@ -71,11 +71,12 @@ public class Model {
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth,int frameHeight) {
+		bird = new Bird();
 		this.setFrameWidth(frameWidth);
 		this.setFrameHeight(frameHeight);
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
-		Collection<GameElement> onScreenCollidables = new ArrayList<GameElement>();
+		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 50);
 		GameElement obstacle2 = new Obstacle();
