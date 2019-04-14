@@ -20,5 +20,7 @@
 hs_err_pid*
 
 .classpath
+.settings/
+.loadpath
 
 /bin/
