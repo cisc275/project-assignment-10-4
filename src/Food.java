@@ -7,7 +7,7 @@
  */
 public class Food extends GameElement implements Collidable{
 	/**
-	 * The int value of the stamina incease the bird recieves from consuming the food
+	 * The int value of the stamina increase the bird receives from consuming the food
 	 */
 	private int staminaValue;
 	/**
