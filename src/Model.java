@@ -92,12 +92,13 @@ public class Model {
 	 * Used to update the current status and positions of the different game components.
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
-	void update() {}
+	void update() {
 	int direction = bird.getDirection();
 	updateBird(direction);
 	updateGameElements();
 	updateBackground();
-	updateMiniMap;
+	updateMiniMap();
+	}
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
