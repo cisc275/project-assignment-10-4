@@ -203,10 +203,4 @@ public class View extends JPanel{
 			return new Dimension(frameWidth, frameHeight); 
 		}
 	}
-	public static void main(String[] args) {
-		System.out.println("fuck"); 
-		View view = new View();
-	}
-	
-	
 }

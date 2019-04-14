@@ -63,9 +63,9 @@ public class Bird extends GameElement{
 	public int getDirection() {
 		return direction;
 	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
+	
+	public void setDirection(int d) {
+		this.direction = d;
 	}
 	
 }
