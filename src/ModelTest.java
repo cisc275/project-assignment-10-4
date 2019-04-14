@@ -18,7 +18,7 @@ class ModelTest {
 	void updateBirdTest() { 
 		Model model = new Model(10,10); 
 		//Bird bird = model.getBird(); 
-		model.updateBird(); 
+		model.updateBird(1); 
 		//Bird newBird = model.getBird(); 
 		//No implementation since bird and new bird are NULL
 		fail("Not fully implemented");

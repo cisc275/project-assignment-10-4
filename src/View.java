@@ -37,6 +37,7 @@ public class View extends JPanel{
 	 */
 	private BufferedImage background;	
 	
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
