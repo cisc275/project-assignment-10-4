@@ -18,7 +18,7 @@ public class Bird extends GameElement{
 	private boolean poweredUp;
 	/**
 	 * A boolean value representing whether or not the bird is currently stunned, true indicates that it is stunned, 
-	 * while false means that it is not.  A bird becomes stunned aftfer colliding with an Obstacle
+	 * while false means that it is not.  A bird becomes stunned after colliding with an Obstacle
 	 */
 	private boolean isStunned;
 	
@@ -31,7 +31,7 @@ public class Bird extends GameElement{
 	}
 	
 	/**
-	 * Handles adjusting the birds attributes after it becoems powered up by consuming an instance of food with a, 
+	 * Handles adjusting the birds attributes after it becomes powered up by consuming an instance of food with a, 
 	 * true value for its isSpecialFood attribute
 	 */
 	void powerUp() {}

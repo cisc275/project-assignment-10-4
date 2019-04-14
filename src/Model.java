@@ -7,8 +7,7 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class Model {	
-	
+public class Model {
 	/**
 	 * The Bird the player will control
 	 */
