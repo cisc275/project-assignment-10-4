@@ -10,6 +10,6 @@ public class Obstacle extends GameElement implements Collidable{
 	 * Obstacle is off the screen, returns false otherwise
 	 */
 	public boolean isOffScreen() {
-		return (this.getXloc()+this.getWidth() < 0);
+		return (xloc+width < 0);
 	}
 }

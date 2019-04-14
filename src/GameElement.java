@@ -9,31 +9,31 @@ public class GameElement {
 	/**
 	 * The current x-coordinate of the GameElement
 	 */
-	private int xloc;
+	protected int xloc;
 	/**
 	 * The current y-coordinate of the GameElement
 	 */
-	private int yloc;
+	protected int yloc;
 	/**
 	 * The name of the file containing the Sprite of the GameElement
 	 */
-	private String spriteFile;
+	protected String spriteFile;
 	/**
 	 * The width in pixels of the game element's image
 	 */
-	private int width;
+	protected int width;
 	/**
 	 * The height in pixels of the game element's image
 	 */
-	private int height;
+	protected int height;
 	/**
 	 * The current x-axis speed of the GameElement
 	 */
-	private int xSpeed;
+	protected int xSpeed;
 	/**
 	 * The current y-axis speed of the GameElement
 	 */
-	private int ySpeed;
+	protected int ySpeed;
 	
 	/**
 	 * Will update the location of the GameElement
