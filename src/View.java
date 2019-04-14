@@ -1,10 +1,15 @@
 import java.util.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+
+import java.awt.Color;
 import java.awt.Dimension;
 
 /**
@@ -27,15 +32,34 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private int frameWidth;
+	private final int frameWidth = 2000;
 	/**
 	 * Height of the frame to display the game
 	 */
-	private int frameHeight;
+	private final int frameHeight = 1000; 
 	/**
 	 * Image for the background
 	 */
 	private BufferedImage background;
+	private BufferedImage chunga; 
+	
+	
+	public View(){
+		this.chunga = createImage("images/test-image.jpg");
+		frame = new JFrame();
+		drawPanel = new DrawPanel(); 
+		drawPanel.setBackground(Color.pink);
+    	frame.add(drawPanel);
+    	
+    	frame.setBackground(Color.gray);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setSize(frameWidth, frameHeight);
+    	frame.setVisible(true);
+    	frame.pack();
+    	 
+    	
+    	
+	}
 	
 	/**
 	 * Will update the game display based on changes to different game components.
@@ -44,15 +68,26 @@ public class View extends JPanel{
 	 * @param collidables The list of collidable objects on screen
 	 * @param miniMap The MiniMap that displays progress
 	 */
-	void updateView(Bird bird, List<Collidable>collidables,MiniMap miniMap) {}
+	
+	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
+	}
+	
 	
 	/**
 	 * Creates an image to be displayed
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
-	BufferedImage createImage(File f) {
+	private BufferedImage createImage(String file){
+		BufferedImage bufferedImage;
+		try {
+		    bufferedImage = ImageIO.read(new File(file));
+		    return bufferedImage;
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 		return null;
+
 	}
 	
 	/**
@@ -138,24 +173,10 @@ public class View extends JPanel{
 	}
 
 	/**
-	 * @param frameWidth the frameWidth to set
-	 */
-	public void setFrameWidth(int frameWidth) {
-		this.frameWidth = frameWidth;
-	}
-
-	/**
 	 * @return the frameHeight
 	 */
 	public int getFrameHeight() {
 		return frameHeight;
-	}
-
-	/**
-	 * @param frameHeight the frameHeight to set
-	 */
-	public void setFrameHeight(int frameHeight) {
-		this.frameHeight = frameHeight;
 	}
 
 	/**
@@ -174,12 +195,19 @@ public class View extends JPanel{
 
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);			
+			super.paintComponent(g);	
+			g.setColor(Color.gray);
+			g.drawImage(chunga, 50, 60, Color.gray, this);
+			
 		}
 
 		public Dimension getPreferredSize() {
-			return new Dimension(0, 0);
+			return new Dimension(frameWidth, frameHeight); 
 		}
+	}
+	public static void main(String[] args) {
+		System.out.println("fuck"); 
+		View view = new View();
 	}
 	
 	
