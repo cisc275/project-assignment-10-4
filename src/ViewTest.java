@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
