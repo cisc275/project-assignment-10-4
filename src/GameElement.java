@@ -36,7 +36,29 @@ public class GameElement {
 	protected int ySpeed;
 	
 	/**
+	 * 
+	 */
+	public GameElement() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param xSpeed
+	 * @param ySpeed
+	 * @param filename
+	 */
+	public GameElement(int x, int y, int xSpeed, int ySpeed) {
+		xloc = x; 
+		yloc = y; 
+		this.xSpeed = xSpeed; 
+		this.ySpeed = ySpeed; 
+	}
+	/**
 	 * Will update the location of the GameElement
+	 * 
 	 */
 	void updatePosition() {
 		xloc -= xSpeed;
@@ -125,5 +147,12 @@ public class GameElement {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	/**
+	 *
+	 * @return
+	 */
+	public boolean isOffScreen() {
+		return (getXloc()+getWidth() < 0);
 	}
 }

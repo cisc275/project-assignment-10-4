@@ -128,8 +128,18 @@ public class Model {
 	 * not on the screen.
 	 */
 	void updateGameElements() {
-		for (GameElement gameElement : onScreenCollidables) {
-			gameElement.updatePosition();
+		int size = 0; 
+		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
+		while (iter.hasNext()) {
+			GameElement curr = iter.next(); 
+			curr.updatePosition(); 
+			if (curr.isOffScreen()) {
+				size++; 
+				iter.remove(); 
+			}
+		}
+		for (int i = 0; i < size; i++) {
+			spawnGameElement(); 
 		}
 	}
 	
@@ -193,7 +203,14 @@ public class Model {
 	 * Spawns new collidables periodically.
 	 */
 	void spawnGameElement() {
+		Random rand = new Random(); 
+		int x = frameWidth; 
+		int y = rand.nextInt(frameHeight);
 		
+		int xSpeed = 10;
+		int ySpeed = 0; 
+		
+		onScreenCollidables.add(new GameElement(x, y, xSpeed, ySpeed)); 
 	}
 	
 	/**

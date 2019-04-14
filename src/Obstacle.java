@@ -11,6 +11,6 @@ public class Obstacle extends GameElement implements Collidable{
 	 */
 	@Override
 	public boolean isOffScreen() {
-		return (getXloc()+getWidth() < 0);
+		return ((getXloc()+getWidth()) < 0);
 	}
 }
