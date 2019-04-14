@@ -32,25 +32,6 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-<<<<<<< HEAD
-	private int frameWidth;	
-	/**
-	 * Height of the frame to display the game
-	 */
-	private int frameHeight;	
-	/**
-	 * Image for the background
-	 */
-	private BufferedImage background;	
-	
-	
-	/**
-	 * View constructor, sets up the frame and its contents
-	 * @param c reference to the Controller object in use
-	 */
-	public View(Controller c) {
-		
-=======
 	private final int frameWidth = 2000;
 	/**
 	 * Height of the frame to display the game
@@ -60,10 +41,14 @@ public class View extends JPanel{
 	 * Image for the background
 	 */
 	private BufferedImage background;
-	private BufferedImage chunga; 
-	
-	
-	public View(){
+
+        private BufferedImage chunga;
+        
+	/**
+	 * View constructor, sets up the frame and its contents
+	 * @param c reference to the Controller object in use
+	 */
+	public View(Controller c){
 		this.chunga = createImage("images/test-image.jpg");
 		frame = new JFrame();
 		drawPanel = new DrawPanel(); 
@@ -75,10 +60,6 @@ public class View extends JPanel{
     	frame.setSize(frameWidth, frameHeight);
     	frame.setVisible(true);
     	frame.pack();
-    	 
-    	
-    	
->>>>>>> view
 	}
 	
 	/**
@@ -88,14 +69,7 @@ public class View extends JPanel{
 	 * @param elements The list of GameElement objects on screen
 	 * @param miniMap The MiniMap that displays progress
 	 */
-<<<<<<< HEAD
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {}
-=======
-	
-	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
-	}
-	
->>>>>>> view
 	
 	/**
 	 * Creates an image to be displayed
