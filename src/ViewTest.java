@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,8 @@ class ViewTest {
 	
 	@Test
 	void createImageTest() {
-		View view = new View();
+		Controller c = new Controller();
+		View view = new View(c);
 		BufferedImage i = view.createImage("images/test-image.jpg");
 		assertTrue(i != null);
 	}

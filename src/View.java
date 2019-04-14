@@ -32,7 +32,7 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = 2000;
+	private final int frameWidth = 1500;
 	/**
 	 * Height of the frame to display the game
 	 */
@@ -42,19 +42,22 @@ public class View extends JPanel{
 	 */
 	private BufferedImage background;
 
-        private BufferedImage chunga;
-        
+    private BufferedImage chunga;
+    private BufferedImage thanos; 
+    private Bird bird; 
+    private List<GameElement> elements; 
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c){
-		this.chunga = createImage("images/test-image.jpg");
+		this.chunga = createImage("images/rectangle-icon-256.png"); 
+		this.thanos = createImage("images/thanosbird.jpg"); 
 		frame = new JFrame();
 		drawPanel = new DrawPanel(); 
 		drawPanel.setBackground(Color.pink);
     	frame.add(drawPanel);
-    	
+    	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
@@ -69,14 +72,18 @@ public class View extends JPanel{
 	 * @param elements The list of GameElement objects on screen
 	 * @param miniMap The MiniMap that displays progress
 	 */
-	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {}
+	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
+		this.bird = bird; 
+		this.elements = elements; 
+		frame.repaint(); 
+	}
 	
 	/**
 	 * Creates an image to be displayed
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
-	private BufferedImage createImage(String file){
+	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
 		    bufferedImage = ImageIO.read(new File(file));
@@ -195,7 +202,14 @@ public class View extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);	
 			g.setColor(Color.gray);
-			g.drawImage(chunga, 50, 60, Color.gray, this);
+			if (elements != null) {
+				for (GameElement e: elements) {
+					g.drawImage(chunga, e.getXloc(), e.getYloc(), Color.gray, this); 
+				} 
+				if (bird != null) {
+					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), Color.gray, this); 
+				}
+			} 
 			
 		}
 
@@ -203,4 +217,24 @@ public class View extends JPanel{
 			return new Dimension(frameWidth, frameHeight); 
 		}
 	}
+	/**
+	public static void main(String[] args) {
+		View view = new View(new Controller()); 
+		List<GameElement> theElements = new ArrayList<GameElement>();
+		GameElement g1 = new GameElement(); 
+		g1.setXloc(800); 
+		g1.setYloc(666); 
+		GameElement g2= new GameElement(); 
+		g2.setXloc(1500); 
+		g2.setYloc(250); 
+		theElements.add(g2); 
+		theElements.add(g1);
+		Bird b = new Bird(); 
+		b.setXloc(1500); 
+		b.setYloc(666); 
+		view.updateView(b,theElements, null); 
+		
+		
+	}
+	**/ 
 }

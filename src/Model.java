@@ -7,8 +7,7 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class Model {	
-	
+public class Model {
 	/**
 	 * The Bird the player will control
 	 */
@@ -72,20 +71,27 @@ public class Model {
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth,int frameHeight) {
+		bird = new Bird();
 		this.setFrameWidth(frameWidth);
 		this.setFrameHeight(frameHeight);
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
-		Collection<GameElement> onScreenCollidables = new ArrayList<GameElement>();
-		Food food1 = new Food();
-		food1.setXloc(frameWidth + 50);
-		Food food2 = new Food();
-		food2.setXloc(frameWidth + 75);
-		Obstacle obstacle1 = new Obstacle();
-		obstacle1.setXloc(frameWidth + 75);
-		onScreenCollidables.add(food1);
-		onScreenCollidables.add(food2);
+		onScreenCollidables = new ArrayList<GameElement>();
+		GameElement obstacle1 = new Obstacle();
+		obstacle1.setXloc(frameWidth + 50);
+		obstacle1.setYloc(0);
+		obstacle1.setxSpeed(1);
+		GameElement obstacle2 = new Obstacle();
+		obstacle2.setXloc(frameWidth + 75);
+		obstacle2.setYloc(0);
+		obstacle2.setxSpeed(1);
+		GameElement obstacle3 = new Obstacle();
+		obstacle3.setXloc(frameWidth + 100);
+		obstacle3.setYloc(0);
+		obstacle3.setxSpeed(1);
 		onScreenCollidables.add(obstacle1);
+		onScreenCollidables.add(obstacle2);
+		onScreenCollidables.add(obstacle3);
 	}
 	
 	/**
@@ -115,8 +121,8 @@ public class Model {
 	 * not on the screen.
 	 */
 	void updateGameElements() {
-		for (GameElement GameElement : onScreenCollidables) {
-			GameElement.updatePosition();
+		for (GameElement gameElement : onScreenCollidables) {
+			gameElement.updatePosition();
 		}
 	}
 	
