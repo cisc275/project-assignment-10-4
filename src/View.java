@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
+import java.awt.Toolkit;
+
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -21,6 +23,7 @@ import java.awt.Dimension;
  */
 @SuppressWarnings("serial")
 public class View extends JPanel{
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game
 	 */
@@ -32,11 +35,11 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = 1500;
+	private final int frameWidth = (int)screenSize.getWidth()- 100;
 	/**
 	 * Height of the frame to display the game
 	 */
-	private final int frameHeight = 1000; 
+	private final int frameHeight = (int)screenSize.getHeight() - 100; 
 	/**
 	 * Image for the background
 	 */
