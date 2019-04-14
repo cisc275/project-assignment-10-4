@@ -34,10 +34,25 @@ public class GameElement {
 	 * The current y-axis speed of the GameElement
 	 */
 	private int ySpeed;
+	
 	/**
 	 * Will update the location of the GameElement
 	 */
-	void updatePosition() {}
+	void updatePosition() {
+		xloc -= xSpeed;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @return the xloc
 	 */
