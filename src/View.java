@@ -76,7 +76,7 @@ public class View extends JPanel{
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
-	private BufferedImage createImage(String file){
+	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
 		    bufferedImage = ImageIO.read(new File(file));
