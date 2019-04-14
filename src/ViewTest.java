@@ -19,8 +19,13 @@ class ViewTest {
 	
 	@Test
 	void createImageTest() {
+<<<<<<< HEAD
 		View view = new View(new Controller());
 		BufferedImage i = view.createImage(new File("images/test-image.jpg"));
+=======
+		View view = new View();
+		BufferedImage i = view.createImage("images/test-image.jpg");
+>>>>>>> view
 		assertTrue(i != null);
 	}
 	
