@@ -29,7 +29,7 @@ public class Bird extends GameElement{
 		setYloc(1);
 		direction = 0;
 		setxSpeed(0);
-		setySpeed(1);
+		setySpeed(10);
 	}
 	
 	
