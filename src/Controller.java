@@ -86,7 +86,14 @@ public class Controller implements KeyListener{
 	 * @param k The KeyEvent entered by the player
 	 */
 	@Override
-	public void keyReleased(KeyEvent k) {}
+	public void keyReleased(KeyEvent k) {
+		System.out.println("A key has been pressed.");
+		if (k.getKeyCode() == KeyEvent.VK_UP) {
+			model.getBird().setDirection(0);
+		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+			model.getBird().setDirection(0);
+		}
+	}
 
 	/**
 	 * Required from KeyListener. Will handle any key types by the player
