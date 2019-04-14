@@ -80,15 +80,15 @@ public class Model {
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 100);
 		obstacle1.setYloc(0);
-		obstacle1.setxSpeed(1);
+		obstacle1.setxSpeed(10);
 		GameElement obstacle2 = new Obstacle();
 		obstacle2.setXloc(frameWidth + 400);
 		obstacle2.setYloc(0);
-		obstacle2.setxSpeed(1);
+		obstacle2.setxSpeed(10);
 		GameElement obstacle3 = new Obstacle();
 		obstacle3.setXloc(frameWidth + 700);
 		obstacle3.setYloc(0);
-		obstacle3.setxSpeed(1);
+		obstacle3.setxSpeed(10);
 		onScreenCollidables.add(obstacle1);
 		onScreenCollidables.add(obstacle2);
 		onScreenCollidables.add(obstacle3);
@@ -99,11 +99,11 @@ public class Model {
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {
-	int direction = bird.getDirection();
-	updateBird();
-	updateGameElements();
-	updateBackground();
-	updateMiniMap();
+		int direction = bird.getDirection();
+		updateBird();
+		updateGameElements();
+		updateBackground();
+		updateMiniMap();
 	}
 	/**
 	 * Used to update the current status and position of the bird based on user input
