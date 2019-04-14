@@ -261,7 +261,7 @@ public class Model {
 	/**
 	 * @param onScreenCollidables the onScreenCollidables to set
 	 */
-	public void setOnScreenCollidables(List<GameElement> onScreenCollidables) {
+	public void setOnScreenElements(List<GameElement> onScreenCollidables) {
 		this.onScreenCollidables = onScreenCollidables;
 	}
 

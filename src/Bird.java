@@ -21,6 +21,15 @@ public class Bird extends GameElement{
 	 * while false means that it is not.  A bird becomes stunned aftfer colliding with an Obstacle
 	 */
 	private boolean isStunned;
+	
+	private int direction; 
+	
+	@Override
+	void updatePosition(){
+		setXloc(getXloc()+(getxSpeed()*direction));
+		setYloc(getYloc()+(getySpeed()*direction));		
+	}
+	
 	/**
 	 * Handles adjusting the birds attributes after it becoems powered up by consuming an instance of food with a, 
 	 * true value for its isSpecialFood attribute
@@ -50,4 +59,13 @@ public class Bird extends GameElement{
 	public void setStunned(boolean isStunned) {
 		this.isStunned = isStunned;
 	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	
 }
