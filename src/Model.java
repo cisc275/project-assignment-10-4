@@ -94,7 +94,7 @@ public class Model {
 	 */
 	void update() {
 	int direction = bird.getDirection();
-	updateBird(direction);
+	updateBird();
 	updateGameElements();
 	updateBackground();
 	updateMiniMap();
@@ -106,10 +106,8 @@ public class Model {
 	 * @param direction the direction that was input for the bird
 	 * 					(1 = up ; 0 = nothing ; -1 = down)
 	 */
-	void updateBird(int direction) {
-			int yLoc = bird.getYloc() ;
-			yLoc += bird.getySpeed() * direction;
-			bird.setySpeed(yLoc);
+	void updateBird() {
+		bird.updatePosition();			
 		}
 	
 	/**
@@ -141,7 +139,29 @@ public class Model {
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-	Collidable collisionDetection() {return null;}
+	Collidable collisionDetection() {
+		int birdYLoc = bird.getYloc();
+		int birdXLoc = bird.getXloc();
+		int birdWidth = bird.getWidth();
+		int birdHeight =bird.getHeight();
+		for (GameElement GameElement : onScreenCollidables) {
+			int GameElementYLoc = GameElement.getYloc();
+			int GameElementXLoc = GameElement.getXloc();
+			int GameElementWidth = GameElement.getWidth();
+			int GameElementHeight = GameElement.getHeight();	
+			
+			boolean inXCollisionRange = GameElementXLoc >= birdXLoc && GameElementXLoc <= birdWidth + birdXLoc;
+			
+			boolean inYCollisionRange = GameElementYLoc <= birdYLoc && GameElementYLoc >= birdHeight + birdXLoc;
+			
+			if (inXCollisionRange && inYCollisionRange) {
+				onScreenCollidables.remove(GameElement);
+			}
+		
+		}
+		
+		return null;
+		}
 	
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
