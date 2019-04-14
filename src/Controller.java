@@ -42,7 +42,7 @@ public class Controller implements KeyListener{
 	@SuppressWarnings("serial")
 	public Controller() {
 		view = new View(this);
-		model = new Model(view.getWidth(), view.getHeight());
+		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		//model.setBirdType(view.selectBirdType());
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {

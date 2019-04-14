@@ -72,10 +72,9 @@ public class Model {
 	 */
 	public Model(int frameWidth,int frameHeight) {
 		bird = new Bird();
-		this.setFrameWidth(frameWidth);
-		this.setFrameHeight(frameHeight);
-		this.imgWidth = imgWidth;
-		this.imgHeight = imgHeight;
+		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
+		
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 500);
@@ -113,8 +112,16 @@ public class Model {
 	 * 					(1 = up ; 0 = nothing ; -1 = down)
 	 */
 	void updateBird() {
-		bird.updatePosition();			
+		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
+			bird.updatePosition();			
 		}
+		else if(bird.getYloc() < 0){
+			bird.setYloc(0);
+		}
+		else {
+			bird.setYloc(frameHeight-bird.getHeight());
+		}
+	}	
 	
 	/**
 	 * Updates the GameElement objects to update positions and remove objects with positions

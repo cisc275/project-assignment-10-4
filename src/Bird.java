@@ -30,6 +30,7 @@ public class Bird extends GameElement{
 		direction = 0;
 		setxSpeed(0);
 		setySpeed(10);
+		setHeight(224);
 	}
 	
 	
