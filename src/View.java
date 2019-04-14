@@ -32,7 +32,7 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = 2000;
+	private final int frameWidth = 1500;
 	/**
 	 * Height of the frame to display the game
 	 */
@@ -57,7 +57,7 @@ public class View extends JPanel{
 		drawPanel = new DrawPanel(); 
 		drawPanel.setBackground(Color.pink);
     	frame.add(drawPanel);
-    	
+    	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
