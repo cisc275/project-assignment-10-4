@@ -42,17 +42,6 @@ public class GameElement {
 		xloc -= xSpeed;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @return the xloc
 	 */
