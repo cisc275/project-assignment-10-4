@@ -79,10 +79,16 @@ public class Model {
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 50);
+		obstacle1.setYloc(0);
+		obstacle1.setxSpeed(1);
 		GameElement obstacle2 = new Obstacle();
 		obstacle2.setXloc(frameWidth + 75);
+		obstacle2.setYloc(0);
+		obstacle2.setxSpeed(1);
 		GameElement obstacle3 = new Obstacle();
 		obstacle3.setXloc(frameWidth + 100);
+		obstacle3.setYloc(0);
+		obstacle3.setxSpeed(1);
 		onScreenCollidables.add(obstacle1);
 		onScreenCollidables.add(obstacle2);
 		onScreenCollidables.add(obstacle3);
@@ -117,8 +123,8 @@ public class Model {
 	 * not on the screen.
 	 */
 	void updateGameElements() {
-		for (GameElement GameElement : onScreenCollidables) {
-			GameElement.updatePosition();
+		for (GameElement gameElement : onScreenCollidables) {
+			gameElement.updatePosition();
 		}
 	}
 	

@@ -32,7 +32,7 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = 2000;
+	private final int frameWidth = 1500;
 	/**
 	 * Height of the frame to display the game
 	 */
