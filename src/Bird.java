@@ -55,6 +55,10 @@ public class Bird extends GameElement{
 		return flyingSpeed;
 	}
 
+	/**
+	 * 
+	 * @param flyingSpeed the speed to fly at
+	 */
 	public void setFlyingSpeed(int flyingSpeed) {
 		this.flyingSpeed = flyingSpeed;
 	}
