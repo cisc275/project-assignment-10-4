@@ -14,13 +14,26 @@ public class Food extends GameElement implements Collidable{
 	 * The boolean value indicating whether or not consuming this instance of food will give the bird a power up
 	 * True indicates consuming this instance of food will give the bird a power up
 	 */
-	private boolean isSpecialFood;
+	private boolean specialFood;
+	/**
+	 * Boolean indicating if the food has been eaten yet
+	 */
+	private boolean eaten;
+	
+	/**
+	 * Constructor for food
+	 */
+	public Food(int val, boolean special) {
+		staminaValue = val;
+		specialFood = special;
+		eaten = false;
+	}
 	/**
 	 * Once the bird has had contact with the food then the food will no longer be visible
-	 * 
-	 * 
 	 */
-	void eaten() {}
+	void eaten() {
+		eaten = true;
+	}
 	/**
 	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of food 
 	 * is off the screen, returns false otherwise
@@ -44,12 +57,24 @@ public class Food extends GameElement implements Collidable{
 	 * @return the isSpecialFood
 	 */
 	public boolean isSpecialFood() {
-		return isSpecialFood;
+		return specialFood;
 	}
 	/**
 	 * @param isSpecialFood the isSpecialFood to set
 	 */
 	public void setSpecialFood(boolean isSpecialFood) {
-		this.isSpecialFood = isSpecialFood;
+		this.specialFood = isSpecialFood;
+	}
+	/**
+	 * @return the eaten
+	 */
+	public boolean isEaten() {
+		return eaten;
+	}
+	/**
+	 * @param eaten the eaten to set
+	 */
+	public void setEaten(boolean eaten) {
+		this.eaten = eaten;
 	}
 }
