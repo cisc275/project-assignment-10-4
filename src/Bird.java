@@ -24,10 +24,19 @@ public class Bird extends GameElement{
 	
 	private int direction; 
 	
+	public Bird() {
+		setXloc(1);
+		setYloc(1);
+		direction = 0;
+		setxSpeed(0);
+		setySpeed(1);
+	}
+	
+	
 	@Override
 	void updatePosition(){
-		setXloc(getXloc()+(getxSpeed()*direction));
-		setYloc(getYloc()+(getySpeed()*direction));		
+		setXloc(getXloc()+getxSpeed());
+		setYloc(getYloc()+(getySpeed()*(-1)*direction));		
 	}
 	
 	/**
