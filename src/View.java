@@ -217,6 +217,7 @@ public class View extends JPanel{
 			return new Dimension(frameWidth, frameHeight); 
 		}
 	}
+	/**
 	public static void main(String[] args) {
 		View view = new View(new Controller()); 
 		List<GameElement> theElements = new ArrayList<GameElement>();
@@ -235,4 +236,5 @@ public class View extends JPanel{
 		
 		
 	}
+	**/ 
 }
