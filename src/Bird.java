@@ -25,8 +25,8 @@ public class Bird extends GameElement{
 	private int direction; 
 	
 	public Bird() {
-		setXloc(1);
-		setYloc(1);
+		setXloc(10);
+		setYloc(500);
 		direction = 0;
 		setxSpeed(0);
 		setySpeed(10);

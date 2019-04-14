@@ -78,15 +78,15 @@ public class Model {
 		this.imgHeight = imgHeight;
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
-		obstacle1.setXloc(frameWidth + 100);
+		obstacle1.setXloc(frameWidth + 500);
 		obstacle1.setYloc(0);
 		obstacle1.setxSpeed(10);
 		GameElement obstacle2 = new Obstacle();
-		obstacle2.setXloc(frameWidth + 400);
+		obstacle2.setXloc(frameWidth + 900);
 		obstacle2.setYloc(0);
 		obstacle2.setxSpeed(10);
 		GameElement obstacle3 = new Obstacle();
-		obstacle3.setXloc(frameWidth + 700);
+		obstacle3.setXloc(frameWidth + 1300);
 		obstacle3.setYloc(0);
 		obstacle3.setxSpeed(10);
 		onScreenCollidables.add(obstacle1);
