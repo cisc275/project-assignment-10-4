@@ -7,7 +7,8 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class Model {
+public class Model {	
+	
 	/**
 	 * The Bird the player will control
 	 */
@@ -56,7 +57,15 @@ public class Model {
 	 * The height of the game frame
 	 */
     private int frameHeight;
-	
+    /**
+	 * the width of the image
+	 */
+	private int imgWidth;
+	/**
+	 * the height of the image
+	 */
+	private int imgHeight;
+    
 	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
@@ -65,14 +74,30 @@ public class Model {
 	public Model(int frameWidth,int frameHeight) {
 		this.setFrameWidth(frameWidth);
 		this.setFrameHeight(frameHeight);
+		this.imgWidth = imgWidth;
+		this.imgHeight = imgHeight;
+		Collection<GameElement> onScreenCollidables = new ArrayList<GameElement>();
+		Food food1 = new Food();
+		food1.setXloc(frameWidth + 50);
+		Food food2 = new Food();
+		food2.setXloc(frameWidth + 75);
+		Obstacle obstacle1 = new Obstacle();
+		obstacle1.setXloc(frameWidth + 75);
+		onScreenCollidables.add(food1);
+		onScreenCollidables.add(food2);
+		onScreenCollidables.add(obstacle1);
 	}
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
-	 * Will call helper update methods for different components.
+	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {}
-	
+	int direction = bird.getDirection();
+	updateBird(direction);
+	updateGameElements();
+	updateBackground();
+	updateMiniMap;
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
@@ -80,23 +105,35 @@ public class Model {
 	 * @param direction the direction that was input for the bird
 	 * 					(1 = up ; 0 = nothing ; -1 = down)
 	 */
-	void updateBird(int direction) {}
+	void updateBird(int direction) {
+			int yLoc = bird.getYloc() ;
+			yLoc += bird.getySpeed() * direction;
+			bird.setySpeed(yLoc);
+		}
 	
 	/**
 	 * Updates the GameElement objects to update positions and remove objects with positions
 	 * not on the screen.
 	 */
-	void updateGameElements() {}
+	void updateGameElements() {
+		for (GameElement GameElement : onScreenCollidables) {
+			GameElement.updatePosition();
+		}
+	}
 	
 	/**
 	 * Updates the background depending on the distance the player has reached.
 	 */
-	void updateBackground() {}
+	void updateBackground() {
+		
+	}
 	
 	/**
 	 * Updates the MiniMap to display the current travelled status
 	 */
-	void updateMiniMap() {}
+	void updateMiniMap() {
+		
+	}
 	
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
@@ -121,7 +158,9 @@ public class Model {
 	/**
 	 * Spawns new collidables periodically.
 	 */
-	void spawnCollidables() {}
+	void spawnGameElement() {
+		
+	}
 	
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
