@@ -47,6 +47,10 @@ public class Bird extends GameElement{
 	 */
 	void powerUp() {}
 
+	/**
+	 * 
+	 * @return the flying speed
+	 */
 	public int getFlyingSpeed() {
 		return flyingSpeed;
 	}
