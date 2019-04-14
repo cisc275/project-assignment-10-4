@@ -38,8 +38,9 @@ public class Food extends GameElement implements Collidable{
 	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of food 
 	 * is off the screen, returns false otherwise
 	 */
+	@Override
 	public boolean isOffScreen() {
-		return true;
+		return (getXloc()+getWidth() < 0);
 	}
 	/**
 	 * @return the staminaValue
@@ -54,16 +55,16 @@ public class Food extends GameElement implements Collidable{
 		this.staminaValue = staminaValue;
 	}
 	/**
-	 * @return the isSpecialFood
+	 * @return the specialFood
 	 */
 	public boolean isSpecialFood() {
 		return specialFood;
 	}
 	/**
-	 * @param isSpecialFood the isSpecialFood to set
+	 * @param specialFood the specialFood to set
 	 */
-	public void setSpecialFood(boolean isSpecialFood) {
-		this.specialFood = isSpecialFood;
+	public void setSpecialFood(boolean specialFood) {
+		this.specialFood = specialFood;
 	}
 	/**
 	 * @return the eaten
