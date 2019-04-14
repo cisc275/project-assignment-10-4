@@ -50,10 +50,10 @@ public class View extends JPanel{
 	 * Will update the game display based on changes to different game components.
 	 * 
 	 * @param bird The bird the user controls
-	 * @param collidables The list of collidable objects on screen
+	 * @param elements The list of GameElement objects on screen
 	 * @param miniMap The MiniMap that displays progress
 	 */
-	void updateView(Bird bird, List<Collidable>collidables,MiniMap miniMap) {}
+	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {}
 	
 	/**
 	 * Creates an image to be displayed

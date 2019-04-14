@@ -1,5 +1,10 @@
+import java.awt.EventQueue;
 import java.awt.event.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 /**
  * Handles the flow of the game and passes information between the model and view.
@@ -25,15 +30,39 @@ public class Controller implements KeyListener{
 	 * Stores the key inputs by the player
 	 */
 	private KeyEvent keyInputs;
+	/**
+	 * Holds the Action code
+	 */
+	Action drawAction;
+	/**
+	 * Time between draw events
+	 */
+	final int drawDelay = 30;
+	
+	@SuppressWarnings("serial")
+	public Controller() {
+		view = new View(this);
+		model = new Model(view.getWidth(), view.getHeight());
+		//model.setBirdType(view.selectBirdType());
+		drawAction = new AbstractAction(){
+    		public void actionPerformed(ActionEvent e) {
+    			model.update();
+    			view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap());
+    		}
+    	};
+	}
 	
 	/**
 	 * Starts the game play. Will then prompt user to choose a bird to play as.
 	 * Will update game as it progresses and end the game when the nest is reached.
 	 */
 	void start() {
-		model = new Model(10,10);
-		view = new View(this);
-		model.setBirdType(view.selectBirdType());
+		EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				Timer t = new Timer(drawDelay, drawAction);
+				t.start();
+			}
+		});
 	}
 	
 	/**
@@ -42,7 +71,14 @@ public class Controller implements KeyListener{
 	 * @param k The KeyEvent entered by the player
 	 */
 	@Override
-	public void keyPressed(KeyEvent k) {}
+	public void keyPressed(KeyEvent k) {
+		System.out.println("A key has been pressed.");
+		if (k.getKeyCode() == KeyEvent.VK_UP) {
+			model.getBird().setDirection(1);
+		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+			model.getBird().setDirection(-1);
+		}
+	}
 
 	/**
 	 * Required from KeyListener. Will handle any key releases by the player
