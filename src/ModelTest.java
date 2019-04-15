@@ -16,7 +16,27 @@ class ModelTest {
 		Bird b = new Bird();
 		b.setYloc(280);
 		m.setBird(b);
+		List<GameElement> list = new ArrayList<GameElement>();
+		GameElement g1 =  new GameElement(100,100,1,0);
+		GameElement gOffScreen =  new GameElement(-10,100,1,0);
+		gOffScreen.setWidth(10);
+		list.add(gOffScreen);
+		list.add(g1);
+		m.setOnScreenElements(list);
 		m.update();
+		
+		Model model2 = new Model(10,10);
+		List<GameElement> list2 = new ArrayList<GameElement>();
+		GameElement g12 =  new GameElement(99,100,1,0);
+		list2.add(g12);
+		GameElement rand = new GameElement(10,10,1,1);
+		list2.add(rand);
+		model2.setOnScreenElements(list2);
+		
+		assertEquals(m.getOnScreenCollidables().get(0).xloc, 
+				model2.getOnScreenCollidables().get(0).xloc);
+		assertEquals(m.getOnScreenCollidables().size(), 
+				model2.getOnScreenCollidables().size());
 		assertEquals(276,m.getBird().getYloc());
 	}
 	
