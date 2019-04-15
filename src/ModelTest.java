@@ -10,18 +10,25 @@ import org.junit.jupiter.api.Test;
 class ModelTest {
 
 	@Test
-	void updateTest() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	void updateBirdTest() { 
-		Model model = new Model(10,10); 
-		//Bird bird = model.getBird(); 
+		Model model = new Model(500,500); 
+		Bird bird = model.getBird();
+		bird.setYloc(-1);
+		model.setBird(bird);
 		model.updateBird(); 
-		//Bird newBird = model.getBird(); 
-		//No implementation since bird and new bird are NULL
-		fail("Not fully implemented");
+		assertEquals(0,model.getBird().getYloc());
+		
+		bird = model.getBird();
+		bird.setYloc(5);
+		model.setBird(bird);
+		model.updateBird();
+		assertEquals(5,model.getBird().getYloc());
+		
+		bird = model.getBird();
+		bird.setYloc(280);
+		model.setBird(bird);
+		model.updateBird();
+		assertEquals(276,model.getBird().getYloc());
 	}
 
 	@Test
