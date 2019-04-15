@@ -10,6 +10,16 @@ import org.junit.jupiter.api.Test;
 class ModelTest {
 
 	@Test
+	void updateTest() {
+		Model m = new Model(500,500);
+		Bird b = new Bird();
+		b.setYloc(280);
+		m.setBird(b);
+		m.update();
+		assertEquals(276,m.getBird().getYloc());
+	}
+	
+	@Test
 	void updateBirdTest() { 
 		Model model = new Model(500,500); 
 		Bird bird = model.getBird();

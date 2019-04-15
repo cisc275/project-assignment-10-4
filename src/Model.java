@@ -98,7 +98,6 @@ public class Model {
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {
-		int direction = bird.getDirection();
 		updateBird();
 		updateGameElements();
 		updateBackground();
