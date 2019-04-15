@@ -78,7 +78,8 @@ class ModelTest {
 		Model m = new Model(10,10);
 		m.spawnGameElement();
 		GameElement c = m.getOnScreenCollidables().get(3);
-		assertTrue(c.getXloc() <= 10 && c.getXloc() >= 0 && c.getYloc() <= 10 && c.getYloc() >= 0);
-		assertTrue(c.getxSpeed() == 10 && c.getySpeed() == 0);
+		assertEquals(true,c.getXloc() <= 10 && c.getXloc() >= 0 && c.getYloc() <= 10 && c.getYloc() >= 0);
+		assertEquals(c.getxSpeed(),10);
+		assertEquals(c.getySpeed(),0);
 	}
 }
