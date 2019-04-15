@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +40,33 @@ class ModelTest {
 		model.setBird(bird);
 		model.updateBird();
 		assertEquals(276,model.getBird().getYloc());
+	}
+	
+	@Test
+	void updateGameElementsTest() {
+		Model model = new Model(10,10);
+		List<GameElement> list = new ArrayList<GameElement>();
+		GameElement g1 =  new GameElement(100,100,1,0);
+		GameElement gOffScreen =  new GameElement(-10,100,1,0);
+		gOffScreen.setWidth(10);
+		list.add(gOffScreen);
+		list.add(g1);
+		model.setOnScreenElements(list);
+		model.updateGameElements();
+		
+		Model model2 = new Model(10,10);
+		List<GameElement> list2 = new ArrayList<GameElement>();
+		GameElement g12 =  new GameElement(99,100,1,0);
+		list2.add(g12);
+		GameElement rand = new GameElement(10,10,1,1);
+		list2.add(rand);
+		model2.setOnScreenElements(list2);
+		
+		assertEquals(model.getOnScreenCollidables().get(0).xloc, 
+				model2.getOnScreenCollidables().get(0).xloc);
+		assertEquals(model.getOnScreenCollidables().size(), 
+				model2.getOnScreenCollidables().size());
+		
 	}
 
 	@Test
