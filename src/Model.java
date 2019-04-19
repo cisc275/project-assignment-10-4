@@ -98,7 +98,6 @@ public class Model {
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {
-		int direction = bird.getDirection();
 		updateBird();
 		updateGameElements();
 		updateBackground();
@@ -161,6 +160,7 @@ public class Model {
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
+	/*
 	Collidable collisionDetection() {
 		int birdYLoc = bird.getYloc();
 		int birdXLoc = bird.getXloc();
@@ -183,7 +183,7 @@ public class Model {
 		}
 		
 		return null;
-		}
+		}*/
 	
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
