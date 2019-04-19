@@ -108,8 +108,7 @@ public class Model {
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
 	 * 
-	 * @param direction the direction that was input for the bird
-	 * 					(1 = up ; 0 = nothing ; -1 = down)
+	 * 
 	 */
 	void updateBird() {
 		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
