@@ -141,86 +141,86 @@ class ModelTest {
 	@Test
 	public void setBirdModeTest() throws NoSuchFieldException, IllegalAccessException {
 	        
-	        final Model ModelTestObject= new Model(10,10);
-      
-	        ModelTestObject.setBirdMode(true);
+        final Model ModelTestObject= new Model(10,10);
+  
+        ModelTestObject.setBirdMode(true);
 
-	        //then
-	        final Field field = ModelTestObject.getClass().getDeclaredField("birdMode");
+        //then
+        final Field field = ModelTestObject.getClass().getDeclaredField("birdMode");
+        field.setAccessible(true);
+        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
+    }
+
+
+    @Test
+    public void isBirdModeTest() throws NoSuchFieldException, IllegalAccessException {
+        
+    	final Model ModelTestObject= new Model(10,10);
+        
+    	final Field field = ModelTestObject.getClass().getDeclaredField("birdMode");
+        field.setAccessible(true);
+        field.set(ModelTestObject, true); 
+
+        final boolean value = ModelTestObject.isBirdMode();
+        assertEquals("Field wasn't retrieved properly", value, true);
+    }
+
+	@Test
+	public void setQuizModeTest() throws NoSuchFieldException, IllegalAccessException {
+	        
+        final Model ModelTestObject= new Model(10,10);
+  
+        ModelTestObject.setQuizMode(true);
+
+        
+        final Field field = ModelTestObject.getClass().getDeclaredField("quizMode");
+        field.setAccessible(true);
+        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
+    }
+	
+
+    @Test
+    public void isQuizMode() throws NoSuchFieldException, IllegalAccessException {
+        
+    	final Model ModelTestObject= new Model(10,10);
+        
+    	final Field field = ModelTestObject.getClass().getDeclaredField("quizMode");
+        field.setAccessible(true);
+        field.set(ModelTestObject, true); 
+
+        final boolean value = ModelTestObject.isBirdMode();
+        assertEquals("Field wasn't retrieved properly", value, true);
+    }
+
+	@Test
+	public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
+	        
+	        final Model ModelTestObject= new Model(10,10);
+	        QuizQuestion q1 = new QuizQuestion();
+	        List<QuizQuestion> questions = new ArrayList<>();
+	        questions.add(q1);
+	        ModelTestObject.setQuizQuestions(questions);      
+	        final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
 	        field.setAccessible(true);
 	        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
 	    }
 	
 
 	    @Test
-	    public void isBirdModeTest() throws NoSuchFieldException, IllegalAccessException {
+	    public void getQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
 	        
 	    	final Model ModelTestObject= new Model(10,10);
-	        
-	    	final Field field = ModelTestObject.getClass().getDeclaredField("birdMode");
+	      	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
 	        field.setAccessible(true);
-	        field.set(ModelTestObject, true); 
+	        QuizQuestion q1 = new QuizQuestion();
+	        List<QuizQuestion> questions = new ArrayList<>();
+	        questions.add(q1);
+	        field.set(ModelTestObject, questions); 
 
 	        final boolean value = ModelTestObject.isBirdMode();
-	        assertEquals("Field wasn't retrieved properly", value, true);
-	    }
-
-		@Test
-		public void setQuizModeTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		        final Model ModelTestObject= new Model(10,10);
-	      
-		        ModelTestObject.setQuizMode(true);
-
-		        
-		        final Field field = ModelTestObject.getClass().getDeclaredField("quizMode");
-		        field.setAccessible(true);
-		        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
-		    }
-		
-
-		    @Test
-		    public void isQuizMode() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		        
-		    	final Field field = ModelTestObject.getClass().getDeclaredField("quizMode");
-		        field.setAccessible(true);
-		        field.set(ModelTestObject, true); 
-
-		        final boolean value = ModelTestObject.isBirdMode();
-		        assertEquals("Field wasn't retrieved properly", value, true);
-		    }
-	    
-			@Test
-			public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			        final Model ModelTestObject= new Model(10,10);
-			        QuizQuestion q1 = new QuizQuestion();
-			        List<QuizQuestion> questions = new ArrayList<>();
-			        questions.add(q1);
-			        ModelTestObject.setQuizQuestions(questions);      
-			        final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
-			        field.setAccessible(true);
-			        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
-			    }
-			
-
-			    @Test
-			    public void getQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			    	final Model ModelTestObject= new Model(10,10);
-			      	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
-			        field.setAccessible(true);
-			        QuizQuestion q1 = new QuizQuestion();
-			        List<QuizQuestion> questions = new ArrayList<>();
-			        questions.add(q1);
-			        field.set(ModelTestObject, questions); 
-
-			        final boolean value = ModelTestObject.isBirdMode();
-			        assertEquals("Field wasn't retrieved properly", value, questions);
-			    }		   
-	}
+	        assertEquals("Field wasn't retrieved properly", value, questions);
+	    }		   
+	
 	
 	
 	
