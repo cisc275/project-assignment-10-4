@@ -384,5 +384,21 @@ public class Model {
 	public void setFrameHeight(int frameHeight) {
 		this.frameHeight = frameHeight;
 	}
+
+	public int getImgWidth() {
+		return imgWidth;
+	}
+
+	public void setImgWidth(int imgWidth) {
+		this.imgWidth = imgWidth;
+	}
+
+	public int getImgHeight() {
+		return imgHeight;
+	}
+
+	public void setImgHeight(int imgHeight) {
+		this.imgHeight = imgHeight;
+	}
 	
 }
