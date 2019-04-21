@@ -200,7 +200,7 @@ class ModelTest {
         field.set(ModelTestObject, true); 
 
         final boolean value = ModelTestObject.isBirdMode();
-        assertEquals("Field wasn't retrieved properly", (Object)value, (Object)true);
+        assertEquals("Field wasn't retrieved properly", value, false);
     }
 
     @Test
