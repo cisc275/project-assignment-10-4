@@ -213,7 +213,8 @@ class ModelTest {
     	ModelTestObject.setQuizQuestions(questions);      
     	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
     	field.setAccessible(true);
-    	assertEquals("Fields didn't match", field.get(ModelTestObject), true);
+    	final ArrayList<QuizQuestion>getQuest = (ArrayList<QuizQuestion>)field.get(ModelTestObject);
+    	assertEquals("Fields didn't match", getQuest.size(), 1);
     }
 
 
