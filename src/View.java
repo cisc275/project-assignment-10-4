@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Toolkit;

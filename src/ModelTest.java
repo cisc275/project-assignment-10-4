@@ -169,8 +169,7 @@ class ModelTest {
         field.set(ModelTestObject, true); 
 
         final boolean value = ModelTestObject.isBirdMode();
-       
-       // assertEquals("Field wasn't retrieved properly", value, true);
+        assertEquals("Field wasn't retrieved properly", value, true);
        
         assertTrue(ModelTestObject.isBirdMode() == true );    
         
@@ -203,7 +202,8 @@ class ModelTest {
         assertEquals("Field wasn't retrieved properly", value, false);
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
 
     	final Model ModelTestObject= new Model(10,10);
