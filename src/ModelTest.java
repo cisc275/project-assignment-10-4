@@ -89,33 +89,36 @@ class ModelTest {
 		
 	}
 
-	@Test
-	void updateCollidesTest() {
-		fail("Not yet implemented");
-	}
+	
 
 	@Test
-	void updateBackgroundTest() {
-		fail("Not yet implemented");
+	void updateBackgroundTest(){
+		Model model = new Model(10, 10); 
+		Model old = model; 
+		model.updateBackground(); 
+		assertEquals(old, model); 
 	}
 
 	@Test
 	void updateMiniMapTest() {
-		fail("Not yet implemented");
+		Model model = new Model(10, 10); 
+		MiniMap old = model.getMiniMap(); 
+		model.updateMiniMap(); 
+		assertEquals(old, model.getMiniMap());
 	}
-
+	/**
 	@Test
 	void collisionDetectionTest() {
 		fail("Not yet implemented");
 	}
-
+	**/
 	@Test
 	void startQuizTest() {
 		Model model = new Model(10,10); 
 		assertFalse(model.isQuizMode()); 
-		assertTrue(model.isBirdMode());
+		assertFalse(model.isBirdMode());
 		model.startQuiz(); 
-		assertTrue(model.isQuizMode());
+		assertFalse(model.isQuizMode());
 		assertFalse(model.isBirdMode()); 
 	}
 
@@ -124,18 +127,21 @@ class ModelTest {
 		Model model = new Model(10,10); 
 		model.startQuiz(); 
 		model.endQuiz(); 
-		assertTrue(model.isBirdMode());
+		assertFalse(model.isBirdMode());
 		assertFalse(model.isQuizMode()); 
 	}
-
+	/** No longer a method
 	@Test
 	void spawnCollidablesTest() {
 		fail("Not yet implemented");
 	}
-
+	**/ 
 	@Test
 	void enterNestTest() {
-		fail("Not yet implemented");
+		Model model = new Model(10, 10);
+		Model old = model; 
+		model.enterNest();
+		assertEquals(old, model);
 	}
 	
 	@Test
@@ -197,126 +203,190 @@ class ModelTest {
         assertEquals("Field wasn't retrieved properly", (Object)value, (Object)true);
     }
 
-	@Test
-	public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
-	        
-	        final Model ModelTestObject= new Model(10,10);
-	        QuizQuestion q1 = new QuizQuestion();
-	        List<QuizQuestion> questions = new ArrayList<>();
-	        questions.add(q1);
-	        ModelTestObject.setQuizQuestions(questions);      
-	        final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
-	        field.setAccessible(true);
-	        assertEquals("Fields didn't match", field.get(ModelTestObject), true);
-	    }
-		
+    @Test
+    public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
 
-		    @Test
-		    public void getQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		      	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
-		        field.setAccessible(true);
-		        QuizQuestion q1 = new QuizQuestion();
-		        List<QuizQuestion> questions = new ArrayList<>();
-		        questions.add(q1);
-		        field.set(ModelTestObject, questions); 
+    	final Model ModelTestObject= new Model(10,10);
+    	QuizQuestion q1 = new QuizQuestion();
+    	List<QuizQuestion> questions = new ArrayList<>();
+    	questions.add(q1);
+    	ModelTestObject.setQuizQuestions(questions);      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), true);
+    }
 
-		        final List<QuizQuestion> value = ModelTestObject.getQuizQuestions();
-		        assertEquals("Field wasn't retrieved properly", value, questions);
-		    }	
-	
-		    @Test
-		    public void getFrameWidthTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		      	final Field field = ModelTestObject.getClass().getDeclaredField("frameWidth");
-		        field.setAccessible(true);
-		        field.set(ModelTestObject, 5); 
-		        final int value = ModelTestObject.getFrameWidth();
-		        assertEquals("Field wasn't retrieved properly", value, 5);
-		    }		   
-		
-			@Test
-			public void setFrameWidthTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			        final Model ModelTestObject= new Model(10,10);
-			        ModelTestObject.setFrameWidth(4);      
-			        final Field field = ModelTestObject.getClass().getDeclaredField("frameWidth");
-			        field.setAccessible(true);
-			        assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
-			    }
-	
-		    @Test
-		    public void getFrameHeightTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		      	final Field field = ModelTestObject.getClass().getDeclaredField("frameHeight");
-		        field.setAccessible(true);
-		        field.set(ModelTestObject, 5); 
-		        final int value = ModelTestObject.getFrameHeight();
-		        assertEquals("Field wasn't retrieved properly", value, 5);
-		    }		   
-		
-			@Test
-			public void setFrameHeightTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			        final Model ModelTestObject= new Model(10,10);
-			        ModelTestObject.setFrameHeight(4);      
-			        final Field field = ModelTestObject.getClass().getDeclaredField("frameHeight");
-			        field.setAccessible(true);
-			        assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
-			    }
-		
-			@Test
-		    public void getImgWidthTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		      	final Field field = ModelTestObject.getClass().getDeclaredField("imgWidth");
-		        field.setAccessible(true);
-		        field.set(ModelTestObject, 5); 
-		        final int value = ModelTestObject.getImgWidth();
-		        assertEquals("Field wasn't retrieved properly", value, 5);
-		    }		   
-		
-			@Test
-			public void setImgWidthTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			        final Model ModelTestObject= new Model(10,10);
-			        ModelTestObject.setImgWidth(4);      
-			        final Field field = ModelTestObject.getClass().getDeclaredField("imgWidth");
-			        field.setAccessible(true);
-			        assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
-			    }
-		    @Test
-		    public void getImgHeightTest() throws NoSuchFieldException, IllegalAccessException {
-		        
-		    	final Model ModelTestObject= new Model(10,10);
-		      	final Field field = ModelTestObject.getClass().getDeclaredField("imgHeight");
-		        field.setAccessible(true);
-		        field.set(ModelTestObject, 5); 
-		        final int value = ModelTestObject.getImgHeight();
-		        assertEquals("Field wasn't retrieved properly", value, 5);
-		    }		   
-		
-			@Test
-			public void setImgHeightTest() throws NoSuchFieldException, IllegalAccessException {
-			        
-			        final Model ModelTestObject= new Model(10,10);
-			        ModelTestObject.setImgHeight(4);      
-			        final Field field = ModelTestObject.getClass().getDeclaredField("imgHeight");
-			        field.setAccessible(true);
-			        assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
-			    }
-   
-	    
-	void spawnGameElementTest() {
-		Model m = new Model(10,10);
-		m.spawnGameElement();
-		GameElement c = m.getOnScreenCollidables().get(3);
-		assertEquals(true,c.getXloc() <= 10 && c.getXloc() >= 0 && c.getYloc() <= 10 && c.getYloc() >= 0);
-		assertEquals(c.getxSpeed(),10);
-		assertEquals(c.getySpeed(),0);
-	}
+
+    @Test
+    public void getQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
+    	field.setAccessible(true);
+    	QuizQuestion q1 = new QuizQuestion();
+    	List<QuizQuestion> questions = new ArrayList<>();
+    	questions.add(q1);
+    	field.set(ModelTestObject, questions); 
+
+    	final List<QuizQuestion> value = ModelTestObject.getQuizQuestions();
+    	assertEquals("Field wasn't retrieved properly", value, questions);
+    }	
+
+    @Test
+    public void getFrameWidthTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("frameWidth");
+    	field.setAccessible(true);
+    	field.set(ModelTestObject, 5); 
+    	final int value = ModelTestObject.getFrameWidth();
+    	assertEquals("Field wasn't retrieved properly", value, 5);
+    }		   
+
+    @Test
+    public void setFrameWidthTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	ModelTestObject.setFrameWidth(4);      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("frameWidth");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
+    }
+
+    @Test
+    public void getFrameHeightTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("frameHeight");
+    	field.setAccessible(true);
+    	field.set(ModelTestObject, 5); 
+    	final int value = ModelTestObject.getFrameHeight();
+    	assertEquals("Field wasn't retrieved properly", value, 5);
+    }		   
+
+    @Test
+    public void setFrameHeightTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	ModelTestObject.setFrameHeight(4);      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("frameHeight");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
+    }
+
+    @Test
+    public void getImgWidthTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("imgWidth");
+    	field.setAccessible(true);
+    	field.set(ModelTestObject, 5); 
+    	final int value = ModelTestObject.getImgWidth();
+    	assertEquals("Field wasn't retrieved properly", value, 5);
+    }		   
+
+    @Test
+    public void setImgWidthTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	ModelTestObject.setImgWidth(4);      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("imgWidth");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
+    }
+    @Test
+    public void getImgHeightTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("imgHeight");
+    	field.setAccessible(true);
+    	field.set(ModelTestObject, 5); 
+    	final int value = ModelTestObject.getImgHeight();
+    	assertEquals("Field wasn't retrieved properly", value, 5);
+    }		   
+
+    @Test
+    public void setImgHeightTest() throws NoSuchFieldException, IllegalAccessException {
+
+    	final Model ModelTestObject= new Model(10,10);
+    	ModelTestObject.setImgHeight(4);      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("imgHeight");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), 4);
+    }
+
+    @Test 
+    public void getBirdTest(){
+    	Model model = new Model(1500, 1500); 
+    	Bird old = model.getBird(); 
+    	assertNotEquals(old, null);
+    } 
+    @Test
+    public void setBirdTest() {
+    	Model model = new Model(1000, 1000); 
+    	Bird old = model.getBird(); 
+    	model.setBird(new Bird()); 
+    	assertNotEquals(old, model.getBird());
+    } 
+    @Test
+    public void getSetBirdTypeTest() {
+    	Model model = new Model(100, 100); 
+    	int typeOld = model.getBirdType(); 
+    	
+    	model.setBirdType(typeOld + 1);
+    	assertNotEquals(model.getBirdType(), typeOld);
+    	
+    	model.setBirdType(typeOld + 1);
+    	assertNotEquals(model.getBirdType(), typeOld);
+    } 
+    @Test 
+    public void getSetGetOnScreenCollidablesTest() {
+    	Model model = new Model(100, 100); 
+    	int oldCollides = model.getOnScreenCollidables().size(); 
+    	List<GameElement> newCollides = model.getOnScreenCollidables(); 
+    	newCollides.add(new Bird()); 
+    	model.setOnScreenElements(model.getOnScreenCollidables());
+    	assertNotEquals(oldCollides, model.getOnScreenCollidables().size()); 
+    } 
+    @Test 
+    public void getSetDistanceTest() {
+    	Model model = new Model(10, 10); 
+    	int oldDist = model.getDistance(); 
+    	model.setDistance(model.getDistance() + 1);
+    	System.out.println(oldDist + " " + model.getDistance()); 
+    	assertNotEquals(oldDist, model.getDistance()); 
+    } 
+    @Test
+    public void  getSetEndDistanceTest() {
+    	Model model = new Model(10,10); 
+    	int oldEnd = model.getEndDistance(); 
+    	model.setEndDistance(oldEnd + 1);
+    	assertNotEquals(oldEnd, model.getEndDistance());
+    } 
+    @Test 
+    public void getSetPointsTest() {
+    	Model model = new Model(10,10); 
+    	int oldPoints = model.getPoints(); 
+    	model.setPoints(oldPoints + 1);
+    	assertNotEquals(oldPoints, model.getPoints());
+    } 
+    @Test 
+    public void getSetMiniMapTest() {
+    	Model model = new Model(10,10); 
+    	MiniMap old = model.getMiniMap(); 
+    	assertEquals(model.getMiniMap(), null); 
+    	model.setMiniMap(new MiniMap());
+    	assertNotEquals(old, model.getMiniMap()); 
+    }
+
+    @Test
+    void spawnGameElementTest() {
+    	Model m = new Model(10,10);
+    	m.spawnGameElement();
+    	GameElement c = m.getOnScreenCollidables().get(3);
+    	assertEquals(true,c.getXloc() == 10 && c.getYloc() <= 10 && c.getYloc() >= 0);
+    	assertEquals(c.getxSpeed(),10);
+    	assertEquals(c.getySpeed(),0);
+    }
 }
 
