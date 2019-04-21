@@ -353,7 +353,6 @@ class ModelTest {
     	Model model = new Model(10, 10); 
     	int oldDist = model.getDistance(); 
     	model.setDistance(model.getDistance() + 1);
-    	System.out.println(oldDist + " " + model.getDistance()); 
     	assertNotEquals(oldDist, model.getDistance()); 
     } 
     @Test
