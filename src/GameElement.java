@@ -10,6 +10,10 @@ import java.awt.image.BufferedImage;
  */
 public class GameElement {
 	/**
+	 * The path of the image this GameElement
+	 */
+	protected String imagePath;
+	/**
 	 * The current x-coordinate of the GameElement
 	 */
 	protected int xloc;
@@ -41,6 +45,7 @@ public class GameElement {
 	protected BufferedImage image;
 	
 	
+	
 	/**
 	 * 
 	 */
@@ -55,11 +60,12 @@ public class GameElement {
 	 * @param xSpeed
 	 * @param ySpeed
 	 */
-	public GameElement(int x, int y, int xSpeed, int ySpeed) {
+	public GameElement(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		xloc = x; 
 		yloc = y; 
 		this.xSpeed = xSpeed; 
 		this.ySpeed = ySpeed; 
+		this.imagePath = imagePath;
 	}
 	/**
 	 * Will update the location of the GameElement
@@ -162,6 +168,14 @@ public class GameElement {
 	
 	public BufferedImage getImage() {
 		return image;
+	}
+	
+	public void setImagePath(String ImagePath) {
+		this.imagePath = ImagePath;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
 	}
 	
 	public Rectangle getBounds() {

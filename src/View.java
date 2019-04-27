@@ -108,27 +108,6 @@ public class View extends JPanel{
 	}
 	
 	/**
-	 * @return The path for the image.  Uses the Images Enum to return the path for an image based off 
-	 * a random number.
-	 */
-	String generateImgPath() {
-		Random rand = new Random();
-		int curImage = rand.nextInt(2);
-		String ImgPath = "";
-		Images dir;
-		     switch (curImage) {
-		       case 0:
-		    	  dir = Images.OBSTACLE;
-		    	  ImgPath = dir.getName();
-		          break;
-		       case 1:
-		    	  dir = Images.FOOD;
-		    	  ImgPath = dir.getName();
-		          break;
-		     }
-		   return ImgPath;
-	}
-	/**
 	 * Will update the game display based on changes to different game components.
 	 * 
 	 * @param bird The bird the user controls
@@ -147,8 +126,8 @@ public class View extends JPanel{
 		
 		for(GameElement e : elements) {
 			if(e.getImage() == null) {
-				e.setImage(createImage(generateImgPath()));
-			}
+				e.setImage(createImage(e.getImagePath()));
+			}                            
 		}
 		frame.repaint(); 
 	}
