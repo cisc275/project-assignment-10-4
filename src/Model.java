@@ -165,17 +165,19 @@ public class Model {
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-	
+
 	GameElement collisionDetection() {
 		GameElement collided = null;
-		for(GameElement e: onScreenCollidables) {
-			if(e.getBounds().intersects(bird.getBounds())) {
+		for (GameElement e : onScreenCollidables) {
+			if (e.getBounds().intersects(bird.getBounds())) {
 				collided = e;
 			}
 		}
+		bird.collisionWith(collided);
+		collided.collision();
 		return collided;
-		}
-	
+	}
+
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
 	 * 

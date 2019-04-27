@@ -171,10 +171,14 @@ public class GameElement {
 	
 	
 	/**
-	 *
-	 * @return
+	 * @return boolean true indicates GameElement is offscreen
 	 */
 	public boolean isOffScreen() {
 		return (getXloc()+getWidth() < 0);
+	}
+
+	public void collision() {
+		// TODO Auto-generated method stub
+		
 	}
 }

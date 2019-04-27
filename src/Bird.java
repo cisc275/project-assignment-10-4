@@ -135,4 +135,12 @@ public class Bird extends GameElement{
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 	}
+
+	/**
+	 * @param collided the GameElement bird has collided with
+	 */
+	public void collisionWith(GameElement collided) {
+		// TODO Auto-generated method stub
+		
+	}
 }
