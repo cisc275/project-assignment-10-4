@@ -35,11 +35,11 @@ public class View extends JPanel{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = (int)screenSize.getWidth()- 100;
+	private final int frameWidth = (int)screenSize.getWidth();
 	/**
 	 * Height of the frame to display the game
 	 */
-	private final int frameHeight = (int)screenSize.getHeight() - 100; 
+	private final int frameHeight = (int)screenSize.getHeight(); 
 	/**
 	 * Image for the background
 	 */
@@ -63,7 +63,9 @@ public class View extends JPanel{
     	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setSize(frameWidth, frameHeight);
+    	//frame.setSize(frameWidth, frameHeight);
+    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
 	}
