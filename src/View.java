@@ -75,7 +75,7 @@ public class View extends JPanel{
 	public View(Controller c){
 		this.box = createImage("images/rectangle-icon-256.png"); 
 		this.thanos = createImage("images/thanosbird.jpg"); 
-		this.background = createImage("images/big_background.png");
+		this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanel = new DrawPanel(); 
