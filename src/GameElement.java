@@ -54,7 +54,6 @@ public class GameElement {
 	 * @param y
 	 * @param xSpeed
 	 * @param ySpeed
-	 * @param filename
 	 */
 	public GameElement(int x, int y, int xSpeed, int ySpeed) {
 		xloc = x; 

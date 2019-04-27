@@ -23,6 +23,7 @@ public class Food extends GameElement implements Collidable{
 	/**
 	 * Constructor for food
 	 */
+	
 	public Food(int val, boolean special) {
 		staminaValue = val;
 		specialFood = special;
@@ -40,8 +41,9 @@ public class Food extends GameElement implements Collidable{
 	 */
 	@Override
 	public boolean isOffScreen() {
-		return (getXloc()+getWidth() < 0);
-	}
+		return ((getXloc()+getWidth()) < 0);
+	}	
+	
 	/**
 	 * @return the staminaValue
 	 */

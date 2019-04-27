@@ -88,9 +88,25 @@ public class Model {
 		obstacle3.setXloc(frameWidth + 1300);
 		obstacle3.setYloc(0);
 		obstacle3.setxSpeed(10);
-		onScreenCollidables.add(obstacle1);
-		onScreenCollidables.add(obstacle2);
-		onScreenCollidables.add(obstacle3);
+		//onScreenCollidables.add(obstacle1);
+		//onScreenCollidables.add(obstacle2);
+		//onScreenCollidables.add(obstacle3);
+		
+		GameElement Food1 = new Food(10, true);
+		Food1.setXloc(frameWidth);
+		Food1.setYloc(0);
+		Food1.setxSpeed(10);
+		GameElement Food2 = new Food(10, true);
+		Food2.setXloc(frameWidth - 100);
+		Food2.setYloc(0);
+		Food2.setxSpeed(10);
+		GameElement Food3 = new Food(10, true);
+		Food3.setXloc(frameWidth - 400);
+		Food3.setYloc(0);
+		Food3.setxSpeed(10);
+		onScreenCollidables.add(Food1);
+		onScreenCollidables.add(Food2);
+		onScreenCollidables.add(Food3);             
 	}
 	
 	/**
@@ -102,7 +118,7 @@ public class Model {
 		updateGameElements();
 		updateBackground();
 		updateMiniMap();
-		collisionDetection(); //do something with this later
+		collisionDetection(); 
 	}
 	/**
 	 * Used to update the current status and position of the bird based on user input
@@ -191,14 +207,12 @@ public class Model {
 	void spawnGameElement() {
 		Random rand = new Random(); 
 		int x = frameWidth; 
-		int y = rand.nextInt(frameHeight);
-		
+		int y = rand.nextInt(frameHeight);	
 		int xSpeed = 10;
 		int ySpeed = 0; 
 		
 		onScreenCollidables.add(new GameElement(x, y, xSpeed, ySpeed)); 
 	}
-	
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */

@@ -30,7 +30,8 @@ public class Bird extends GameElement{
         private int direction;
 	/**
 	 * A constructor which initializes 7 attributes for the start of the game.  The bird's starting location is set, 
-	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
+	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving
+	 *  
 	 */
 	
 	public Bird() {
