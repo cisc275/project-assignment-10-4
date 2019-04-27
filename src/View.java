@@ -95,6 +95,7 @@ public class View extends JPanel{
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
 		frame.add(cards);
+		frame.setFocusable(true);
     	//frame.addMouseListener(c);
     	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
@@ -104,6 +105,7 @@ public class View extends JPanel{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+
 	}
 	
 	/**
