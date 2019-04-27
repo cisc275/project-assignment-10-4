@@ -54,7 +54,6 @@ public class GameElement {
 	 * @param y
 	 * @param xSpeed
 	 * @param ySpeed
-	 * @param filename
 	 */
 	public GameElement(int x, int y, int xSpeed, int ySpeed) {
 		xloc = x; 
@@ -171,10 +170,14 @@ public class GameElement {
 	
 	
 	/**
-	 *
-	 * @return
+	 * @return boolean true indicates GameElement is offscreen
 	 */
 	public boolean isOffScreen() {
 		return (getXloc()+getWidth() < 0);
+	}
+
+	public void collision() {
+		// TODO Auto-generated method stub
+		
 	}
 }

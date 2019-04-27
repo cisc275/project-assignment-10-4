@@ -207,7 +207,7 @@ class ModelTest {
     public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
 
     	final Model ModelTestObject= new Model(10,10);
-    	QuizQuestion q1 = new QuizQuestion();
+    	QuizQuestion q1 = new QuizQuestion("", new ArrayList<String>(), "");
     	List<QuizQuestion> questions = new ArrayList<>();
     	questions.add(q1);
     	ModelTestObject.setQuizQuestions(questions);      
@@ -224,7 +224,7 @@ class ModelTest {
     	final Model ModelTestObject= new Model(10,10);
     	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
     	field.setAccessible(true);
-    	QuizQuestion q1 = new QuizQuestion();
+    	QuizQuestion q1 = new QuizQuestion("", new ArrayList<String>(), "");
     	List<QuizQuestion> questions = new ArrayList<>();
     	questions.add(q1);
     	field.set(ModelTestObject, questions); 

@@ -7,9 +7,7 @@ import javax.imageio.ImageIO;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 
 import javax.swing.JPanel;
 
@@ -25,6 +23,7 @@ import java.awt.Font;
  * @author 10-4
  *
  */
+
 @SuppressWarnings("serial")
 public class View extends JPanel{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -72,9 +71,9 @@ public class View extends JPanel{
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
 	 */
-	public View(Controller c){
-		this.box = createImage("images/rectangle-icon-256.png"); 
-		this.thanos = createImage("images/thanosbird.jpg"); 
+	public View(Controller c) {
+		this.box = createImage("images/rectangle-icon-256.png");
+		this.thanos = createImage(generateImgPath() );
 		this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -109,21 +108,46 @@ public class View extends JPanel{
 	}
 	
 	/**
+	 * @return The path for the image.  Uses the Images Enum to return the path for an image based off 
+	 * a random number.
+	 */
+	String generateImgPath() {
+		Random rand = new Random();
+		int curImage = rand.nextInt(2);
+		String ImgPath = "";
+		Images dir;
+		     switch (curImage) {
+		       case 0:
+		    	  dir = Images.THANOS;
+		    	  ImgPath = dir.getName();
+		          break;
+		       case 1:
+		    	  dir = Images.FOOD;
+		    	  ImgPath = dir.getName();
+		          break;
+		     }
+		   return ImgPath;
+	}
+	/**
 	 * Will update the game display based on changes to different game components.
 	 * 
 	 * @param bird The bird the user controls
 	 * @param elements The list of GameElement objects on screen
 	 * @param miniMap The MiniMap that displays progress
 	 */
+	
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
-		this.bird = bird; 
+				
+        this.bird = bird; 
 		if(this.bird.getImage() == null) {
 			this.bird.setImage(thanos);
+			//this.bird.setImage(thanos);
 		}
 		this.elements = elements; 
+		
 		for(GameElement e : elements) {
 			if(e.getImage() == null) {
-				e.setImage(box);
+				e.setImage(createImage(generateImgPath() ));
 			}
 		}
 		frame.repaint(); 
@@ -134,6 +158,7 @@ public class View extends JPanel{
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
+	
 	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
@@ -143,7 +168,6 @@ public class View extends JPanel{
 		    e.printStackTrace();
 		}
 		return null;
-
 	}
 	
 	
@@ -299,8 +323,7 @@ public class View extends JPanel{
 				if (bird != null) {
 					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), this); 
 				}
-			} 
-			
+			} 	
 		}
 
 		public Dimension getPreferredSize() {

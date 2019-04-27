@@ -27,12 +27,15 @@ public class Bird extends GameElement{
 	 * An int representing which way the bird is moving.  If direction == 1, then the bird is moving upwards and if 
 	 * direction == -1, the bird is moving downwards.
 	 */
-        private int direction;
+    private int direction;
+    /**
+     * An int representing how much energy to bird has, lost over time and when damaged, and gained upon eating.
+     */
+    private int stamina;
 	/**
-	 * A constructor which initializes 7 attributes for the start of the game.  The bird's starting location is set, 
+	 * A constructor which initialises 7 attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
-	 */
-	
+	 */	
 	public Bird() {
 		setXloc(10);
 		setYloc(500);
@@ -112,7 +115,32 @@ public class Bird extends GameElement{
 		this.direction = direction;
 	}
 
+	/**
+	 * @param image the BufferedImage to set
+	 */
 	public void setImage(BufferedImage image) {
 		this.image = image;
+	}
+
+	/**
+	 * @return the stamina
+	 */
+	public int getStamina() {
+		return stamina;
+	}
+
+	/**
+	 * @param stamina the stamina to set
+	 */
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
+	}
+
+	/**
+	 * @param collided the GameElement bird has collided with
+	 */
+	public void collisionWith(GameElement collided) {
+		// TODO Auto-generated method stub
+		
 	}
 }
