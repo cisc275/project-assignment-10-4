@@ -118,7 +118,7 @@ public class View extends JPanel{
 		Images dir;
 		     switch (curImage) {
 		       case 0:
-		    	  dir = Images.THANOS;
+		    	  dir = Images.OBSTACLE;
 		    	  ImgPath = dir.getName();
 		          break;
 		       case 1:

@@ -1,6 +1,12 @@
+/**
+ * ENUM representing every the image sources for food and obstacles
+ * 
+ * @author 10-4
+ *
+ */
 public enum Images {
 
-	THANOS("images/thanosbird.jpg"),
+	OBSTACLE("images/building.png"),
 	FOOD("images/birdFood.jpg"), 
 	RECTANGLE("images/rectangle-icon-256.png");
 	
