@@ -7,12 +7,16 @@ import javax.imageio.ImageIO;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JPanel;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Handles the visual component of the game. Changes the positions of objects
@@ -27,11 +31,25 @@ public class View extends JPanel{
 	/**
 	 * The frame used to display the game
 	 */
-	private JFrame frame;	
+	private JFrame frame;
 	/**
-	 * The panel that will be drawn on to display the game
+	 * The panel that is currently active
 	 */
-	private DrawPanel drawPanel;	
+	private DrawPanel buttonPanel;
+	/**
+	 * The panel that will be drawn on to display the Osprey game
+	 */
+	private DrawPanel OPanel;
+	/**
+	 * The panel that will be drawn on to display the Northern Harrier game
+	 */
+	private DrawPanel NHPanel;
+	/**
+	 * The deck of panels
+	 */
+	private JPanel cards;
+	
+	private Font buttonFont;
 	/**
 	 * Width of the frame to display the game
 	 */
@@ -57,9 +75,25 @@ public class View extends JPanel{
 		this.chunga = createImage("images/rectangle-icon-256.png"); 
 		this.thanos = createImage("images/thanosbird.jpg"); 
 		frame = new JFrame();
-		drawPanel = new DrawPanel(); 
-		drawPanel.setBackground(Color.pink);
-    	frame.add(drawPanel);
+		cards = new JPanel(new CardLayout());
+		buttonPanel = new DrawPanel(); 
+		buttonPanel.setBackground(Color.pink);
+		buttonFont = new Font("Verdana", Font.BOLD, frameHeight/6);
+		c.getOButton().setFont(buttonFont);
+		c.getNHButton().setFont(buttonFont);
+		c.getOButton().setPreferredSize(new Dimension(frameWidth,frameHeight/2));
+		c.getNHButton().setPreferredSize(new Dimension(frameWidth,frameHeight/2));
+		buttonPanel.add(c.getNHButton());
+		buttonPanel.add(c.getOButton());
+    	OPanel = new DrawPanel(); 
+		OPanel.setBackground(Color.pink);
+    	NHPanel = new DrawPanel(); 
+		NHPanel.setBackground(Color.pink);
+		cards.add(buttonPanel, "B");
+		cards.add(OPanel, "O");
+		cards.add(NHPanel, "NH");
+		frame.add(cards);
+    	//frame.addMouseListener(c);
     	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,6 +133,7 @@ public class View extends JPanel{
 		return null;
 
 	}
+	
 	
 	/**
 	 * Draws an image onto the frame
@@ -162,18 +197,55 @@ public class View extends JPanel{
 	}
 
 	/**
-	 * @return the drawPanel
+	 * @return the buttonPanel
 	 */
-	public DrawPanel getDrawPanel() {
-		return drawPanel;
+	public DrawPanel getbuttonPanel() {
+		return buttonPanel;
 	}
 
 	/**
-	 * @param drawPanel the drawPanel to set
+	 * @param drawPanel the buttonPanel to set
 	 */
-	public void setDrawPanel(DrawPanel drawPanel) {
-		this.drawPanel = drawPanel;
+	public void setbuttonPanel(DrawPanel drawPanel) {
+		this.buttonPanel = drawPanel;
 	}
+	/**
+	 * @return the OPanel
+	 */
+	public DrawPanel getOPanel() {
+		return OPanel;
+	}
+
+	/**
+	 * @param drawPanel the OPanel to set
+	 */
+	public void setOPanel(DrawPanel drawPanel) {
+		this.OPanel = drawPanel;
+	}
+	/**
+	 * @return the NHPanel
+	 */
+	public DrawPanel getNHPanel() {
+		return NHPanel;
+	}
+	
+	public void setPanel(String name) {
+		((CardLayout) cards.getLayout()).show(cards, name);
+	}
+	/**
+	 * @return the cards
+	 */
+	public JPanel getCards() {
+		return cards;
+	}
+
+	/**
+	 * @param drawPanel the NHPanel to set
+	 */
+	public void setNHPanel(DrawPanel drawPanel) {
+		this.NHPanel = drawPanel;
+	}
+	
 
 	/**
 	 * @return the frameWidth
