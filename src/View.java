@@ -49,6 +49,7 @@ public class View extends JPanel{
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -56,6 +57,7 @@ public class View extends JPanel{
 	public View(Controller c){
 		this.box = createImage("images/rectangle-icon-256.png"); 
 		this.thanos = createImage("images/thanosbird.jpg"); 
+		this.background = createImage("images/grass_background.png");
 		frame = new JFrame();
 		drawPanel = new DrawPanel(); 
 		drawPanel.setBackground(Color.pink);
@@ -215,6 +217,7 @@ public class View extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);	
 			g.setColor(Color.gray);
+			g.drawImage(background,0,0,this);
 			if (elements != null) {
 				for (GameElement e: elements) {
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), Color.gray, this); 
