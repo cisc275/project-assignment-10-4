@@ -47,16 +47,10 @@ public class QuizQuestions {
 		
 	}
 	
-	public QuizQuestion newQuestion() {
+	public void newQuestion() {
 		QuizQuestion result = unusedQuestions.get(0);
-		int index = 1; 
-		while (questionsRemaining() > index) {
-			result = unusedQuestions.get(index); 
-			index++; 
-		}
 		unusedQuestions.remove(result); 
 		current = result; 
-		return result; 
 	}
 	public int questionsRemaining() {
 		return this.unusedQuestions.size(); 
@@ -65,13 +59,22 @@ public class QuizQuestions {
 	public String toString() {
 		return this.unusedQuestions.toString(); 
 	}
+	public QuizQuestion getCurrent() {
+		return this.current; 
+	}
+	public boolean answerQuestion(String answer) {
+		boolean result = this.current.getCorrectAnswer().equals(answer); 
+		if (result) {
+			newQuestion(); 
+		}
+		return result; 
+	}
+	
 	public static void main(String[] args) {
 		QuizQuestions qs = new QuizQuestions("images/questions.txt"); 
 		
 		System.out.println(qs); 
 	}
-	public QuizQuestion getCurrent() {
-		return this.current; 
-	}
+	
 	
 }
