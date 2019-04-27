@@ -51,6 +51,7 @@ public class Model {
 	/**
 	 * The width of the game frame
 	 */
+	private QuizQuestions theQuestions; 
 	private int frameWidth;
 	/**
 	 * The height of the game frame
@@ -74,7 +75,7 @@ public class Model {
 		bird = new Bird();
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		
+		theQuestions = new QuizQuestions("images/questions.txt"); 
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 500);
@@ -177,7 +178,7 @@ public class Model {
 	 * 
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
-	QuizQuestion startQuiz() {return new QuizQuestion();}
+	QuizQuestion startQuiz() {return theQuestions.getCurrent();}
 	
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start

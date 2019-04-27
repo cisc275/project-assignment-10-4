@@ -70,5 +70,8 @@ public class QuizQuestions {
 		
 		System.out.println(qs); 
 	}
+	public QuizQuestion getCurrent() {
+		return this.current; 
+	}
 	
 }
