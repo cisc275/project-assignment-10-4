@@ -7,7 +7,7 @@
 public enum Images {
 
 	OBSTACLE("images/building.png"),
-	FOOD("images/birdFood.jpg"), 
+	FOOD("images/normal_mouse.png"), 
 	RECTANGLE("images/rectangle-icon-256.png");
 	
 		

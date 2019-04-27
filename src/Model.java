@@ -189,8 +189,8 @@ public class Model {
 				collided = e;
 			}
 		}
-		bird.collisionWith(collided);
-		collided.collision();
+		//bird.collisionWith(collided);
+		//collided.collision();
 		return collided;
 	}
 

@@ -73,7 +73,7 @@ public class View extends JPanel{
 	 */
 	public View(Controller c) {
 		this.box = createImage("images/rectangle-icon-256.png");
-		this.thanos = createImage(generateImgPath() );
+		this.thanos = createImage("images/thanosbird.jpg");
 		this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -147,7 +147,7 @@ public class View extends JPanel{
 		
 		for(GameElement e : elements) {
 			if(e.getImage() == null) {
-				e.setImage(createImage(generateImgPath() ));
+				e.setImage(createImage(generateImgPath()));
 			}
 		}
 		frame.repaint(); 
