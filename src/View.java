@@ -63,7 +63,7 @@ public class View extends JPanel{
 	 */
 	private BufferedImage background;
 
-    private BufferedImage chunga;
+    private BufferedImage box;
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
@@ -72,7 +72,7 @@ public class View extends JPanel{
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c){
-		this.chunga = createImage("images/rectangle-icon-256.png"); 
+		this.box = createImage("images/rectangle-icon-256.png"); 
 		this.thanos = createImage("images/thanosbird.jpg"); 
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -113,7 +113,15 @@ public class View extends JPanel{
 	 */
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
 		this.bird = bird; 
+		if(this.bird.getImage() == null) {
+			this.bird.setImage(thanos);
+		}
 		this.elements = elements; 
+		for(GameElement e : elements) {
+			if(e.getImage() == null) {
+				e.setImage(box);
+			}
+		}
 		frame.repaint(); 
 	}
 	
@@ -281,7 +289,7 @@ public class View extends JPanel{
 			g.setColor(Color.gray);
 			if (elements != null) {
 				for (GameElement e: elements) {
-					g.drawImage(chunga, e.getXloc(), e.getYloc(), Color.gray, this); 
+					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), Color.gray, this); 
 				} 
 				if (bird != null) {
 					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), Color.gray, this); 
