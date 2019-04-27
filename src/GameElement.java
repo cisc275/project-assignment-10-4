@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -162,6 +163,10 @@ public class GameElement {
 	
 	public BufferedImage getImage() {
 		return image;
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(xloc,yloc,width,height);
 	}
 	
 	

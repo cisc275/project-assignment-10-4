@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 /**
  * Bird is the sole user controlled GameElement and the focus of the game.  The game is divided into two portions,
  * depending on if the Bird is currently a Northern Harrier or an Osprey
@@ -23,6 +25,7 @@ public class Bird extends GameElement{
 	private boolean isStunned;
 	
 	private int direction; 
+	
 	
 	public Bird() {
 		setXloc(10);
@@ -85,6 +88,10 @@ public class Bird extends GameElement{
 	
 	public void setDirection(int d) {
 		this.direction = d;
+	}
+	
+	public void setImage(BufferedImage image) {
+		this.image = image;
 	}
 	
 }

@@ -79,6 +79,9 @@ public class View extends JPanel{
 	 */
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
 		this.bird = bird; 
+		if(this.bird.getImage() == null) {
+			this.bird.setImage(thanos);
+		}
 		this.elements = elements; 
 		for(GameElement e : elements) {
 			if(e.getImage() == null) {
