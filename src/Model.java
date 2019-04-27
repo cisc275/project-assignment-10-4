@@ -102,6 +102,7 @@ public class Model {
 		updateGameElements();
 		updateBackground();
 		updateMiniMap();
+		collisionDetection(); //do something with this later
 	}
 	/**
 	 * Used to update the current status and position of the bird based on user input
@@ -160,30 +161,16 @@ public class Model {
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-	/*
-	Collidable collisionDetection() {
-		int birdYLoc = bird.getYloc();
-		int birdXLoc = bird.getXloc();
-		int birdWidth = bird.getWidth();
-		int birdHeight =bird.getHeight();
-		for (GameElement GameElement : onScreenCollidables) {
-			int GameElementYLoc = GameElement.getYloc();
-			int GameElementXLoc = GameElement.getXloc();
-			int GameElementWidth = GameElement.getWidth();
-			int GameElementHeight = GameElement.getHeight();	
-			
-			boolean inXCollisionRange = GameElementXLoc >= birdXLoc && GameElementXLoc <= birdWidth + birdXLoc;
-			
-			boolean inYCollisionRange = GameElementYLoc <= birdYLoc && GameElementYLoc >= birdHeight + birdXLoc;
-			
-			if (inXCollisionRange && inYCollisionRange) {
-				onScreenCollidables.remove(GameElement);
+	
+	GameElement collisionDetection() {
+		GameElement collided = null;
+		for(GameElement e: onScreenCollidables) {
+			if(e.getBounds().intersects(bird.getBounds())) {
+				collided = e;
 			}
-		
 		}
-		
-		return null;
-		}*/
+		return collided;
+		}
 	
 	/**
 	 * Starts a quiz if the bird has eaten a special food.

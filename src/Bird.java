@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 /**
  * Bird is the sole user controlled GameElement and the focus of the game.  The game is divided into two portions,
  * depending on if the Bird is currently a Northern Harrier or an Osprey
@@ -25,12 +27,12 @@ public class Bird extends GameElement{
 	 * An int representing which way the bird is moving.  If direction == 1, then the bird is moving upwards and if 
 	 * direction == -1, the bird is moving downwards.
 	 */
-	private int direction; 
+        private int direction;
 	/**
 	 * A constructor which initializes 7 attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
-	 * horizontally. 
 	 */
+	
 	public Bird() {
 		setXloc(10);
 		setYloc(500);
@@ -108,5 +110,9 @@ public class Bird extends GameElement{
 	 */
 	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
 	}
 }
