@@ -7,9 +7,7 @@ import javax.imageio.ImageIO;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 
 import javax.swing.JPanel;
 
