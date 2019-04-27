@@ -11,7 +11,7 @@ public class QuizQuestion {
 	/**
 	 * An int that stores the index of the correct answer
 	 */
-	private int correctAnswer;
+	private String correctAnswer;
 	/**
 	 * The question that the player needs to answer
 	 */
@@ -21,24 +21,32 @@ public class QuizQuestion {
 	 */
 	private List<String>answers;
 	
+	public QuizQuestion(String question, List<String> answers, String correct) {
+		this.question = question; 
+		this.answers = answers; 
+		this.correctAnswer = correct; 
+		
+	}
 	/**
 	 * Checks whether the question has been answered correctly
 	 * 
 	 * @return True is answered correct, false otherwise.
 	 */
-	boolean checkCorrect() {return false;}
+	boolean checkCorrect(String userAnswer) {
+		return correctAnswer.equals(userAnswer);
+	}
 
 	/**
 	 * @return the correctAnswer
 	 */
-	public int getCorrectAnswer() {
+	public String getCorrectAnswer() {
 		return correctAnswer;
 	}
 
 	/**
 	 * @param correctAnswer the correctAnswer to set
 	 */
-	public void setCorrectAnswer(int correctAnswer) {
+	public void setCorrectAnswer(String correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
 
@@ -68,5 +76,8 @@ public class QuizQuestion {
 	 */
 	public void setAnswers(List<String> answers) {
 		this.answers = answers;
+	}
+	public String toString() {
+		return this.question + " " + this.answers + " " + this.correctAnswer; 
 	}
 }

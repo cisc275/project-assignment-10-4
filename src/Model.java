@@ -51,6 +51,7 @@ public class Model {
 	/**
 	 * The width of the game frame
 	 */
+	private QuizQuestions theQuestions; 
 	private int frameWidth;
 	/**
 	 * The height of the game frame
@@ -74,7 +75,7 @@ public class Model {
 		bird = new Bird();
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		
+		theQuestions = new QuizQuestions("images/questions.txt"); 
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 500);
@@ -152,6 +153,9 @@ public class Model {
 				size++; 
 				iter.remove(); 
 			}
+			if((curr.getYloc()+curr.getHeight())>frameHeight) {
+				curr.setYloc(frameHeight-curr.getHeight());
+			}
 		}
 		for (int i = 0; i < size; i++) {
 			spawnGameElement(); 
@@ -177,23 +181,25 @@ public class Model {
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-	
+
 	GameElement collisionDetection() {
 		GameElement collided = null;
-		for(GameElement e: onScreenCollidables) {
-			if(e.getBounds().intersects(bird.getBounds())) {
+		for (GameElement e : onScreenCollidables) {
+			if (e.getBounds().intersects(bird.getBounds())) {
 				collided = e;
 			}
 		}
+		bird.collisionWith(collided);
+		collided.collision();
 		return collided;
-		}
-	
+	}
+
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
 	 * 
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
-	QuizQuestion startQuiz() {return new QuizQuestion();}
+	QuizQuestion startQuiz() {return theQuestions.getCurrent();}
 	
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
