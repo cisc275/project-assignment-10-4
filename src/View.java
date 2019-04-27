@@ -294,10 +294,10 @@ public class View extends JPanel{
 			g.drawImage(background,0,0,this);
 			if (elements != null) {
 				for (GameElement e: elements) {
-					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), Color.gray, this); 
+					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
-					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), Color.gray, this); 
+					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), this); 
 				}
 			} 
 			
