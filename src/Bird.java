@@ -21,9 +21,16 @@ public class Bird extends GameElement{
 	 * while false means that it is not.  A bird becomes stunned after colliding with an Obstacle
 	 */
 	private boolean isStunned;
-	
+	/**
+	 * An int representing which way the bird is moving.  If direction == 1, then the bird is moving upwards and if 
+	 * direction == -1, the bird is moving downwards.
+	 */
 	private int direction; 
-	
+	/**
+	 * A constructor which initializes 7 attributes for the start of the game.  The bird's starting location is set, 
+	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
+	 * horizontally. 
+	 */
 	public Bird() {
 		setXloc(10);
 		setYloc(500);
@@ -34,7 +41,10 @@ public class Bird extends GameElement{
 		setWidth(224);
 	}
 	
-	
+	/**
+	 * Updates the position of the bird.  If direction == 1 then the bird moves up.  If direction == 0 
+	 * then the bird stays in the same y position.  If direction == -1 then the bird moves down.
+	 */
 	@Override
 	void updatePosition(){
 		setXloc(getXloc()+getxSpeed());
@@ -47,44 +57,56 @@ public class Bird extends GameElement{
 	 */
 	void powerUp() {}
 
-	/**
-	 * 
+	/** 
 	 * @return the flying speed
 	 */
 	public int getFlyingSpeed() {
 		return flyingSpeed;
 	}
-
 	/**
-	 * 
 	 * @param flyingSpeed the speed to fly at
 	 */
 	public void setFlyingSpeed(int flyingSpeed) {
 		this.flyingSpeed = flyingSpeed;
 	}
-
+	/**
+	 * 
+	 * @return true if the bird is powered up.
+	 */
 	public boolean isPoweredUp() {
 		return poweredUp;
 	}
-
+	/**
+	 * @param poweredUp- a boolean which is true if the bird is currently powered up, false otherwise
+	 */
 	public void setPoweredUp(boolean poweredUp) {
 		this.poweredUp = poweredUp;
 	}
-
+	
+	/** 
+	 * @return true if the bird is stunned.
+	 */
 	public boolean isStunned() {
 		return isStunned;
 	}
-
+	/**
+	 * @param isStunned- a boolean which is true if the bird is currently stunned, false otherwise
+	 */
 	public void setStunned(boolean isStunned) {
 		this.isStunned = isStunned;
 	}
-
+	/**
+	 * @return a 1 if the bird is moving up, a 0 if it is not moving up or down and a -1 if it is moving down.
+	 */
 	public int getDirection() {
 		return direction;
 	}
 	
-	public void setDirection(int d) {
-		this.direction = d;
+	/**
+	 * @param direction- an int which is 1 if the bird is moving up, a 0 if it is not moving up or down and a -1 
+	 * if it is moving down.
+	 */
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
-	
 }
