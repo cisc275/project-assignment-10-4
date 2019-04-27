@@ -169,8 +169,7 @@ class ModelTest {
         field.set(ModelTestObject, true); 
 
         final boolean value = ModelTestObject.isBirdMode();
-       
-       // assertEquals("Field wasn't retrieved properly", value, true);
+        assertEquals("Field wasn't retrieved properly", value, true);
        
         assertTrue(ModelTestObject.isBirdMode() == true );    
         
@@ -200,10 +199,11 @@ class ModelTest {
         field.set(ModelTestObject, true); 
 
         final boolean value = ModelTestObject.isBirdMode();
-        assertEquals("Field wasn't retrieved properly", (Object)value, (Object)true);
+        assertEquals("Field wasn't retrieved properly", value, false);
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void setQuizQuestionsTest() throws NoSuchFieldException, IllegalAccessException {
 
     	final Model ModelTestObject= new Model(10,10);
@@ -213,7 +213,8 @@ class ModelTest {
     	ModelTestObject.setQuizQuestions(questions);      
     	final Field field = ModelTestObject.getClass().getDeclaredField("quizQuestions");
     	field.setAccessible(true);
-    	assertEquals("Fields didn't match", field.get(ModelTestObject), true);
+    	final ArrayList<QuizQuestion>getQuest = (ArrayList<QuizQuestion>)field.get(ModelTestObject);
+    	assertEquals("Fields didn't match", getQuest.size(), 1);
     }
 
 
@@ -353,7 +354,6 @@ class ModelTest {
     	Model model = new Model(10, 10); 
     	int oldDist = model.getDistance(); 
     	model.setDistance(model.getDistance() + 1);
-    	System.out.println(oldDist + " " + model.getDistance()); 
     	assertNotEquals(oldDist, model.getDistance()); 
     } 
     @Test

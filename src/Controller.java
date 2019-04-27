@@ -13,7 +13,7 @@ import javax.swing.Timer;
  * @author 10-4
  *
  */
-public class Controller implements KeyListener{
+public class Controller implements KeyListener, ActionListener{
 	/**
 	 * The view for the game
 	 */
@@ -23,9 +23,13 @@ public class Controller implements KeyListener{
 	 */
 	private Model model;
 	/**
-	 * A button for the user to click
+	 * The Osprey button for the user to click
 	 */
-	private JButton button;
+	private JButton Obutton;
+	/**
+	 * The Northern Harrier button for the user to click
+	 */
+	private JButton NHbutton;
 	/**
 	 * Stores the key inputs by the player
 	 */
@@ -41,6 +45,10 @@ public class Controller implements KeyListener{
 	
 	@SuppressWarnings("serial")
 	public Controller() {
+		Obutton = new JButton("Osprey");
+		NHbutton = new JButton("Northern Harrier");
+		Obutton.addActionListener(this);
+		NHbutton.addActionListener(this);
 		view = new View(this);
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		//model.setBirdType(view.selectBirdType());
@@ -57,12 +65,12 @@ public class Controller implements KeyListener{
 	 * Will update game as it progresses and end the game when the nest is reached.
 	 */
 	void start() {
-		EventQueue.invokeLater(new Runnable(){
-			public void run(){
-				Timer t = new Timer(drawDelay, drawAction);
-				t.start();
-			}
-		});
+			EventQueue.invokeLater(new Runnable(){
+				public void run(){
+					Timer t = new Timer(drawDelay, drawAction);
+					t.start();
+				}
+			});
 	}
 	
 	/**
@@ -102,6 +110,23 @@ public class Controller implements KeyListener{
 	 */
 	@Override
 	public void keyTyped(KeyEvent k) {}
+	
+	/**
+	 * Required from ActionListener. Will handle any buttons pressed by the player
+	 * 
+	 * @param e The ActionEvent triggered by the player
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == Obutton) {
+			view.setPanel("O");
+			start();
+		}else if(e.getSource() == NHbutton) {
+			view.setPanel("NH");
+			start();
+		}
+		
+	}
 
 	/**
 	 * @return the view
@@ -132,17 +157,30 @@ public class Controller implements KeyListener{
 	}
 
 	/**
-	 * @return the button
+	 * @return the Obutton
 	 */
-	public JButton getButton() {
-		return button;
+	public JButton getOButton() {
+		return Obutton;
 	}
 
 	/**
-	 * @param button the button to set
+	 * @param button the Obutton to set
 	 */
-	public void setButton(JButton button) {
-		this.button = button;
+	public void setOButton(JButton button) {
+		this.Obutton = button;
+	}
+	/**
+	 * @return the NHbutton
+	 */
+	public JButton getNHButton() {
+		return NHbutton;
+	}
+
+	/**
+	 * @param button the NHbutton to set
+	 */
+	public void setNHButton(JButton button) {
+		this.NHbutton = button;
 	}
 
 	/**

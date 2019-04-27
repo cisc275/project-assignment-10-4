@@ -1,3 +1,6 @@
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
 /**
  * Defines the common attributes and action which all elements that appear 
  * in the game (obstacles, food, Bird, minimap) share
@@ -34,6 +37,9 @@ public class GameElement {
 	 * The current y-axis speed of the GameElement
 	 */
 	protected int ySpeed;
+	
+	protected BufferedImage image;
+	
 	
 	/**
 	 * 
@@ -148,6 +154,22 @@ public class GameElement {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	
+	public void setImage(BufferedImage img) {
+		image = img;
+		setWidth(image.getWidth());
+		setHeight(image.getHeight());
+	}
+	
+	public BufferedImage getImage() {
+		return image;
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(xloc,yloc,width,height);
+	}
+	
+	
 	/**
 	 *
 	 * @return
