@@ -158,11 +158,6 @@ public class Bird extends GameElement implements Serializable{
 		this.stamina = stamina;
 	}
 
-	/**
-	 * @param collided the GameElement bird has collided with
-	 */
-	public void collisionWith(GameElement collided) {
-		// TODO Auto-generated method stub
-		
-	}
+	@Override
+	public void collision(Bird bird) {}
 }

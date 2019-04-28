@@ -201,8 +201,7 @@ public class Model implements Serializable{
 				collided = e;
 			}
 		}
-		//bird.collisionWith(collided);
-		//collided.collision();
+		collided.collision(bird);
 		return collided;
 	}
 
@@ -241,7 +240,7 @@ public class Model implements Serializable{
 		    	  dir = Images.OBSTACLE;
 		    	  ImgPath = dir.getName();
 		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
 		          break;
 		       case 1:
 		    	  dir = Images.MOUSE;
@@ -269,7 +268,7 @@ public class Model implements Serializable{
 			    	  break;
 		       default:
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
 		     }
 		   return newGameElement;
 	}
