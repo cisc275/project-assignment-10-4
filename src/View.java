@@ -9,10 +9,12 @@ import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -314,7 +316,8 @@ public class View extends JPanel implements Serializable{
 
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);	
+			super.paintComponent(g);
+			float alpha = (float) 0.5;
 			g.setColor(Color.blue);
 			try {
 				g.drawImage(background.getBackground1(),background.getB1x(),0,this);
@@ -329,6 +332,11 @@ public class View extends JPanel implements Serializable{
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
+					if (bird.isStunned()) {
+						AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+						Graphics2D gbi = bird.nextFrame().createGraphics();
+						gbi.setComposite(ac);
+					}
 			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
