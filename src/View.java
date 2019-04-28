@@ -61,11 +61,11 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Image for the background
 	 */
-	//private BufferedImage background;
 
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
+    
     
     private Background background;
     
@@ -75,7 +75,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	public View(Controller c) {
 		//this.box = createImage("images/rectangle-icon-256.png");
-		this.thanos = createImage("images/thanosbird.jpg");
+		//this.thanos = createImage("images/big_bird_animate.png");
 		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -106,6 +106,7 @@ public class View extends JPanel implements Serializable{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	
 
 	}
 	
@@ -121,7 +122,7 @@ public class View extends JPanel implements Serializable{
 		this.background = background;	
         this.bird = bird; 
 		if(this.bird.getImage() == null) {
-			this.bird.setImage(thanos);
+			this.bird.setImage(createImage("images/big_bird_animate.png"));
 			//this.bird.setImage(thanos);
 		}
 		this.elements = elements; 
@@ -309,7 +310,7 @@ public class View extends JPanel implements Serializable{
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
-					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), this); 
+			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
 		}
