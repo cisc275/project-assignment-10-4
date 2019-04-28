@@ -44,6 +44,7 @@ public class QuizQuestions implements Serializable{
 			System.err.format("Exception occurred trying to read '%s'.", filename);
 			e.printStackTrace();
 		}
+		newQuestion(); 
 			
 		
 	}

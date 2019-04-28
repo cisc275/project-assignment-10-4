@@ -45,8 +45,7 @@ public abstract class GameElement implements Serializable{
 	protected int ySpeed;
 	
 	protected BufferedImage image;
-	
-	protected boolean specialFood; 
+	 
 	
 	/**
 	 * 
@@ -192,6 +191,6 @@ public abstract class GameElement implements Serializable{
 	public abstract boolean collision(Bird bird);
 	
 	public boolean getSpecialFood() {
-		return this.specialFood; 
+		return false;  
 	}
 }

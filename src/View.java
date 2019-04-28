@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
@@ -97,21 +99,12 @@ public class View extends JPanel implements Serializable{
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);
-		/**
-		 * Quiz Panel stuff
-		 */
-		quizPanel = new DrawPanel(); 
-		quizPanel.setBackground(Color.gray);
-		for (JButton b: c.getQuizButtons()) {
-			b.setFont(buttonFont); 
-			b.setPreferredSize(new Dimension(frameWidth / 2, frameHeight / 8));
-			quizPanel.add(b); 
-		}
+		
 		
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
-		cards.add(quizPanel, "Q"); 
+		//cards.add(quizPanel, "Q"); 
 		frame.add(cards);
 		frame.setFocusable(true);
     	//frame.addMouseListener(c);
@@ -178,8 +171,21 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
-	void displayQuiz(QuizQuestion question) {
-		
+	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		JLabel text = new JLabel(); 
+		Font font = new Font("Verdana", Font.BOLD, frameHeight/50); 
+		text.setText(question.getQuestion());
+		text.setFont(font);
+		text.setPreferredSize(new Dimension(frameWidth / 5, frameHeight / 5));
+		quizPanel.add(text);
+		for (JButton b: buttons) {
+			b.setFont(font); 
+			b.setPreferredSize(new Dimension(frameWidth / 5, frameHeight / 5));
+			quizPanel.add(b); 
+		}
+		cards.add(quizPanel, "Q"); 
 		setPanel("Q"); 
 	}
 	
@@ -340,14 +346,5 @@ public class View extends JPanel implements Serializable{
 		}
 	}
 	
-	public static void main(String[] args) {
-		Controller c = new Controller(); 
-		View view = c.getView(); 
-		List<String> answers = new ArrayList<String>(); 
-		answers.add("fuck"); 
-		answers.add("shit"); 
-		answers.add("bitch"); 
-		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
-	}
 	
 }

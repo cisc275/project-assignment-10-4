@@ -85,7 +85,7 @@ public class Model implements Serializable{
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("images/questions.txt"); 
 		this.background = new Background(frameWidth);
-		
+		this.quizMode = false; 
 		onScreenCollidables = new ArrayList<GameElement>();
 		for (int i = 0; i < 3; i++) {
 			spawnGameElement();
@@ -211,7 +211,7 @@ public class Model implements Serializable{
 				onScreenCollidables.remove(collided);
 			}
 		}
-		if (collided.getSpecialFood()) {
+		if (collided != null && collided.getSpecialFood()) {
 			quizMode = true; 
 		}
 		return collided;
@@ -228,7 +228,15 @@ public class Model implements Serializable{
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
 	 * if the player answered the quiz correctly.
 	 */
-	void endQuiz() {}
+	void endQuiz(String answer) {
+		if (theQuestions.answerQuestion(answer)) {
+			System.out.println("Correct"); 
+		}
+		else {
+			System.out.println("False"); 
+		}
+		quizMode = false; 
+	}
 
 	/**
 	 * @return A GameElement .  Uses the Images Enum to select the path for an image based off 
