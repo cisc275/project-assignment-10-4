@@ -106,38 +106,7 @@ public class Model implements Serializable{
 			spawnCount++;
 		}
 	}
-		/*GameElement obstacle1 = new Obstacle();
-		obstacle1.setXloc(frameWidth + 500);
-		obstacle1.setYloc(0);
-		obstacle1.setxSpeed(10);
-		GameElement obstacle2 = new Obstacle();
-		obstacle2.setXloc(frameWidth + 900);
-		obstacle2.setYloc(0);
-		obstacle2.setxSpeed(10);
-		GameElement obstacle3 = new Obstacle();
-		obstacle3.setXloc(frameWidth + 1300);
-		obstacle3.setYloc(0);
-		obstacle3.setxSpeed(10);
-		//onScreenCollidables.add(obstacle1);
-		//onScreenCollidables.add(obstacle2);
-		//onScreenCollidables.add(obstacle3);
-		
-		GameElement Food1 = new Food(10, true);
-		Food1.setXloc(frameWidth);
-		Food1.setYloc(0);
-		Food1.setxSpeed(10);
-		GameElement Food2 = new Food(10, true);
-		Food2.setXloc(frameWidth - 100);
-		Food2.setYloc(0);
-		Food2.setxSpeed(10);
-		GameElement Food3 = new Food(10, true);
-		Food3.setXloc(frameWidth - 400);
-		Food3.setYloc(0);
-		Food3.setxSpeed(10);
-		//onScreenCollidables.add(Food1);
-		//onScreenCollidables.add(Food2);
-		//onScreenCollidables.add(Food3);    
-		*/
+	
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
@@ -260,7 +229,8 @@ public class Model implements Serializable{
 	
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
-	 * if the player answered the quiz correctly.
+	 * if the player answered the quiz correctly. 
+	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
@@ -450,7 +420,7 @@ public class Model implements Serializable{
 	}
 
 	/**
-	 * @return the quizMode
+	 * @return whether this game is in quiz mode or not 
 	 */
 	public boolean isQuizMode() {
 		return quizMode;
@@ -504,27 +474,39 @@ public class Model implements Serializable{
 	public void setFrameHeight(int frameHeight) {
 		this.frameHeight = frameHeight;
 	}
-
+	/**
+	 * @return the ImgWidth
+	 */
 	public int getImgWidth() {
 		return imgWidth;
 	}
-
+	/**
+	 * @param the imgWidth
+	 */
 	public void setImgWidth(int imgWidth) {
 		this.imgWidth = imgWidth;
 	}
-
+	/**
+	 * @return the ImgHeight
+	 */
 	public int getImgHeight() {
 		return imgHeight;
 	}
-
+	/**
+	 * @param the ImgHeight
+	 */
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
 	}
-	
+	/**
+	 * @return the Background
+	 */
 	public Background getBackground() {
 		return this.background;
 	}
-	
+	/**
+	 * @param the background
+	 */
 	public void setBackground(Background background) {
 		this.background = background;
 	}

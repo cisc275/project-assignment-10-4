@@ -83,7 +83,7 @@ public class View extends JPanel implements Serializable{
     /**
      * The background of the game that is scrolling in when displayed
      */
-    private Background background;
+    private Background background; 
     
 	/**
 	 * View constructor, sets up the frame and its contents
