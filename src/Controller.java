@@ -55,7 +55,7 @@ public class Controller implements KeyListener, ActionListener{
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
     			model.update();
-    			view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap());
+    			view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     		}
     	};
 	}

@@ -60,12 +60,14 @@ public class View extends JPanel{
 	/**
 	 * Image for the background
 	 */
-	private BufferedImage background;
+	//private BufferedImage background;
 
     private BufferedImage box;
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
+    
+    private Background background;
     
 	/**
 	 * View constructor, sets up the frame and its contents
@@ -74,7 +76,7 @@ public class View extends JPanel{
 	public View(Controller c) {
 		this.box = createImage("images/rectangle-icon-256.png");
 		this.thanos = createImage("images/thanosbird.jpg");
-		this.background = createImage("images/big_grass_background.png");
+		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanel = new DrawPanel(); 
@@ -136,8 +138,8 @@ public class View extends JPanel{
 	 * @param miniMap The MiniMap that displays progress
 	 */
 	
-	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap) {
-				
+	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap, Background background) {
+		this.background = background;	
         this.bird = bird; 
 		if(this.bird.getImage() == null) {
 			this.bird.setImage(thanos);
@@ -300,22 +302,23 @@ public class View extends JPanel{
 	/**
 	 * @return the background
 	 */
-	public BufferedImage getViewBackground() {
+	/*public BufferedImage getViewBackground() {
 		return background;
-	}
+	}*/
 
 	/**
 	 * @param background the background to set
 	 */
-	public void setViewBackground(BufferedImage background) {
+	/*public void setViewBackground(BufferedImage background) {
 		this.background = background;
-	}
+	}*/
 
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);	
 			g.setColor(Color.gray);
-			g.drawImage(background,0,0,this);
+			g.drawImage(background.getBackground1(),background.getB1x(),0,this);
+			g.drawImage(background.getBackground2(),background.getB2x(),0,this);
 			if (elements != null) {
 				for (GameElement e: elements) {
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 

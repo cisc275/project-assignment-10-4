@@ -66,6 +66,9 @@ public class Model {
 	 */
 	private int imgHeight;
     
+	private Background background;
+	
+	
 	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
@@ -76,6 +79,8 @@ public class Model {
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("images/questions.txt"); 
+		this.background = new Background(frameWidth);
+		
 		onScreenCollidables = new ArrayList<GameElement>();
 		GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 500);
@@ -119,6 +124,7 @@ public class Model {
 		updateGameElements();
 		updateBackground();
 		updateMiniMap();
+		updateBackground();
 		collisionDetection(); 
 	}
 	/**
@@ -166,7 +172,7 @@ public class Model {
 	 * Updates the background depending on the distance the player has reached.
 	 */
 	void updateBackground() {
-		
+		background.update();
 	}
 	
 	/**
@@ -406,6 +412,14 @@ public class Model {
 
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
+	}
+	
+	public Background getBackground() {
+		return this.background;
+	}
+	
+	public void setBackground(Background background) {
+		this.background = background;
 	}
 	
 }
