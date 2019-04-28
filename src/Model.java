@@ -58,11 +58,7 @@ public class Model implements Serializable{
 	 */
 	private boolean quizMode;	
 	/**
-	 * A list of all the different potential quiz questions
-	 */
-	private List<QuizQuestion>quizQuestions;
-	/**
-	 * 
+	 * Stores the quizquestions
 	 */
 	private QuizQuestions theQuestions; 
 	/**
@@ -379,20 +375,6 @@ public class Model implements Serializable{
 	 */
 	public void setPoints(int points) {
 		this.points = points;
-	}
-
-	/**
-	 * @return the quizQuestions
-	 */
-	public List<QuizQuestion> getQuizQuestions() {
-		return quizQuestions;
-	}
-
-	/**
-	 * @param quizQuestions the quizQuestions to set
-	 */
-	public void setQuizQuestions(List<QuizQuestion> quizQuestions) {
-		this.quizQuestions = quizQuestions;
 	}
 
 	/**
