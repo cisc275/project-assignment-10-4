@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.*;
+import java.lang.System;
 
 /**
  * Contains the different components of the bird game. As the game updates, 
@@ -10,6 +11,8 @@ import java.util.*;
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
+	private static final int SPAWN_TIME_MAX = 100;
+	private static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
 	 */
@@ -73,6 +76,13 @@ public class Model implements Serializable{
     
 	private Background background;
 	
+	private Random rand;
+	
+	private int spawnCount;
+	
+	private int spawnTimer;
+	
+	private int timeToSpawn;
 	
 	/**
 	 * Model constructor, sets up frame dimensions
@@ -86,9 +96,14 @@ public class Model implements Serializable{
 		theQuestions = new QuizQuestions("images/questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
+		rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
+		spawnCount = 0;
+		spawnTimer = 0;
+		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
 		for (int i = 0; i < 3; i++) {
-			spawnGameElement();
+			spawnCount++;
 		}
 	}
 		/*GameElement obstacle1 = new Obstacle();
@@ -134,8 +149,26 @@ public class Model implements Serializable{
 		updateBackground();
 		updateMiniMap();
 		updateBackground();
-		collisionDetection(); 
+		collisionDetection();
+		updateSpawnTimer();
 	}
+	
+	/**
+	 * Ticks the spawn timer if needed to introduce a random delay to the Element spawner,
+	 * calling spawnGameElement when needed
+	 */
+	private void updateSpawnTimer() {
+		if (spawnCount > 0) {
+			spawnTimer++;
+			if (spawnTimer == timeToSpawn) {
+				spawnCount--;
+				spawnGameElement();
+				timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+				spawnTimer = 0;
+			}
+		}
+	}
+
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
@@ -173,7 +206,7 @@ public class Model implements Serializable{
 			}
 		}
 		for (int i = 0; i < size; i++) {
-			spawnGameElement(); 
+			spawnCount++; 
 		}
 	}
 	
@@ -209,6 +242,10 @@ public class Model implements Serializable{
 			System.out.println("Stamina is: " + bird.getStamina());
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
+				spawnCount++;
+			}
+			if (collided.getSpecialFood()) {
+				quizMode = true; 
 			}
 		}
 		if (collided != null && collided.getSpecialFood()) {
@@ -293,11 +330,10 @@ public class Model implements Serializable{
 		   return newGameElement;
 	}
 	/**
-	 * Spawns new collidables periodically.
+	 * Spawns new collidable immediately
 	 */
 	void spawnGameElement() {
-		
-		onScreenCollidables.add(generateImgPath() );
+		onScreenCollidables.add(generateImgPath());
 	}
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
