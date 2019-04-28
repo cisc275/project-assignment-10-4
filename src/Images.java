@@ -7,8 +7,10 @@
 public enum Images {
 
 	OBSTACLE("images/building.png"),
-	FOOD("images/normal_mouse.png"), 
-	RECTANGLE("images/rectangle-icon-256.png");
+	MOUSE("images/normal_mouse.png"), 
+	GOLDENFISH("images/golden_fish.png"),
+	FISH("images/normal_fish.png"),
+	GOLDENMOUSE("images/golden_mouse.png");
 	
 		
 	private Images(String s){

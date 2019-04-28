@@ -228,11 +228,12 @@ public class Model implements Serializable{
 		int x = frameWidth;
 		int y;
 		Random randLoc = new Random();
-		int curImage = randImg.nextInt(2);
+		int curImage = randImg.nextInt(5);
 		String ImgPath = "";
 		Images dir;
 		int xSpeed = 10;
 		int ySpeed = 0; 
+		
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
@@ -242,11 +243,29 @@ public class Model implements Serializable{
 		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
 		          break;
 		       case 1:
-		    	  dir = Images.FOOD;
+		    	  dir = Images.MOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
 		    	  break;
+		       case 2:
+			    	  dir = Images.GOLDENFISH;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
+		       case 3:
+			    	  dir = Images.FISH;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
+		       case 4:
+			    	  dir = Images.GOLDENMOUSE;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
 		       default:
 		    	  y = randLoc.nextInt(frameHeight);
 		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
