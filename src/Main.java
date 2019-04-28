@@ -16,8 +16,8 @@ public class Main implements Serializable{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		Controller c = new Controller();
+		//@SuppressWarnings("unused")
+		//Controller c = new Controller();
 	}
 
 }
