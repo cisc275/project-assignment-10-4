@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
@@ -44,6 +45,10 @@ public class View extends JPanel{
 	 * The panel that will be drawn on to display the Northern Harrier game
 	 */
 	private DrawPanel NHPanel;
+	/**
+	 * The panel that will be on display when the quiz starts 
+	 */
+	private DrawPanel quizPanel; 
 	/**
 	 * The deck of panels
 	 */
@@ -93,6 +98,17 @@ public class View extends JPanel{
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);
+		/**
+		 * Quiz Panel stuff
+		 */
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		for (JButton b: c.getQuizButtons()) {
+			b.setFont(buttonFont); 
+			b.setPreferredSize(new Dimension(frameWidth / 2, frameHeight / 8));
+			quizPanel.add(b); 
+		}
+		cards.add(quizPanel, "Q"); 
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
@@ -161,7 +177,10 @@ public class View extends JPanel{
 	/**
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
-	void displayQuiz() {}
+	void displayQuiz(QuizQuestion question) {
+		
+		setPanel("Q"); 
+	}
 	
 	/**
 	 * Handles the animation for the bird landing in the nest when the player reaches
@@ -319,24 +338,15 @@ public class View extends JPanel{
 			return new Dimension(frameWidth, frameHeight); 
 		}
 	}
-	/**
+	
 	public static void main(String[] args) {
-		View view = new View(new Controller()); 
-		List<GameElement> theElements = new ArrayList<GameElement>();
-		GameElement g1 = new GameElement(); 
-		g1.setXloc(800); 
-		g1.setYloc(666); 
-		GameElement g2= new GameElement(); 
-		g2.setXloc(1500); 
-		g2.setYloc(250); 
-		theElements.add(g2); 
-		theElements.add(g1);
-		Bird b = new Bird(); 
-		b.setXloc(1500); 
-		b.setYloc(666); 
-		view.updateView(b,theElements, null); 
-		
-		
+		Controller c = new Controller(); 
+		View view = c.getView(); 
+		List<String> answers = new ArrayList<String>(); 
+		answers.add("fuck"); 
+		answers.add("shit"); 
+		answers.add("bitch"); 
+		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
 	}
-	**/ 
+	
 }

@@ -6,6 +6,8 @@ import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import java.io.*;
+import java.util.List; 
+import java.util.ArrayList; 
 
 /**
  * Handles the flow of the game and passes information between the model and view.
@@ -32,6 +34,10 @@ public class Controller implements KeyListener, ActionListener{
 	 */
 	private JButton NHbutton;
 	/**
+	 * The list of answer buttons for the quiz
+	 */
+	private List<JButton> quizButtons; 
+	/**
 	 * Stores the key inputs by the player
 	 */
 	private KeyEvent keyInputs;
@@ -39,6 +45,10 @@ public class Controller implements KeyListener, ActionListener{
 	 * Holds the Action code
 	 */
 	Action drawAction;
+	/**
+	 * Action for answering a quiz question
+	 */
+	Action quizAnswer; 
 	/**
 	 * Time between draw events
 	 */
@@ -50,15 +60,30 @@ public class Controller implements KeyListener, ActionListener{
 		NHbutton = new JButton("Northern Harrier");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
+		quizAnswer = new AbstractAction() {
+    		public void actionPerformed(ActionEvent e) {
+    			System.out.println("Button Pressed"); 
+    		}
+    	}; 
+    	quizButtons = new ArrayList<JButton>(); 
+    	for (int i = 0; i < 4; i++) {
+    		JButton next = new JButton("Button"); 
+    		next.addActionListener(quizAnswer); 
+    		quizButtons.add(next); 
+    	}
 		view = new View(this);
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
+		
 		//model.setBirdType(view.selectBirdType());
+		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
     			model.update();
     			view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     		}
     	};
+    	
+    	
 	}
 	
 	/**
@@ -196,5 +221,11 @@ public class Controller implements KeyListener, ActionListener{
 	 */
 	public void setKeyInputs(KeyEvent keyInputs) {
 		this.keyInputs = keyInputs;
+	}
+	/**
+	 * @return the quizButtons
+	 */
+	public List<JButton> getQuizButtons(){
+		return this.quizButtons; 
 	}
 }
