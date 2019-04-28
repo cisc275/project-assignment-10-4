@@ -113,7 +113,7 @@ class ModelTest {
 		final Field field = ModelTestObject.getClass().getDeclaredField("onScreenCollidables");
         field.setAccessible(true);
         //field.get(ModelTestObject).add(new Obstacle(0,0,0,0,"images/building.png") );
-        Obstacle obstacle = new Obstacle(0,0,0,0,"images/building.png");
+        Obstacle obstacle = new Obstacle(1,0,0,0,0,"images/building.png");
         ModelTestObject.getOnScreenCollidables().add(obstacle);
         assertEquals(obstacle, ModelTestObject.collisionDetection());
 	}
