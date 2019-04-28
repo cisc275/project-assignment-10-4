@@ -316,12 +316,13 @@ public class View extends JPanel implements Serializable{
 
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
 			float alpha = (float) 0.5;
-			g.setColor(Color.blue);
+			g2d.setColor(Color.blue);
 			try {
-				g.drawImage(background.getBackground1(),background.getB1x(),0,this);
-				g.drawImage(background.getBackground2(),background.getB2x(),0,this);
+				g2d.drawImage(background.getBackground1(),background.getB1x(),0,this);
+				g2d.drawImage(background.getBackground2(),background.getB2x(),0,this);
 			}
 			catch(NullPointerException e) {
 				
@@ -329,15 +330,14 @@ public class View extends JPanel implements Serializable{
 			
 			if (elements != null) {
 				for (GameElement e: elements) {
-					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
+					g2d.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
 					if (bird.isStunned()) {
 						AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
-						Graphics2D gbi = bird.nextFrame().createGraphics();
-						gbi.setComposite(ac);
+						g2d.setComposite(ac);
 					}
-			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
+			    	g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
 		}
@@ -351,9 +351,9 @@ public class View extends JPanel implements Serializable{
 		Controller c = new Controller(); 
 		View view = c.getView(); 
 		List<String> answers = new ArrayList<String>(); 
-		answers.add("fuck"); 
-		answers.add("shit"); 
-		answers.add("bitch"); 
+		answers.add("landon"); 
+		answers.add("is"); 
+		answers.add("a sinner"); 
 		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
 	}
 	
