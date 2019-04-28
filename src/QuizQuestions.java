@@ -2,9 +2,20 @@ import java.util.*;
 import java.io.*;
 @SuppressWarnings("serial")
 public class QuizQuestions implements Serializable{
-	private List<QuizQuestion> unusedQuestions; 
+	/**
+	 * A list of the unused QuizQuestions
+	 */
+	private List<QuizQuestion> unusedQuestions;
+	/**
+	 * The current question of the game
+	 */
 	private QuizQuestion current;
-
+	
+	/**
+	 * 
+	 * @param filename: the file that stores all of the quiz questions
+	 * The file format is question, answers, and correct all on separate lines
+	 */
 	public QuizQuestions(String filename) {
 		this.unusedQuestions = new ArrayList<QuizQuestion>();
 		this.current = null; 
@@ -48,22 +59,41 @@ public class QuizQuestions implements Serializable{
 			
 		
 	}
-	
+	/**
+	 * Gets a newQuestion from the list
+	 */
 	public void newQuestion() {
 		QuizQuestion result = unusedQuestions.get(0);
 		unusedQuestions.remove(result); 
 		current = result; 
 	}
+	/**
+	 * 
+	 * @return an int of the number of questions remaining
+	 */
 	public int questionsRemaining() {
 		return this.unusedQuestions.size(); 
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return this.unusedQuestions.toString(); 
 	}
+	/**
+	 * 
+	 * @return the current QuizQuestion
+	 */
 	public QuizQuestion getCurrent() {
 		return this.current; 
 	}
+	/**
+	 * 
+	 * @param answer: a String representing the user's answer
+	 * @return true if the answer is correct and false is the 
+	 * answer is incorrect. 
+	 */
 	public boolean answerQuestion(String answer) {
 		boolean result = this.current.getCorrectAnswer().equals(answer); 
 		if (result) {
