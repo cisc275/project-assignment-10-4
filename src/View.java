@@ -142,7 +142,10 @@ public class View extends JPanel implements Serializable{
 		}
 		this.elements = elements; 
 		
-		for(GameElement e : elements) {
+		Iterator<GameElement> it = this.elements.iterator();	
+		GameElement e;
+		while(it.hasNext()) {
+			e = it.next();
 			if(e.getImage() == null) {
 				e.setImage(createImage(e.getImagePath()));
 			}                            
