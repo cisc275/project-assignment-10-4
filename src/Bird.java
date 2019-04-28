@@ -140,5 +140,7 @@ public class Bird extends GameElement implements Serializable{
 	}
 
 	@Override
-	public void collision(Bird bird) {}
+	public boolean collision(Bird bird) {
+		return false;
+	}
 }

@@ -201,7 +201,13 @@ public class Model implements Serializable{
 				collided = e;
 			}
 		}
-		collided.collision(bird);
+		if (collided != null) {
+			boolean shouldRemove = collided.collision(bird);
+			System.out.println("Stamina is: " + bird.getStamina());
+			if (shouldRemove) {
+				onScreenCollidables.remove(collided);
+			}
+		}
 		return collided;
 	}
 

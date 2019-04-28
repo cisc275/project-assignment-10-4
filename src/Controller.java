@@ -81,7 +81,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyPressed(KeyEvent k) {
-		System.out.println("A key has been pressed.");
+		//System.out.println("A key has been pressed.");
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
 			model.getBird().setDirection(1);
 		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -96,7 +96,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyReleased(KeyEvent k) {
-		System.out.println("A key has been pressed.");
+		//System.out.println("A key has been pressed.");
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
 			model.getBird().setDirection(0);
 		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {

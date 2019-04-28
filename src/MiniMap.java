@@ -64,5 +64,7 @@ public class MiniMap extends GameElement implements Serializable{
 		this.mapSpriteFile = mapSpriteFile;
 	}
 	@Override
-	public void collision(Bird bird) {}
+	public boolean collision(Bird bird) {
+		return false;
+	}
 }

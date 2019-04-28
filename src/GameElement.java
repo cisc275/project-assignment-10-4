@@ -185,6 +185,7 @@ public abstract class GameElement implements Serializable{
 	
 	/**
 	 * Basic collision behavior handler. Called whenever the GE runs into the Bird.
+	 * @return boolean indicates if the GameElement should be removed from screen
 	 */
-	public abstract void collision(Bird bird);
+	public abstract boolean collision(Bird bird);
 }
