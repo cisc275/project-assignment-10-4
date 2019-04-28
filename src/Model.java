@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -7,7 +8,8 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class Model {
+@SuppressWarnings("serial")
+public class Model implements Serializable{
 	/**
 	 * The Bird the player will control
 	 */
@@ -75,7 +77,7 @@ public class Model {
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth,int frameHeight) {
-		bird = new Bird();
+		bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("images/questions.txt"); 
@@ -199,8 +201,13 @@ public class Model {
 				collided = e;
 			}
 		}
-		//bird.collisionWith(collided);
-		//collided.collision();
+		if (collided != null) {
+			boolean shouldRemove = collided.collision(bird);
+			System.out.println("Stamina is: " + bird.getStamina());
+			if (shouldRemove) {
+				onScreenCollidables.remove(collided);
+			}
+		}
 		return collided;
 	}
 
@@ -227,28 +234,47 @@ public class Model {
 		int x = frameWidth;
 		int y;
 		Random randLoc = new Random();
-		int curImage = randImg.nextInt(2);
+		int curImage = randImg.nextInt(5);
 		String ImgPath = "";
 		Images dir;
 		int xSpeed = 10;
 		int ySpeed = 0; 
+		
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
 		    	  dir = Images.OBSTACLE;
 		    	  ImgPath = dir.getName();
 		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
 		          break;
 		       case 1:
-		    	  dir = Images.FOOD;
+		    	  dir = Images.MOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
 		    	  break;
+		       case 2:
+			    	  dir = Images.GOLDENFISH;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
+		       case 3:
+			    	  dir = Images.FISH;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
+		       case 4:
+			    	  dir = Images.GOLDENMOUSE;
+			    	  ImgPath = dir.getName();
+			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			    	  break;
 		       default:
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
 		     }
 		   return newGameElement;
 	}

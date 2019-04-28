@@ -8,7 +8,8 @@ import java.io.*;
  * @author jhdavis
  *
  */
-public class Main {
+@SuppressWarnings("serial")
+public class Main implements Serializable{
 
 	/**
 	 * Makes a controller and calls its start fxn

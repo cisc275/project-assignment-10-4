@@ -2,13 +2,13 @@ import java.util.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -27,7 +27,7 @@ import java.awt.Font;
  */
 
 @SuppressWarnings("serial")
-public class View extends JPanel{
+public class View extends JPanel implements Serializable{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game
@@ -66,12 +66,11 @@ public class View extends JPanel{
 	/**
 	 * Image for the background
 	 */
-	//private BufferedImage background;
 
-    private BufferedImage box;
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
+    
     
     private Background background;
     
@@ -80,8 +79,8 @@ public class View extends JPanel{
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c) {
-		this.box = createImage("images/rectangle-icon-256.png");
-		this.thanos = createImage("images/thanosbird.jpg");
+		//this.box = createImage("images/rectangle-icon-256.png");
+		//this.thanos = createImage("images/big_bird_animate.png");
 		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -123,6 +122,7 @@ public class View extends JPanel{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	
 
 	}
 	
@@ -138,7 +138,7 @@ public class View extends JPanel{
 		this.background = background;	
         this.bird = bird; 
 		if(this.bird.getImage() == null) {
-			this.bird.setImage(thanos);
+			this.bird.setImage(createImage("images/big_bird_animate.png"));
 			//this.bird.setImage(thanos);
 		}
 		this.elements = elements; 
@@ -329,7 +329,7 @@ public class View extends JPanel{
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
-					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), this); 
+			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
 		}

@@ -5,7 +5,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.io.*;
 
-public class Background {
+@SuppressWarnings("serial")
+public class Background implements Serializable{
 	private BufferedImage background1;
 	private BufferedImage background2;
 	private int b1x;

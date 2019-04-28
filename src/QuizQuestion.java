@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -7,7 +8,8 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class QuizQuestion {
+@SuppressWarnings("serial")
+public class QuizQuestion implements Serializable{
 	/**
 	 * An int that stores the index of the correct answer
 	 */

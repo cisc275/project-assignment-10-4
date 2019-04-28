@@ -6,7 +6,8 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Food extends GameElement implements Collidable{
+@SuppressWarnings("serial")
+public class Food extends GameElement implements Serializable{
 	/**
 	 * The int value of the stamina increase the bird receives from consuming the food
 	 */
@@ -24,26 +25,30 @@ public class Food extends GameElement implements Collidable{
 	/**
 	 * Constructor for food
 	 */
-	
-	public Food(int val, boolean special) {
+	public Food(int val, boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath) {
+	    super(x, y, xSpeed, ySpeed, imagePath);
 		staminaValue = val;
 		specialFood = special;
 		eaten = false;
+		xloc = x; 
+		yloc = y; 
+		this.xSpeed = xSpeed; 
+		this.ySpeed = ySpeed; 
+		this.imagePath = imagePath;
 	}
+	
+	@Override
+	public boolean collision(Bird bird) {
+		bird.setStamina(bird.getStamina()+staminaValue);
+		return true;
+	}
+	
 	/**
 	 * Once the bird has had contact with the food then the food will no longer be visible
 	 */
 	void eaten() {
 		eaten = true;
 	}
-	/**
-	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of food 
-	 * is off the screen, returns false otherwise
-	 */
-	@Override
-	public boolean isOffScreen() {
-		return ((getXloc()+getWidth()) < 0);
-	}	
 	
 	/**
 	 * @return the staminaValue
@@ -81,4 +86,5 @@ public class Food extends GameElement implements Collidable{
 	public void setEaten(boolean eaten) {
 		this.eaten = eaten;
 	}
+	
 }

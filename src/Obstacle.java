@@ -5,13 +5,18 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Obstacle extends GameElement implements Collidable{
-	/**
-	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of an 
-	 * Obstacle is off the screen, returns false otherwise
-	 */
+@SuppressWarnings("serial")
+public class Obstacle extends GameElement implements Serializable{
+	int staminaValue;
+	
+	public Obstacle(int staminaValue, int x, int y, int xSpeed, int ySpeed, String imagePath) {
+		super(x, y, xSpeed, ySpeed, imagePath);
+		this.staminaValue = staminaValue;
+	}
+
 	@Override
-	public boolean isOffScreen() {
-		return ((getXloc()+getWidth()) < 0);
+	public boolean collision(Bird bird) {
+		bird.setStamina(bird.getStamina()-staminaValue);
+		return false;
 	}
 }

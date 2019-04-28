@@ -13,12 +13,12 @@ class ModelTest {
 	@Test
 	void updateTest() {
 		Model m = new Model(500,500);
-		Bird b = new Bird();
+		Bird b = new Bird(0,0,0,0,"");
 		b.setYloc(280);
 		m.setBird(b);
 		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 =  new GameElement(100,100,1,0);
-		GameElement gOffScreen =  new GameElement(-10,100,1,0);
+		GameElement g1 =  new Obstacle(1,100,100,1,0,"");
+		GameElement gOffScreen =  new Obstacle(1,-10,100,1,0,"");
 		gOffScreen.setWidth(10);
 		list.add(gOffScreen);
 		list.add(g1);
@@ -27,9 +27,9 @@ class ModelTest {
 		
 		Model model2 = new Model(10,10);
 		List<GameElement> list2 = new ArrayList<GameElement>();
-		GameElement g12 =  new GameElement(99,100,1,0);
+		GameElement g12 =  new Obstacle(1,99,100,1,0,"");
 		list2.add(g12);
-		GameElement rand = new GameElement(10,10,1,1);
+		GameElement rand = new Obstacle(1,10,10,1,1,"");
 		list2.add(rand);
 		model2.setOnScreenElements(list2);
 		
@@ -66,8 +66,8 @@ class ModelTest {
 	void updateGameElementsTest() {
 		Model model = new Model(10,10);
 		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 =  new GameElement(100,100,1,0);
-		GameElement gOffScreen =  new GameElement(-10,100,1,0);
+		GameElement g1 =  new Obstacle(1,100,100,1,0,"");
+		GameElement gOffScreen =  new Obstacle(1,-10,100,1,0,"");
 		gOffScreen.setWidth(10);
 		list.add(gOffScreen);
 		list.add(g1);
@@ -76,9 +76,9 @@ class ModelTest {
 		
 		Model model2 = new Model(10,10);
 		List<GameElement> list2 = new ArrayList<GameElement>();
-		GameElement g12 =  new GameElement(99,100,1,0);
+		GameElement g12 =  new Obstacle(1,99,100,1,0,"");
 		list2.add(g12);
-		GameElement rand = new GameElement(10,10,1,1);
+		GameElement rand = new Obstacle(1,10,10,1,1,"");
 		list2.add(rand);
 		model2.setOnScreenElements(list2);
 		
@@ -326,7 +326,7 @@ class ModelTest {
     public void setBirdTest() {
     	Model model = new Model(1000, 1000); 
     	Bird old = model.getBird(); 
-    	model.setBird(new Bird()); 
+    	model.setBird(new Bird(0,0,0,0,"")); 
     	assertNotEquals(old, model.getBird());
     } 
     @Test
@@ -345,7 +345,7 @@ class ModelTest {
     	Model model = new Model(100, 100); 
     	int oldCollides = model.getOnScreenCollidables().size(); 
     	List<GameElement> newCollides = model.getOnScreenCollidables(); 
-    	newCollides.add(new Bird()); 
+    	newCollides.add(new Bird(0,0,0,0,"")); 
     	model.setOnScreenElements(model.getOnScreenCollidables());
     	assertNotEquals(oldCollides, model.getOnScreenCollidables().size()); 
     } 
@@ -375,7 +375,7 @@ class ModelTest {
     	Model model = new Model(10,10); 
     	MiniMap old = model.getMiniMap(); 
     	assertEquals(model.getMiniMap(), null); 
-    	model.setMiniMap(new MiniMap());
+    	model.setMiniMap(new MiniMap(0,0,0,0,""));
     	assertNotEquals(old, model.getMiniMap()); 
     }
 

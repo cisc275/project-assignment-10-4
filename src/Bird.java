@@ -8,7 +8,8 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Bird extends GameElement{
+@SuppressWarnings("serial")
+public class Bird extends GameElement implements Serializable{
 	/**
 	 * An int representing the birds speed
 	 */
@@ -37,7 +38,14 @@ public class Bird extends GameElement{
 	 * A constructor which initialises 7 attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
-	public Bird() {
+    
+    BufferedImage[] pics;
+    private int frameCount = 4;
+    private int frameNum = 0;
+    
+    
+	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+		super(x, y, xSpeed, ySpeed, imagePath);
 		setXloc(10);
 		setYloc(500);
 		direction = 0;
@@ -45,6 +53,7 @@ public class Bird extends GameElement{
 		setySpeed(10);
 		setHeight(224);
 		setWidth(224);
+		pics = new BufferedImage[frameCount];
 	}
 	
 	/**
@@ -55,6 +64,13 @@ public class Bird extends GameElement{
 	void updatePosition(){
 		setXloc(getXloc()+getxSpeed());
 		setYloc(getYloc()+(getySpeed()*(-1)*direction));		
+	}
+	
+	public BufferedImage nextFrame() {
+		int currentFrame = frameNum;
+		frameNum = (frameNum+1)%frameCount;
+		return pics[currentFrame];
+		
 	}
 	
 	/**
@@ -119,8 +135,13 @@ public class Bird extends GameElement{
 	/**
 	 * @param image the BufferedImage to set
 	 */
+	@Override
 	public void setImage(BufferedImage image) {
 		this.image = image;
+		this.width = image.getWidth()/4;
+		this.height = image.getHeight();
+		for(int i = 0; i < frameCount; i++)
+    		pics[i] = image.getSubimage(this.width*i, 0, this.width, this.height);
 	}
 
 	/**
@@ -137,11 +158,8 @@ public class Bird extends GameElement{
 		this.stamina = stamina;
 	}
 
-	/**
-	 * @param collided the GameElement bird has collided with
-	 */
-	public void collisionWith(GameElement collided) {
-		// TODO Auto-generated method stub
-		
+	@Override
+	public boolean collision(Bird bird) {
+		return false;
 	}
 }
