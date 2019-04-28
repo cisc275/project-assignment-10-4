@@ -25,13 +25,18 @@ public class Food extends GameElement implements Collidable, Serializable{
 	/**
 	 * Constructor for food
 	 */
-	
-	public Food(int x, int y, int xSpeed, int ySpeed, String imagePath, int val, boolean special) {
-		super(x, y, xSpeed, ySpeed, imagePath);
+	public Food(int val, boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath) {
+	        super(x, y, xSpeed, ySpeed, imagePath);
 		staminaValue = val;
 		specialFood = special;
 		eaten = false;
-	}
+		xloc = x; 
+		yloc = y; 
+		this.xSpeed = xSpeed; 
+		this.ySpeed = ySpeed; 
+		this.imagePath = imagePath;
+}
+	
 	/**
 	 * Once the bird has had contact with the food then the food will no longer be visible
 	 */
