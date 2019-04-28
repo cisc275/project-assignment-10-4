@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -80,7 +81,7 @@ public class View extends JPanel{
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanel = new DrawPanel(); 
-		buttonPanel.setBackground(Color.pink);
+		buttonPanel.setBackground(Color.gray);
 		buttonFont = new Font("Verdana", Font.BOLD, frameHeight/6);
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
@@ -89,9 +90,9 @@ public class View extends JPanel{
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
     	OPanel = new DrawPanel(); 
-		OPanel.setBackground(Color.pink);
+		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
-		NHPanel.setBackground(Color.pink);
+		NHPanel.setBackground(Color.gray);
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
@@ -295,9 +296,15 @@ public class View extends JPanel{
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);	
-			g.setColor(Color.gray);
-			g.drawImage(background.getBackground1(),background.getB1x(),0,this);
-			g.drawImage(background.getBackground2(),background.getB2x(),0,this);
+			g.setColor(Color.blue);
+			try {
+				g.drawImage(background.getBackground1(),background.getB1x(),0,this);
+				g.drawImage(background.getBackground2(),background.getB2x(),0,this);
+			}
+			catch(NullPointerException e) {
+				
+			}
+			
 			if (elements != null) {
 				for (GameElement e: elements) {
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
