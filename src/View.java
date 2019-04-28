@@ -107,10 +107,11 @@ public class View extends JPanel implements Serializable{
 			b.setPreferredSize(new Dimension(frameWidth / 2, frameHeight / 8));
 			quizPanel.add(b); 
 		}
-		cards.add(quizPanel, "Q"); 
+		
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
+		cards.add(quizPanel, "Q"); 
 		frame.add(cards);
 		frame.setFocusable(true);
     	//frame.addMouseListener(c);
