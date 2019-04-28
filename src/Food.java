@@ -35,7 +35,12 @@ public class Food extends GameElement implements Serializable{
 		this.xSpeed = xSpeed; 
 		this.ySpeed = ySpeed; 
 		this.imagePath = imagePath;
-}
+	}
+	
+	@Override
+	public void collision(Bird bird) {
+		bird.setStamina(bird.getStamina()+staminaValue);
+	}
 	
 	/**
 	 * Once the bird has had contact with the food then the food will no longer be visible
@@ -80,4 +85,5 @@ public class Food extends GameElement implements Serializable{
 	public void setEaten(boolean eaten) {
 		this.eaten = eaten;
 	}
+	
 }
