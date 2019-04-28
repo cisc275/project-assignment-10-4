@@ -8,6 +8,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
 	 * An int representing the birds speed

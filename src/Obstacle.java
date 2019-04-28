@@ -5,6 +5,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class Obstacle extends GameElement implements Collidable, Serializable{
 	/**
 	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of an 

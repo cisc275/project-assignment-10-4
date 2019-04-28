@@ -8,6 +8,7 @@ import java.util.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class Model implements Serializable{
 	/**
 	 * The Bird the player will control

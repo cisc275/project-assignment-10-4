@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class GameElement implements Serializable{
 	/**
 	 * The path of the image this GameElement

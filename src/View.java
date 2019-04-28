@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -64,7 +63,6 @@ public class View extends JPanel implements Serializable{
 	 */
 	//private BufferedImage background;
 
-    private BufferedImage box;
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
@@ -76,7 +74,7 @@ public class View extends JPanel implements Serializable{
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c) {
-		this.box = createImage("images/rectangle-icon-256.png");
+		//this.box = createImage("images/rectangle-icon-256.png");
 		this.thanos = createImage("images/thanosbird.jpg");
 		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
