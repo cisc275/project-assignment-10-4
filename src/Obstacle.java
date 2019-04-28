@@ -1,3 +1,4 @@
+import java.io.*;
 /**
  * An obstacle is a GameElement which the bird must try an avoid
  * 

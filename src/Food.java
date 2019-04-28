@@ -1,3 +1,4 @@
+import java.io.*;
 /**
  * In the game food has the property that when it is consumed by the bird, it adds stamina and if it is a
  * special piece of food it gives the bird a powerup.
