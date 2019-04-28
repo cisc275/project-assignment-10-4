@@ -114,11 +114,11 @@ class ModelTest {
 		final Field field = model.getClass().getDeclaredField("onScreenCollidables");
         field.setAccessible(true);
         //field.get(model).add(new Obstacle(0,0,0,0,"images/building.png") );
-        Obstacle obstacle = new Obstacle(1,10,500,100,100,"images/building.png");
+        Obstacle obstacle = new Obstacle(1,10,500,0,0,"images/building.png");
+        obstacle.setWidth(100);
+        obstacle.setHeight(100);
         model.getOnScreenCollidables().add(obstacle);
         model.updateBird();
-        System.out.println(obstacle.getBounds());
-        System.out.println(model.getBird().getBounds());
         assertEquals(obstacle, model.collisionDetection());
 	}
 	
@@ -136,16 +136,11 @@ class ModelTest {
 	void endQuizTest() {
 		Model model = new Model(10,10); 
 		model.startQuiz(); 
-		model.endQuiz(); 
+		model.endQuiz(""); 
 		assertFalse(model.isBirdMode());
 		assertFalse(model.isQuizMode()); 
 	}
-	/** No longer a method
-	@Test
-	void spawnCollidablesTest() {
-		fail("Not yet implemented");
-	}
-	**/ 
+
 	@Test
 	void enterNestTest() {
 		Model model = new Model(10, 10);
