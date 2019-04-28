@@ -82,7 +82,11 @@ public class Model {
 		this.background = new Background(frameWidth);
 		
 		onScreenCollidables = new ArrayList<GameElement>();
-		GameElement obstacle1 = new Obstacle();
+		for (int i = 0; i < 3; i++) {
+			spawnGameElement();
+		}
+	}
+		/*GameElement obstacle1 = new Obstacle();
 		obstacle1.setXloc(frameWidth + 500);
 		obstacle1.setYloc(0);
 		obstacle1.setxSpeed(10);
@@ -110,10 +114,10 @@ public class Model {
 		Food3.setXloc(frameWidth - 400);
 		Food3.setYloc(0);
 		Food3.setxSpeed(10);
-		onScreenCollidables.add(Food1);
-		onScreenCollidables.add(Food2);
-		onScreenCollidables.add(Food3);             
-	}
+		//onScreenCollidables.add(Food1);
+		//onScreenCollidables.add(Food2);
+		//onScreenCollidables.add(Food3);    
+		*/
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
@@ -212,18 +216,48 @@ public class Model {
 	 * if the player answered the quiz correctly.
 	 */
 	void endQuiz() {}
-	
+
+	/**
+	 * @return A GameElement .  Uses the Images Enum to select the path for an image based off 
+	 * a random number.  And depending on which type of image it is, it will generate its starting position 
+	 * appropriately.
+	 */
+	GameElement generateImgPath() {
+		Random randImg = new Random(); 
+		int x = frameWidth;
+		int y;
+		Random randLoc = new Random();
+		int curImage = randImg.nextInt(2);
+		String ImgPath = "";
+		Images dir;
+		int xSpeed = 10;
+		int ySpeed = 0; 
+		GameElement newGameElement; 
+		     switch (curImage) {
+		       case 0:
+		    	  dir = Images.OBSTACLE;
+		    	  ImgPath = dir.getName();
+		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
+		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		          break;
+		       case 1:
+		    	  dir = Images.FOOD;
+		    	  ImgPath = dir.getName();
+		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,ImgPath);
+		    	  break;
+		       default:
+		    	  y = randLoc.nextInt(frameHeight);
+		    	  newGameElement = new GameElement(x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
+		     }
+		   return newGameElement;
+	}
 	/**
 	 * Spawns new collidables periodically.
 	 */
 	void spawnGameElement() {
-		Random rand = new Random(); 
-		int x = frameWidth; 
-		int y = rand.nextInt(frameHeight);	
-		int xSpeed = 10;
-		int ySpeed = 0; 
 		
-		onScreenCollidables.add(new GameElement(x, y, xSpeed, ySpeed)); 
+		onScreenCollidables.add(generateImgPath() );
 	}
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
