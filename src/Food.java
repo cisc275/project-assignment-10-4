@@ -6,6 +6,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class Food extends GameElement implements Collidable, Serializable{
 	/**
 	 * The int value of the stamina increase the bird receives from consuming the food

@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.awt.image.BufferedImage;
 
 import org.junit.jupiter.api.Test;
-import java.io.*;
 
 /**
  * Handles all unit tests of View class

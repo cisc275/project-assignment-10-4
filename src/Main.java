@@ -8,6 +8,7 @@ import java.io.*;
  * @author jhdavis
  *
  */
+@SuppressWarnings("serial")
 public class Main implements Serializable{
 
 	/**

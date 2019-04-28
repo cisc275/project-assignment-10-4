@@ -14,6 +14,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * The view for the game
@@ -44,7 +45,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	final int drawDelay = 30;
 	
-	@SuppressWarnings("serial")
 	public Controller() {
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");

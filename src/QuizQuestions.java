@@ -1,5 +1,6 @@
 import java.util.*; 
 import java.io.*;
+@SuppressWarnings("serial")
 public class QuizQuestions implements Serializable{
 	private List<QuizQuestion> unusedQuestions; 
 	private QuizQuestion current;
