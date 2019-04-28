@@ -46,6 +46,8 @@ public abstract class GameElement implements Serializable{
 	
 	protected BufferedImage image;
 	
+	protected boolean specialFood; 
+	
 	/**
 	 * 
 	 * @param x
@@ -188,4 +190,8 @@ public abstract class GameElement implements Serializable{
 	 * @return boolean indicates if the GameElement should be removed from screen
 	 */
 	public abstract boolean collision(Bird bird);
+	
+	public boolean getSpecialFood() {
+		return this.specialFood; 
+	}
 }

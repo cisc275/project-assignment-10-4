@@ -78,8 +78,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
-    			model.update();
-    			view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
+    			if (!model.isQuizMode()) {
+    				model.update();
+    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
+    			} 
+    			else {
+    				view.displayQuiz(model.startQuiz());
+    			}
     		}
     	};
     	

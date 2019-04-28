@@ -208,6 +208,9 @@ public class Model implements Serializable{
 				onScreenCollidables.remove(collided);
 			}
 		}
+		if (collided.getSpecialFood()) {
+			quizMode = true; 
+		}
 		return collided;
 	}
 
