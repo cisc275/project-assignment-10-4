@@ -14,7 +14,7 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Controller implements KeyListener, ActionListener{
+public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * The view for the game
 	 */

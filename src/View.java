@@ -2,6 +2,7 @@ import java.util.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 //import javax.swing.JButton;
@@ -26,7 +27,7 @@ import java.awt.Font;
  */
 
 @SuppressWarnings("serial")
-public class View extends JPanel{
+public class View extends JPanel implements Serializable{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game

@@ -6,7 +6,7 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Food extends GameElement implements Collidable{
+public class Food extends GameElement implements Collidable, Serializable{
 	/**
 	 * The int value of the stamina increase the bird receives from consuming the food
 	 */

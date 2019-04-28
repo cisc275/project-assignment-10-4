@@ -8,7 +8,7 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class Bird extends GameElement{
+public class Bird extends GameElement implements Serializable{
 	/**
 	 * An int representing the birds speed
 	 */

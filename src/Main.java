@@ -8,7 +8,7 @@ import java.io.*;
  * @author jhdavis
  *
  */
-public class Main {
+public class Main implements Serializable{
 
 	/**
 	 * Makes a controller and calls its start fxn

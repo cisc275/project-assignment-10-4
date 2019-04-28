@@ -7,7 +7,7 @@ import java.io.*;
  * @author 10-4
  *
  */
-public class MiniMap extends GameElement{
+public class MiniMap extends GameElement implements Serializable{
 	/**
 	 * The int value of the X location of the small bird Sprite on the minimap 
 	 */

@@ -1,5 +1,6 @@
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * Defines the common attributes and action which all elements that appear 
@@ -8,7 +9,7 @@ import java.awt.image.BufferedImage;
  * @author 10-4
  *
  */
-public class GameElement {
+public class GameElement implements Serializable{
 	/**
 	 * The path of the image this GameElement
 	 */

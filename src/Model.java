@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -7,7 +8,7 @@ import java.util.*;
  * @author 10-4
  *
  */
-public class Model {
+public class Model implements Serializable{
 	/**
 	 * The Bird the player will control
 	 */
