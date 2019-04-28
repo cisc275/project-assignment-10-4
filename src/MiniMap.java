@@ -7,6 +7,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+@SuppressWarnings("serial")
 public class MiniMap extends GameElement implements Serializable{
 	/**
 	 * The int value of the X location of the small bird Sprite on the minimap 
@@ -21,6 +22,11 @@ public class MiniMap extends GameElement implements Serializable{
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
 	private String mapSpriteFile;
+	
+	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+		super(x, y, xSpeed, ySpeed, imagePath);
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * @return the mapXLoc
 	 */

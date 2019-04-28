@@ -38,7 +38,8 @@ public class Bird extends GameElement implements Serializable{
 	 * A constructor which initialises 7 attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
-	public Bird() {
+	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+		super(x, y, xSpeed, ySpeed, imagePath);
 		setXloc(10);
 		setYloc(500);
 		direction = 0;

@@ -26,7 +26,8 @@ public class Food extends GameElement implements Collidable, Serializable{
 	 * Constructor for food
 	 */
 	
-	public Food(int val, boolean special) {
+	public Food(int x, int y, int xSpeed, int ySpeed, String imagePath, int val, boolean special) {
+		super(x, y, xSpeed, ySpeed, imagePath);
 		staminaValue = val;
 		specialFood = special;
 		eaten = false;

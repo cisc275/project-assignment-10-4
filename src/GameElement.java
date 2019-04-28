@@ -46,15 +46,6 @@ public class GameElement implements Serializable{
 	
 	protected BufferedImage image;
 	
-	
-	
-	/**
-	 * 
-	 */
-	public GameElement() {
-		
-	}
-	
 	/**
 	 * 
 	 * @param x
@@ -183,7 +174,6 @@ public class GameElement implements Serializable{
 	public Rectangle getBounds() {
 		return new Rectangle(xloc,yloc,width,height);
 	}
-	
 	
 	/**
 	 * @return boolean true indicates GameElement is offscreen

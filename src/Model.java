@@ -77,7 +77,7 @@ public class Model implements Serializable{
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth,int frameHeight) {
-		bird = new Bird();
+		bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("images/questions.txt"); 

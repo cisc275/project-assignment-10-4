@@ -13,7 +13,7 @@ class ModelTest {
 	@Test
 	void updateTest() {
 		Model m = new Model(500,500);
-		Bird b = new Bird();
+		Bird b = new Bird(0,0,0,0,"");
 		b.setYloc(280);
 		m.setBird(b);
 		List<GameElement> list = new ArrayList<GameElement>();
@@ -326,7 +326,7 @@ class ModelTest {
     public void setBirdTest() {
     	Model model = new Model(1000, 1000); 
     	Bird old = model.getBird(); 
-    	model.setBird(new Bird()); 
+    	model.setBird(new Bird(0,0,0,0,"")); 
     	assertNotEquals(old, model.getBird());
     } 
     @Test
@@ -345,7 +345,7 @@ class ModelTest {
     	Model model = new Model(100, 100); 
     	int oldCollides = model.getOnScreenCollidables().size(); 
     	List<GameElement> newCollides = model.getOnScreenCollidables(); 
-    	newCollides.add(new Bird()); 
+    	newCollides.add(new Bird(0,0,0,0,"")); 
     	model.setOnScreenElements(model.getOnScreenCollidables());
     	assertNotEquals(oldCollides, model.getOnScreenCollidables().size()); 
     } 
@@ -375,7 +375,7 @@ class ModelTest {
     	Model model = new Model(10,10); 
     	MiniMap old = model.getMiniMap(); 
     	assertEquals(model.getMiniMap(), null); 
-    	model.setMiniMap(new MiniMap());
+    	model.setMiniMap(new MiniMap(0,0,0,0,""));
     	assertNotEquals(old, model.getMiniMap()); 
     }
 
