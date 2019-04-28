@@ -22,7 +22,12 @@ public class QuizQuestion implements Serializable{
 	 * A list of potential answers to the multiple choice question
 	 */
 	private List<String>answers;
-	
+	/**
+	 * 
+	 * @param question: the quiz question
+	 * @param answers: the list of possible answers 
+	 * @param correct: the correct answer
+	 */
 	public QuizQuestion(String question, List<String> answers, String correct) {
 		this.question = question; 
 		this.answers = answers; 
@@ -79,6 +84,9 @@ public class QuizQuestion implements Serializable{
 	public void setAnswers(List<String> answers) {
 		this.answers = answers;
 	}
+	/**
+	 * @return a String representation of the Quiz Question
+	 */
 	public String toString() {
 		return this.question + " " + this.answers + " " + this.correctAnswer; 
 	}

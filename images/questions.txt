@@ -1,21 +1,22 @@
-What is polymorphism? 
-Stupid
-Dumb
-A method of implmenting polymorphism
-A Context Free Grammar
-A Context Free Grammar
+What is an Osprey? 
+A migratory bird
+A non-migratory bird
+A Red Knot
+A Northern Harrier
+A migratory bird
 ______________________________________________________________
-jimmy
-johns 
-is
-good
-for
-you
+What do Osprey eat? 
+Buildings
+Fish 
+Charlie Hannum
+Clapper Rails
+Fish
 ______________________________________________________________
-jimmy 
-is
-good
-for 
-u
-you
+How many parcels of land are in the Blackbird Creek Reserve? 
+59
+65
+Josh Davis
+92
+65
+_______________________________________________________________
 
