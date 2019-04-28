@@ -1,6 +1,10 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
 
-import com.sun.prism.paint.Color;
 
 /**
  * Handles all unit tests of View class
@@ -90,7 +96,72 @@ class ViewTest {
 
 	@Test
 	void displayQuizTest() {
-		fail("Not yet implemented");
+		/**
+		 * void displayQuiz(QuizQuestion question, List<JButton> buttons) {
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		JLabel text = new JLabel(); 
+		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/50); 
+		text.setText(question.getQuestion());
+		text.setFont(font);
+		text.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+		quizPanel.add(text);
+		for (JButton b: buttons) {
+			b.setFont(font); 
+			b.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+			quizPanel.add(b); 
+		}
+		cards.add(quizPanel, "Q"); 
+		setPanel("Q"); 
+	}
+		 */
+		
+		//before method call
+		Controller c1 = new Controller();
+		View v1 = new View(c1);
+		List<JButton> l1 = new ArrayList<JButton>();
+		JButton b1 = new JButton();
+		JButton b2 = new JButton();
+		l1.add(b1);
+		l1.add(b2);
+		List<String> answers = new ArrayList<String>();
+		answers.add("a");
+		answers.add("b");
+		QuizQuestion q1 = new QuizQuestion("What?", answers, "a");
+				
+		
+		//after method call
+		Controller c2 = new Controller();
+		View v2 = new View(c2);
+		JPanel cd2 = new JPanel(new CardLayout());
+		View.DrawPanel p2 = v2.getDrawPanel();
+		p2.setBackground(Color.gray);
+		Font f = new Font("Verdana", Font.BOLD, v2.getFrameHeight()/50);
+		Dimension d = new Dimension(v2.getFrameWidth() / 5, v2.getFrameHeight() / 5);
+		JLabel t2 = new JLabel("What?");
+		t2.setFont(f);
+		t2.setPreferredSize(d);
+		p2.add(t2);
+		JButton b3 = new JButton();
+		b3.setFont(f); 
+		b3.setPreferredSize(d);	
+		JButton b4 = new JButton();
+		b4.setFont(f); 
+		b4.setPreferredSize(d);	
+		p2.add(b3);
+		p2.add(b4);
+		cd2.add(p2, "Q");
+		v2.setQuizPanel(p2);
+		v2.setCards(cd2);
+		v2.setPanel("Q");
+		
+		v1.displayQuiz(q1,l1);
+		
+		assertEquals(v1.getQuizPanel().getComponent(1).getFont(),
+				v2.getQuizPanel().getComponent(1).getFont());
+		assertEquals(v1.getQuizPanel().getComponent(1).getName(),
+				v2.getQuizPanel().getComponent(1).getName());
+		
 	}
 
 	@Test

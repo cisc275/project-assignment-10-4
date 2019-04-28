@@ -274,6 +274,19 @@ public class View extends JPanel implements Serializable{
 		this.OPanel = drawPanel;
 	}
 	/**
+	 * @return the quizPanel
+	 */
+	public DrawPanel getQuizPanel() {
+		return quizPanel;
+	}
+
+	/**
+	 * @param drawPanel the quizPanel to set
+	 */
+	public void setQuizPanel(DrawPanel drawPanel) {
+		this.quizPanel = drawPanel;
+	}
+	/**
 	 * @return the NHPanel
 	 */
 	public DrawPanel getNHPanel() {
@@ -288,6 +301,12 @@ public class View extends JPanel implements Serializable{
 	 */
 	public JPanel getCards() {
 		return cards;
+	}
+	/**
+	 * @param JPanel the cards to set
+	 */
+	public void setCards(JPanel jPanel) {
+		cards = jPanel;
 	}
 
 	/**
@@ -359,6 +378,14 @@ public class View extends JPanel implements Serializable{
 	public Background getGameBackground() {
 		return this.background;
 	}
+	
+	/**
+	 * 
+	 * @return a DrawPanel
+	 */
+	public DrawPanel getDrawPanel() {
+		return new DrawPanel();
+	}	
 
 	/**
 	 * The game panel that is drawn to show the gameplay
@@ -366,7 +393,7 @@ public class View extends JPanel implements Serializable{
 	 * @author 10-4
 	 *
 	 */
-	private class DrawPanel extends JPanel {
+	class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
 			super.paintComponent(g2d);
