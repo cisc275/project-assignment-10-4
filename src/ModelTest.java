@@ -120,6 +120,13 @@ class ModelTest {
         model.getOnScreenCollidables().add(obstacle);
         model.updateBird();
         assertEquals(obstacle, model.collisionDetection());
+        Food food = new Food(1,true,10,500,0,0,"images/normal_fish.png");
+        food.setWidth(100);
+        food.setHeight(100);
+        model.getOnScreenCollidables().add(food);
+        model.getOnScreenCollidables().remove(obstacle);
+        assertEquals(food, model.collisionDetection());
+        assertTrue(model.isQuizMode());
 	}
 	
 	@Test
@@ -138,7 +145,11 @@ class ModelTest {
 		model.startQuiz(); 
 		model.endQuiz(""); 
 		assertFalse(model.isBirdMode());
-		assertFalse(model.isQuizMode()); 
+		assertFalse(model.isQuizMode());
+		QuizQuestion q = model.startQuiz();
+		model.endQuiz(q.getCorrectAnswer());
+		assertFalse(model.isBirdMode());
+		assertFalse(model.isQuizMode());
 	}
 
 	@Test
@@ -405,6 +416,20 @@ class ModelTest {
     	//assertEquals(true,c.getYloc() <= 1100 && c.getYloc() >= 0);
     	//assertEquals(c.getxSpeed(),10);
     	//assertEquals(c.getySpeed(),0);
+    }
+    
+    @Test
+    void updateSpawnTimerTest() {
+    	Model m = new Model(500,500);
+    	int toSpawn = m.getSpawnCount();
+    	for (int i = 0; i < Model.SPAWN_TIME_MAX*toSpawn; i++) {
+    		m.updateSpawnTimer();
+    	}
+    	int onScreenCount = m.getOnScreenCollidables().size(); 
+    	assertTrue(onScreenCount >= toSpawn);
+    	m.setSpawnCount(0);
+    	m.updateSpawnTimer();
+    	assertTrue(m.getOnScreenCollidables().size() == onScreenCount);
     }
 }
 

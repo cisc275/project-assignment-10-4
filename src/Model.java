@@ -11,8 +11,8 @@ import java.lang.System;
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
-	private static final int SPAWN_TIME_MAX = 100;
-	private static final int SPAWN_TIME_MIN = 25;
+	static final int SPAWN_TIME_MAX = 100;
+	static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
 	 */
@@ -126,7 +126,7 @@ public class Model implements Serializable{
 	 * Ticks the spawn timer if needed to introduce a random delay to the Element spawner,
 	 * calling spawnGameElement when needed
 	 */
-	private void updateSpawnTimer() {
+	void updateSpawnTimer() {
 		if (spawnCount > 0) {
 			spawnTimer++;
 			if (spawnTimer == timeToSpawn) {
@@ -362,6 +362,21 @@ public class Model implements Serializable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
+	/**
+	 * @return the spawnCount
+	 */
+	public int getSpawnCount() {
+		return spawnCount;
+	}
+
+	/**
+	 * @param spawnCount the spawnCount to set
+	 */
+	public void setSpawnCount(int spawnCount) {
+		this.spawnCount = spawnCount;
+	}
+
 
 	/**
 	 * @return the quizQuestions
