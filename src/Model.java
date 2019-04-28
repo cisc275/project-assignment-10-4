@@ -261,7 +261,8 @@ public class Model implements Serializable{
 	
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
-	 * if the player answered the quiz correctly.
+	 * if the player answered the quiz correctly. 
+	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
@@ -451,7 +452,7 @@ public class Model implements Serializable{
 	}
 
 	/**
-	 * @return the quizMode
+	 * @return whether this game is in quiz mode or not 
 	 */
 	public boolean isQuizMode() {
 		return quizMode;
