@@ -152,7 +152,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		if(e.getSource() == Obutton) {
 			view.setPanel("O");
 			start();
-		}else if(e.getSource() == NHbutton) {
+		}
+		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
 			start();
 		}

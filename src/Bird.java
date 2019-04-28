@@ -11,7 +11,7 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
-	 * An int representing the birds speed
+	 * An int representing the bird's speed
 	 */
 	private int flyingSpeed;
 	/**
@@ -35,16 +35,23 @@ public class Bird extends GameElement implements Serializable{
      */
     private int stamina;
 	/**
-	 * A constructor which initialises 7 attributes for the start of the game.  The bird's starting location is set, 
+	 * An array of BufferedImages that stores the different bird image frames
+	 */
+    private BufferedImage[] pics;
+    /**
+     * An int for the number of frames that the bird cycles through to animate.
+     */
+    private final int FRAMECOUNT = 4;
+    /**
+     * An int representing the current frame image that is being displayed
+     */
+    private int frameNum;
+    
+    /**
+	 * A constructor which initializes the attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
-    
-    BufferedImage[] pics;
-    private int frameCount = 4;
-    private int frameNum = 0;
-    
-    
-	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+    public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath);
 		setXloc(10);
 		setYloc(500);
@@ -53,7 +60,8 @@ public class Bird extends GameElement implements Serializable{
 		setySpeed(10);
 		setHeight(224);
 		setWidth(224);
-		pics = new BufferedImage[frameCount];
+		frameNum = 0;
+		pics = new BufferedImage[FRAMECOUNT];
 	}
 	
 	/**
@@ -66,11 +74,30 @@ public class Bird extends GameElement implements Serializable{
 		setYloc(getYloc()+(getySpeed()*(-1)*direction));		
 	}
 	
+	/**
+	 * It changes the frame to be the next frame and returns the old frame to be displayed
+	 * 
+	 * @return the next frame image of the bird
+	 */
 	public BufferedImage nextFrame() {
 		int currentFrame = frameNum;
-		frameNum = (frameNum+1)%frameCount;
+		frameNum = (frameNum+1)%FRAMECOUNT;
 		return pics[currentFrame];
 		
+	}
+	
+	/**
+	 * This sets the image of the bird and creates the frames of the bird
+	 * 
+	 * @param image the BufferedImage to set
+	 */
+	@Override
+	public void setImage(BufferedImage image) {
+		this.image = image;
+		this.width = image.getWidth()/4;
+		this.height = image.getHeight();
+		for(int i = 0; i < FRAMECOUNT; i++)
+    		pics[i] = image.getSubimage(this.width*i, 0, this.width, this.height);
 	}
 	
 	/**
@@ -85,14 +112,15 @@ public class Bird extends GameElement implements Serializable{
 	public int getFlyingSpeed() {
 		return flyingSpeed;
 	}
+	
 	/**
 	 * @param flyingSpeed the speed to fly at
 	 */
 	public void setFlyingSpeed(int flyingSpeed) {
 		this.flyingSpeed = flyingSpeed;
 	}
+	
 	/**
-	 * 
 	 * @return true if the bird is powered up.
 	 */
 	public boolean isPoweredUp() {
@@ -111,12 +139,14 @@ public class Bird extends GameElement implements Serializable{
 	public boolean isStunned() {
 		return isStunned;
 	}
+	
 	/**
 	 * @param isStunned- a boolean which is true if the bird is currently stunned, false otherwise
 	 */
 	public void setStunned(boolean isStunned) {
 		this.isStunned = isStunned;
 	}
+	
 	/**
 	 * @return a 1 if the bird is moving up, a 0 if it is not moving up or down and a -1 if it is moving down.
 	 */
@@ -133,18 +163,6 @@ public class Bird extends GameElement implements Serializable{
 	}
 
 	/**
-	 * @param image the BufferedImage to set
-	 */
-	@Override
-	public void setImage(BufferedImage image) {
-		this.image = image;
-		this.width = image.getWidth()/4;
-		this.height = image.getHeight();
-		for(int i = 0; i < frameCount; i++)
-    		pics[i] = image.getSubimage(this.width*i, 0, this.width, this.height);
-	}
-
-	/**
 	 * @return the stamina
 	 */
 	public int getStamina() {
@@ -157,7 +175,53 @@ public class Bird extends GameElement implements Serializable{
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
 	}
+	
+	/**
+	 * 
+	 * @return the frames of the bird
+	 */
+	public BufferedImage[] getPics() {
+		return this.pics;
+	}
 
+	/**
+	 * 
+	 * @param pics the frames to set
+	 */
+	public void setPics(BufferedImage[] pics) {
+		this.pics = pics;
+	}
+	
+	/**
+	 * 
+	 * @return the frameNum
+	 */
+	public int frameNum() {
+		return this.frameNum;
+	}
+	
+	/**
+	 * 
+	 * @param frameNum the frameNum to set
+	 */
+	public void setFrameNum(int frameNum) {
+		this.frameNum = frameNum;
+	}
+	
+	/**
+	 * 
+	 * @return the frame count
+	 */
+	public int getFrameCount() {
+		return this.FRAMECOUNT;
+	}
+
+	/**
+	 * Implements the required method from GameElement
+	 * 
+	 * @param Bird the bird of the game
+	 * @return a boolean value of whether there was a collision. Always returns false for Bird
+	 */
 	@Override
 	public boolean collision(Bird bird) {
 		return false;

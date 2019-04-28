@@ -5,17 +5,46 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.io.*;
 
+/**
+ * This class controls the scrolling background for the game. It contains
+ * 2 background images that will move across the screen and then reset to 
+ * the far right once off screen to continue moving.
+ * 
+ * @author 10-4
+ *
+ */
 @SuppressWarnings("serial")
 public class Background implements Serializable{
+	/**
+	 * BufferedImage representing a portion of the background
+	 */
 	private BufferedImage background1;
+	/**
+	 * BufferedImage representing another portion of the background
+	 */
 	private BufferedImage background2;
+	/**
+	 * First background portion position
+	 */
 	private int b1x;
+	/**
+	 * Second background portion position
+	 */
 	private int b2x;
+	/**
+	 * The speed the background will scroll
+	 */
 	private int speed;
+	/**
+	 * The dimension of the screen and inturn the background image
+	 */
 	private int width;
 	
 	
-	
+	/**
+	 * 
+	 * @param dim the width dimension of the screen
+	 */
 	Background(int dim){
 		setBackground1(createImage());
 		setBackground2(createImage());
@@ -25,6 +54,11 @@ public class Background implements Serializable{
 		setWidth(dim);
 	}
 	
+	/**
+	 * Updates the position of the background images to scroll.
+	 * If a background image is completely off screen to the left, move it
+	 * so it's position is off screen to the right, next to the other background
+	 */
 	public void update() {
 		b1x -= speed;
 		b2x -= speed;
@@ -37,11 +71,12 @@ public class Background implements Serializable{
 		}
 	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * Creates a BufferedImage of the background using the grass background file as a default
+	 * The game will always start with this background
+	 * 
+	 * @return the BufferedImage of the background
+	 */
 	BufferedImage createImage(){
 		BufferedImage bufferedImage;
 		try {
@@ -53,22 +88,12 @@ public class Background implements Serializable{
 		return null;
 	}
 
-
-
-
-
-
 	/**
 	 * @return the b1x
 	 */
 	public int getB1x() {
 		return b1x;
 	}
-
-
-
-
-
 
 	/**
 	 * @param b1x the b1x to set
@@ -77,22 +102,12 @@ public class Background implements Serializable{
 		this.b1x = b1x;
 	}
 
-
-
-
-
-
 	/**
 	 * @return the b2x
 	 */
 	public int getB2x() {
 		return b2x;
 	}
-
-
-
-
-
 
 	/**
 	 * @param b2x the b2x to set
@@ -101,22 +116,12 @@ public class Background implements Serializable{
 		this.b2x = b2x;
 	}
 
-
-
-
-
-
 	/**
 	 * @return the speed
 	 */
 	public int getSpeed() {
 		return speed;
 	}
-
-
-
-
-
 
 	/**
 	 * @param speed the speed to set
