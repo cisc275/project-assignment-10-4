@@ -62,15 +62,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		NHbutton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
-    			System.out.println("Button Pressed"); 
+    			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
+    			view.setPanel("O"); 
     		}
     	}; 
     	quizButtons = new ArrayList<JButton>(); 
-    	for (int i = 0; i < 4; i++) {
-    		JButton next = new JButton("Button"); 
-    		next.addActionListener(quizAnswer); 
-    		quizButtons.add(next); 
-    	}
+    	
 		view = new View(this);
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		
@@ -83,7 +80,14 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
     			else {
-    				view.displayQuiz(model.startQuiz());
+    				quizButtons.clear(); 
+    				QuizQuestion q = model.startQuiz();
+    				for (String s: q.getAnswers()) {
+    					JButton next = new JButton(s); 
+    					next.addActionListener(quizAnswer); 
+    					quizButtons.add(next); 
+    				}
+    				view.displayQuiz(model.startQuiz(), quizButtons);
     			}
     		}
     	};
@@ -152,7 +156,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		if(e.getSource() == Obutton) {
 			view.setPanel("O");
 			start();
-		}else if(e.getSource() == NHbutton) {
+		}
+		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
 			start();
 		}

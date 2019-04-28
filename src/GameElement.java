@@ -7,7 +7,6 @@ import java.io.Serializable;
  * in the game (obstacles, food, Bird, minimap) share
  * 
  * @author 10-4
- *
  */
 @SuppressWarnings("serial")
 public abstract class GameElement implements Serializable{
@@ -43,17 +42,17 @@ public abstract class GameElement implements Serializable{
 	 * The current y-axis speed of the GameElement
 	 */
 	protected int ySpeed;
-	
-	protected BufferedImage image;
-	
-	protected boolean specialFood; 
-	
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param xSpeed
-	 * @param ySpeed
+	 * The image of the GameElement
+	 */
+	protected BufferedImage image;
+	 
+	/**
+	 * @param x - an int representing the x location of the GameElement
+	 * @param y - an int representing the y location of the GameElement
+	 * @param xSpeed - an int representing the horizontal speed of the GameElement
+	 * @param ySpeed - an int representing the vertical speed of the GameElement
+	 * @param imagePath - a string representing the path of the image of the GameElement
 	 */
 	public GameElement(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		xloc = x; 
@@ -154,25 +153,35 @@ public abstract class GameElement implements Serializable{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
+	/**
+	 * @param a BufferedImage img of the GameElement 
+	 */
 	public void setImage(BufferedImage img) {
 		image = img;
 		setWidth(image.getWidth());
 		setHeight(image.getHeight());
 	}
-	
+	/**
+	 * @return BufferedImage
+	 */
 	public BufferedImage getImage() {
 		return image;
 	}
-	
+	/**
+	 * @param a String representing the ImagePath of the GameElement 
+	 */
 	public void setImagePath(String ImagePath) {
 		this.imagePath = ImagePath;
 	}
-	
+	/**
+	 * @return a String representing the ImagePath of the GameElement
+	 */
 	public String getImagePath() {
 		return imagePath;
 	}
-	
+	/**
+	 * @return a bounded rectangle around the gameElement
+	 */
 	public Rectangle getBounds() {
 		return new Rectangle(xloc,yloc,width,height);
 	}
@@ -180,6 +189,7 @@ public abstract class GameElement implements Serializable{
 	/**
 	 * Basic isOffScreen, will return true if the current instance of an 
 	 * Obstacle is off the screen, returns false otherwise
+	 * @retunr true if the GameElement is off the screen
 	 */
 	public boolean isOffScreen() {
 		return ((getXloc()+getWidth()) < 0);
@@ -191,7 +201,11 @@ public abstract class GameElement implements Serializable{
 	 */
 	public abstract boolean collision(Bird bird);
 	
+	/**
+	 * @return false because this method will only ever be called if this particular gameElement is not
+	 * food.  And if the GameElement is not food then it cannot ever be a specialFood.
+	 */
 	public boolean getSpecialFood() {
-		return this.specialFood; 
+		return false;  
 	}
 }

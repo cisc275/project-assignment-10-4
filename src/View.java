@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -30,7 +32,10 @@ import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class View extends JPanel implements Serializable{
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	/**
+	 * A Dimension that stores the size of the player's screen
+	 */
+	final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game
 	 */
@@ -55,24 +60,29 @@ public class View extends JPanel implements Serializable{
 	 * The deck of panels
 	 */
 	private JPanel cards;
-	
+	/**
+	 * The font that is used for text on buttons
+	 */
 	private Font buttonFont;
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int frameWidth = (int)screenSize.getWidth();
+	private final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
 	/**
 	 * Height of the frame to display the game
 	 */
-	private final int frameHeight = (int)screenSize.getHeight(); 
+	private final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
 	/**
-	 * Image for the background
+	 * The bird that is being controlled by the player to be displayed
 	 */
-
     private Bird bird; 
+    /**
+     * The list of GameElements to be displayed on the screen
+     */
     private List<GameElement> elements; 
-    
-    
+    /**
+     * The background of the game that is scrolling in when displayed
+     */
     private Background background;
     
 	/**
@@ -80,46 +90,32 @@ public class View extends JPanel implements Serializable{
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c) {
-		//this.box = createImage("images/rectangle-icon-256.png");
-		//this.thanos = createImage("images/big_bird_animate.png");
-		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanel = new DrawPanel(); 
 		buttonPanel.setBackground(Color.gray);
-		buttonFont = new Font("Verdana", Font.BOLD, frameHeight/6);
+		buttonFont = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/6);
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
-		c.getOButton().setPreferredSize(new Dimension(frameWidth,frameHeight/2));
-		c.getNHButton().setPreferredSize(new Dimension(frameWidth,frameHeight/2));
+		c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
+		c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);
-		/**
-		 * Quiz Panel stuff
-		 */
-		quizPanel = new DrawPanel(); 
-		quizPanel.setBackground(Color.gray);
-		for (JButton b: c.getQuizButtons()) {
-			b.setFont(buttonFont); 
-			b.setPreferredSize(new Dimension(frameWidth / 2, frameHeight / 8));
-			quizPanel.add(b); 
-		}
+		
 		
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
-		cards.add(quizPanel, "Q"); 
+		//cards.add(quizPanel, "Q"); 
 		frame.add(cards);
 		frame.setFocusable(true);
-    	//frame.addMouseListener(c);
     	frame.addKeyListener(c);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	//frame.setSize(frameWidth, frameHeight);
     	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     	frame.setResizable(false);
     	frame.setVisible(true);
@@ -130,10 +126,12 @@ public class View extends JPanel implements Serializable{
 	
 	/**
 	 * Will update the game display based on changes to different game components.
+	 * If a game component does not currently have an image, it gets it assigned
 	 * 
 	 * @param bird The bird the user controls
 	 * @param elements The list of GameElement objects on screen
 	 * @param miniMap The MiniMap that displays progress
+	 * @param background The background that displays and scrolls
 	 */
 	
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap, Background background) {
@@ -141,7 +139,6 @@ public class View extends JPanel implements Serializable{
         this.bird = bird; 
 		if(this.bird.getImage() == null) {
 			this.bird.setImage(createImage("images/big_bird_animate.png"));
-			//this.bird.setImage(thanos);
 		}
 		this.elements = elements; 
 		
@@ -158,7 +155,6 @@ public class View extends JPanel implements Serializable{
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
-	
 	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
@@ -179,8 +175,21 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
-	void displayQuiz(QuizQuestion question) {
-		
+	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		JLabel text = new JLabel(); 
+		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/50); 
+		text.setText(question.getQuestion());
+		text.setFont(font);
+		text.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+		quizPanel.add(text);
+		for (JButton b: buttons) {
+			b.setFont(font); 
+			b.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+			quizPanel.add(b); 
+		}
+		cards.add(quizPanel, "Q"); 
 		setPanel("Q"); 
 	}
 	
@@ -290,30 +299,70 @@ public class View extends JPanel implements Serializable{
 	 * @return the frameWidth
 	 */
 	public int getFrameWidth() {
-		return frameWidth;
+		return FRAMEWIDTH;
 	}
 
 	/**
 	 * @return the frameHeight
 	 */
 	public int getFrameHeight() {
-		return frameHeight;
+		return FRAMEHEIGHT;
+	}
+	
+	/**
+	 * 
+	 * @param bird the bird to set
+	 */
+	public void setBird(Bird bird) {
+		this.bird = bird;
+	}
+	
+	/**
+	 * 
+	 * @return the bird
+	 */
+	public Bird getBird() {
+		return this.bird;
+	}
+	
+	/**
+	 * 
+	 * @param elements the elements to set
+	 */
+	public void setElements(List<GameElement>elements) {
+		this.elements = elements;
+	}
+	
+	/**
+	 * 
+	 * @return the elements
+	 */
+	public List<GameElement> getElements(){
+		return this.elements;
+	}
+	
+	/**
+	 * 
+	 * @param background the background to set
+	 */
+	public void setGameBackground(Background background) {
+		this.background = background;
+	}
+	
+	/**
+	 * 
+	 * @return the background
+	 */
+	public Background getGameBackground() {
+		return this.background;
 	}
 
 	/**
-	 * @return the background
+	 * The game panel that is drawn to show the gameplay
+	 * 
+	 * @author 10-4
+	 *
 	 */
-	/*public BufferedImage getViewBackground() {
-		return background;
-	}*/
-
-	/**
-	 * @param background the background to set
-	 */
-	/*public void setViewBackground(BufferedImage background) {
-		this.background = background;
-	}*/
-
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
@@ -343,18 +392,7 @@ public class View extends JPanel implements Serializable{
 		}
 
 		public Dimension getPreferredSize() {
-			return new Dimension(frameWidth, frameHeight); 
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
-	
-	public static void main(String[] args) {
-		Controller c = new Controller(); 
-		View view = c.getView(); 
-		List<String> answers = new ArrayList<String>(); 
-		answers.add("landon"); 
-		answers.add("is"); 
-		answers.add("a sinner"); 
-		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
-	}
-	
 }
