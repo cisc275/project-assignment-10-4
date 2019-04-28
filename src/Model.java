@@ -11,8 +11,8 @@ import java.lang.System;
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
-	private static final int SPAWN_TIME_MAX = 200;
-	private static final int SPAWN_TIME_MIN = 50;
+	private static final int SPAWN_TIME_MAX = 100;
+	private static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
 	 */
@@ -244,10 +244,11 @@ public class Model implements Serializable{
 				onScreenCollidables.remove(collided);
 				spawnCount++;
 			}
+			if (collided.getSpecialFood()) {
+				quizMode = true; 
+			}
 		}
-		if (collided.getSpecialFood()) {
-			quizMode = true; 
-		}
+		
 		return collided;
 	}
 
