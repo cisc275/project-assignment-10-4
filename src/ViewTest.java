@@ -96,26 +96,6 @@ class ViewTest {
 
 	@Test
 	void displayQuizTest() {
-		/**
-		 * void displayQuiz(QuizQuestion question, List<JButton> buttons) {
-		quizPanel = new DrawPanel(); 
-		quizPanel.setBackground(Color.gray);
-		JLabel text = new JLabel(); 
-		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/50); 
-		text.setText(question.getQuestion());
-		text.setFont(font);
-		text.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
-		quizPanel.add(text);
-		for (JButton b: buttons) {
-			b.setFont(font); 
-			b.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
-			quizPanel.add(b); 
-		}
-		cards.add(quizPanel, "Q"); 
-		setPanel("Q"); 
-	}
-		 */
-		
 		//before method call
 		Controller c1 = new Controller();
 		View v1 = new View(c1);
