@@ -248,7 +248,6 @@ public class Model implements Serializable{
 				quizMode = true; 
 			}
 		}
-		
 		return collided;
 	}
 
