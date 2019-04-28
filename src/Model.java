@@ -54,6 +54,9 @@ public class Model implements Serializable{
 	 * The width of the game frame
 	 */
 	private QuizQuestions theQuestions; 
+	/**
+	 * The height of the game frame
+	 */
 	private int frameWidth;
 	/**
 	 * The height of the game frame
@@ -258,23 +261,23 @@ public class Model implements Serializable{
 		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
 		    	  break;
 		       case 2:
-			    	  dir = Images.GOLDENFISH;
-			    	  ImgPath = dir.getName();
-			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
-			    	  break;
+			      dir = Images.GOLDENFISH;
+			      ImgPath = dir.getName();
+			      y = 10000;  //spawns food at the lowest possible spot on the screen
+			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
 		       case 3:
-			    	  dir = Images.FISH;
-			    	  ImgPath = dir.getName();
-			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
-			    	  break;
+			      dir = Images.FISH;
+			   	  ImgPath = dir.getName();
+			   	  y = 10000;  //spawns food at the lowest possible spot on the screen
+			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+			   	  break;
 		       case 4:
-			    	  dir = Images.GOLDENMOUSE;
-			    	  ImgPath = dir.getName();
-			    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
-			    	  break;
+		    	  dir = Images.GOLDENMOUSE;
+		    	  ImgPath = dir.getName();
+		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
+		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
 		       default:
 		    	  y = randLoc.nextInt(frameHeight);
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
