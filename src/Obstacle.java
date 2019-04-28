@@ -18,5 +18,5 @@ public class Obstacle extends GameElement implements Serializable{
 	public boolean collision(Bird bird) {
 		bird.setStamina(bird.getStamina()-staminaValue);
 		return false;
-	}
+	}	
 }

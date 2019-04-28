@@ -67,7 +67,6 @@ public class View extends JPanel implements Serializable{
 	 * Image for the background
 	 */
 
-    private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
     
