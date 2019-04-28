@@ -50,12 +50,15 @@ public class Bird extends GameElement implements Serializable{
      * An int representing the current frame image that is being displayed
      */
     private int frameNum;
+    /**
+     * Represents the time stunned upon collision
+     */
+    private int stunTimer;
     
     /**
 	 * A constructor which initializes the attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
-    private int stunTimer;
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath);
 		setXloc(10);
