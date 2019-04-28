@@ -90,7 +90,7 @@ public class Model implements Serializable{
 	 */
 	private int spawnCount;
 	/** 
-	 *  Counts the number of ticks before a GameElement is spawned.  COntinually increments until
+	 *  Counts the number of ticks before a GameElement is spawned.  Continually increments until
 	 *  a GameElement spawns  
 	 */
 	private int spawnTimer;
