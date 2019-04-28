@@ -13,17 +13,25 @@ public class Food extends GameElement implements Serializable{
 	 */
 	private int staminaValue;
 	/**
-	 * The boolean value indicating whether or not consuming this instance of food will give the bird a power up
-	 * True indicates consuming this instance of food will give the bird a power up
+	 * The boolean value indicating whether or not consuming this instance of food will 
+	 * give the bird a power up.  True indicates consuming this instance of food will give the 
+	 * bird a power up
 	 */
 	private boolean specialFood;
 	/**
 	 * Boolean indicating if the food has been eaten yet
 	 */
 	private boolean eaten;
-	
 	/**
 	 * Constructor for food
+	 * @param val - an int representing the stamina benefit consuming this piece of food will give the bird
+	 * @param special - an boolean representing whether of not the food will give the bird a chance to get a 
+	 * a power up if the food is consumed
+	 * @param x - an int representing the x location of the food
+	 * @param y - an int representing the y location of the food
+	 * @param xSpeed - an int representing the horizontal speed of the food
+	 * @param ySpeed - an int representing the vertical speed of the food
+	 * @param imagePath - a string representing the path of the image of the food
 	 */
 	public Food(int val, boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath) {
 	    super(x, y, xSpeed, ySpeed, imagePath);
@@ -36,7 +44,12 @@ public class Food extends GameElement implements Serializable{
 		this.ySpeed = ySpeed; 
 		this.imagePath = imagePath;
 	}
-	
+	/**
+	 * increases the bird stamina by the staminaValue in the food that the bird collided with
+	 * @return a boolean representing whether a the food that the bird collided with needs to be 
+	 * removed from the list of collidables.
+	 * @param bird- the bird the player is controlling
+	 */
 	@Override
 	public boolean collision(Bird bird) {
 		bird.setStamina(bird.getStamina()+staminaValue);
