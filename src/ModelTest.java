@@ -106,12 +106,20 @@ class ModelTest {
 		model.updateMiniMap(); 
 		assertEquals(old, model.getMiniMap());
 	}
-	/**
+	
 	@Test
-	void collisionDetectionTest() {
-		fail("Not yet implemented");
+	void collisionDetectionTest() throws NoSuchFieldException, IllegalAccessException{
+		Model ModelTestObject = new Model(100,100);
+		final Field field = ModelTestObject.getClass().getDeclaredField("onScreenCollidables");
+        field.setAccessible(true);
+        //field.get(ModelTestObject).add(new Obstacle(0,0,0,0,"images/building.png") );
+        Obstacle obstacle = new Obstacle(0,0,0,0,"images/building.png");
+        ModelTestObject.getOnScreenCollidables().add(obstacle);
+        assertEquals(obstacle, ModelTestObject.collisionDetection());
 	}
-	**/
+		
+	
+	
 	@Test
 	void startQuizTest() {
 		Model model = new Model(10,10); 
@@ -151,7 +159,6 @@ class ModelTest {
   
         ModelTestObject.setBirdMode(true);
 
-        //then
         final Field field = ModelTestObject.getClass().getDeclaredField("birdMode");
         field.setAccessible(true);
         assertEquals("Fields didn't match", field.get(ModelTestObject), true);
@@ -304,8 +311,29 @@ class ModelTest {
     	field.set(ModelTestObject, 5); 
     	final int value = ModelTestObject.getImgHeight();
     	assertEquals("Field wasn't retrieved properly", value, 5);
-    }		   
+    }
+    
+    @Test
+    public void getBackgroundTest() throws NoSuchFieldException, IllegalAccessException {
 
+    	final Model ModelTestObject= new Model(10,10);
+    	final Field field = ModelTestObject.getClass().getDeclaredField("background");
+    	field.setAccessible(true);
+    	field.set(ModelTestObject, new Background(5)); 
+    	final Background value = ModelTestObject.getBackground();
+    	assertEquals("Field wasn't retrieved properly", value, new Background(5));
+    } 
+
+    @Test
+    public void setBackgroundTest() throws NoSuchFieldException, IllegalAccessException {
+    	final Model ModelTestObject= new Model(10,10);
+    	ModelTestObject.setBackground(new Background(100));      
+    	final Field field = ModelTestObject.getClass().getDeclaredField("background");
+    	field.setAccessible(true);
+    	assertEquals("Fields didn't match", field.get(ModelTestObject), (new Background(100)));
+    }
+
+    
     @Test
     public void setImgHeightTest() throws NoSuchFieldException, IllegalAccessException {
 
