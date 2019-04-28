@@ -71,6 +71,26 @@ public class Background implements Serializable{
 		}
 	}
 	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Background) {
+			Background b = (Background)obj;
+			return (b.getB1x() == this.getB1x() &&
+					b.getB2x() == this.getB2x() &&
+					b.getSpeed() == this.getSpeed() && 
+					b.getWidth() == this.getWidth());
+		} else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+
 	/**
 	 * Creates a BufferedImage of the background using the grass background file as a default
 	 * The game will always start with this background
