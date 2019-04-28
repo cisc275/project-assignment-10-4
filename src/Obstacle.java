@@ -7,8 +7,16 @@ import java.io.*;
  */
 @SuppressWarnings("serial")
 public class Obstacle extends GameElement implements Serializable{
-	public Obstacle(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+	int staminaValue;
+	
+	public Obstacle(int staminaValue, int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath);
-		// TODO Auto-generated constructor stub
+		this.staminaValue = staminaValue;
+	}
+
+	@Override
+	public boolean collision(Bird bird) {
+		bird.setStamina(bird.getStamina()-staminaValue);
+		return false;
 	}
 }

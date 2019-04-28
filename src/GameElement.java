@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  */
 @SuppressWarnings("serial")
-public class GameElement implements Serializable{
+public abstract class GameElement implements Serializable{
 	/**
 	 * The path of the image this GameElement
 	 */
@@ -183,8 +183,9 @@ public class GameElement implements Serializable{
 		return ((getXloc()+getWidth()) < 0);
 	}
 	
-	public void collision() {
-		// TODO Auto-generated method stub
-		
-	}
+	/**
+	 * Basic collision behavior handler. Called whenever the GE runs into the Bird.
+	 * @return boolean indicates if the GameElement should be removed from screen
+	 */
+	public abstract boolean collision(Bird bird);
 }

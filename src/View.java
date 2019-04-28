@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Graphics;
@@ -45,6 +46,10 @@ public class View extends JPanel implements Serializable{
 	 */
 	private DrawPanel NHPanel;
 	/**
+	 * The panel that will be on display when the quiz starts 
+	 */
+	private DrawPanel quizPanel; 
+	/**
 	 * The deck of panels
 	 */
 	private JPanel cards;
@@ -61,11 +66,11 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Image for the background
 	 */
-	//private BufferedImage background;
 
     private BufferedImage thanos; 
     private Bird bird; 
     private List<GameElement> elements; 
+    
     
     private Background background;
     
@@ -75,7 +80,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	public View(Controller c) {
 		//this.box = createImage("images/rectangle-icon-256.png");
-		this.thanos = createImage("images/thanosbird.jpg");
+		//this.thanos = createImage("images/big_bird_animate.png");
 		//this.background = createImage("images/big_grass_background.png");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
@@ -92,9 +97,21 @@ public class View extends JPanel implements Serializable{
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);
+		/**
+		 * Quiz Panel stuff
+		 */
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		for (JButton b: c.getQuizButtons()) {
+			b.setFont(buttonFont); 
+			b.setPreferredSize(new Dimension(frameWidth / 2, frameHeight / 8));
+			quizPanel.add(b); 
+		}
+		
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
+		cards.add(quizPanel, "Q"); 
 		frame.add(cards);
 		frame.setFocusable(true);
     	//frame.addMouseListener(c);
@@ -106,6 +123,7 @@ public class View extends JPanel implements Serializable{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	
 
 	}
 	
@@ -121,7 +139,7 @@ public class View extends JPanel implements Serializable{
 		this.background = background;	
         this.bird = bird; 
 		if(this.bird.getImage() == null) {
-			this.bird.setImage(thanos);
+			this.bird.setImage(createImage("images/big_bird_animate.png"));
 			//this.bird.setImage(thanos);
 		}
 		this.elements = elements; 
@@ -160,7 +178,10 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
-	void displayQuiz() {}
+	void displayQuiz(QuizQuestion question) {
+		
+		setPanel("Q"); 
+	}
 	
 	/**
 	 * Handles the animation for the bird landing in the nest when the player reaches
@@ -309,7 +330,7 @@ public class View extends JPanel implements Serializable{
 					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
-					g.drawImage(thanos, bird.getXloc(), bird.getYloc(), this); 
+			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
 		}
@@ -318,24 +339,15 @@ public class View extends JPanel implements Serializable{
 			return new Dimension(frameWidth, frameHeight); 
 		}
 	}
-	/**
+	
 	public static void main(String[] args) {
-		View view = new View(new Controller()); 
-		List<GameElement> theElements = new ArrayList<GameElement>();
-		GameElement g1 = new GameElement(); 
-		g1.setXloc(800); 
-		g1.setYloc(666); 
-		GameElement g2= new GameElement(); 
-		g2.setXloc(1500); 
-		g2.setYloc(250); 
-		theElements.add(g2); 
-		theElements.add(g1);
-		Bird b = new Bird(); 
-		b.setXloc(1500); 
-		b.setYloc(666); 
-		view.updateView(b,theElements, null); 
-		
-		
+		Controller c = new Controller(); 
+		View view = c.getView(); 
+		List<String> answers = new ArrayList<String>(); 
+		answers.add("fuck"); 
+		answers.add("shit"); 
+		answers.add("bitch"); 
+		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
 	}
-	**/ 
+	
 }
