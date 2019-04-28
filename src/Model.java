@@ -4,15 +4,23 @@ import java.lang.System;
 
 /**
  * Contains the different components of the bird game. As the game updates, 
- * this handles the movement of elements and their current states.
+ * this handles the movement of elements and their current states.  Handles generating GameElements and 
+ * collision detection.
  * 
  * @author 10-4
  *
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
+	/**
+	 * The maximum number of ticks between when an obstacle disappears and a new one is generated
+	 */
 	private static final int SPAWN_TIME_MAX = 100;
+	/**
+	 * The minimum number of ticks between when an obstacle disappears and a new one is generated
+	 */
 	private static final int SPAWN_TIME_MIN = 25;
+    
 	/**
 	 * The Bird the player will control
 	 */
@@ -30,7 +38,7 @@ public class Model implements Serializable{
 	 */
 	private int distance;	
 	/**
-	 * The total distance needed to be travelled
+	 * The total distance needed to be travelled in order to reach the nest
 	 */
 	private int endDistance;	
 	/**
@@ -54,11 +62,11 @@ public class Model implements Serializable{
 	 */
 	private List<QuizQuestion>quizQuestions;
 	/**
-	 * The width of the game frame
+	 * 
 	 */
 	private QuizQuestions theQuestions; 
 	/**
-	 * The height of the game frame
+	 * The width of the game frame
 	 */
 	private int frameWidth;
 	/**
@@ -66,22 +74,33 @@ public class Model implements Serializable{
 	 */
     private int frameHeight;
     /**
-	 * the width of the image
+	 * The width of the image
 	 */
 	private int imgWidth;
 	/**
-	 * the height of the image
+	 * The height of the image
 	 */
 	private int imgHeight;
-    
+	/**
+	 * The background in the game 
+	 */
 	private Background background;
-	
+	/**
+	 * USed to generate random numbers 
+	 */
 	private Random rand;
-	
+	/** 
+	 *  Counts the number of spawned GameElements
+	 */
 	private int spawnCount;
-	
+	/** 
+	 *  Counts the number of ticks before a GameElement is spawned.  COntinually increments until
+	 *  a GameElement spawns  
+	 */
 	private int spawnTimer;
-	
+	/** 
+	 *  The amount of time before a GameElement is spawned.  
+	 */
 	private int timeToSpawn;
 	
 	/**
@@ -95,53 +114,22 @@ public class Model implements Serializable{
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("images/questions.txt"); 
 		this.background = new Background(frameWidth);
+		this.quizMode = false; 
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
 		spawnTimer = 0;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
-		
 		onScreenCollidables = new ArrayList<GameElement>();
 		for (int i = 0; i < 3; i++) {
 			spawnCount++;
 		}
 	}
-		/*GameElement obstacle1 = new Obstacle();
-		obstacle1.setXloc(frameWidth + 500);
-		obstacle1.setYloc(0);
-		obstacle1.setxSpeed(10);
-		GameElement obstacle2 = new Obstacle();
-		obstacle2.setXloc(frameWidth + 900);
-		obstacle2.setYloc(0);
-		obstacle2.setxSpeed(10);
-		GameElement obstacle3 = new Obstacle();
-		obstacle3.setXloc(frameWidth + 1300);
-		obstacle3.setYloc(0);
-		obstacle3.setxSpeed(10);
-		//onScreenCollidables.add(obstacle1);
-		//onScreenCollidables.add(obstacle2);
-		//onScreenCollidables.add(obstacle3);
-		
-		GameElement Food1 = new Food(10, true);
-		Food1.setXloc(frameWidth);
-		Food1.setYloc(0);
-		Food1.setxSpeed(10);
-		GameElement Food2 = new Food(10, true);
-		Food2.setXloc(frameWidth - 100);
-		Food2.setYloc(0);
-		Food2.setxSpeed(10);
-		GameElement Food3 = new Food(10, true);
-		Food3.setXloc(frameWidth - 400);
-		Food3.setYloc(0);
-		Food3.setxSpeed(10);
-		//onScreenCollidables.add(Food1);
-		//onScreenCollidables.add(Food2);
-		//onScreenCollidables.add(Food3);    
-		*/
 	
 	/**
 	 * Used to update the current status and positions of the different game components.
-	 * Will call helper update methods for different components.  Calls all other update methods
+	 * Will call helper update methods for different components.  Calls all other update methods and
+	 * the collision detection method
 	 */
 	void update() {
 		updateBird();
@@ -172,8 +160,6 @@ public class Model implements Serializable{
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
-	 * 
-	 * 
 	 */
 	void updateBird() {
 		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
@@ -248,7 +234,9 @@ public class Model implements Serializable{
 				quizMode = true; 
 			}
 		}
-		
+		if (collided != null && collided.getSpecialFood()) {
+			quizMode = true; 
+		}
 		return collided;
 	}
 
@@ -263,12 +251,20 @@ public class Model implements Serializable{
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
 	 * if the player answered the quiz correctly.
 	 */
-	void endQuiz() {}
+	void endQuiz(String answer) {
+		if (theQuestions.answerQuestion(answer)) {
+			System.out.println("Correct"); 
+		}
+		else {
+			System.out.println("False"); 
+		}
+		quizMode = false; 
+	}
 
 	/**
 	 * @return A GameElement .  Uses the Images Enum to select the path for an image based off 
-	 * a random number.  And depending on which type of image it is, it will generate its starting position 
-	 * appropriately.
+	 * a random number.  And depending on which type of image it is, it will generate its starting 
+	 * position appropriately.
 	 */
 	GameElement generateImgPath() {
 		Random randImg = new Random(); 
@@ -280,7 +276,6 @@ public class Model implements Serializable{
 		Images dir;
 		int xSpeed = 10;
 		int ySpeed = 0; 
-		
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
@@ -497,27 +492,41 @@ public class Model implements Serializable{
 	public void setFrameHeight(int frameHeight) {
 		this.frameHeight = frameHeight;
 	}
-
+	
+	/**
+	 * @return the ImgWidth
+	 */
 	public int getImgWidth() {
 		return imgWidth;
 	}
-
+	
+	/**
+	 * @param ImgWidth the frameHeight to set
+	 */
 	public void setImgWidth(int imgWidth) {
 		this.imgWidth = imgWidth;
 	}
-
+	/**
+	 * @return the ImgHeight
+	 */
 	public int getImgHeight() {
 		return imgHeight;
 	}
-
+	/**
+	 * @param ImgHeight the frameHeight to set
+	 */
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
 	}
-	
+	/**
+	 * @return the Background
+	 */
 	public Background getBackground() {
 		return this.background;
 	}
-	
+	/**
+	 * @param the Background
+	 */
 	public void setBackground(Background background) {
 		this.background = background;
 	}

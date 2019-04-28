@@ -11,7 +11,11 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
-	 * An int representing the bird's speed
+	 * This constant represents how many ticks the bird stays stunned for
+	 */
+	private final int STUN_TIME_LIMIT = 35;
+	/**
+	 * An int representing the birds speed
 	 */
 	private int flyingSpeed;
 	/**
@@ -51,7 +55,8 @@ public class Bird extends GameElement implements Serializable{
 	 * A constructor which initializes the attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
-    public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+    private int stunTimer;
+	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath);
 		setXloc(10);
 		setYloc(500);
@@ -62,16 +67,25 @@ public class Bird extends GameElement implements Serializable{
 		setWidth(224);
 		frameNum = 0;
 		pics = new BufferedImage[FRAMECOUNT];
+		stunTimer = 0;
 	}
 	
 	/**
 	 * Updates the position of the bird.  If direction == 1 then the bird moves up.  If direction == 0 
 	 * then the bird stays in the same y position.  If direction == -1 then the bird moves down.
+	 * Also handles the stunned status of the bird.
 	 */
 	@Override
 	void updatePosition(){
 		setXloc(getXloc()+getxSpeed());
-		setYloc(getYloc()+(getySpeed()*(-1)*direction));		
+		setYloc(getYloc()+(getySpeed()*(-1)*direction));	
+		if (isStunned) {
+			stunTimer++;
+			if (stunTimer >= STUN_TIME_LIMIT) {
+				stunTimer = 0;
+				isStunned = false;
+			}
+		}
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class Food extends GameElement implements Serializable{
 	/**
 	 * @return the specialFood
 	 */
-	public boolean isSpecialFood() {
+	public boolean getSpecialFood() {
 		return specialFood;
 	}
 	/**

@@ -8,11 +8,15 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -102,21 +106,11 @@ public class View extends JPanel implements Serializable{
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);
 		
-		/**
-		 * Quiz Panel stuff
-		 */
-		quizPanel = new DrawPanel(); 
-		quizPanel.setBackground(Color.gray);
-		for (JButton b: c.getQuizButtons()) {
-			b.setFont(buttonFont); 
-			b.setPreferredSize(new Dimension(FRAMEWIDTH / 2, FRAMEHEIGHT / 8));
-			quizPanel.add(b); 
-		}
 		
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
-		cards.add(quizPanel, "Q"); 
+		//cards.add(quizPanel, "Q"); 
 		frame.add(cards);
 		frame.setFocusable(true);
     	frame.addKeyListener(c);
@@ -181,8 +175,21 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
-	void displayQuiz(QuizQuestion question) {
-		
+	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
+		quizPanel = new DrawPanel(); 
+		quizPanel.setBackground(Color.gray);
+		JLabel text = new JLabel(); 
+		Font font = new Font("Verdana", Font.BOLD, frameHeight/50); 
+		text.setText(question.getQuestion());
+		text.setFont(font);
+		text.setPreferredSize(new Dimension(frameWidth / 5, frameHeight / 5));
+		quizPanel.add(text);
+		for (JButton b: buttons) {
+			b.setFont(font); 
+			b.setPreferredSize(new Dimension(frameWidth / 5, frameHeight / 5));
+			quizPanel.add(b); 
+		}
+		cards.add(quizPanel, "Q"); 
 		setPanel("Q"); 
 	}
 	
@@ -358,11 +365,13 @@ public class View extends JPanel implements Serializable{
 	 */
 	private class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);	
-			g.setColor(Color.blue);
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			float alpha = (float) 0.5;
+			g2d.setColor(Color.blue);
 			try {
-				g.drawImage(background.getBackground1(),background.getB1x(),0,this);
-				g.drawImage(background.getBackground2(),background.getB2x(),0,this);
+				g2d.drawImage(background.getBackground1(),background.getB1x(),0,this);
+				g2d.drawImage(background.getBackground2(),background.getB2x(),0,this);
 			}
 			catch(NullPointerException e) {
 				
@@ -370,10 +379,14 @@ public class View extends JPanel implements Serializable{
 			
 			if (elements != null) {
 				for (GameElement e: elements) {
-					g.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
+					g2d.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
 				} 
 				if (bird != null) {
-			    	g.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
+					if (bird.isStunned()) {
+						AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+						g2d.setComposite(ac);
+					}
+			    	g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 				}
 			} 	
 		}
@@ -382,15 +395,4 @@ public class View extends JPanel implements Serializable{
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
-	
-	public static void main(String[] args) {
-		Controller c = new Controller(); 
-		View view = c.getView(); 
-		List<String> answers = new ArrayList<String>(); 
-		answers.add("fuck"); 
-		answers.add("shit"); 
-		answers.add("bitch"); 
-		view.displayQuiz(new QuizQuestion("check", answers, "bitch"));
-	}
-	
 }
