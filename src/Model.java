@@ -247,12 +247,17 @@ public class Model implements Serializable{
 	 * a random number.  And depending on which type of image it is, it will generate its starting position 
 	 * appropriately.
 	 */
-	GameElement generateImgPath() {
-		Random randImg = new Random(); 
+	GameElement generateImgPath(int choice) {
+		int curImage = 0;
+		Random randImg = new Random();
+		Random randLoc = new Random();
+		if (choice < 0) {
+			curImage = randImg.nextInt(5);
+		} else {
+			curImage = choice;
+		}
 		int x = frameWidth;
 		int y;
-		Random randLoc = new Random();
-		int curImage = randImg.nextInt(5);
 		String ImgPath = "";
 		Images dir;
 		int xSpeed = 10;
@@ -291,17 +296,29 @@ public class Model implements Serializable{
 		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
 		       default:
+		    	  dir = Images.RECTANGLE;
+		    	  ImgPath = dir.getName();
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath);
 		     }
 		   return newGameElement;
 	}
+	
 	/**
 	 * Spawns new collidable immediately
 	 */
 	void spawnGameElement() {
-		onScreenCollidables.add(generateImgPath());
+		onScreenCollidables.add(generateImgPath(-1));
 	}
+	
+	/**
+	 * Spawns new collidable immediately
+	 * @param choice the index of which type of collidable to spawn
+	 */
+	void spawnGameElement(int choice) {
+		onScreenCollidables.add(generateImgPath(choice));
+	}
+	
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */

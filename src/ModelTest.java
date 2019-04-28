@@ -431,5 +431,16 @@ class ModelTest {
     	m.updateSpawnTimer();
     	assertTrue(m.getOnScreenCollidables().size() == onScreenCount);
     }
+    
+    @Test
+    void generateImgPathTest() {
+    	Model m = new Model(500,500);
+    	Images[] imgs = {Images.OBSTACLE, Images.MOUSE, Images.GOLDENFISH, Images.FISH,
+    					 Images.GOLDENMOUSE, Images.RECTANGLE};
+    	for (int i = 0; i < 6; i++) {
+    		m.spawnGameElement(i);
+    		assertEquals(m.getOnScreenCollidables().get(i).getImagePath(),imgs[i].getName());
+    	}
+    }
 }
 
