@@ -7,7 +7,7 @@ import java.io.*;
  *
  */
 @SuppressWarnings("serial")
-public class Food extends GameElement implements Collidable, Serializable{
+public class Food extends GameElement implements Serializable{
 	/**
 	 * The int value of the stamina increase the bird receives from consuming the food
 	 */
@@ -43,14 +43,6 @@ public class Food extends GameElement implements Collidable, Serializable{
 	void eaten() {
 		eaten = true;
 	}
-	/**
-	 * Implementation of the isOffScreen method in Collidable, will return true if the current instance of food 
-	 * is off the screen, returns false otherwise
-	 */
-	@Override
-	public boolean isOffScreen() {
-		return ((getXloc()+getWidth()) < 0);
-	}	
 	
 	/**
 	 * @return the staminaValue

@@ -176,12 +176,13 @@ public class GameElement implements Serializable{
 	}
 	
 	/**
-	 * @return boolean true indicates GameElement is offscreen
+	 * Basic isOffScreen, will return true if the current instance of an 
+	 * Obstacle is off the screen, returns false otherwise
 	 */
 	public boolean isOffScreen() {
-		return (getXloc()+getWidth() < 0);
+		return ((getXloc()+getWidth()) < 0);
 	}
-
+	
 	public void collision() {
 		// TODO Auto-generated method stub
 		
