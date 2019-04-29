@@ -11,9 +11,33 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
+	 * Constant for Bird's width
+	 */
+	private static final int BIRD_WIDTH = 224;
+	/**
+	 * Constant for Bird's height
+	 */
+	private static final int BIRD_HEIGHT = 224;
+	/**
+	 * Constant for Bird's starting y speed
+	 */
+	private static final int START_Y_SPEED = 10;
+	/**
+	 * Constant for Bird's starting y location
+	 */
+	private static final int START_Y_LOC = 500;
+	/**
+	 * Constant for Bird's starting x location
+	 */
+	private static final int START_X_LOC = 10;
+	/**
 	 * This constant represents how many ticks the bird stays stunned for
 	 */
-	private final int STUN_TIME_LIMIT = 35;
+	private static final int STUN_TIME_LIMIT = 35;
+    /**
+     * An int for the number of frames that the bird cycles through to animate.
+     */
+    private static final int FRAME_COUNT = 4;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -43,10 +67,6 @@ public class Bird extends GameElement implements Serializable{
 	 */
     private BufferedImage[] pics;
     /**
-     * An int for the number of frames that the bird cycles through to animate.
-     */
-    private final int FRAMECOUNT = 4;
-    /**
      * An int representing the current frame image that is being displayed
      */
     private int frameNum;
@@ -61,15 +81,15 @@ public class Bird extends GameElement implements Serializable{
 	 */	
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath);
-		setXloc(10);
-		setYloc(500);
+		setXloc(START_X_LOC);
+		setYloc(START_Y_LOC);
 		direction = 0;
 		setxSpeed(0);
-		setySpeed(10);
-		setHeight(224);
-		setWidth(224);
+		setySpeed(START_Y_SPEED);
+		setHeight(BIRD_HEIGHT);
+		setWidth(BIRD_WIDTH);
 		frameNum = 0;
-		pics = new BufferedImage[FRAMECOUNT];
+		pics = new BufferedImage[FRAME_COUNT];
 		stunTimer = 0;
 	}
 	
@@ -98,7 +118,7 @@ public class Bird extends GameElement implements Serializable{
 	 */
 	public BufferedImage nextFrame() {
 		int currentFrame = frameNum;
-		frameNum = (frameNum+1)%FRAMECOUNT;
+		frameNum = (frameNum+1)%FRAME_COUNT;
 		return pics[currentFrame];
 		
 	}
@@ -111,9 +131,9 @@ public class Bird extends GameElement implements Serializable{
 	@Override
 	public void setImage(BufferedImage image) {
 		this.image = image;
-		this.width = image.getWidth()/4;
+		this.width = image.getWidth()/FRAME_COUNT;
 		this.height = image.getHeight();
-		for(int i = 0; i < FRAMECOUNT; i++)
+		for(int i = 0; i < FRAME_COUNT; i++)
     		pics[i] = image.getSubimage(this.width*i, 0, this.width, this.height);
 	}
 	
@@ -230,7 +250,7 @@ public class Bird extends GameElement implements Serializable{
 	 * @return the frame count
 	 */
 	public int getFrameCount() {
-		return this.FRAMECOUNT;
+		return Bird.FRAME_COUNT;
 	}
 
 	/**

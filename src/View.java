@@ -214,7 +214,7 @@ public class View extends JPanel implements Serializable{
 	void updateBird() {}
 	
 	/**
-	 * Updates the display of the bird
+	 * Updates the display of the onscreen collidables
 	 * 
 	 * @param bird the bird controlled by the player
 	 */
@@ -228,7 +228,7 @@ public class View extends JPanel implements Serializable{
 	void updateMiniMap(MiniMap miniMap) {}
 	
 	/**
-	 * update the background based on how far the player has traveled.
+	 * update the background based on how far the player has travelled.
 	 */
 	void updateBackground() {}
 	

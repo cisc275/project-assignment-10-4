@@ -11,6 +11,7 @@ import java.lang.System;
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
+	private static final int MAX_GAME_ELEMENTS_ONSCREEN = 3;
 	static final int SPAWN_TIME_MAX = 100;
 	static final int SPAWN_TIME_MIN = 25;
 	/**
@@ -102,7 +103,7 @@ public class Model implements Serializable{
 		spawnTimer = 0;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
 	}

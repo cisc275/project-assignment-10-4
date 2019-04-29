@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -28,13 +29,13 @@ class ViewTest {
 
 	@Test
 	void updateViewTest() {
-		BufferedImage b1 = null;
+		/*BufferedImage b1 = null;
 		try {
 			b1 = ImageIO.read(new File("images/bird.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		BufferedImage bi = null;
 		try {
 			bi = ImageIO.read(new File("images/big_bird_animate.png"));
@@ -57,7 +58,7 @@ class ViewTest {
 		list.add(g2);
 		v.setElements(list);
 		//what it should look like
-		Controller c1 = new Controller();
+		//Controller c1 = new Controller();
 		View v1 = c.getView();
 		v.setGameBackground(new Background(1500));
 		Bird ba = new Bird(0, 0, 1, 1, "images/big_bird_animate.png");
@@ -91,7 +92,10 @@ class ViewTest {
 
 	@Test
 	void drawImageTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		View v = new View(c);
+		v.drawImage();
+		fail("Stub method");
 	}
 
 	@Test
@@ -146,27 +150,44 @@ class ViewTest {
 
 	@Test
 	void nestAnimationTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		View v = new View(c);
+		v.nestAnimation();
+		fail("Stub method");
 	}
 
 	@Test
 	void updateBirdTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		View v = new View(c);
+		v.updateBird();
+		fail("Stub method");
 	}
 
 	@Test
 	void updateCollidablesTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		Model m = new Model(1000,1000);
+		View v = new View(c);
+		v.updateCollidables(m.getBird());
+		fail("Stub method");
 	}
 
 	@Test
 	void updateMiniMapTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		View v = new View(c);
+		Model m = new Model(1000,1000);
+		v.updateMiniMap(m.getMiniMap());
+		fail("Stub method");
 	}
 
 	@Test
 	void updateBackgroundTest() {
-		//fail("Not yet implemented");
+		Controller c = new Controller();
+		View v = new View(c);
+		v.updateBackground();
+		fail("Stub method");
 	}
 	
 	@Test
@@ -178,5 +199,13 @@ class ViewTest {
 		v.setPanel("NH");
 		assertEquals(v.getCurrentPanel(),v.getNHPanel());
 	}
-
+	
+	@Test
+	void frameTest() {
+		Controller c = new Controller();
+		View v = new View(c);
+		JFrame f = new JFrame();
+		v.setFrame(f);
+		assertEquals(v.getFrame(), f);
+	}
 }
