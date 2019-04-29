@@ -35,7 +35,7 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * A Dimension that stores the size of the player's screen
 	 */
-	final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
+	static final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game
 	 */
@@ -71,11 +71,11 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
 	/**
 	 * Height of the frame to display the game
 	 */
-	private final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
 	/**
 	 * The bird that is being controlled by the player to be displayed
 	 */
