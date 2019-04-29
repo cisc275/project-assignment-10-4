@@ -155,10 +155,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
 			view.setPanel("O");
+			model.setBirdType(0);
 			start();
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
+			model.setBirdType(1);
 			start();
 		}
 		

@@ -43,6 +43,10 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * The panel that is currently active
 	 */
+	private DrawPanel currentPanel;
+	/**
+	 * The panel at the beggining with the bird choices
+	 */
 	private DrawPanel buttonPanel;
 	/**
 	 * The panel that will be drawn on to display the Osprey game
@@ -111,6 +115,7 @@ public class View extends JPanel implements Serializable{
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
 		//cards.add(quizPanel, "Q"); 
+		currentPanel = buttonPanel;
 		frame.add(cards);
 		frame.setFocusable(true);
     	frame.addKeyListener(c);
@@ -194,6 +199,7 @@ public class View extends JPanel implements Serializable{
 		}
 		cards.add(quizPanel, "Q"); 
 		setPanel("Q"); 
+		currentPanel = quizPanel;
 	}
 	
 	/**
@@ -201,13 +207,6 @@ public class View extends JPanel implements Serializable{
 	 * the end of the game
 	 */
 	void nestAnimation() {}
-	
-	/**
-	 * The player selects whether it wants to play as the Osprey or the Northern Harrier.
-	 * 
-	 * @return An int representing the bird chosen. 0 = Osprey, 1 = Northern Harrier
-	 */
-	int selectBirdType() {return -1;}
 	
 	/**
 	 * Updates the display of the bird
@@ -232,6 +231,27 @@ public class View extends JPanel implements Serializable{
 	 * update the background based on how far the player has traveled.
 	 */
 	void updateBackground() {}
+	
+	/**
+	 * @param String the panel to set
+	 */
+	public void setPanel(String name) {
+		((CardLayout) cards.getLayout()).show(cards, name);
+		switch(name) {
+			case "O":
+				currentPanel = OPanel;
+				break;
+			case "NH":
+				currentPanel = NHPanel;
+		}
+	}
+	
+	/**
+	 * @return the currentPanel
+	 */
+	public DrawPanel getCurrentPanel() {
+		return currentPanel;
+	}
 
 	/**
 	 * @return the frame
@@ -291,10 +311,6 @@ public class View extends JPanel implements Serializable{
 	 */
 	public DrawPanel getNHPanel() {
 		return NHPanel;
-	}
-	
-	public void setPanel(String name) {
-		((CardLayout) cards.getLayout()).show(cards, name);
 	}
 	/**
 	 * @return the cards

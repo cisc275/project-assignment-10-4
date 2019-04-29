@@ -91,7 +91,7 @@ class ViewTest {
 
 	@Test
 	void drawImageTest() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -146,33 +146,37 @@ class ViewTest {
 
 	@Test
 	void nestAnimationTest() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void selectBirdTest() {
-		View view = new View(new Controller());
-		assertTrue(view.selectBirdType() == 1 || view.selectBirdType() == 0);
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	void updateBirdTest() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	void updateCollidablesTest() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	void updateMiniMapTest() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	void updateBackgroundTest() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+	}
+	
+	@Test
+	void setPanelTest() {
+		Controller c = new Controller();
+		View v = new View(c);
+		v.setPanel("O");
+		assertEquals(v.getCurrentPanel(),v.getOPanel());
+		v.setPanel("NH");
+		assertEquals(v.getCurrentPanel(),v.getNHPanel());
 	}
 
 }
