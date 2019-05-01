@@ -38,6 +38,10 @@ public class Bird extends GameElement implements Serializable{
      * An int for the number of frames that the bird cycles through to animate.
      */
     private static final int FRAME_COUNT = 4;
+    /**
+     * Constant for Bird's starting stamina value
+     */
+	private static final int START_STAMINA = 10;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -91,6 +95,7 @@ public class Bird extends GameElement implements Serializable{
 		frameNum = 0;
 		pics = new BufferedImage[FRAME_COUNT];
 		stunTimer = 0;
+		stamina = START_STAMINA;
 	}
 	
 	/**

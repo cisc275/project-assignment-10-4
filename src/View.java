@@ -94,6 +94,7 @@ public class View extends JPanel implements Serializable{
 	 * @param c reference to the Controller object in use
 	 */
 	public View(Controller c) {
+		System.out.println("(" + FRAMEWIDTH + "," + FRAMEHEIGHT + ")");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanel = new DrawPanel(); 
