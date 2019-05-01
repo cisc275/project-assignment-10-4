@@ -91,7 +91,7 @@ public class QuizQuestions implements Serializable{
 	/**
 	 * 
 	 * @param answer: a String representing the user's answer
-	 * @return true if the answer is correct and false is the 
+	 * @return true if the answer to quiz question is correct and false is the 
 	 * answer is incorrect. 
 	 */
 	public boolean answerQuestion(String answer) {

@@ -11,8 +11,9 @@ import java.lang.System;
  */
 @SuppressWarnings("serial")
 public class Model implements Serializable{
-	private static final int SPAWN_TIME_MAX = 100;
-	private static final int SPAWN_TIME_MIN = 25;
+	private static final int MAX_GAME_ELEMENTS_ONSCREEN = 3;
+	static final int SPAWN_TIME_MAX = 100;
+	static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
 	 */
@@ -26,11 +27,11 @@ public class Model implements Serializable{
 	 */
 	private List<GameElement>onScreenCollidables;	
 	/**
-	 * The distance currently travelled
+	 * The distance currently traveled
 	 */
 	private int distance;	
 	/**
-	 * The total distance needed to be travelled
+	 * The total distance needed to be traveled
 	 */
 	private int endDistance;	
 	/**
@@ -102,7 +103,7 @@ public class Model implements Serializable{
 		spawnTimer = 0;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
 	}
@@ -126,7 +127,7 @@ public class Model implements Serializable{
 	 * Ticks the spawn timer if needed to introduce a random delay to the Element spawner,
 	 * calling spawnGameElement when needed
 	 */
-	private void updateSpawnTimer() {
+	void updateSpawnTimer() {
 		if (spawnCount > 0) {
 			spawnTimer++;
 			if (spawnTimer == timeToSpawn) {
@@ -187,7 +188,7 @@ public class Model implements Serializable{
 	}
 	
 	/**
-	 * Updates the MiniMap to display the current travelled status
+	 * Updates the MiniMap to display the current traveled status
 	 */
 	void updateMiniMap() {
 		
@@ -229,7 +230,8 @@ public class Model implements Serializable{
 	
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
-	 * if the player answered the quiz correctly.
+	 * if the player answered the quiz correctly. 
+	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
@@ -246,12 +248,17 @@ public class Model implements Serializable{
 	 * a random number.  And depending on which type of image it is, it will generate its starting position 
 	 * appropriately.
 	 */
-	GameElement generateImgPath() {
-		Random randImg = new Random(); 
+	GameElement generateImgPath(int choice) {
+		int curImage = 0;
+		Random randImg = new Random();
+		Random randLoc = new Random();
+		if (choice < 0) {
+			curImage = randImg.nextInt(5);
+		} else {
+			curImage = choice;
+		}
 		int x = frameWidth;
 		int y;
-		Random randLoc = new Random();
-		int curImage = randImg.nextInt(5);
 		String ImgPath = "";
 		Images dir;
 		int xSpeed = 10;
@@ -290,17 +297,29 @@ public class Model implements Serializable{
 		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
 		       default:
+		    	  dir = Images.RECTANGLE;
+		    	  ImgPath = dir.getName();
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,"images/rectangle-icon-256.png");
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath);
 		     }
 		   return newGameElement;
 	}
+	
 	/**
 	 * Spawns new collidable immediately
 	 */
 	void spawnGameElement() {
-		onScreenCollidables.add(generateImgPath());
+		onScreenCollidables.add(generateImgPath(-1));
 	}
+	
+	/**
+	 * Spawns new collidable immediately
+	 * @param choice the index of which type of collidable to spawn
+	 */
+	void spawnGameElement(int choice) {
+		onScreenCollidables.add(generateImgPath(choice));
+	}
+	
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */
@@ -363,6 +382,21 @@ public class Model implements Serializable{
 	}
 
 	/**
+	 * @return the spawnCount
+	 */
+	public int getSpawnCount() {
+		return spawnCount;
+	}
+
+	/**
+	 * @param spawnCount the spawnCount to set
+	 */
+	public void setSpawnCount(int spawnCount) {
+		this.spawnCount = spawnCount;
+	}
+
+
+	/**
 	 * @return the quizQuestions
 	 */
 	public List<QuizQuestion> getQuizQuestions() {
@@ -419,7 +453,7 @@ public class Model implements Serializable{
 	}
 
 	/**
-	 * @return the quizMode
+	 * @return whether this game is in quiz mode or not 
 	 */
 	public boolean isQuizMode() {
 		return quizMode;

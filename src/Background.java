@@ -16,6 +16,10 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Background implements Serializable{
 	/**
+	 * Constant for speed at which Background scrolls
+	 */
+	private static final int BACKGROUND_SCROLL_SPEED = 10;
+	/**
 	 * BufferedImage representing a portion of the background
 	 */
 	private BufferedImage background1;
@@ -50,7 +54,7 @@ public class Background implements Serializable{
 		setBackground2(createImage());
 		setB1x(0);
 		setB2x(dim);
-		setSpeed(10);
+		setSpeed(BACKGROUND_SCROLL_SPEED);
 		setWidth(dim);
 	}
 	

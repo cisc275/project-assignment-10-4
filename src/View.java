@@ -35,13 +35,17 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * A Dimension that stores the size of the player's screen
 	 */
-	final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
+	static final Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	/**
 	 * The frame used to display the game
 	 */
 	private JFrame frame;
 	/**
 	 * The panel that is currently active
+	 */
+	private DrawPanel currentPanel;
+	/**
+	 * The panel at the beginning with the bird choices
 	 */
 	private DrawPanel buttonPanel;
 	/**
@@ -67,11 +71,11 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
 	/**
 	 * Height of the frame to display the game
 	 */
-	private final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
 	/**
 	 * The bird that is being controlled by the player to be displayed
 	 */
@@ -111,6 +115,7 @@ public class View extends JPanel implements Serializable{
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
 		//cards.add(quizPanel, "Q"); 
+		currentPanel = buttonPanel;
 		frame.add(cards);
 		frame.setFocusable(true);
     	frame.addKeyListener(c);
@@ -142,7 +147,10 @@ public class View extends JPanel implements Serializable{
 		}
 		this.elements = elements; 
 		
-		for(GameElement e : elements) {
+		Iterator<GameElement> it = this.elements.iterator();	
+		GameElement e;
+		while(it.hasNext()) {
+			e = it.next();
 			if(e.getImage() == null) {
 				e.setImage(createImage(e.getImagePath()));
 			}                            
@@ -191,6 +199,7 @@ public class View extends JPanel implements Serializable{
 		}
 		cards.add(quizPanel, "Q"); 
 		setPanel("Q"); 
+		currentPanel = quizPanel;
 	}
 	
 	/**
@@ -200,19 +209,12 @@ public class View extends JPanel implements Serializable{
 	void nestAnimation() {}
 	
 	/**
-	 * The player selects whether it wants to play as the Osprey or the Northern Harrier.
-	 * 
-	 * @return An int representing the bird chosen. 0 = Osprey, 1 = Northern Harrier
-	 */
-	int selectBirdType() {return -1;}
-	
-	/**
 	 * Updates the display of the bird
 	 */
 	void updateBird() {}
 	
 	/**
-	 * Updates the display of the bird
+	 * Updates the display of the onscreen collidables
 	 * 
 	 * @param bird the bird controlled by the player
 	 */
@@ -229,6 +231,27 @@ public class View extends JPanel implements Serializable{
 	 * update the background based on how far the player has traveled.
 	 */
 	void updateBackground() {}
+	
+	/**
+	 * @param String the panel to set
+	 */
+	public void setPanel(String name) {
+		((CardLayout) cards.getLayout()).show(cards, name);
+		switch(name) {
+			case "O":
+				currentPanel = OPanel;
+				break;
+			case "NH":
+				currentPanel = NHPanel;
+		}
+	}
+	
+	/**
+	 * @return the currentPanel
+	 */
+	public DrawPanel getCurrentPanel() {
+		return currentPanel;
+	}
 
 	/**
 	 * @return the frame
@@ -271,20 +294,35 @@ public class View extends JPanel implements Serializable{
 		this.OPanel = drawPanel;
 	}
 	/**
+	 * @return the quizPanel
+	 */
+	public DrawPanel getQuizPanel() {
+		return quizPanel;
+	}
+
+	/**
+	 * @param drawPanel the quizPanel to set
+	 */
+	public void setQuizPanel(DrawPanel drawPanel) {
+		this.quizPanel = drawPanel;
+	}
+	/**
 	 * @return the NHPanel
 	 */
 	public DrawPanel getNHPanel() {
 		return NHPanel;
-	}
-	
-	public void setPanel(String name) {
-		((CardLayout) cards.getLayout()).show(cards, name);
 	}
 	/**
 	 * @return the cards
 	 */
 	public JPanel getCards() {
 		return cards;
+	}
+	/**
+	 * @param JPanel the cards to set
+	 */
+	public void setCards(JPanel jPanel) {
+		cards = jPanel;
 	}
 
 	/**
@@ -356,6 +394,14 @@ public class View extends JPanel implements Serializable{
 	public Background getGameBackground() {
 		return this.background;
 	}
+	
+	/**
+	 * 
+	 * @return a DrawPanel
+	 */
+	public DrawPanel getDrawPanel() {
+		return new DrawPanel();
+	}	
 
 	/**
 	 * The game panel that is drawn to show the gameplay
@@ -363,7 +409,7 @@ public class View extends JPanel implements Serializable{
 	 * @author 10-4
 	 *
 	 */
-	private class DrawPanel extends JPanel {
+	class DrawPanel extends JPanel {
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
 			super.paintComponent(g2d);
