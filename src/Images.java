@@ -8,11 +8,11 @@ public enum Images {
 	/**
 	 * Every String is the path of the corresponding image
 	 */
-	OBSTACLE("images/building.png"),
-	MOUSE("images/normal_mouse.png"), 
-	GOLDENFISH("images/golden_fish.png"),
-	FISH("images/normal_fish.png"),
-	GOLDENMOUSE("images/golden_mouse.png"),
+	OBSTACLE("images/building_1080.png"),
+	MOUSE("images/normal_mouse_1080.png"), 
+	GOLDENFISH("images/golden_fish_1080.png"),
+	FISH("images/normal_fish_1080.png"),
+	GOLDENMOUSE("images/golden_mouse_1080.png"),
 	RECTANGLE("images/rectangle-icon-256.png");
 	
 	/**
