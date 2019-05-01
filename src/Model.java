@@ -146,6 +146,7 @@ public class Model implements Serializable{
 	 * 
 	 */
 	void updateBird() {
+		bird.updateStaminaImage();
 		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
 			bird.updatePosition();			
 		}

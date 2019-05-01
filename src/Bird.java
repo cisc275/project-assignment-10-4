@@ -71,6 +71,14 @@ public class Bird extends GameElement implements Serializable{
 	 */
     private BufferedImage[] pics;
     /**
+	 * An array of BufferedImages that stores the different stamina bar pictures
+	 */
+    private BufferedImage[] staminaPics;
+    /**
+     * A BufferedImage representing the current stamina bar image
+     */
+    private BufferedImage staminaImage;
+    /**
      * An int representing the current frame image that is being displayed
      */
     private int frameNum;
@@ -96,6 +104,7 @@ public class Bird extends GameElement implements Serializable{
 		pics = new BufferedImage[FRAME_COUNT];
 		stunTimer = 0;
 		stamina = START_STAMINA;
+		staminaPics = new BufferedImage[6];
 	}
 	
 	/**
@@ -233,6 +242,21 @@ public class Bird extends GameElement implements Serializable{
 	public void setPics(BufferedImage[] pics) {
 		this.pics = pics;
 	}
+	/**
+	 * 
+	 * @return the staminaPics of the bird
+	 */
+	public BufferedImage[] getStaminaPics() {
+		return this.staminaPics;
+	}
+
+	/**
+	 * 
+	 * @param pics the frames to set
+	 */
+	public void setStaminaPics(BufferedImage[] pics) {
+		this.staminaPics = pics;
+	}
 	
 	/**
 	 * 
@@ -267,5 +291,38 @@ public class Bird extends GameElement implements Serializable{
 	@Override
 	public boolean collision(Bird bird) {
 		return false;
+	}
+
+	public BufferedImage getStaminaImage() {
+		return staminaImage;
+	}
+
+	public void updateStaminaImage(){
+		switch(stamina) {
+		case 0:
+			staminaImage = staminaPics[0];
+			break;
+		case 1:
+		case 2:
+			staminaImage = staminaPics[1];
+			break;
+		case 3:
+		case 4:
+			staminaImage = staminaPics[2];
+			break;
+		case 5:
+		case 6:
+			staminaImage = staminaPics[3];
+			break;
+		case 7:
+		case 8:
+			staminaImage = staminaPics[4];
+			break;
+		case 9:
+		case 10:
+			staminaImage = staminaPics[5];
+			break;
+			
+		}
 	}
 }
