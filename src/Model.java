@@ -267,9 +267,9 @@ public class Model implements Serializable{
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
-		    	  dir = Images.OBSTACLE;
+		    	  dir = Images.BUILDING;
 		    	  ImgPath = dir.getName();
-		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
+		    	  y =  10000;  //spawns the building near the top of the screen
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
 		          break;
 		       case 1:

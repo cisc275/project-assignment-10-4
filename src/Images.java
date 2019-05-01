@@ -8,7 +8,7 @@ public enum Images {
 	/**
 	 * Every String is the path of the corresponding image
 	 */
-	OBSTACLE("images/building_1080.png"),
+	BUILDING("images/building_1080.png"),
 	MOUSE("images/normal_mouse_1080.png"), 
 	GOLDENFISH("images/golden_fish_1080.png"),
 	FISH("images/normal_fish_1080.png"),
