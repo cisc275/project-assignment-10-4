@@ -71,11 +71,13 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * Width of the frame to display the game
 	 */
-	private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	//private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	private static final int FRAMEWIDTH = 1920;
 	/**
 	 * Height of the frame to display the game
 	 */
-	private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	//private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	private static final int FRAMEHEIGHT = 1080;
 	/**
 	 * The bird that is being controlled by the player to be displayed
 	 */
