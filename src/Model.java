@@ -85,6 +85,7 @@ public class Model implements Serializable{
 	
 	private int timeToSpawn;
 	
+	private boolean doingQuiz; 
 	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
@@ -101,6 +102,7 @@ public class Model implements Serializable{
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
 		spawnTimer = 0;
+		doingQuiz = false; 
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
@@ -241,6 +243,7 @@ public class Model implements Serializable{
 			System.out.println("False"); 
 		}
 		quizMode = false; 
+		doingQuiz = false; 
 	}
 
 	/**
@@ -543,5 +546,18 @@ public class Model implements Serializable{
 	public void setBackground(Background background) {
 		this.background = background;
 	}
-	
+	/**
+	 * 
+	 * @return is the user doing the quiz or not 
+	 */
+	public boolean isDoingQuiz() {
+		return this.doingQuiz; 
+	}
+	/**
+	 * 
+	 * @param b: sets the value of isDoingQuiz
+	 */
+	public void setDoingQuiz(boolean b) {
+		this.doingQuiz = b; 
+	}
 }
