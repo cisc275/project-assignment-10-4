@@ -27,11 +27,11 @@ public class Model implements Serializable{
 	 */
 	private List<GameElement>onScreenCollidables;	
 	/**
-	 * The distance currently travelled
+	 * The distance currently traveled
 	 */
 	private int distance;	
 	/**
-	 * The total distance needed to be travelled
+	 * The total distance needed to be traveled
 	 */
 	private int endDistance;	
 	/**
@@ -188,7 +188,7 @@ public class Model implements Serializable{
 	}
 	
 	/**
-	 * Updates the MiniMap to display the current travelled status
+	 * Updates the MiniMap to display the current traveled status
 	 */
 	void updateMiniMap() {
 		

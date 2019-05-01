@@ -45,7 +45,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	private DrawPanel currentPanel;
 	/**
-	 * The panel at the beggining with the bird choices
+	 * The panel at the beginning with the bird choices
 	 */
 	private DrawPanel buttonPanel;
 	/**
@@ -228,7 +228,7 @@ public class View extends JPanel implements Serializable{
 	void updateMiniMap(MiniMap miniMap) {}
 	
 	/**
-	 * update the background based on how far the player has travelled.
+	 * update the background based on how far the player has traveled.
 	 */
 	void updateBackground() {}
 	

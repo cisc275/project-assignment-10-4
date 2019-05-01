@@ -189,7 +189,7 @@ public abstract class GameElement implements Serializable{
 	/**
 	 * Basic isOffScreen, will return true if the current instance of an 
 	 * Obstacle is off the screen, returns false otherwise
-	 * @retunr true if the GameElement is off the screen
+	 * @return true if the GameElement is off the screen
 	 */
 	public boolean isOffScreen() {
 		return ((getXloc()+getWidth()) < 0);

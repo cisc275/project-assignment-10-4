@@ -27,7 +27,7 @@ public class Obstacle extends GameElement implements Serializable{
 	}
 	/**
 	 * @param bird- representing the bird the player is controlling
-	 * decrements the bird's stamina upon collisoin with an obstacle
+	 * decrements the bird's stamina upon collision with an obstacle
 	 * @return false because the obstacle never has to be removed after collision.
 	 */
 	@Override
