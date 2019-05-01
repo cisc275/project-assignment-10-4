@@ -75,11 +75,11 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode()) {
+    			if (!model.isQuizMode() && !model.isDoingQuiz()) {
     				model.update();
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
-    			else {
+    			else if (model.isQuizMode()){
     				quizButtons.clear(); 
     				QuizQuestion q = model.startQuiz();
     				for (String s: q.getAnswers()) {
@@ -87,9 +87,15 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					next.addActionListener(quizAnswer); 
     					quizButtons.add(next); 
     				}
-    				view.displayQuiz(model.startQuiz(), quizButtons);
+    				model.setDoingQuiz(true); 
+    				model.setQuizMode(false);
     			}
+    			else if (model.isDoingQuiz()) {
+    				view.displayQuiz(model.startQuiz(), quizButtons);
+    			} 
+    				
     		}
+    		
     	};
     	
     	
