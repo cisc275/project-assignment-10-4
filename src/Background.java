@@ -104,7 +104,7 @@ public class Background implements Serializable{
 	BufferedImage createImage(){
 		BufferedImage bufferedImage;
 		try {
-		    bufferedImage = ImageIO.read(new File("images/big_grass_background.png"));
+		    bufferedImage = ImageIO.read(new File("images/background_grass_1080.png"));
 		    return bufferedImage;
 		} catch (IOException e) {
 		    e.printStackTrace();

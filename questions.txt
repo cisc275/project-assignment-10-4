@@ -1,0 +1,5 @@
+ * How do we get the screen to look consistent across multiple devices, especially when the Toolkit package is returning wrong screen dimensions?
+ * Does anyone have quality open 2D images for an osprey and northern harrier?
+ * Is anyone else having performance issues? If so, have you identified the cause?
+   Profile
+   Collisions- make a polygon

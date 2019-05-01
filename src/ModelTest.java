@@ -435,7 +435,7 @@ class ModelTest {
     @Test
     void generateImgPathTest() {
     	Model m = new Model(500,500);
-    	Images[] imgs = {Images.OBSTACLE, Images.MOUSE, Images.GOLDENFISH, Images.FISH,
+    	Images[] imgs = {Images.BUILDING, Images.MOUSE, Images.GOLDENFISH, Images.FISH,
     					 Images.GOLDENMOUSE, Images.RECTANGLE};
     	for (int i = 0; i < 6; i++) {
     		m.spawnGameElement(i);
