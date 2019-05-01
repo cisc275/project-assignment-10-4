@@ -53,7 +53,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * Time between draw events
 	 */
-	final int drawDelay = 30;
+	final int drawDelay = 30; 
 	 
 	public Controller() {
 		Obutton = new JButton("Osprey");
