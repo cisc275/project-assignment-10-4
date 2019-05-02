@@ -257,7 +257,7 @@ public class Model implements Serializable{
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
-			curImage = randImg.nextInt(5);
+			curImage = randImg.nextInt(7);
 		} else {
 			curImage = choice;
 		}
@@ -299,6 +299,18 @@ public class Model implements Serializable{
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
 		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
+		       case 5:
+		    	  dir = Images.EAGLE;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns enemy near top of sceen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
+		       case 6:
+		    	  dir = Images.OWL;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns enemy near top of sceen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
 		       default:
 		    	  dir = Images.RECTANGLE;
