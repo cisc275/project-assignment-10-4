@@ -11,6 +11,8 @@ public class QuizQuestions implements Serializable{
 	 */
 	private QuizQuestion current;
 	
+	private QuizQuestion last; 
+	
 	/**
 	 * 
 	 * @param filename: the file that stores all of the quiz questions
@@ -19,6 +21,12 @@ public class QuizQuestions implements Serializable{
 	public QuizQuestions(String filename) {
 		this.unusedQuestions = new ArrayList<QuizQuestion>();
 		this.current = null; 
+		List<String> qs = new ArrayList<String>(); 
+		qs.add("you gucci"); 
+		qs.add("so powerful"); 
+		qs.add("you is a winner in my <3"); 
+		qs.add("so smart"); 
+		this.last = new QuizQuestion("Yo you win", qs, "I'm crying bc sad"); 
 		/**
 		 * Create the questions
 		 */
@@ -63,9 +71,14 @@ public class QuizQuestions implements Serializable{
 	 * Gets a newQuestion from the list
 	 */
 	public void newQuestion() {
-		QuizQuestion result = unusedQuestions.get(0);
-		unusedQuestions.remove(result); 
-		current = result; 
+		if (questionsRemaining() > 0) {
+			QuizQuestion result = unusedQuestions.get(0);
+			unusedQuestions.remove(result); 
+			current = result;
+		} 
+		else { 
+			current = last; 
+		}
 	}
 	/**
 	 * 

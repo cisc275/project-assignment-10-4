@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -184,6 +185,21 @@ public abstract class GameElement implements Serializable{
 	 */
 	public Rectangle getBounds() {
 		return new Rectangle(xloc,yloc,width,height);
+	}
+	
+	public Polygon polyBounds() {
+		// x coordinates of vertices
+		int x[] = { 10, 30, 40, 50, 110, 140 }; 
+		  
+        // y coordinates of vertices 
+        int y[] = { 140, 110, 50, 40, 30, 10 }; 
+  
+        // number of vertices 
+        int numberofpoints = 6; 
+  
+        // create a polygon with given x, y coordinates 
+        Polygon p = new Polygon(x, y, numberofpoints); 
+        return p;
 	}
 	
 	/**

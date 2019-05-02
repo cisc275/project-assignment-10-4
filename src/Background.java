@@ -18,7 +18,7 @@ public class Background implements Serializable{
 	/**
 	 * Constant for speed at which Background scrolls
 	 */
-	private static final int BACKGROUND_SCROLL_SPEED = 10;
+	private static final int BACKGROUND_SCROLL_SPEED = 3;
 	/**
 	 * BufferedImage representing a portion of the background
 	 */
@@ -53,7 +53,7 @@ public class Background implements Serializable{
 		setBackground1(createImage());
 		setBackground2(createImage());
 		setB1x(0);
-		setB2x(dim);
+		setB2x(dim-3);
 		setSpeed(BACKGROUND_SCROLL_SPEED);
 		setWidth(dim);
 	}
@@ -67,11 +67,11 @@ public class Background implements Serializable{
 		b1x -= speed;
 		b2x -= speed;
 		if(b1x+width<=0) {
-			b1x = width;
+			b1x = width-8;
 		}
 		
 		if(b2x + width <= 0) {
-			b2x = width;
+			b2x = width-8;
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class Background implements Serializable{
 	BufferedImage createImage(){
 		BufferedImage bufferedImage;
 		try {
-		    bufferedImage = ImageIO.read(new File("images/big_grass_background.png"));
+		    bufferedImage = ImageIO.read(new File("images/background_grass_1080.png"));
 		    return bufferedImage;
 		} catch (IOException e) {
 		    e.printStackTrace();

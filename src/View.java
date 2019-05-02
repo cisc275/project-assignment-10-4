@@ -145,6 +145,16 @@ public class View extends JPanel implements Serializable{
 		if(this.bird.getImage() == null) {
 			this.bird.setImage(createImage("images/big_bird_animate.png"));
 		}
+		if(this.bird.getStaminaPics()[0] == null) {
+			BufferedImage[] arr = new BufferedImage[6];
+			arr[0] = createImage("images/0_health.png");
+			arr[1] = createImage("images/1_health.png");
+			arr[2] = createImage("images/2_health.png");
+			arr[3] = createImage("images/3_health.png");
+			arr[4] = createImage("images/4_health.png");
+			arr[5] = createImage("images/5_health.png");
+			this.bird.setStaminaPics(arr);
+		}
 		this.elements = elements; 
 		
 		//MiniMap curMap = (MiniMap)elements.get(0); //first element will always be a MiniMap
@@ -436,6 +446,7 @@ public class View extends JPanel implements Serializable{
 						g2d.setComposite(ac);
 					}
 			    	g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
+			    	g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
 				}
 			} 	
 		}

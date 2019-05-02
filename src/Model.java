@@ -81,6 +81,7 @@ public class Model implements Serializable{
 	
 	private int timeToSpawn;
 	
+	private boolean doingQuiz; 
 	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
@@ -97,6 +98,7 @@ public class Model implements Serializable{
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
 		spawnTimer = 0;
+		doingQuiz = false; 
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
 		onScreenCollidables.add(generateImgPath(5));
@@ -144,6 +146,7 @@ public class Model implements Serializable{
 	 * 
 	 */
 	void updateBird() {
+		bird.updateStaminaImage();
 		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
 			bird.updatePosition();			
 		}
@@ -251,6 +254,7 @@ public class Model implements Serializable{
 			System.out.println("False"); 
 		}
 		quizMode = false; 
+		doingQuiz = false; 
 	}
 
 	/**
@@ -263,7 +267,7 @@ public class Model implements Serializable{
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
-			curImage = randImg.nextInt(5);
+			curImage = randImg.nextInt(8);
 		} else {
 			curImage = choice;
 		}
@@ -277,9 +281,9 @@ public class Model implements Serializable{
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
-		    	  dir = Images.OBSTACLE;
+		    	  dir = Images.BUILDING;
 		    	  ImgPath = dir.getName();
-		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
+		    	  y =  10000;  //spawns the building near the top of the screen
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
 		          break;
 		       case 1:
@@ -306,7 +310,7 @@ public class Model implements Serializable{
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
 		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
-		       case 5:
+		       /*case 5:
 		    	  dir = Images.NH_MINIMAP;
 		    	  ImgPath = dir.getName();
 		    	  x = 1120;
@@ -320,7 +324,7 @@ public class Model implements Serializable{
 		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird); 
 		    	 //onScreenCollidables.add(new MiniMap(x, y, xSpeed, ySpeed, mapSpriteFile, mapSpriteFile,xLocOfBird, yLocOfBird));
 		    	  break;
-		        case 6:
+			   case 6:
 			      dir = Images.NH_IMG_FOR_MINIMAP; 
 			      ImgPath = dir.getName();
 			      mapSpriteFile = ImgPath;
@@ -331,7 +335,25 @@ public class Model implements Serializable{
 		    	  xLocOfBird = 1265; 
 		    	  yLocOfBird = 110;
 		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);  
-		    	  break;   
+		    	  break; */ 
+		       case 5:
+		    	  dir = Images.EAGLE;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
+		       case 6:
+		    	  dir = Images.OWL;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
+		       case 7:
+		    	  dir = Images.FOX;
+		    	  ImgPath = dir.getName();
+		    	  y = 10000;  //spawns the fox near the top of the screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
 		       default:
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();
@@ -565,5 +587,18 @@ public class Model implements Serializable{
 	public void setBackground(Background background) {
 		this.background = background;
 	}
-	
+	/**
+	 * 
+	 * @return is the user doing the quiz or not 
+	 */
+	public boolean isDoingQuiz() {
+		return this.doingQuiz; 
+	}
+	/**
+	 * 
+	 * @param b: sets the value of isDoingQuiz
+	 */
+	public void setDoingQuiz(boolean b) {
+		this.doingQuiz = b; 
+	}
 }
