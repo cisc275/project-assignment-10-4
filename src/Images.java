@@ -15,7 +15,9 @@ public enum Images {
 	GOLDENMOUSE("images/golden_mouse_1080.png"),
 	EAGLE("images/eagle_1080.png"),
 	OWL("images/owl_1080.png"),
+	FOX("images/fox_1080.png"),
 	RECTANGLE("images/rectangle-icon-256.png");
+	
 	
 	/**
 	 * @param a String representing the ImagePath of the GameElement

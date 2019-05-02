@@ -257,7 +257,7 @@ public class Model implements Serializable{
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
-			curImage = randImg.nextInt(7);
+			curImage = randImg.nextInt(8);
 		} else {
 			curImage = choice;
 		}
@@ -303,13 +303,19 @@ public class Model implements Serializable{
 		       case 5:
 		    	  dir = Images.EAGLE;
 		    	  ImgPath = dir.getName();
-		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns enemy near top of sceen
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
 		       case 6:
 		    	  dir = Images.OWL;
 		    	  ImgPath = dir.getName();
-		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns enemy near top of sceen
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+			      break;
+		       case 7:
+		    	  dir = Images.FOX;
+		    	  ImgPath = dir.getName();
+		    	  y = 10000;  //spawns the fox near the top of the screen
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
 		       default:
