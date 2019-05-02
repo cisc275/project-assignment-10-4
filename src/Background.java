@@ -18,7 +18,7 @@ public class Background implements Serializable{
 	/**
 	 * Constant for speed at which Background scrolls
 	 */
-	private static final int BACKGROUND_SCROLL_SPEED = 10;
+	private static final int BACKGROUND_SCROLL_SPEED = 3;
 	/**
 	 * BufferedImage representing a portion of the background
 	 */
