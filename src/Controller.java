@@ -65,7 +65,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
     			view.setPanel("O"); 
     		}
-    	}; 
+    	};
     	quizButtons = new ArrayList<JButton>(); 
     	
 		view = new View(this);
@@ -91,8 +91,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			}
     		}
     	};
-    	
-    	
 	}
 	
 	/**
@@ -155,15 +153,16 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
 			view.setPanel("O");
-			model.setBirdType(0);
+			model.getBird().setBirdType("Osprey");
+			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
-			model.setBirdType(1);
+			model.getBird().setBirdType("Northern Harrier");
+			//System.out.println(model.getBird().getBirdType());
 			start();
-		}
-		
+		}	
 	}
 
 	/**

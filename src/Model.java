@@ -19,10 +19,6 @@ public class Model implements Serializable{
 	 */
 	private Bird bird;	
 	/**
-	 * Which bird the player is currently using. 0 = Osprey, 1 = Northern Harrier
-	 */
-	private int birdType;
-	/**
 	 * A list containing all GameElement objects that are currently on the screen
 	 */
 	private List<GameElement>onScreenCollidables;	
@@ -103,6 +99,8 @@ public class Model implements Serializable{
 		spawnTimer = 0;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
+		onScreenCollidables.add(generateImgPath(5));
+		onScreenCollidables.add(generateImgPath(6));
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
@@ -190,8 +188,20 @@ public class Model implements Serializable{
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
+	
 	void updateMiniMap() {
-		
+	 	MiniMap curMap = (MiniMap)onScreenCollidables.get(0);
+	 	curMap.updatePosition();
+	 	MiniMap littleBird = (MiniMap)onScreenCollidables.get(1);
+	 	int yLoc = littleBird.getYloc();
+	 	int xLoc = littleBird.getXloc();
+	 	int updateLilBird = rand.nextInt(10);
+	 	if (updateLilBird == 1) {
+	 	yLoc -= 2;
+	 	xLoc -= 1;
+	 	littleBird.setYloc(yLoc);
+	 	littleBird.setXloc(xLoc);
+	 	}
 	}
 	
 	/**
@@ -296,6 +306,32 @@ public class Model implements Serializable{
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
 		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
 			      break;
+		       case 5:
+		    	  dir = Images.NH_MINIMAP;
+		    	  ImgPath = dir.getName();
+		    	  x = 1120;
+		    	  y = 0; 
+		    	  xSpeed =0;
+		    	  ySpeed =0;
+		    	  int xLocOfBird = 1265; 
+		    	  int yLocOfBird = 110;
+		    	  dir = Images.NH_IMG_FOR_MINIMAP;
+			      String mapSpriteFile = dir.getName();
+		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird); 
+		    	 //onScreenCollidables.add(new MiniMap(x, y, xSpeed, ySpeed, mapSpriteFile, mapSpriteFile,xLocOfBird, yLocOfBird));
+		    	  break;
+		        case 6:
+			      dir = Images.NH_IMG_FOR_MINIMAP; 
+			      ImgPath = dir.getName();
+			      mapSpriteFile = ImgPath;
+			      x = 1265;
+		    	  y = 110; 
+		    	  xSpeed =0;
+		    	  ySpeed =0;
+		    	  xLocOfBird = 1265; 
+		    	  yLocOfBird = 110;
+		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);  
+		    	  break;   
 		       default:
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();
@@ -464,20 +500,6 @@ public class Model implements Serializable{
 	 */
 	public void setQuizMode(boolean quizMode) {
 		this.quizMode = quizMode;
-	}
-
-	/**
-	 * @return the birdType
-	 */
-	public int getBirdType() {
-		return birdType;
-	}
-
-	/**
-	 * @param birdType the birdType to set
-	 */
-	public void setBirdType(int birdType) {
-		this.birdType = birdType;
 	}
 
 	/**

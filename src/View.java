@@ -111,9 +111,7 @@ public class View extends JPanel implements Serializable{
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
-		NHPanel.setBackground(Color.gray);
-		
-		
+		NHPanel.setBackground(Color.gray);				
 		cards.add(buttonPanel, "B");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
@@ -129,7 +127,6 @@ public class View extends JPanel implements Serializable{
     	frame.setVisible(true);
     	frame.pack();
     	
-
 	}
 	
 	/**
@@ -150,6 +147,8 @@ public class View extends JPanel implements Serializable{
 		}
 		this.elements = elements; 
 		
+		//MiniMap curMap = (MiniMap)elements.get(0); //first element will always be a MiniMap
+		//curMap.setImage(createImage(curMap.getMapSpriteFile()));
 		Iterator<GameElement> it = this.elements.iterator();	
 		GameElement e;
 		while(it.hasNext()) {
@@ -166,6 +165,7 @@ public class View extends JPanel implements Serializable{
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
+	
 	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {

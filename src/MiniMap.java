@@ -22,10 +22,25 @@ public class MiniMap extends GameElement implements Serializable{
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
 	private String mapSpriteFile;
-	
-	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+	/**
+	 * @param x - an int representing the x location of the GameElement
+	 * @param y - an int representing the y location of the GameElement
+	 * @param xSpeed - an int representing the horizontal speed of the GameElement
+	 * @param ySpeed - an int representing the vertical speed of the GameElement
+	 * @param imagePath - a string representing the path of the image of the GameElement
+	 * @param mapSpriteFile - a string of the file containing the Sprite corresponding to either 
+	 * the Northern Harrier or the Osprey
+	 * @param mapXLoc - an int value of the X location of the small bird (either the Northern Harrier 
+	 * or the Osprey) on the minimap
+	 * @param mapYLoc - an int value of the y location of the small bird (either the Northern Harrier 
+	 * or the Osprey) on the minimap
+	 */
+		
+	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath, String mapSpriteFile ,int mapXLoc, int mapYLoc) {
 		super(x, y, xSpeed, ySpeed, imagePath);
-		// TODO Auto-generated constructor stub
+		this.mapSpriteFile = mapSpriteFile;
+		this.mapXLoc = mapXLoc;
+		this.mapYLoc = mapYLoc;
 	}
 	/**
 	 * @return the mapXLoc
@@ -67,4 +82,10 @@ public class MiniMap extends GameElement implements Serializable{
 	public boolean collision(Bird bird) {
 		return false;
 	}
+	
+	@Override
+	void updatePosition(){
+		int yLoc = this.getMapYLoc();
+		this.setMapYLoc(yLoc++);
+}
 }

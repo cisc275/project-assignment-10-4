@@ -11,6 +11,10 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
+	 * Which bird the player is currently using. 0 = Osprey, 1 = Northern Harrier
+	 */
+	private String birdType;
+	/**
 	 * Constant for Bird's width
 	 */
 	private static final int BIRD_WIDTH = 224;
@@ -256,6 +260,21 @@ public class Bird extends GameElement implements Serializable{
 	 */
 	public int getFrameCount() {
 		return Bird.FRAME_COUNT;
+	}
+	
+
+	/**
+	 * @return the birdType
+	 */
+	public String getBirdType() {
+		return birdType;
+	}
+
+	/**
+	 * @param birdType the birdType to set
+	 */
+	public void setBirdType(String birdType) {
+		this.birdType = birdType;
 	}
 
 	/**
