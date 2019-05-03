@@ -84,12 +84,12 @@ public abstract class GameElement implements Serializable{
 		yPolyVals.put(Images.MOUSE,new int[]{43,34,19,9,3,8,4,2,13,8,9,20,40,52,65,82,93,108,124,139,140,130,114,102,89,92,85,77,68,58,48,48,47});
 		System.out.println(xPolyVals.get(Images.MOUSE).length == yPolyVals.get(Images.MOUSE).length);
 		
-		xPolyVals.put(Images.GOLDENFISH,new int[]{});
-		yPolyVals.put(Images.GOLDENFISH,new int[]{});
+		xPolyVals.put(Images.GOLDENFISH,new int[]{2,17,37,49,61,71,73,62,83,110,137,106,100,106,95,80,63,69,56,47,32,17,5});
+		yPolyVals.put(Images.GOLDENFISH,new int[]{68,59,48,33,26,26,43,49,67,58,63,76,90,106,104,87,102,107,112,104,100,85,79});
 		System.out.println(xPolyVals.get(Images.GOLDENFISH).length == yPolyVals.get(Images.GOLDENFISH).length);
 		
-		xPolyVals.put(Images.FISH,new int[]{});
-		yPolyVals.put(Images.FISH,new int[]{});
+		xPolyVals.put(Images.FISH,new int[]{1,15,33,47,64,85,82,71,88,105,138,114,109,118,110,101,92,63,69,53,46,26,14,10,2});
+		yPolyVals.put(Images.FISH,new int[]{36,35,26,23,5,5,29,28,49,37,37,54,79,81,89,83,64,86,95,100,90,81,63,52,46});
 		System.out.println(xPolyVals.get(Images.FISH).length == yPolyVals.get(Images.FISH).length);
 		
 		xPolyVals.put(Images.GOLDENMOUSE,new int[]{});
