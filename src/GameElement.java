@@ -109,6 +109,11 @@ public abstract class GameElement implements Serializable{
 		xPolyVals.put(Images.FOX,new int[]{6,23,31,40,39,50,66,77,119,130,162,215,241,261,275,285,281,315,358,397,398,430,462,485,498,465,439,440,412,374,362,347,333,326,289,299,311,322,338,352,352,330,311,320,320,304,306,311,301,270,247,232,177,147,98,92,87,79,83,77,50,37,26,39,63,84,96,69,53,30,17});
 		yPolyVals.put(Images.FOX,new int[]{70,62,46,38,7,5,18,31,41,39,44,39,43,52,46,35,53,40,34,35,42,47,60,73,80,83,82,89,95,95,98,97,93,97,77,102,113,115,140,151,164,144,144,169,190,190,182,174,149,132,114,91,101,104,141,168,175,168,136,127,137,157,153,130,119,108,103,83,78,81,83});
 		//System.out.println(xPolyVals.get(Images.FOX).length == yPolyVals.get(Images.FOX).length);
+		
+		xPolyVals.put(Images.BIRD,new int[]{24,37,50,71,80,88,81,69,54,41,35,15,12,16});
+		yPolyVals.put(Images.BIRD,new int[]{71,73,70,72,72,78,83,89,91,87,84,93,86,80});
+		//System.out.println(xPolyVals.get(Images.BIRD).length == yPolyVals.get(Images.BIRD).length);
+	
 	}
 	
 	
@@ -251,18 +256,7 @@ public abstract class GameElement implements Serializable{
 	}
 	
 	public Polygon polyBounds() {
-		// x coordinates of vertices
-		int x[] = { 10, 30, 40, 50, 110, 140 }; 
-		  
-        // y coordinates of vertices 
-        int y[] = { 140, 110, 50, 40, 30, 10 }; 
-  
-        // number of vertices 
-        int numberofpoints = 6; 
-  
-        // create a polygon with given x, y coordinates 
-        Polygon p = new Polygon(x, y, numberofpoints); 
-        return p;
+        return polygon;
 	}
 	
 	/**

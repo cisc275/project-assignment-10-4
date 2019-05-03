@@ -105,6 +105,7 @@ public class Bird extends GameElement implements Serializable{
 		stunTimer = 0;
 		stamina = START_STAMINA;
 		staminaPics = new BufferedImage[6];
+		this.setType(Images.BIRD);
 	}
 	
 	/**
