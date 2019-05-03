@@ -33,7 +33,7 @@ public class Bird extends GameElement implements Serializable{
 	/**
 	 * This constant represents how many ticks the bird stays stunned for
 	 */
-	private static final int STUN_TIME_LIMIT = 35;
+	private static final int STUN_TIME_LIMIT = 75;
     /**
      * An int for the number of frames that the bird cycles through to animate.
      */
@@ -41,7 +41,7 @@ public class Bird extends GameElement implements Serializable{
     /**
      * Constant for Bird's starting stamina value
      */
-	private static final int START_STAMINA = 10;
+	private static final int START_STAMINA = 5;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -304,23 +304,18 @@ public class Bird extends GameElement implements Serializable{
 			staminaImage = staminaPics[0];
 			break;
 		case 1:
-		case 2:
 			staminaImage = staminaPics[1];
 			break;
-		case 3:
-		case 4:
+		case 2:
 			staminaImage = staminaPics[2];
 			break;
-		case 5:
-		case 6:
+		case 3:
 			staminaImage = staminaPics[3];
 			break;
-		case 7:
-		case 8:
+		case 4:
 			staminaImage = staminaPics[4];
 			break;
-		case 9:
-		case 10:
+		case 5:
 			staminaImage = staminaPics[5];
 			break;
 			
