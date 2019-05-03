@@ -116,7 +116,7 @@ public class QuizQuestions implements Serializable{
 	}
 	
 	public static void main(String[] args) {
-		QuizQuestions qs = new QuizQuestions("images/questions.txt"); 
+		QuizQuestions qs = new QuizQuestions("quiz/quiz_questions.txt"); 
 		
 		System.out.println(qs); 
 	}

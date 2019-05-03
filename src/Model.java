@@ -95,7 +95,7 @@ public class Model implements Serializable{
 		bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		theQuestions = new QuizQuestions("images/questions.txt"); 
+		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
 		rand = new Random();
