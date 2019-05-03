@@ -123,6 +123,15 @@ public abstract class GameElement implements Serializable{
 	 */
 	void updatePosition() {
 		xloc -= xSpeed;
+		polygon.translate(-xSpeed,0);
+	}
+	
+	public void fixPolygon() {
+		this.polygon.reset();
+		int[] x = xPolyVals.get(this.type);
+		int[] y = yPolyVals.get(this.type);
+		polygon = new Polygon(x, y, x.length);
+		polygon.translate(this.xloc,this.yloc);
 	}
 	
 	/**
@@ -148,6 +157,10 @@ public abstract class GameElement implements Serializable{
 	 */
 	public void setYloc(int yloc) {
 		this.yloc = yloc;
+		if(polygon!=null) {
+			this.fixPolygon();
+		}
+		
 	}
 	/**
 	 * @return the spriteFile
@@ -241,11 +254,14 @@ public abstract class GameElement implements Serializable{
 		int[] x = xPolyVals.get(this.type);
 		int[] y = yPolyVals.get(this.type);
 		polygon = new Polygon(x, y, x.length);
+		polygon.translate(this.xloc,this.yloc);
 	}
 	
 	public Images getType() {
 		return this.type;
 	}
+	
+	
 	
 	
 	/**

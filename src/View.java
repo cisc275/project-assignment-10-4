@@ -439,6 +439,7 @@ public class View extends JPanel implements Serializable{
 			if (elements != null) {
 				for (GameElement e: elements) {
 					g2d.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this); 
+					//g2d.drawPolygon(e.polyBounds());
 				} 
 				if (bird != null) {
 					if (bird.isStunned()) {

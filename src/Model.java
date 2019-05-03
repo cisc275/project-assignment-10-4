@@ -206,7 +206,10 @@ public class Model implements Serializable{
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
-			if (e.getBounds().intersects(bird.getBounds())) {
+			/*if (e.getBounds().intersects(bird.getBounds())) {
+				collided = e;
+			}*/
+			if(e.polyBounds().intersects(bird.getBounds())) {
 				collided = e;
 			}
 		}
@@ -324,7 +327,7 @@ public class Model implements Serializable{
 		    	  y = randLoc.nextInt(frameHeight);
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
 		     }
-		     System.out.println(newGameElement.getType());
+		   newGameElement.setType(dir);
 		   return newGameElement;
 	}
 	
