@@ -54,6 +54,8 @@ public abstract class GameElement implements Serializable{
 	
 	protected static Map<Images,int[]>xPolyVals = new HashMap<Images,int[]>();
 	protected static Map<Images,int[]>yPolyVals = new HashMap<Images,int[]>();
+	
+	protected Polygon polygon;
 ;
 	 
 	/**
@@ -92,12 +94,12 @@ public abstract class GameElement implements Serializable{
 		yPolyVals.put(Images.FISH,new int[]{36,35,26,23,5,5,29,28,49,37,37,54,79,81,89,83,64,86,95,100,90,81,63,52,46});
 		System.out.println(xPolyVals.get(Images.FISH).length == yPolyVals.get(Images.FISH).length);
 		
-		xPolyVals.put(Images.GOLDENMOUSE,new int[]{});
-		yPolyVals.put(Images.GOLDENMOUSE,new int[]{});
+		xPolyVals.put(Images.GOLDENMOUSE,new int[]{9,13,26,39,37,42,50,56,63,69,73,99,117,129,131,128,137,121,89,59,60,63,52,45,50,64,62,45,31,43,52,40,19});
+		yPolyVals.put(Images.GOLDENMOUSE,new int[]{48,43,34,20,12,6,9,8,4,7,17,10,14,25,40,51,68,89,99,113,129,137,136,124,106,98,90,90,83,71,61,51,49});
 		System.out.println(xPolyVals.get(Images.GOLDENMOUSE).length == yPolyVals.get(Images.GOLDENMOUSE).length);
 		
-		xPolyVals.put(Images.EAGLE,new int[]{});
-		yPolyVals.put(Images.EAGLE,new int[]{});
+		xPolyVals.put(Images.EAGLE,new int[]{135,154,187,223,232,255,249,283,272,288,265,292,275,285,271,246,236,209,179,190,232,227,210,191,185,175,158,147,129,130,117,111,121,130,138,141,133,129,120,118,109,105,84,69,60,45,30,10,26,7,22,7,23,44,80,109,124});
+		yPolyVals.put(Images.EAGLE,new int[]{98,91,52,27,28,10,27,4,25,19,40,38,48,50,64,89,95,120,123,135,138,151,159,158,154,159,183,185,195,187,189,168,167,173,161,150,138,126,126,137,135,130,136,138,136,130,114,102,104,85,91,69,82,86,89,91,98});
 		System.out.println(xPolyVals.get(Images.EAGLE).length == yPolyVals.get(Images.EAGLE).length);
 		
 		xPolyVals.put(Images.OWL,new int[]{});
@@ -231,6 +233,9 @@ public abstract class GameElement implements Serializable{
 	
 	public void setType(Images i) {
 		this.type = i;
+		int[] x = xPolyVals.get(this.type);
+		int[] y = yPolyVals.get(this.type);
+		polygon = new Polygon(x, y, x.length);
 	}
 	
 	public Images getType() {
