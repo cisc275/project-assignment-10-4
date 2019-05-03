@@ -76,29 +76,37 @@ public abstract class GameElement implements Serializable{
 	}
 	
 	void putPolyCoords() {
-		xPolyVals.put(Images.BUILDING,new int[]{});
-		yPolyVals.put(Images.BUILDING,new int[]{});
+		xPolyVals.put(Images.BUILDING,new int[]{0,263,263,0});
+		yPolyVals.put(Images.BUILDING,new int[]{0,0,675,675});
+		System.out.println(xPolyVals.get(Images.BUILDING).length == yPolyVals.get(Images.BUILDING).length);
 		
-		xPolyVals.put(Images.MOUSE,new int[]{});
-		yPolyVals.put(Images.MOUSE,new int[]{});
+		xPolyVals.put(Images.MOUSE,new int[]{6,23,38,35,42,49,57,66,71,94,115,129,132,132,139,132,116,67,53,63,54,44,44,60,62,46,32,33,50,49,38,21,9});
+		yPolyVals.put(Images.MOUSE,new int[]{43,34,19,9,3,8,4,2,13,8,9,20,40,52,65,82,93,108,124,139,140,130,114,102,89,92,85,77,68,58,48,48,47});
+		System.out.println(xPolyVals.get(Images.MOUSE).length == yPolyVals.get(Images.MOUSE).length);
 		
 		xPolyVals.put(Images.GOLDENFISH,new int[]{});
 		yPolyVals.put(Images.GOLDENFISH,new int[]{});
+		System.out.println(xPolyVals.get(Images.GOLDENFISH).length == yPolyVals.get(Images.GOLDENFISH).length);
 		
 		xPolyVals.put(Images.FISH,new int[]{});
 		yPolyVals.put(Images.FISH,new int[]{});
+		System.out.println(xPolyVals.get(Images.FISH).length == yPolyVals.get(Images.FISH).length);
 		
 		xPolyVals.put(Images.GOLDENMOUSE,new int[]{});
 		yPolyVals.put(Images.GOLDENMOUSE,new int[]{});
+		System.out.println(xPolyVals.get(Images.GOLDENMOUSE).length == yPolyVals.get(Images.GOLDENMOUSE).length);
 		
 		xPolyVals.put(Images.EAGLE,new int[]{});
 		yPolyVals.put(Images.EAGLE,new int[]{});
+		System.out.println(xPolyVals.get(Images.EAGLE).length == yPolyVals.get(Images.EAGLE).length);
 		
 		xPolyVals.put(Images.OWL,new int[]{});
 		yPolyVals.put(Images.OWL,new int[]{});
+		System.out.println(xPolyVals.get(Images.OWL).length == yPolyVals.get(Images.OWL).length);
 		
 		xPolyVals.put(Images.FOX,new int[]{});
 		yPolyVals.put(Images.FOX,new int[]{});
+		System.out.println(xPolyVals.get(Images.FOX).length == yPolyVals.get(Images.FOX).length);
 	}
 	
 	
