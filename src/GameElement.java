@@ -2,6 +2,8 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Defines the common attributes and action which all elements that appear 
@@ -47,6 +49,12 @@ public abstract class GameElement implements Serializable{
 	 * The image of the GameElement
 	 */
 	protected BufferedImage image;
+	
+	protected Images type;
+	
+	protected static Map<Images,int[]>xPolyVals = new HashMap<Images,int[]>();
+	protected static Map<Images,int[]>yPolyVals = new HashMap<Images,int[]>();
+;
 	 
 	/**
 	 * @param x - an int representing the x location of the GameElement
@@ -55,13 +63,45 @@ public abstract class GameElement implements Serializable{
 	 * @param ySpeed - an int representing the vertical speed of the GameElement
 	 * @param imagePath - a string representing the path of the image of the GameElement
 	 */
-	public GameElement(int x, int y, int xSpeed, int ySpeed, String imagePath) {
+	public GameElement(int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
 		xloc = x; 
 		yloc = y; 
 		this.xSpeed = xSpeed; 
 		this.ySpeed = ySpeed; 
 		this.imagePath = imagePath;
+		this.type = type;
+		if(xPolyVals.isEmpty()) {
+			putPolyCoords();
+		}
 	}
+	
+	void putPolyCoords() {
+		xPolyVals.put(Images.BUILDING,new int[]{});
+		yPolyVals.put(Images.BUILDING,new int[]{});
+		
+		xPolyVals.put(Images.MOUSE,new int[]{});
+		yPolyVals.put(Images.MOUSE,new int[]{});
+		
+		xPolyVals.put(Images.GOLDENFISH,new int[]{});
+		yPolyVals.put(Images.GOLDENFISH,new int[]{});
+		
+		xPolyVals.put(Images.FISH,new int[]{});
+		yPolyVals.put(Images.FISH,new int[]{});
+		
+		xPolyVals.put(Images.GOLDENMOUSE,new int[]{});
+		yPolyVals.put(Images.GOLDENMOUSE,new int[]{});
+		
+		xPolyVals.put(Images.EAGLE,new int[]{});
+		yPolyVals.put(Images.EAGLE,new int[]{});
+		
+		xPolyVals.put(Images.OWL,new int[]{});
+		yPolyVals.put(Images.OWL,new int[]{});
+		
+		xPolyVals.put(Images.FOX,new int[]{});
+		yPolyVals.put(Images.FOX,new int[]{});
+	}
+	
+	
 	/**
 	 * Will update the location of the GameElement
 	 * 
@@ -180,6 +220,16 @@ public abstract class GameElement implements Serializable{
 	public String getImagePath() {
 		return imagePath;
 	}
+	
+	public void setType(Images i) {
+		this.type = i;
+	}
+	
+	public Images getType() {
+		return this.type;
+	}
+	
+	
 	/**
 	 * @return a bounded rectangle around the gameElement
 	 */

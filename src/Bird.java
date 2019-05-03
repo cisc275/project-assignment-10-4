@@ -92,7 +92,7 @@ public class Bird extends GameElement implements Serializable{
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
 	 */	
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
-		super(x, y, xSpeed, ySpeed, imagePath);
+		super(x, y, xSpeed, ySpeed, imagePath, null);
 		setXloc(START_X_LOC);
 		setYloc(START_Y_LOC);
 		direction = 0;

@@ -274,56 +274,57 @@ public class Model implements Serializable{
 		    	  dir = Images.BUILDING;
 		    	  ImgPath = dir.getName();
 		    	  y =  10000;  //spawns the building near the top of the screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
 		          break;
 		       case 1:
 		    	  dir = Images.MOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 		    	  break;
 		       case 2:
 			      dir = Images.GOLDENFISH;
 			      ImgPath = dir.getName();
 			      y = 10000;  //spawns food at the lowest possible spot on the screen
-			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 3:
 			      dir = Images.FISH;
 			   	  ImgPath = dir.getName();
 			   	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			   	  break;
 		       case 4:
 		    	  dir = Images.GOLDENMOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 5:
 		    	  dir = Images.EAGLE;
 		    	  ImgPath = dir.getName();
 		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 6:
 		    	  dir = Images.OWL;
 		    	  ImgPath = dir.getName();
 		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 7:
 		    	  dir = Images.FOX;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns the fox near the top of the screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       default:
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath);
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
 		     }
+		     System.out.println(newGameElement.getType());
 		   return newGameElement;
 	}
 	

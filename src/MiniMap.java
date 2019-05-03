@@ -24,7 +24,7 @@ public class MiniMap extends GameElement implements Serializable{
 	private String mapSpriteFile;
 	
 	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath) {
-		super(x, y, xSpeed, ySpeed, imagePath);
+		super(x, y, xSpeed, ySpeed, imagePath, null);
 		// TODO Auto-generated constructor stub
 	}
 	/**
