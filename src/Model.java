@@ -74,17 +74,29 @@ public class Model implements Serializable{
 	 * the height of the image
 	 */
 	private int imgHeight;
-    
+    /**
+     * The background for the game
+     */
 	private Background background;
-	
+	/**
+	 * A random object used for generating random numbers
+	 */
 	private Random rand;
-	
+	/**
+	 * 
+	 */
 	private int spawnCount;
-	
+	/**
+	 * 
+	 */
 	private int spawnTimer;
-	
+	/**
+	 * 
+	 */
 	private int timeToSpawn;
-	
+	/**
+	 * 
+	 */
 	private boolean doingQuiz; 
 	/**
 	 * Model constructor, sets up frame dimensions

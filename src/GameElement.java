@@ -49,12 +49,21 @@ public abstract class GameElement implements Serializable{
 	 * The image of the GameElement
 	 */
 	protected BufferedImage image;
-	
+	/**
+	 * The type of Game Element
+	 */
 	protected Images type;
-	
+	/**
+	 * A HashMap that stores the x coordinates for each game element's collision polygon
+	 */
 	protected static Map<Images,int[]>xPolyVals = new HashMap<Images,int[]>();
+	/**
+	 * A HashMap that stores the y coordinates for each game element's collision polygon
+	 */
 	protected static Map<Images,int[]>yPolyVals = new HashMap<Images,int[]>();
-	
+	/**
+	 * The polygon of the GameElement
+	 */
 	protected Polygon polygon;
 ;
 	 
@@ -77,6 +86,9 @@ public abstract class GameElement implements Serializable{
 		}
 	}
 	
+	/**
+	 * Adds the x coordinates and y coordinates of each different type of game element to their respective hashmap
+	 */
 	void putPolyCoords() {
 		xPolyVals.put(Images.BUILDING,new int[]{0,263,263,0});
 		yPolyVals.put(Images.BUILDING,new int[]{0,0,675,675});
@@ -126,6 +138,9 @@ public abstract class GameElement implements Serializable{
 		polygon.translate(-xSpeed,0);
 	}
 	
+	/**
+	 * Corrects the Polygon of the GameElement if there has been a change in the objects location
+	 */
 	public void fixPolygon() {
 		this.polygon.reset();
 		int[] x = xPolyVals.get(this.type);
@@ -249,6 +264,10 @@ public abstract class GameElement implements Serializable{
 		return imagePath;
 	}
 	
+	/**
+	 * Sets the type of the object and creates the polygon of this particular game element type
+	 * @param i the GameElement type to become
+	 */
 	public void setType(Images i) {
 		this.type = i;
 		int[] x = xPolyVals.get(this.type);
@@ -257,13 +276,14 @@ public abstract class GameElement implements Serializable{
 		polygon.translate(this.xloc,this.yloc);
 	}
 	
+	/**
+	 * 
+	 * @return the type of the GameElement
+	 */
 	public Images getType() {
 		return this.type;
 	}
-	
-	
-	
-	
+		
 	/**
 	 * @return a bounded rectangle around the gameElement
 	 */
@@ -271,6 +291,10 @@ public abstract class GameElement implements Serializable{
 		return new Rectangle(xloc,yloc,width,height);
 	}
 	
+	/**
+	 * 
+	 * @return the polygon
+	 */
 	public Polygon polyBounds() {
         return polygon;
 	}
