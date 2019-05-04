@@ -1,0 +1,14 @@
+collidable
+osprey
+stunned
+int
+powerup
+collidables
+minimap
+hashmap
+xloc
+yloc
+migratory
+eakresho
+jhdavis
+gameplay
