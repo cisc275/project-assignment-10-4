@@ -104,7 +104,7 @@ public class View extends JPanel implements Serializable{
     
     private OspreyFlightPlan ospreyPlan;
     
-    //private BufferedImage NHFlightPlanBack;
+    private BufferedImage NHFlightPlanBack;
     
     private BufferedImage NHFlightPlan;
     
@@ -121,6 +121,7 @@ public class View extends JPanel implements Serializable{
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
+		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
 		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setLayout(null);
@@ -481,7 +482,7 @@ public class View extends JPanel implements Serializable{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
 			super.paintComponent(g2d);
-			//g.drawImage(opreyFlightPlanBack, 0, 0, null);
+			g.drawImage(NHFlightPlanBack, 0, 0, null);
 			g.drawImage(NHFlightPlan, 310, 80, null);
 		}
 			
