@@ -12,7 +12,7 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Bird extends GameElement implements Serializable{
 	/**
-	 * Which bird the player is currently using. 0 = Osprey, 1 = Northern Harrier
+	 * Which bird the player is currently using. Should be "osprey" or "northern harrier".
 	 */
 	private String birdType;
 	/**

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -108,12 +109,21 @@ public class View extends JPanel implements Serializable{
 		cards = new JPanel(new CardLayout());
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		buttonPanel = new ButtonPanel(); 
+		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
-		buttonFont = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/6);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
-		c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
-		c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
+		c.getNHButton().setBounds(100, 20, 600, 100);
+		c.getOButton().setBounds(1300, 20, 400, 100);
+		JLabel text = new JLabel();
+		text.setText("Choose a Bird");
+		text.setFont(buttonFont);
+		text.setBounds(800, 600, 400, 200);
+		text.setBackground(Color.blue);
+		buttonPanel.add(text);
+		//c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
+		//c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
 		
@@ -135,6 +145,7 @@ public class View extends JPanel implements Serializable{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	System.out.print(SCREENSIZE);
     	
 	}
 	
@@ -476,11 +487,13 @@ public class View extends JPanel implements Serializable{
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
 			try {
-				g2d.drawImage(background.getBackground1(),background.getB1x(),0,this);
-				g2d.drawImage(background.getBackground2(),background.getB2x(),0,this);
+				//System.out.println("bg1: " + background.getBackground(1));
+				//System.out.println("bg2: " + background.getBackground(2));
+				g2d.drawImage(background.getBackground(1),background.getB1x(),0,this);
+				g2d.drawImage(background.getBackground(2),background.getB2x(),0,this);
 			}
 			catch(NullPointerException e) {
-				
+				System.out.println("Null pointer exception!\n" + e);
 			}
 			
 			if (elements != null) {

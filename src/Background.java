@@ -1,6 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -16,17 +17,29 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Background implements Serializable{
 	/**
-	 * Constant for speed at which Background scrolls
+	 * Constant path to grass image 
 	 */
-	private static final int BACKGROUND_SCROLL_SPEED = 3;
+	private static final String GRASS_PATH = "images/background_grass_1080.png";
 	/**
-	 * BufferedImage representing a portion of the background
+	 * Constant path to grass image 
 	 */
-	private BufferedImage background1;
+	private static final String WATER_PATH = "images/background_water_1080.png";
 	/**
-	 * BufferedImage representing another portion of the background
+	 * Constant for speed at which Background begins to scroll at
 	 */
-	private BufferedImage background2;
+	private static final int INITIAL_SCROLL_SPEED = 3;
+	/**
+	 * A speed variable which can fluctuate
+	 */
+	private int backgroundScrollSpeed = 3;
+	/**
+	 * Constant for Grass background object
+	 */
+	private static final BufferedImage GRASS = createImage(GRASS_PATH);
+	/**
+	 * Constant for water background object
+	 */
+	private static final BufferedImage WATER = createImage(WATER_PATH);
 	/**
 	 * First background portion position
 	 */
@@ -43,19 +56,33 @@ public class Background implements Serializable{
 	 * The dimension of the screen and in turn the dimension of the background image
 	 */
 	private int width;
-	
+	/**
+	 * If true, add in some water zones since the osprey is migrating over water
+	 */
+	private boolean ospreyMode = false;
+	/**
+	 * Current first background image to display
+	 */
+	private BufferedImage background1 = GRASS;
+	/**
+	 * Current second background image to display
+	 */
+	private BufferedImage background2 = GRASS;
+	/**
+	 * Random object for inserting random sea zones
+	 */
+	private Random rand;
 	
 	/**
 	 * 
-	 * @param dim the width dimension of the screen
+	 * @param model.getWidth() the width dimension of the screen
 	 */
-	Background(int dim){
-		setBackground1(createImage());
-		setBackground2(createImage());
+	Background(int frameWidth){
+		rand = new Random();
 		setB1x(0);
-		setB2x(dim-3);
-		setSpeed(BACKGROUND_SCROLL_SPEED);
-		setWidth(dim);
+		setB2x(frameWidth-3);
+		setSpeed(INITIAL_SCROLL_SPEED);
+		setWidth(frameWidth);
 	}
 	
 	/**
@@ -68,10 +95,23 @@ public class Background implements Serializable{
 		b2x -= speed;
 		if(b1x+width<=0) {
 			b1x = width-8;
+			updateBackgroundZone(1);
 		}
 		
 		if(b2x + width <= 0) {
 			b2x = width-8;
+			updateBackgroundZone(2);
+		}
+	}
+
+	private void updateBackgroundZone(int num) {
+		if (ospreyMode) {
+			int randResult = rand.nextInt(4);
+			if (randResult == 3) {
+				setBackground(num, WATER);
+			}
+		} else {
+			setBackground(num, GRASS);
 		}
 	}
 	
@@ -96,15 +136,16 @@ public class Background implements Serializable{
 	
 
 	/**
-	 * Creates a BufferedImage of the background using the grass background file as a default
+	 * Creates a BufferedImage of the background using specified path
 	 * The game will always start with this background
+	 * @param path location of image file to create from
 	 * 
 	 * @return the BufferedImage of the background
 	 */
-	BufferedImage createImage(){
+	static BufferedImage createImage(String path){
 		BufferedImage bufferedImage;
 		try {
-		    bufferedImage = ImageIO.read(new File("images/background_grass_1080.png"));
+		    bufferedImage = ImageIO.read(new File(path));
 		    return bufferedImage;
 		} catch (IOException e) {
 		    e.printStackTrace();
@@ -169,30 +210,55 @@ public class Background implements Serializable{
 	}
 
 	/**
+	 * @param num which background image object to get, 1 or 2
 	 * @return the background1
 	 */
-	public BufferedImage getBackground1() {
-		return background1;
+	public BufferedImage getBackground(int num) {
+		if (num == 1) {
+			return background1;			
+		} else {
+			return background2;
+		}
+	}
+	
+	/**
+	 * @param num which background image object to set, 1 or 2
+	 * @param bg the background BufferedImage to set
+	 */
+	public void setBackground(int num, BufferedImage bg) {
+		if (num == 1) {
+			this.background1 = bg;			
+		} else {
+			this.background2 = bg;
+		}
 	}
 
 	/**
-	 * @param background1 the background1 to set
+	 * @return the backgroundScrollSpeed
 	 */
-	public void setBackground1(BufferedImage background1) {
-		this.background1 = background1;
+	public int getBackgroundScrollSpeed() {
+		return this.backgroundScrollSpeed;
+	}
+	/**
+	 * @param backgroundScrollSpeed 
+	 */
+	public void setBackgroundScrollSpeed(int backgroundScrollSpeed) {
+		this.backgroundScrollSpeed = backgroundScrollSpeed;
+	}
+
+
+	/**
+	 * @return the ospreyMode
+	 */
+	public boolean isOspreyMode() {
+		return ospreyMode;
 	}
 
 	/**
-	 * @return the background2
+	 * @param ospreyMode the ospreyMode to set
 	 */
-	public BufferedImage getBackground2() {
-		return background2;
-	}
+	public void setOspreyMode(boolean ospreyMode) {
+		this.ospreyMode = ospreyMode;
 
-	/**
-	 * @param background2 the background2 to set
-	 */
-	public void setBackground2(BufferedImage background2) {
-		this.background2 = background2;
 	}
 }
