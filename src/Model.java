@@ -220,7 +220,9 @@ public class Model implements Serializable{
 	void updateMiniMap() {
 	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
  	 	miniMap.updatePosition(percentDistTraveled);
-		miniMap.updatePosition();
+ 	 	if(percentDistTraveled >= 1) {
+ 	 		//System.out.println("Done");
+ 	 	}
 	}
 
 	/**
