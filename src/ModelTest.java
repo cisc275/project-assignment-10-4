@@ -359,13 +359,10 @@ class ModelTest {
     @Test
     public void getSetBirdTypeTest() {
     	Model model = new Model(100, 100); 
-    	int typeOld = model.getBirdType(); 
+    	String typeOld = model.getBird().getBirdType(); 
     	
-    	model.setBirdType(typeOld + 1);
-    	assertNotEquals(model.getBirdType(), typeOld);
-    	
-    	model.setBirdType(typeOld + 1);
-    	assertNotEquals(model.getBirdType(), typeOld);
+    	model.getBird().setBirdType("");
+    	assertNotEquals(model.getBird().getBirdType(), typeOld);
     } 
     @Test 
     public void getSetGetOnScreenCollidablesTest() {
@@ -402,7 +399,7 @@ class ModelTest {
     	Model model = new Model(10,10); 
     	MiniMap old = model.getMiniMap(); 
     	assertEquals(model.getMiniMap(), null); 
-    	model.setMiniMap(new MiniMap(0,0,0,0,""));
+    	model.setMiniMap(new MiniMap(0,0,0,0,"","",0,0));
     	assertNotEquals(old, model.getMiniMap()); 
     }
 
