@@ -349,7 +349,6 @@ public class Model implements Serializable{
 				      String mapSpriteFile = dir.getName();
 			    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
 			    	  break;
-
 		       default:
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();

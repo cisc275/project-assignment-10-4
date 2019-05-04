@@ -130,6 +130,7 @@ public class View extends JPanel implements Serializable{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	System.out.print(SCREENSIZE);
     	
 	}
 	
