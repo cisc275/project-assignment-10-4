@@ -118,11 +118,45 @@ public class View extends JPanel implements Serializable{
 		System.out.println("(" + FRAMEWIDTH + "," + FRAMEHEIGHT + ")");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
+		
+		this.setUpButtonPanel(c);
+		this.setUpOspreyPlan(c);
+		this.setUpNHPlan(c);
+		
+    	OPanel = new DrawPanel(); 
+		OPanel.setBackground(Color.gray);
+    	NHPanel = new DrawPanel(); 
+		NHPanel.setBackground(Color.gray);
+		
+		cards.add(buttonPanel, "B");
+		cards.add(ospreyPlan,"OP");
+		cards.add(OPanel, "O");
+		cards.add(NHPanel, "NH");
+		cards.add(NHPlan,"NHP");
+		//cards.add(quizPanel, "Q"); 
+		
+		currentPanel = buttonPanel;
+		
+		setUpFrame(c);
+		
+    	System.out.print(SCREENSIZE);
+    	
+	}
+	
+	void setUpFrame(Controller c) {
+		frame.add(cards);
+		frame.setFocusable(true);
+    	frame.addKeyListener(c);
+    	frame.setBackground(Color.gray);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    	frame.setResizable(false);
+    	frame.setVisible(true);
+    	frame.pack();
+	}
+	
+	void setUpButtonPanel(Controller c) {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
-		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
-		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
-		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
-		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
@@ -137,41 +171,26 @@ public class View extends JPanel implements Serializable{
 		text.setBounds(800, 600, 400, 200);
 		text.setBackground(Color.blue);
 		buttonPanel.add(text);
-		//c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
-		//c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
-		
+	}
+	
+	void setUpOspreyPlan(Controller c) {
+		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
+		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
 		ospreyPlan = new OspreyFlightPlan();
 		c.getOPlanButton().setFont(buttonFont);
 		ospreyPlan.add(c.getOPlanButton());
 		
+	}
+	
+	void setUpNHPlan(Controller c) {
 		NHPlan = new NHFlightPlan();
 		c.getNHPlanButton().setFont(buttonFont);
 		NHPlan.add(c.getNHPlanButton());
+		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
+		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 		
-    	OPanel = new DrawPanel(); 
-		OPanel.setBackground(Color.gray);
-    	NHPanel = new DrawPanel(); 
-		NHPanel.setBackground(Color.gray);				
-		cards.add(buttonPanel, "B");
-		cards.add(ospreyPlan,"OP");
-		cards.add(OPanel, "O");
-		cards.add(NHPanel, "NH");
-		cards.add(NHPlan,"NHP");
-		//cards.add(quizPanel, "Q"); 
-		currentPanel = buttonPanel;
-		frame.add(cards);
-		frame.setFocusable(true);
-    	frame.addKeyListener(c);
-    	frame.setBackground(Color.gray);
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    	frame.setResizable(false);
-    	frame.setVisible(true);
-    	frame.pack();
-    	System.out.print(SCREENSIZE);
-    	
 	}
 	
 	/**
