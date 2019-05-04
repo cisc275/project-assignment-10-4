@@ -21,7 +21,7 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The String of the file containing the Sprite corresponding to either the Northern Harrier or the Osprey,
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
-	private String mapSpriteFile;
+	private String  
 	/**
 	 * @param x - an int representing the x location of the GameElement
 	 * @param y - an int representing the y location of the GameElement
@@ -40,7 +40,7 @@ public class MiniMap extends GameElement implements Serializable{
 		super(x, y, xSpeed, ySpeed, imagePath);
 		this.mapSpriteFile = mapSpriteFile;
 		this.mapXLoc = mapXLoc;
-		this.mapYLoc = mapYLoc;
+		this.mapYLoc = mapYLoc;	
 	}
 	/**
 	 * @return the mapXLoc

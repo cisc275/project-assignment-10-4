@@ -21,8 +21,8 @@ public class Obstacle extends GameElement implements Serializable{
 	 * @param ySpeed - an int representing the vertical speed of the obstacle
 	 * @param imagePath - a string representing the path of the image of the obstacle
 	 */
-	public Obstacle(int staminaValue, int x, int y, int xSpeed, int ySpeed, String imagePath) {
-		super(x, y, xSpeed, ySpeed, imagePath);
+	public Obstacle(int staminaValue, int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
+		super(x, y, xSpeed, ySpeed, imagePath, type);
 		this.staminaValue = staminaValue;
 	}
 	/**

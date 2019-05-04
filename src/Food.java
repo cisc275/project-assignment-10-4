@@ -33,8 +33,8 @@ public class Food extends GameElement implements Serializable{
 	 * @param ySpeed - an int representing the vertical speed of the food
 	 * @param imagePath - a string representing the path of the image of the food
 	 */
-	public Food(int val, boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath) {
-	    super(x, y, xSpeed, ySpeed, imagePath);
+	public Food(int val, boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
+	    super(x, y, xSpeed, ySpeed, imagePath, type);
 		staminaValue = val;
 		specialFood = special;
 		eaten = false;
@@ -52,7 +52,11 @@ public class Food extends GameElement implements Serializable{
 	 */
 	@Override
 	public boolean collision(Bird bird) {
-		bird.setStamina(bird.getStamina()+staminaValue);
+		if((bird.getStamina()+staminaValue)<5) {
+			bird.setStamina(bird.getStamina()+staminaValue);
+		}else {
+			bird.setStamina(5);
+		}
 		return true;
 	}
 	

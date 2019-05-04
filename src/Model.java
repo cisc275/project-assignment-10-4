@@ -70,17 +70,30 @@ public class Model implements Serializable{
 	 * the height of the image
 	 */
 	private int imgHeight;
-    
+    /**
+     * The background for the game
+     */
 	private Background background;
-	
+	/**
+	 * A random object used for generating random numbers
+	 */
 	private Random rand;
-	
+	/**
+	 * 
+	 */
 	private int spawnCount;
-	
+	/**
+	 * 
+	 */
 	private int spawnTimer;
-	
+	/**
+	 * 
+	 */
 	private int timeToSpawn;
-	
+	/**
+	 * 
+	 */
+	private boolean doingQuiz; 
 	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
@@ -90,13 +103,14 @@ public class Model implements Serializable{
 		bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		theQuestions = new QuizQuestions("images/questions.txt"); 
+		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
 		spawnTimer = 0;
+		doingQuiz = false; 
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		onScreenCollidables = new ArrayList<GameElement>();
 		onScreenCollidables.add(generateImgPath(5));
@@ -144,6 +158,7 @@ public class Model implements Serializable{
 	 * 
 	 */
 	void updateBird() {
+		bird.updateStaminaImage();
 		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
 			bird.updatePosition();			
 		}
@@ -213,7 +228,10 @@ public class Model implements Serializable{
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
-			if (e.getBounds().intersects(bird.getBounds())) {
+			/*if (e.getBounds().intersects(bird.getBounds())) {
+				collided = e;
+			}*/
+			if(e.polyBounds().intersects(bird.getBounds())) {
 				collided = e;
 			}
 		}
@@ -251,6 +269,7 @@ public class Model implements Serializable{
 			System.out.println("False"); 
 		}
 		quizMode = false; 
+		doingQuiz = false; 
 	}
 
 	/**
@@ -263,7 +282,7 @@ public class Model implements Serializable{
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
-			curImage = randImg.nextInt(5);
+			curImage = randImg.nextInt(8);
 		} else {
 			curImage = choice;
 		}
@@ -277,34 +296,52 @@ public class Model implements Serializable{
 		GameElement newGameElement; 
 		     switch (curImage) {
 		       case 0:
-		    	  dir = Images.OBSTACLE;
+		    	  dir = Images.BUILDING;
 		    	  ImgPath = dir.getName();
-		    	  y =  + randLoc.nextInt(100);  //spawns the building near the top of the screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath);
+		    	  y =  10000;  //spawns the building near the top of the screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
 		          break;
 		       case 1:
 		    	  dir = Images.MOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 		    	  break;
 		       case 2:
 			      dir = Images.GOLDENFISH;
 			      ImgPath = dir.getName();
 			      y = 10000;  //spawns food at the lowest possible spot on the screen
-			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 3:
 			      dir = Images.FISH;
 			   	  ImgPath = dir.getName();
 			   	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath); 
+			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			   	  break;
 		       case 4:
 		    	  dir = Images.GOLDENMOUSE;
 		    	  ImgPath = dir.getName();
 		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath); 
+		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
+			      break;
+		       case 5:
+		    	  dir = Images.EAGLE;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+			      break;
+		       case 6:
+		    	  dir = Images.OWL;
+		    	  ImgPath = dir.getName();
+		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+			      break;
+		       case 7:
+		    	  dir = Images.FOX;
+		    	  ImgPath = dir.getName();
+		    	  y = 10000;  //spawns the fox near the top of the screen
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 5:
 		    	  dir = Images.NH_MINIMAP;
@@ -336,8 +373,9 @@ public class Model implements Serializable{
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();
 		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath);
+		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
 		     }
+		   newGameElement.setType(dir);
 		   return newGameElement;
 	}
 	
@@ -565,5 +603,18 @@ public class Model implements Serializable{
 	public void setBackground(Background background) {
 		this.background = background;
 	}
-	
+	/**
+	 * 
+	 * @return is the user doing the quiz or not 
+	 */
+	public boolean isDoingQuiz() {
+		return this.doingQuiz; 
+	}
+	/**
+	 * 
+	 * @param b: sets the value of isDoingQuiz
+	 */
+	public void setDoingQuiz(boolean b) {
+		this.doingQuiz = b; 
+	}
 }
