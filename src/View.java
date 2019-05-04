@@ -15,6 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import java.awt.AlphaComposite;
 import java.awt.CardLayout;
@@ -59,7 +60,7 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * The panel that will be on display when the quiz starts 
 	 */
-	private DrawPanel quizPanel; 
+	private QuizPanel quizPanel; 
 	/**
 	 * The deck of panels
 	 */
@@ -212,17 +213,27 @@ public class View extends JPanel implements Serializable{
 	 * Displays a quiz question that will need to be answered by the player to progress
 	 */
 	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
-		quizPanel = new DrawPanel(); 
+		quizPanel = new QuizPanel(); 
 		quizPanel.setBackground(Color.gray);
-		JLabel text = new JLabel(); 
-		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/50); 
-		text.setText(question.getQuestion());
+		quizPanel.setLayout(null);
+		int xscale = 2; 
+		int yscale = 4; 
+		JLabel text = new JLabel(question.getQuestion(), SwingConstants.CENTER); 
+		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35); 
 		text.setFont(font);
-		text.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+		text.setBounds(0, 0, FRAMEWIDTH, FRAMEHEIGHT / 8);
 		quizPanel.add(text);
+		int xshift = 0; 
+		int yshift = 0;
+		int count = 0; 
 		for (JButton b: buttons) {
 			b.setFont(font); 
-			b.setPreferredSize(new Dimension(FRAMEWIDTH / 5, FRAMEHEIGHT / 5));
+			 
+			b.setBounds(0 + xshift, FRAMEHEIGHT / yscale + yshift, FRAMEWIDTH / xscale, FRAMEHEIGHT / yscale);
+			count += 1; 
+			xshift += ((FRAMEWIDTH / xscale) * (count % 2)); 
+			xshift %= 2*FRAMEWIDTH / xscale; 
+			yshift += (FRAMEHEIGHT / yscale) * ((count - 1) % 2); 
 			quizPanel.add(b); 
 		}
 		cards.add(quizPanel, "Q"); 
@@ -324,14 +335,14 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * @return the quizPanel
 	 */
-	public DrawPanel getQuizPanel() {
+	public QuizPanel getQuizPanel() {
 		return quizPanel;
 	}
 
 	/**
 	 * @param drawPanel the quizPanel to set
 	 */
-	public void setQuizPanel(DrawPanel drawPanel) {
+	public void setQuizPanel(QuizPanel drawPanel) {
 		this.quizPanel = drawPanel;
 	}
 	/**
@@ -444,7 +455,14 @@ public class View extends JPanel implements Serializable{
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
-
+	class QuizPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+		}
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH / 2, FRAMEHEIGHT / 2); 
+		}
+	}
 	/**
 	 * The game panel that is drawn to show the gameplay
 	 * 
