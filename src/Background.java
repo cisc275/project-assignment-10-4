@@ -25,9 +25,13 @@ public class Background implements Serializable{
 	 */
 	private static final String WATER_PATH = "images/background_water_1080.png";
 	/**
-	 * Constant for speed at which Background scrolls
+	 * Constant for speed at which Background begins to scroll at
 	 */
-	private static final int BACKGROUND_SCROLL_SPEED = 3;
+	private static final int INITIAL_SCROLL_SPEED = 3;
+	/**
+	 * A speed variable which can fluctuate
+	 */
+	private int backgroundScrollSpeed = 3;
 	/**
 	 * Constant for Grass background object
 	 */
@@ -77,7 +81,7 @@ public class Background implements Serializable{
 		rand = new Random();
 		setB1x(0);
 		setB2x(frameWidth-3);
-		setSpeed(BACKGROUND_SCROLL_SPEED);
+		setSpeed(INITIAL_SCROLL_SPEED);
 		setWidth(frameWidth);
 	}
 	
@@ -230,6 +234,20 @@ public class Background implements Serializable{
 	}
 
 	/**
+	 * @return the backgroundScrollSpeed
+	 */
+	public int getBackgroundScrollSpeed() {
+		return this.backgroundScrollSpeed;
+	}
+	/**
+	 * @param backgroundScrollSpeed 
+	 */
+	public void setBackgroundScrollSpeed(int backgroundScrollSpeed) {
+		this.backgroundScrollSpeed = backgroundScrollSpeed;
+	}
+
+
+	/**
 	 * @return the ospreyMode
 	 */
 	public boolean isOspreyMode() {
@@ -241,5 +259,6 @@ public class Background implements Serializable{
 	 */
 	public void setOspreyMode(boolean ospreyMode) {
 		this.ospreyMode = ospreyMode;
+
 	}
 }

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -114,6 +115,12 @@ public class View extends JPanel implements Serializable{
 		c.getNHButton().setFont(buttonFont);
 		c.getNHButton().setBounds(100, 20, 600, 100);
 		c.getOButton().setBounds(1300, 20, 400, 100);
+		JLabel text = new JLabel();
+		text.setText("Choose a Bird");
+		text.setFont(buttonFont);
+		text.setBounds(800, 600, 400, 200);
+		text.setBackground(Color.blue);
+		buttonPanel.add(text);
 		//c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		//c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
@@ -137,6 +144,7 @@ public class View extends JPanel implements Serializable{
     	frame.setResizable(false);
     	frame.setVisible(true);
     	frame.pack();
+    	System.out.print(SCREENSIZE);
     	
 	}
 	

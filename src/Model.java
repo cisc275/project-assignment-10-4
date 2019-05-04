@@ -27,9 +27,13 @@ public class Model implements Serializable{
 	 */
 	private int distance;	
 	/**
-	 * The total distance needed to be traveled
+	 * The constant representing the total distance needed to be traveled
 	 */
-	private int endDistance;	
+	private static final int END_DISTANCE = 1000;	
+	/**
+	 * The variable of the total distance needed to be traveled
+	 */
+	private int endDistance;
 	/**
 	 * The MiniMap that will update as the game progresses
 	 */
@@ -103,6 +107,7 @@ public class Model implements Serializable{
 		bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
+		this.endDistance = END_DISTANCE;
 		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
@@ -199,6 +204,7 @@ public class Model implements Serializable{
 	 * and bird's species
 	 */
 	void updateBackground() {
+		distance += background.getBackgroundScrollSpeed();
 		if (bird.getBirdType().equalsIgnoreCase("osprey")) {
 			background.setOspreyMode(true);
 		} else {
@@ -212,10 +218,11 @@ public class Model implements Serializable{
 	 */
 
 	void updateMiniMap() {
-		//MiniMap curMap = (MiniMap)onScreenCollidables.get(0);
-
-		miniMap.updatePosition();
-		//MiniMap littleBird = (MiniMap)onScreenCollidables.get(1);
+	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
+ 	 	miniMap.updatePosition(percentDistTraveled);
+ 	 	if(percentDistTraveled >= 1) {
+ 	 		//System.out.println("Done");
+ 	 	}
 	}
 
 	/**
@@ -298,6 +305,7 @@ public class Model implements Serializable{
 		int ySpeed = 0; 
 
 		GameElement newGameElement; 
+
 		switch (curImage) {
 			case 0:
 				dir = Images.BUILDING;
@@ -354,8 +362,10 @@ public class Model implements Serializable{
 				y = 0; 
 				xSpeed =0;
 				ySpeed =0;
-				int xLocOfBird = this.frameWidth-101; 
-				int yLocOfBird = 110;
+		        	int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
+		    	        int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
+			//	int xLocOfBird = this.frameWidth-101; 
+			//	int yLocOfBird = 110;
 				dir = Images.OSPREY_IMG_FOR_MINIMAP;
 				String mapSpriteFile = dir.getName();
 				newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
