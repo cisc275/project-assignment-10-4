@@ -65,8 +65,8 @@ public class Model implements Serializable{
 	/**
 	 * The height of the game frame
 	 */
-    private int frameHeight;
-    /**
+	private int frameHeight;
+	/**
 	 * the width of the image
 	 */
 	private int imgWidth;
@@ -74,9 +74,9 @@ public class Model implements Serializable{
 	 * the height of the image
 	 */
 	private int imgHeight;
-    /**
-     * The background for the game
-     */
+	/**
+	 * The background for the game
+	 */
 	private Background background;
 	/**
 	 * A random object used for generating random numbers
@@ -125,8 +125,8 @@ public class Model implements Serializable{
 			spawnCount++;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Used to update the current status and positions of the different game components.
 	 * Will call helper update methods for different components.  Calls all other update methods
@@ -140,7 +140,7 @@ public class Model implements Serializable{
 		collisionDetection();
 		updateSpawnTimer();
 	}
-	
+
 	/**
 	 * Ticks the spawn timer if needed to introduce a random delay to the Element spawner,
 	 * calling spawnGameElement when needed
@@ -175,7 +175,7 @@ public class Model implements Serializable{
 			bird.setYloc(frameHeight-bird.getHeight());
 		}
 	}	
-	
+
 	/**
 	 * Updates the GameElement objects to update positions and remove objects with positions
 	 * not on the screen.
@@ -198,28 +198,31 @@ public class Model implements Serializable{
 			spawnCount++; 
 		}
 	}
-	
+
 	/**
-	 * Updates the background depending on the distance the player has reached.
+	 * Updates the background depending on the distance the player has reached
+	 * and bird's species
 	 */
 	void updateBackground() {
 		distance += background.getBackgroundScrollSpeed();
+		if (bird.getBirdType().equalsIgnoreCase("osprey")) {
+			background.setOspreyMode(true);
+		} else {
+			background.setOspreyMode(false);
+		}
 		background.update();
 	}
-	
+
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
-	
+
 	void updateMiniMap() {
-	 	//MiniMap curMap = (MiniMap)onScreenCollidables.get(0);
-		
 	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
-	 	System.out.println(percentDistTraveled);
-	 	miniMap.updatePosition(percentDistTraveled);
-	 	//MiniMap littleBird = (MiniMap)onScreenCollidables.get(1);
+ 	 	miniMap.updatePosition(percentDistTraveled);
+		miniMap.updatePosition();
 	}
-	
+
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
 	 * 
@@ -256,7 +259,7 @@ public class Model implements Serializable{
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
 	QuizQuestion startQuiz() {return theQuestions.getCurrent();}
-	
+
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
 	 * if the player answered the quiz correctly. 
@@ -274,7 +277,7 @@ public class Model implements Serializable{
 	}
 
 	/**
-	 * @return A GameElement .  Uses the Images Enum to select the path for an image based off 
+	 * @return A GameElement .  Uses the Images enumeration to select the path for an image based off 
 	 * a random number.  And depending on which type of image it is, it will generate its starting position 
 	 * appropriately.
 	 */
@@ -283,7 +286,12 @@ public class Model implements Serializable{
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
-			curImage = randImg.nextInt(8);
+			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
+				curImage = randImg.nextInt(4);
+			}
+			else {
+				curImage = 4 + randImg.nextInt(4);
+			}
 		} else {
 			curImage = choice;
 		}
@@ -293,89 +301,90 @@ public class Model implements Serializable{
 		Images dir;
 		int xSpeed = 10;
 		int ySpeed = 0; 
-		
+
 		GameElement newGameElement; 
-		     switch (curImage) {
-		       case 0:
-		    	  dir = Images.BUILDING;
-		    	  ImgPath = dir.getName();
-		    	  y =  10000;  //spawns the building near the top of the screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
-		          break;
-		       case 1:
-		    	  dir = Images.MOUSE;
-		    	  ImgPath = dir.getName();
-		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
-		    	  break;
-		       case 2:
-			      dir = Images.GOLDENFISH;
-			      ImgPath = dir.getName();
-			      y = 10000;  //spawns food at the lowest possible spot on the screen
-			      newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			      break;
-		       case 3:
-			      dir = Images.FISH;
-			   	  ImgPath = dir.getName();
-			   	  y = 10000;  //spawns food at the lowest possible spot on the screen
-			   	  newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			   	  break;
-		       case 4:
-		    	  dir = Images.GOLDENMOUSE;
-		    	  ImgPath = dir.getName();
-		    	  y = 10000;  //spawns food at the lowest possible spot on the screen
-		    	  newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			      break;
-		       case 5:
-		    	  dir = Images.EAGLE;
-		    	  ImgPath = dir.getName();
-		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			      break;
-		       case 6:
-		    	  dir = Images.OWL;
-		    	  ImgPath = dir.getName();
-		    	  y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			      break;
-		       case 7:
-		    	  dir = Images.FOX;
-		    	  ImgPath = dir.getName();
-		    	  y = 10000;  //spawns the fox near the top of the screen
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
-			      break;
-		       case 8:				      
-		    	  dir = Images.OSPREY_MINIMAP;
-		    	  ImgPath = dir.getName();
-		    	 // x = this.frameWidth - 250;
-		    	  x = 1120;
-		    	  y = 0; 
-		    	  xSpeed =0;
-		    	  ySpeed =0;
-		    	  //int xLocOfBird = this.frameWidth-101; 
-		    	  int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
-		    	  int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
-		    	  dir = Images.OSPREY_IMG_FOR_MINIMAP;
-			      String mapSpriteFile = dir.getName();
-		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
-		    	  break;
-		       default:
-		    	  dir = Images.RECTANGLE;
-		    	  ImgPath = dir.getName();
-		    	  y = randLoc.nextInt(frameHeight);
-		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
-		     }
-		   newGameElement.setType(dir);
-		   return newGameElement;
+
+		switch (curImage) {
+			case 0:
+				dir = Images.BUILDING;
+				ImgPath = dir.getName();
+				y =  10000;  //spawns the building near the top of the screen
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
+				break;
+			case 1:
+				dir = Images.GOLDENFISH;
+				ImgPath = dir.getName();
+				y = 10000;  //spawns food at the lowest possible spot on the screen
+				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 2:
+				dir = Images.FISH;
+				ImgPath = dir.getName();
+				y = 10000;  //spawns food at the lowest possible spot on the screen
+				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 3:
+				dir = Images.EAGLE;
+				ImgPath = dir.getName();
+				y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 4:
+				dir = Images.MOUSE;
+				ImgPath = dir.getName();
+				y = 10000;  //spawns food at the lowest possible spot on the screen
+				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 5:
+				dir = Images.GOLDENMOUSE;
+				ImgPath = dir.getName();
+				y = 10000;  //spawns food at the lowest possible spot on the screen
+				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 6:
+				dir = Images.OWL;
+				ImgPath = dir.getName();
+				y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 7:
+				dir = Images.FOX;
+				ImgPath = dir.getName();
+				y = 10000;  //spawns the fox near the top of the screen
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 8:
+				dir = Images.OSPREY_MINIMAP;
+				ImgPath = dir.getName();
+				x = this.frameWidth - 250;
+				y = 0; 
+				xSpeed =0;
+				ySpeed =0;
+		        	int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
+		    	        int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
+			//	int xLocOfBird = this.frameWidth-101; 
+			//	int yLocOfBird = 110;
+				dir = Images.OSPREY_IMG_FOR_MINIMAP;
+				String mapSpriteFile = dir.getName();
+				newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
+				break;
+			default:
+				dir = Images.RECTANGLE;
+				ImgPath = dir.getName();
+				y = randLoc.nextInt(frameHeight);
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
+		}
+		newGameElement.setType(dir);
+		return newGameElement;
 	}
-	
+
 	/**
 	 * Spawns new collidable immediately
 	 */
 	void spawnGameElement() {
 		onScreenCollidables.add(generateImgPath(-1));
 	}
-	
+
 	/**
 	 * Spawns new collidable immediately
 	 * @param choice the index of which type of collidable to spawn
@@ -383,7 +392,7 @@ public class Model implements Serializable{
 	void spawnGameElement(int choice) {
 		onScreenCollidables.add(generateImgPath(choice));
 	}
-	
+
 	/**
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */

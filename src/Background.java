@@ -44,22 +44,25 @@ public class Background implements Serializable{
 	 */
 	private int speed;
 	/**
-	 * The dimension of the screen and inturn the background image
+	 * The dimension of the screen and in turn the dimension of the background image
 	 */
 	private int width;
-	
+	/**
+	 * If true, add in some water zones since the osprey is migrating over water
+	 */
+	private boolean ospreyMode = false;
 	
 	/**
 	 * 
-	 * @param dim the width dimension of the screen
+	 * @param model.getWidth() the width dimension of the screen
 	 */
-	Background(int dim){
+	Background(int frameWidth){
 		setBackground1(createImage());
 		setBackground2(createImage());
 		setB1x(0);
-		setB2x(dim-3);
+		setB2x(frameWidth-3);
 		setSpeed(INITIAL_SCROLL_SPEED );
-		setWidth(dim);
+		setWidth(frameWidth);
 	}
 	
 	/**
@@ -199,6 +202,7 @@ public class Background implements Serializable{
 	public void setBackground2(BufferedImage background2) {
 		this.background2 = background2;
 	}
+
 	/**
 	 * @return the backgroundScrollSpeed
 	 */
@@ -210,5 +214,21 @@ public class Background implements Serializable{
 	 */
 	public void setBackgroundScrollSpeed(int backgroundScrollSpeed) {
 		this.backgroundScrollSpeed = backgroundScrollSpeed;
+	}
+
+
+	/**
+	 * @return the ospreyMode
+	 */
+	public boolean isOspreyMode() {
+		return ospreyMode;
+	}
+
+	/**
+	 * @param ospreyMode the ospreyMode to set
+	 */
+	public void setOspreyMode(boolean ospreyMode) {
+		this.ospreyMode = ospreyMode;
+
 	}
 }

@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -162,6 +163,12 @@ public class Bird extends GameElement implements Serializable{
 	 */
 	void powerUp() {}
 
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle(this.xloc+25,this.yloc+140,this.width-75,60);
+	}
+	
+	
 	/** 
 	 * @return the flying speed
 	 */
@@ -299,7 +306,11 @@ public class Bird extends GameElement implements Serializable{
 	 * @param birdType the birdType to set
 	 */
 	public void setBirdType(String birdType) {
-		this.birdType = birdType;
+		if (birdType.equalsIgnoreCase("osprey")) {
+			this.birdType = "osprey";
+		} else {
+			this.birdType = "northern harrier";
+		}
 	}
 
 	/**
