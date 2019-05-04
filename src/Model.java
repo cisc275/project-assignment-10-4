@@ -343,7 +343,7 @@ public class Model implements Serializable{
 		    	  y = 0; 
 		    	  xSpeed =0;
 		    	  ySpeed =0;
-		    	  int xLocOfBird = 1815; 
+		    	  int xLocOfBird = this.frameWidth-101; 
 		    	  int yLocOfBird = 110;
 		    	  dir = Images.OSPREY_IMG_FOR_MINIMAP;
 			      String mapSpriteFile = dir.getName();
