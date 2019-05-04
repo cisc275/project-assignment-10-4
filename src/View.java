@@ -225,14 +225,14 @@ public class View extends JPanel implements Serializable{
 	 */
 	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
 		quizPanel = new QuizPanel(); 
-		quizPanel.setBackground(Color.gray);
+		quizPanel.setBackground(Color.green);
 		quizPanel.setLayout(null);
-		int xscale = 2; 
-		int yscale = 4; 
+		int xscale = 2*2; 
+		int yscale = 4*2; 
 		JLabel text = new JLabel(question.getQuestion(), SwingConstants.CENTER); 
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35); 
 		text.setFont(font);
-		text.setBounds(0, 0, FRAMEWIDTH, FRAMEHEIGHT / 8);
+		text.setBounds(0, 0, FRAMEWIDTH / 4, FRAMEHEIGHT / 16);
 		quizPanel.add(text);
 		int xshift = 0; 
 		int yshift = 0;
@@ -247,11 +247,13 @@ public class View extends JPanel implements Serializable{
 			yshift += (FRAMEHEIGHT / yscale) * ((count - 1) % 2); 
 			quizPanel.add(b); 
 		}
-		cards.add(quizPanel, "Q"); 
-		setPanel("Q"); 
-		currentPanel = quizPanel;
+		quizPanel.setBounds(FRAMEWIDTH / 4, FRAMEHEIGHT / 4, FRAMEWIDTH / 2, FRAMEHEIGHT / 2);
+		currentPanel.add(quizPanel); 
+		currentPanel.repaint(); 
 	}
-	
+	void endQuiz() {
+		currentPanel.remove(quizPanel); 
+	}
 	/**
 	 * Handles the animation for the bird landing in the nest when the player reaches
 	 * the end of the game

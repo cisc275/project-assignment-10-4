@@ -54,6 +54,11 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30; 
+	
+	/**
+	 * 
+	 */
+	Timer t; 
 	 
 	public Controller() {
 		Obutton = new JButton("Osprey");
@@ -63,7 +68,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
-    			view.setPanel("O"); 
+    			view.endQuiz(); 
+    			t.start(); 
     		}
     	};
     	quizButtons = new ArrayList<JButton>(); 
@@ -80,6 +86,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
     			else if (model.isQuizMode()){
+    				t.stop(); 
     				quizButtons.clear(); 
     				QuizQuestion q = model.startQuiz();
     				for (String s: q.getAnswers()) {
@@ -87,12 +94,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					next.addActionListener(quizAnswer); 
     					quizButtons.add(next); 
     				}
-    				model.setDoingQuiz(true); 
-    				model.setQuizMode(false);
-    			}
-    			else if (model.isDoingQuiz()) {
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    			} 
+    				System.out.println("Here"); 
+    			}
+    			
     				
     		}
     		
@@ -106,7 +111,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	void start() {
 			EventQueue.invokeLater(new Runnable(){
 				public void run(){
-					Timer t = new Timer(DRAW_DELAY, drawAction);
+					t = new Timer(DRAW_DELAY, drawAction);
 					t.start();
 				}
 			});
