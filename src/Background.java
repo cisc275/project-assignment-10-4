@@ -77,10 +77,10 @@ public class Background implements Serializable{
 	 * 
 	 * @param model.getWidth() the width dimension of the screen
 	 */
-	Background(int frameWidth){
+	Background(int frameWidth) {
 		rand = new Random();
-		setB1x(0);
-		setB2x(frameWidth-3);
+		setBackgroundX(1,0);
+		setBackgroundX(2,frameWidth-3);
 		setSpeed(INITIAL_SCROLL_SPEED);
 		setWidth(frameWidth);
 	}
@@ -120,8 +120,8 @@ public class Background implements Serializable{
 	public boolean equals(Object obj) {
 		if (obj instanceof Background) {
 			Background b = (Background)obj;
-			return (b.getB1x() == this.getB1x() &&
-					b.getB2x() == this.getB2x() &&
+			return (b.getBackgroundX(1) == this.getBackgroundX(1) &&
+					b.getBackgroundX(2) == this.getBackgroundX(2) &&
 					b.getSpeed() == this.getSpeed() && 
 					b.getWidth() == this.getWidth());
 		} else {
@@ -154,31 +154,25 @@ public class Background implements Serializable{
 	}
 
 	/**
-	 * @return the b1x
+	 * @return the BackgroundX
 	 */
-	public int getB1x() {
-		return b1x;
+	public int getBackgroundX(int num) {
+		if (num == 1) {
+			return b1x;
+		} else {
+			return b2x;
+		}
 	}
 
 	/**
-	 * @param b1x the b1x to set
+	 * @param BackgroundX the BackgroundX to set
 	 */
-	public void setB1x(int b1x) {
-		this.b1x = b1x;
-	}
-
-	/**
-	 * @return the b2x
-	 */
-	public int getB2x() {
-		return b2x;
-	}
-
-	/**
-	 * @param b2x the b2x to set
-	 */
-	public void setB2x(int b2x) {
-		this.b2x = b2x;
+	public void setBackgroundX(int num, int bx) {
+		if (num == 1) {
+			this.b1x = bx;
+		} else {
+			this.b2x = bx;
+		}
 	}
 
 	/**

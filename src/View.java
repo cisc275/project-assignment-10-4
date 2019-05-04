@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -471,8 +470,8 @@ public class View extends JPanel implements Serializable{
 			try {
 				//System.out.println("bg1: " + background.getBackground(1));
 				//System.out.println("bg2: " + background.getBackground(2));
-				g2d.drawImage(background.getBackground(1),background.getB1x(),0,this);
-				g2d.drawImage(background.getBackground(2),background.getB2x(),0,this);
+				g2d.drawImage(background.getBackground(1),background.getBackgroundX(1),0,this);
+				g2d.drawImage(background.getBackground(2),background.getBackgroundX(2),0,this);
 			}
 			catch(NullPointerException e) {
 				System.out.println("Null pointer exception!\n" + e);
