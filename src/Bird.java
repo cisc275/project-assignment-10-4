@@ -306,7 +306,11 @@ public class Bird extends GameElement implements Serializable{
 	 * @param birdType the birdType to set
 	 */
 	public void setBirdType(String birdType) {
-		this.birdType = birdType;
+		if (birdType.equalsIgnoreCase("osprey")) {
+			this.birdType = "osprey";
+		} else {
+			this.birdType = "northern harrier";
+		}
 	}
 
 	/**
