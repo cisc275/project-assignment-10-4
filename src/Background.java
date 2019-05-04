@@ -41,13 +41,9 @@ public class Background implements Serializable{
 	 */
 	private static final BufferedImage WATER = createImage(WATER_PATH);
 	/**
-	 * First background portion position
+	 * Array of the X positions of the two backgrounds
 	 */
-	private int b1x;
-	/**
-	 * Second background portion position
-	 */
-	private int b2x;
+	private int[] bgXs = new int[2];
 	/**
 	 * The speed the background will scroll
 	 */
@@ -61,13 +57,9 @@ public class Background implements Serializable{
 	 */
 	private boolean ospreyMode = false;
 	/**
-	 * Current first background image to display
+	 * Array of containing the two image objects current being used as backgrounds
 	 */
-	private BufferedImage background1 = GRASS;
-	/**
-	 * Current second background image to display
-	 */
-	private BufferedImage background2 = GRASS;
+	private BufferedImage[] bgs = new BufferedImage[2];
 	/**
 	 * Random object for inserting random sea zones
 	 */
@@ -79,8 +71,10 @@ public class Background implements Serializable{
 	 */
 	Background(int frameWidth) {
 		rand = new Random();
-		setBackgroundX(1,0);
-		setBackgroundX(2,frameWidth-3);
+		setBackground(0,GRASS);
+		setBackground(1,GRASS);
+		setBackgroundX(0,0);
+		setBackgroundX(1,frameWidth-3);
 		setSpeed(INITIAL_SCROLL_SPEED);
 		setWidth(frameWidth);
 	}
@@ -91,16 +85,15 @@ public class Background implements Serializable{
 	 * so it's position is off screen to the right, next to the other background
 	 */
 	public void update() {
-		b1x -= speed;
-		b2x -= speed;
-		if(b1x+width<=0) {
-			b1x = width-8;
-			updateBackgroundZone(1);
+		bgXs[0] -= speed;
+		bgXs[1] -= speed;
+		if(bgXs[0]+width<=0) {
+			bgXs[0] = width-8;
+			updateBackgroundZone(0);
 		}
-		
-		if(b2x + width <= 0) {
-			b2x = width-8;
-			updateBackgroundZone(2);
+		if(bgXs[1] + width <= 0) {
+			bgXs[1] = width-8;
+			updateBackgroundZone(1);
 		}
 	}
 
@@ -120,8 +113,8 @@ public class Background implements Serializable{
 	public boolean equals(Object obj) {
 		if (obj instanceof Background) {
 			Background b = (Background)obj;
-			return (b.getBackgroundX(1) == this.getBackgroundX(1) &&
-					b.getBackgroundX(2) == this.getBackgroundX(2) &&
+			return (b.getBackgroundX(0) == this.getBackgroundX(0) &&
+					b.getBackgroundX(1) == this.getBackgroundX(1) &&
 					b.getSpeed() == this.getSpeed() && 
 					b.getWidth() == this.getWidth());
 		} else {
@@ -129,12 +122,6 @@ public class Background implements Serializable{
 		}
 	}
 	
-	
-	
-	
-	
-	
-
 	/**
 	 * Creates a BufferedImage of the background using specified path
 	 * The game will always start with this background
@@ -157,22 +144,14 @@ public class Background implements Serializable{
 	 * @return the BackgroundX
 	 */
 	public int getBackgroundX(int num) {
-		if (num == 1) {
-			return b1x;
-		} else {
-			return b2x;
-		}
+		return bgXs[num];
 	}
 
 	/**
 	 * @param BackgroundX the BackgroundX to set
 	 */
 	public void setBackgroundX(int num, int bx) {
-		if (num == 1) {
-			this.b1x = bx;
-		} else {
-			this.b2x = bx;
-		}
+		bgXs[num] = bx;
 	}
 
 	/**
@@ -205,14 +184,10 @@ public class Background implements Serializable{
 
 	/**
 	 * @param num which background image object to get, 1 or 2
-	 * @return the background1
+	 * @return the background
 	 */
 	public BufferedImage getBackground(int num) {
-		if (num == 1) {
-			return background1;			
-		} else {
-			return background2;
-		}
+		return bgs[num];
 	}
 	
 	/**
@@ -220,11 +195,7 @@ public class Background implements Serializable{
 	 * @param bg the background BufferedImage to set
 	 */
 	public void setBackground(int num, BufferedImage bg) {
-		if (num == 1) {
-			this.background1 = bg;			
-		} else {
-			this.background2 = bg;
-		}
+		bgs[num] = bg;
 	}
 
 	/**
