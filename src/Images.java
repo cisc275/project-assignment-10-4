@@ -13,15 +13,15 @@ public enum Images {
 	OSPREY_MINIMAP("images/NHMiniMapp.png"),   //("images/NHMiniMapp.png"),          //250x196
 	NH_IMG_FOR_MINIMAP("images/NHImageMINI.png"),     //32x26
 	OSPREY_IMG_FOR_MINIMAP("images/OspreyMINI.png"),  //31x27
-	BUILDING("images/building_1080.png"),
-	MOUSE("images/normal_mouse_1080.png"), 
-	GOLDENFISH("images/golden_fish_1080.png"),
-	FISH("images/normal_fish_1080.png"),
-	GOLDENMOUSE("images/golden_mouse_1080.png"),
-	EAGLE("images/eagle_1080.png"),
-	OWL("images/owl_1080.png"),
-	FOX("images/fox_1080.png"),
-    BIRD("images/bird_animated.png"),
+	BUILDING("images/building_1080.png"), //Osprey
+	MOUSE("images/normal_mouse_1080.png"),  //Northern Harrier
+	GOLDENFISH("images/golden_fish_1080.png"), //Osprey
+	FISH("images/normal_fish_1080.png"), //Osprey
+	GOLDENMOUSE("images/golden_mouse_1080.png"), //Northern Harrier
+	EAGLE("images/eagle_1080.png"), //Osprey
+	OWL("images/owl_1080.png"), //Northern Harrier
+	FOX("images/fox_1080.png"), //Northern Harrier
+    BIRD("images/bird_animated.png"), 
 	RECTANGLE("images/rectangle-icon-256.png");
 	
 	
