@@ -50,9 +50,9 @@ class ViewTest {
 		Bird b = new Bird(0, 0, 1, 1, "images/big_bird_animate.png");
 		v.setBird(b);
 		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 =  new Obstacle(1,100,100,1,0,"");
+		GameElement g1 =  new Obstacle(1,100,100,1,0,"",Images.EAGLE);
 		g1.setImagePath("images/big_bird_animate.png");
-		GameElement g2 =  new Obstacle(1,500,100,1,0,"");
+		GameElement g2 =  new Obstacle(1,500,100,1,0,"",Images.FISH);
 		g2.setImage(bi);
 		list.add(g1);
 		list.add(g2);
@@ -65,16 +65,16 @@ class ViewTest {
 		ba.setImage(bi);
 		v1.setBird(ba);
 		List<GameElement> list1 = new ArrayList<GameElement>();
-		GameElement g1a =  new Obstacle(1,100,100,1,0,"");
+		GameElement g1a =  new Obstacle(1,100,100,1,0,"",Images.EAGLE);
 		g1a.setImage(bi);
 		g1a.setImagePath("images/big_bird_animate.png");
-		GameElement g2a =  new Obstacle(1,500,100,1,0,"");
+		GameElement g2a =  new Obstacle(1,500,100,1,0,"",Images.FISH);
 		g2a.setImage(bi);
 		list1.add(g1a);
 		list1.add(g2a);
 		v.setElements(list1);
 		
-		v.updateView(b, list, new MiniMap(5,5,5,5,"images/big_bird_animate.png"), new Background(1500));
+		v.updateView(b, list, new MiniMap(5,5,5,5,"images/big_bird_animate.png","",0,0), new Background(1500));
 		
 		assertEquals(v.getBird().getImage(), v1.getBird().getImage());
 		assertEquals(v.getBackground(), v1.getBackground());
