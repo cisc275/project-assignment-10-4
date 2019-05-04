@@ -459,6 +459,7 @@ public class View extends JPanel implements Serializable{
 					}
 			    	g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 			    	g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
+			    	//g2d.drawRect(bird.xloc+25,bird.yloc+140,bird.width-75,60);
 			    	
 				}
 				if (miniMap != null) {
