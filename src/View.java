@@ -107,12 +107,15 @@ public class View extends JPanel implements Serializable{
 		cards = new JPanel(new CardLayout());
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		buttonPanel = new ButtonPanel(); 
+		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
-		buttonFont = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/6);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
-		c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
-		c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
+		c.getNHButton().setBounds(100, 20, 600, 100);
+		c.getOButton().setBounds(1300, 20, 400, 100);
+		//c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
+		//c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
 		
