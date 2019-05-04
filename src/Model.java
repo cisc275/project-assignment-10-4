@@ -101,12 +101,12 @@ public class Model implements Serializable{
 	 */
 	public Model(int frameWidth,int frameHeight) {
 		bird = new Bird(0,0,0,0,"");
-		miniMap = (MiniMap)generateImgPath(8);
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
+		miniMap = (MiniMap)generateImgPath(8);
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
@@ -337,19 +337,18 @@ public class Model implements Serializable{
 		    	  newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 			      break;
 		       case 8:
-			    	  dir = Images.OSPREY_MINIMAP;
-			    	  ImgPath = dir.getName();
-			    	  x = 1120;
-			    	  y = 0; 
-			    	  xSpeed =0;
-			    	  ySpeed =0;
-			    	  int xLocOfBird = 1265; 
-			    	  int yLocOfBird = 110;
-			    	  dir = Images.OSPREY_IMG_FOR_MINIMAP;
-				      String mapSpriteFile = dir.getName();
-			    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
-			    	  break;
-
+		    	  dir = Images.OSPREY_MINIMAP;
+		    	  ImgPath = dir.getName();
+		    	  x = this.frameWidth - 250;
+		    	  y = 0; 
+		    	  xSpeed =0;
+		    	  ySpeed =0;
+		    	  int xLocOfBird = 1815; 
+		    	  int yLocOfBird = 110;
+		    	  dir = Images.OSPREY_IMG_FOR_MINIMAP;
+			      String mapSpriteFile = dir.getName();
+		    	  newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
+		    	  break;
 		       default:
 		    	  dir = Images.RECTANGLE;
 		    	  ImgPath = dir.getName();

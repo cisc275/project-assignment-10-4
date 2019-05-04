@@ -21,7 +21,7 @@ public enum Images {
 	EAGLE("images/eagle_1080.png"),
 	OWL("images/owl_1080.png"),
 	FOX("images/fox_1080.png"),
-        BIRD("images/bird_animated.png"),
+    BIRD("images/bird_animated.png"),
 	RECTANGLE("images/rectangle-icon-256.png");
 	
 	
