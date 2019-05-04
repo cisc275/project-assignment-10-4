@@ -16,9 +16,13 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Background implements Serializable{
 	/**
-	 * Constant for speed at which Background scrolls
+	 * Constant for speed at which Background begins scroll at
 	 */
-	private static final int BACKGROUND_SCROLL_SPEED = 3;
+	private static final int INITIAL_SCROLL_SPEED = 3;
+	/**
+	 * A speed variable which can fluctuate
+	 */
+	private int backgroundScrollSpeed = 3;
 	/**
 	 * BufferedImage representing a portion of the background
 	 */
@@ -54,7 +58,7 @@ public class Background implements Serializable{
 		setBackground2(createImage());
 		setB1x(0);
 		setB2x(dim-3);
-		setSpeed(BACKGROUND_SCROLL_SPEED);
+		setSpeed(INITIAL_SCROLL_SPEED );
 		setWidth(dim);
 	}
 	
@@ -194,5 +198,17 @@ public class Background implements Serializable{
 	 */
 	public void setBackground2(BufferedImage background2) {
 		this.background2 = background2;
+	}
+	/**
+	 * @return the backgroundScrollSpeed
+	 */
+	public int getBackgroundScrollSpeed() {
+		return this.backgroundScrollSpeed;
+	}
+	/**
+	 * @param backgroundScrollSpeed 
+	 */
+	public void setBackgroundScrollSpeed(int backgroundScrollSpeed) {
+		this.backgroundScrollSpeed = backgroundScrollSpeed;
 	}
 }

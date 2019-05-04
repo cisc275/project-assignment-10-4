@@ -13,6 +13,24 @@ import java.util.Random;
 @SuppressWarnings("serial")
 public class MiniMap extends GameElement implements Serializable{
 	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
+	 * during migration in the x direction
+	 */
+	private static final int OSPREY_SMALL_BIRD_TOTAL_X_DIST = 42;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
+	 * during migration in the y direction
+	 */
+	private static final int OSPREY_SMALL_BIRD_TOTAL_Y_DIST = 84;
+	/**
+	 * The constant int value of the x location of the small bird Sprite on the minimap's starting position
+	 */
+	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1265;
+	/**
+	 * The constant int value of the y location of the small bird Sprite on the minimap's starting position
+	 */
+	static final int OSPREY_INITIAL_SMALL_BIRD_Y_LOC = 110;
+	/**
 	 * The int value of the X location of the small bird Sprite on the minimap 
 	 */
 	private int mapXLoc;
@@ -102,9 +120,9 @@ public class MiniMap extends GameElement implements Serializable{
 		return false;
 	}
 	
-	@Override
-	void updatePosition(){
-		int yLoc = this.getMapYLoc();
+	
+	void updatePosition(double percentDistTraveled){
+	/*	int yLoc = this.getMapYLoc();
 	 	int xLoc = this.getMapXLoc();
 	 	Random rand = new Random();
 	 	int delta = rand.nextInt(10);
@@ -113,6 +131,19 @@ public class MiniMap extends GameElement implements Serializable{
 	 	xLoc -= 1;
 	 	this.setMapYLoc(yLoc);
 	 	this.setMapXLoc(xLoc);
+	 	//System.out.println(xLoc + "," + yLoc); 
+	 	System.out.println();
+		*/
+		
+		//int yLoc = this.getMapYLoc();
+		//int xLoc = this.getMapXLoc();
+		//yLoc -= (int)( OSPREY_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
+		//xLoc -= (int)( OSPREY_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
+		//System.out.println(yLoc);
+		int yLoc = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - (int)( OSPREY_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
+		int xLoc = OSPREY_INITIAL_SMALL_BIRD_X_LOC - (int)( OSPREY_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
+		this.setMapYLoc(yLoc);
+		this.setMapXLoc(xLoc);
 	 	} 
 }
-}
+
