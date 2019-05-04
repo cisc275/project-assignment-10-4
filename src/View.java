@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -99,6 +98,18 @@ public class View extends JPanel implements Serializable{
     
     private BufferedImage buttonPanelBackground;
     
+    private BufferedImage opreyFlightPlanBack;
+    
+    private BufferedImage opreyFlightPlan;
+    
+    private OspreyFlightPlan ospreyPlan;
+    
+    private BufferedImage NHFlightPlanBack;
+    
+    private BufferedImage NHFlightPlan;
+    
+    private NHFlightPlan NHPlan;
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -107,6 +118,44 @@ public class View extends JPanel implements Serializable{
 		System.out.println("(" + FRAMEWIDTH + "," + FRAMEHEIGHT + ")");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
+		
+		this.setUpButtonPanel(c);
+		this.setUpOspreyPlan(c);
+		this.setUpNHPlan(c);
+		
+    	OPanel = new DrawPanel(); 
+		OPanel.setBackground(Color.gray);
+    	NHPanel = new DrawPanel(); 
+		NHPanel.setBackground(Color.gray);
+		
+		cards.add(buttonPanel, "B");
+		cards.add(ospreyPlan,"OP");
+		cards.add(OPanel, "O");
+		cards.add(NHPanel, "NH");
+		cards.add(NHPlan,"NHP");
+		//cards.add(quizPanel, "Q"); 
+		
+		currentPanel = buttonPanel;
+		
+		setUpFrame(c);
+		
+    	System.out.print(SCREENSIZE);
+    	
+	}
+	
+	void setUpFrame(Controller c) {
+		frame.add(cards);
+		frame.setFocusable(true);
+    	frame.addKeyListener(c);
+    	frame.setBackground(Color.gray);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    	frame.setResizable(false);
+    	frame.setVisible(true);
+    	frame.pack();
+	}
+	
+	void setUpButtonPanel(Controller c) {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setLayout(null);
@@ -122,31 +171,26 @@ public class View extends JPanel implements Serializable{
 		text.setBounds(800, 600, 400, 200);
 		text.setBackground(Color.blue);
 		buttonPanel.add(text);
-		//c.getOButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
-		//c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
+	}
+	
+	void setUpOspreyPlan(Controller c) {
+		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
+		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
+		ospreyPlan = new OspreyFlightPlan();
+		c.getOPlanButton().setFont(buttonFont);
+		ospreyPlan.add(c.getOPlanButton());
 		
-    	OPanel = new DrawPanel(); 
-		OPanel.setBackground(Color.gray);
-    	NHPanel = new DrawPanel(); 
-		NHPanel.setBackground(Color.gray);				
-		cards.add(buttonPanel, "B");
-		cards.add(OPanel, "O");
-		cards.add(NHPanel, "NH");
-		//cards.add(quizPanel, "Q"); 
-		currentPanel = buttonPanel;
-		frame.add(cards);
-		frame.setFocusable(true);
-    	frame.addKeyListener(c);
-    	frame.setBackground(Color.gray);
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    	frame.setResizable(false);
-    	frame.setVisible(true);
-    	frame.pack();
-    	System.out.print(SCREENSIZE);
-    	
+	}
+	
+	void setUpNHPlan(Controller c) {
+		NHPlan = new NHFlightPlan();
+		c.getNHPlanButton().setFont(buttonFont);
+		NHPlan.add(c.getNHPlanButton());
+		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
+		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
+		
 	}
 	
 	/**
@@ -453,7 +497,37 @@ public class View extends JPanel implements Serializable{
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
-	}	
+	}
+	
+	class NHFlightPlan extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			g.drawImage(NHFlightPlanBack, 0, 0, null);
+			g.drawImage(NHFlightPlan, 310, 80, null);
+		}
+			
+			
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
+	}
+	
+	class OspreyFlightPlan extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			g.drawImage(opreyFlightPlanBack, 0, 0, null);
+			g.drawImage(opreyFlightPlan, 310, 0, null);
+		}
+			
+			
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
+	}
 	
 	class ButtonPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
@@ -489,10 +563,8 @@ public class View extends JPanel implements Serializable{
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
 			try {
-				//System.out.println("bg1: " + background.getBackground(1));
-				//System.out.println("bg2: " + background.getBackground(2));
-				g2d.drawImage(background.getBackground(1),background.getB1x(),0,this);
-				g2d.drawImage(background.getBackground(2),background.getB2x(),0,this);
+				g2d.drawImage(background.getBackground(0),background.getBackgroundX(0),0,this);
+				g2d.drawImage(background.getBackground(1),background.getBackgroundX(1),0,this);
 			}
 			catch(NullPointerException e) {
 				System.out.println("Null pointer exception!\n" + e);
