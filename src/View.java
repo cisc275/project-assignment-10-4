@@ -104,6 +104,12 @@ public class View extends JPanel implements Serializable{
     
     private OspreyFlightPlan ospreyPlan;
     
+    //private BufferedImage NHFlightPlanBack;
+    
+    private BufferedImage NHFlightPlan;
+    
+    private NHFlightPlan NHPlan;
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -115,6 +121,7 @@ public class View extends JPanel implements Serializable{
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
+		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
@@ -138,6 +145,9 @@ public class View extends JPanel implements Serializable{
 		c.getOPlanButton().setFont(buttonFont);
 		ospreyPlan.add(c.getOPlanButton());
 		
+		NHPlan = new NHFlightPlan();
+		c.getNHPlanButton().setFont(buttonFont);
+		NHPlan.add(c.getNHPlanButton());
 		
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
@@ -147,6 +157,7 @@ public class View extends JPanel implements Serializable{
 		cards.add(ospreyPlan,"OP");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
+		cards.add(NHPlan,"NHP");
 		//cards.add(quizPanel, "Q"); 
 		currentPanel = buttonPanel;
 		frame.add(cards);
@@ -464,6 +475,21 @@ public class View extends JPanel implements Serializable{
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
+	}
+	
+	class NHFlightPlan extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			//g.drawImage(opreyFlightPlanBack, 0, 0, null);
+			g.drawImage(NHFlightPlan, 310, 80, null);
+		}
+			
+			
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
 	}
 	
 	class OspreyFlightPlan extends JPanel{
