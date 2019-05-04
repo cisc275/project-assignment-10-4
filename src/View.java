@@ -461,11 +461,13 @@ public class View extends JPanel implements Serializable{
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
 			try {
-				g2d.drawImage(background.getBackground1(),background.getB1x(),0,this);
-				g2d.drawImage(background.getBackground2(),background.getB2x(),0,this);
+				//System.out.println("bg1: " + background.getBackground(1));
+				//System.out.println("bg2: " + background.getBackground(2));
+				g2d.drawImage(background.getBackground(1),background.getB1x(),0,this);
+				g2d.drawImage(background.getBackground(2),background.getB2x(),0,this);
 			}
 			catch(NullPointerException e) {
-				
+				System.out.println("Null pointer exception!\n" + e);
 			}
 			
 			if (elements != null) {
