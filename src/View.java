@@ -43,11 +43,11 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * The panel that is currently active
 	 */
-	private DrawPanel currentPanel;
+	private JPanel currentPanel;
 	/**
 	 * The panel at the beginning with the bird choices
 	 */
-	private DrawPanel buttonPanel;
+	private ButtonPanel buttonPanel;
 	/**
 	 * The panel that will be drawn on to display the Osprey game
 	 */
@@ -95,6 +95,8 @@ public class View extends JPanel implements Serializable{
      */
     private Background background; 
     
+    private BufferedImage buttonPanelBackground;
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -103,7 +105,8 @@ public class View extends JPanel implements Serializable{
 		System.out.println("(" + FRAMEWIDTH + "," + FRAMEHEIGHT + ")");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
-		buttonPanel = new DrawPanel(); 
+		buttonPanelBackground = createImage("images/selection_background_1080.png");
+		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setBackground(Color.gray);
 		buttonFont = new Font("Verdana", Font.BOLD, FRAMEHEIGHT/6);
 		c.getOButton().setFont(buttonFont);
@@ -112,6 +115,7 @@ public class View extends JPanel implements Serializable{
 		c.getNHButton().setPreferredSize(new Dimension(FRAMEWIDTH,FRAMEHEIGHT/2));
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
+		
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
@@ -273,7 +277,7 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * @return the currentPanel
 	 */
-	public DrawPanel getCurrentPanel() {
+	public JPanel getCurrentPanel() {
 		return currentPanel;
 	}
 
@@ -294,14 +298,14 @@ public class View extends JPanel implements Serializable{
 	/**
 	 * @return the buttonPanel
 	 */
-	public DrawPanel getbuttonPanel() {
+	public ButtonPanel getbuttonPanel() {
 		return buttonPanel;
 	}
 
 	/**
 	 * @param drawPanel the buttonPanel to set
 	 */
-	public void setbuttonPanel(DrawPanel drawPanel) {
+	public void setbuttonPanel(ButtonPanel drawPanel) {
 		this.buttonPanel = drawPanel;
 	}
 	/**
@@ -426,6 +430,20 @@ public class View extends JPanel implements Serializable{
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
 	}	
+	
+	class ButtonPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			g.drawImage(buttonPanelBackground, 0, 0, null);
+		}
+			
+			
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
+	}
 
 	/**
 	 * The game panel that is drawn to show the gameplay
