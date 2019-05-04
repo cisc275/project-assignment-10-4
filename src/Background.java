@@ -52,13 +52,13 @@ public class Background implements Serializable{
 	 * 
 	 * @param model.getWidth() the width dimension of the screen
 	 */
-	Background(Model model){
+	Background(int frameWidth){
 		setBackground1(createImage());
 		setBackground2(createImage());
 		setB1x(0);
-		setB2x(model.getFrameWidth()-3);
+		setB2x(frameWidth-3);
 		setSpeed(BACKGROUND_SCROLL_SPEED);
-		setWidth(model.getFrameWidth());
+		setWidth(frameWidth);
 	}
 	
 	/**

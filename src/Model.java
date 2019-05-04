@@ -104,7 +104,7 @@ public class Model implements Serializable{
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
-		this.background = new Background(this);
+		this.background = new Background(frameWidth);
 		this.quizMode = false; 
 		miniMap = (MiniMap)generateImgPath(8);
 		rand = new Random();
@@ -195,9 +195,15 @@ public class Model implements Serializable{
 	}
 
 	/**
-	 * Updates the background depending on the distance the player has reached.
+	 * Updates the background depending on the distance the player has reached
+	 * and bird's species
 	 */
 	void updateBackground() {
+		if (bird.getBirdType().equalsIgnoreCase("osprey")) {
+			background.setOspreyMode(true);
+		} else {
+			background.setOspreyMode(false);
+		}
 		background.update();
 	}
 
