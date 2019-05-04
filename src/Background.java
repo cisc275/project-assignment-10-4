@@ -40,7 +40,7 @@ public class Background implements Serializable{
 	 */
 	private int speed;
 	/**
-	 * The dimension of the screen and inturn the background image
+	 * The dimension of the screen and in turn the dimension of the background image
 	 */
 	private int width;
 	
