@@ -270,10 +270,12 @@ public abstract class GameElement implements Serializable{
 	 */
 	public void setType(Images i) {
 		this.type = i;
-		int[] x = xPolyVals.get(this.type);
-		int[] y = yPolyVals.get(this.type);
-		polygon = new Polygon(x, y, x.length);
-		polygon.translate(this.xloc,this.yloc);
+		if(this.type == Images.OSPREY_MINIMAP) {
+			int[] x = xPolyVals.get(this.type);
+			int[] y = yPolyVals.get(this.type);
+			polygon = new Polygon(x, y, x.length);
+			polygon.translate(this.xloc,this.yloc);
+		}
 	}
 	
 	/**

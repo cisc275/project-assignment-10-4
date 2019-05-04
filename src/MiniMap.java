@@ -24,7 +24,7 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The String of the file containing the Sprite corresponding to either the Northern Harrier or the Osprey,
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
-	private String  
+	private String mapSpriteFile;
 	/**
 	 * This is the bufferedImage that will be placed on the miniMap to represent the current location of the bird
 	 */
@@ -44,7 +44,7 @@ public class MiniMap extends GameElement implements Serializable{
 	 */
 		
 	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath, String mapSpriteFile ,int mapXLoc, int mapYLoc) {
-		super(x, y, xSpeed, ySpeed, imagePath);
+		super(x, y, xSpeed, ySpeed, imagePath, null);
 		this.mapSpriteFile = mapSpriteFile;
 		this.mapXLoc = mapXLoc;
 		this.mapYLoc = mapYLoc;	
@@ -96,6 +96,7 @@ public class MiniMap extends GameElement implements Serializable{
 	public void setMapSpriteFile(String mapSpriteFile) {
 		this.mapSpriteFile = mapSpriteFile;
 	}
+	
 	@Override
 	public boolean collision(Bird bird) {
 		return false;
