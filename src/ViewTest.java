@@ -30,18 +30,10 @@ class ViewTest {
 
 	@Test
 	void updateViewTest() {
-		/*BufferedImage b1 = null;
-		try {
-			b1 = ImageIO.read(new File("images/bird.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		BufferedImage bi = null;
 		try {
 			bi = ImageIO.read(new File("images/big_bird_animate.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//to be updated
