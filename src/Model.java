@@ -104,7 +104,7 @@ public class Model implements Serializable{
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
-		this.background = new Background(frameWidth);
+		this.background = new Background(this);
 		this.quizMode = false; 
 		miniMap = (MiniMap)generateImgPath(8);
 		rand = new Random();
