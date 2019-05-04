@@ -98,6 +98,12 @@ public class View extends JPanel implements Serializable{
     
     private BufferedImage buttonPanelBackground;
     
+    private BufferedImage opreyFlightPlanBack;
+    
+    private BufferedImage opreyFlightPlan;
+    
+    private OspreyFlightPlan ospreyPlan;
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -107,6 +113,8 @@ public class View extends JPanel implements Serializable{
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
+		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
+		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
 		buttonPanel = new ButtonPanel(); 
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
@@ -126,11 +134,17 @@ public class View extends JPanel implements Serializable{
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
 		
+		ospreyPlan = new OspreyFlightPlan();
+		c.getOPlanButton().setFont(buttonFont);
+		ospreyPlan.add(c.getOPlanButton());
+		
+		
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
 		NHPanel.setBackground(Color.gray);				
 		cards.add(buttonPanel, "B");
+		cards.add(ospreyPlan,"OP");
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
 		//cards.add(quizPanel, "Q"); 
@@ -440,7 +454,22 @@ public class View extends JPanel implements Serializable{
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
-	}	
+	}
+	
+	class OspreyFlightPlan extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			g.drawImage(opreyFlightPlanBack, 0, 0, null);
+			g.drawImage(opreyFlightPlan, 310, 0, null);
+		}
+			
+			
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
+	}
 	
 	class ButtonPanel extends JPanel{
 		protected void paintComponent(Graphics g) {

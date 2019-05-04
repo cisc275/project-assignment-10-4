@@ -34,6 +34,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The Northern Harrier button for the user to click
 	 */
 	private JButton NHbutton;
+	
+	private JButton OPlanButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -58,8 +60,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	public Controller() {
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
+		OPlanButton = new JButton("Start Flight");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
+		OPlanButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -158,17 +162,22 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
-			view.setPanel("O");
+			view.setPanel("OP");
 			model.getBird().setBirdType("Osprey");
 			//System.out.println(model.getBird().getBirdType());
-			start();
+			//start();
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
 			model.getBird().setBirdType("Northern Harrier");
 			//System.out.println(model.getBird().getBirdType());
 			start();
-		}	
+		}
+		else if(e.getSource() == OPlanButton) {
+			view.setPanel("O");
+			//System.out.println(model.getBird().getBirdType());
+			start();
+		}
 	}
 
 	/**
@@ -222,10 +231,25 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * @param button the NHbutton to set
 	 */
-	public void setNHButton(JButton button) {
+	public void setNHbutton(JButton button) {
 		this.NHbutton = button;
 	}
 
+	/**
+	 * @return the OPlanButton
+	 */
+	public JButton getOPlanButton() {
+		return OPlanButton;
+	}
+
+	/**
+	 * @param button the Obutton to set
+	 */
+	public void setOPlanButton(JButton button) {
+		this.OPlanButton = button;
+	}
+	
+	
 	/**
 	 * @return the keyInputs
 	 */
