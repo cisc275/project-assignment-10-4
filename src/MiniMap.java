@@ -1,4 +1,6 @@
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Random;
 /**
  *Provides the image showing the birds progress through its migratory journey.  The minimap is different,
  *depending on if the Osprey or the Northern Harrier is the current bird.  The birds progress on the minimap is 
@@ -7,6 +9,7 @@ import java.io.*;
  * @author 10-4
  *
  */
+
 @SuppressWarnings("serial")
 public class MiniMap extends GameElement implements Serializable{
 	/**
@@ -22,6 +25,10 @@ public class MiniMap extends GameElement implements Serializable{
 	 * depending on what the current bird is.  This is the Sprite that will be placed on the miniMap
 	 */
 	private String  
+	/**
+	 * This is the bufferedImage that will be placed on the miniMap to represent the current location of the bird
+	 */
+	private BufferedImage smallBird;
 	/**
 	 * @param x - an int representing the x location of the GameElement
 	 * @param y - an int representing the y location of the GameElement
@@ -73,6 +80,17 @@ public class MiniMap extends GameElement implements Serializable{
 		return mapSpriteFile;
 	}
 	/**
+	 * @return the BufferedImage of the small bird showing the player's progress on the minimap
+	 */
+	public BufferedImage getSmallBird() {
+		return smallBird;
+	}
+	
+	public void setSmallBird(BufferedImage smallBird) {
+		this.smallBird= smallBird;
+	}
+	
+	/**
 	 * @param mapSpriteFile the mapSpriteFile to set
 	 */
 	public void setMapSpriteFile(String mapSpriteFile) {
@@ -86,6 +104,14 @@ public class MiniMap extends GameElement implements Serializable{
 	@Override
 	void updatePosition(){
 		int yLoc = this.getMapYLoc();
-		this.setMapYLoc(yLoc++);
+	 	int xLoc = this.getMapXLoc();
+	 	Random rand = new Random();
+	 	int delta = rand.nextInt(10);
+	 	if (delta == 1) {
+	 	yLoc -= 2;
+	 	xLoc -= 1;
+	 	this.setMapYLoc(yLoc);
+	 	this.setMapXLoc(xLoc);
+	 	} 
 }
 }

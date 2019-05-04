@@ -79,6 +79,10 @@ public class View extends JPanel implements Serializable{
 	//private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
 	private static final int FRAMEHEIGHT = 1080;
 	/**
+	 * The miniMap that is on the screen
+	 */
+	private MiniMap miniMap;	
+	/**
 	 * The bird that is being controlled by the player to be displayed
 	 */
     private Bird bird; 
@@ -156,9 +160,16 @@ public class View extends JPanel implements Serializable{
 			this.bird.setStaminaPics(arr);
 		}
 		this.elements = elements; 
+		this.miniMap = miniMap;
+		//this.miniMap = (MiniMap)elements.get(0); //first element will always be a MiniMap
+		if (miniMap.getSmallBird() == null) {
+			miniMap.setSmallBird(createImage(miniMap.getMapSpriteFile()));	
+		}
 		
-		//MiniMap curMap = (MiniMap)elements.get(0); //first element will always be a MiniMap
-		//curMap.setImage(createImage(curMap.getMapSpriteFile()));
+		if (miniMap.getImage() == null) {
+			miniMap.setImage(createImage(miniMap.getImagePath()));	
+		}
+		
 		Iterator<GameElement> it = this.elements.iterator();	
 		GameElement e;
 		while(it.hasNext()) {
@@ -448,9 +459,19 @@ public class View extends JPanel implements Serializable{
 					}
 			    	g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 			    	g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
+			    	
 				}
+				if (miniMap != null) {
+					
+					g2d.drawImage(miniMap.getImage() , miniMap.getXloc() , miniMap.getYloc(), this);
+					//System.out.println(miniMap.getMapXLoc() + ", " + miniMap.getMapYLoc() );
+					//System.out.println(miniMap.getXloc() + ", " + miniMap.getYloc() );
+					g2d.drawImage(miniMap.getSmallBird(), miniMap.getMapXLoc(),miniMap.getMapYLoc(), this);
+					
+					
 			} 	
 		}
+	}
 
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 

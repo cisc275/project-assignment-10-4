@@ -9,6 +9,8 @@ public enum Images {
 	 * Every String is the path of the corresponding image
 	 */
 	NH_MINIMAP("images/NHMiniMapp.png"),   //("images/NHMiniMapp.png"),          //250x196
+	OBSTACLE("images/building.png"),
+	OSPREY_MINIMAP("images/NHMiniMapp.png"),   //("images/NHMiniMapp.png"),          //250x196
 	NH_IMG_FOR_MINIMAP("images/NHImageMINI.png"),     //32x26
 	OSPREY_IMG_FOR_MINIMAP("images/OspreyMINI.png"),  //31x27
 	BUILDING("images/building_1080.png"),
@@ -19,7 +21,7 @@ public enum Images {
 	EAGLE("images/eagle_1080.png"),
 	OWL("images/owl_1080.png"),
 	FOX("images/fox_1080.png"),
-	BIRD("images/bird_animated.png"),
+        BIRD("images/bird_animated.png"),
 	RECTANGLE("images/rectangle-icon-256.png");
 	
 	
