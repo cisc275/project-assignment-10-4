@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import org.junit.jupiter.api.Test;
 
 
+
 /**
  * Handles all unit tests of View class
  * @author jhdavis
@@ -118,7 +119,7 @@ class ViewTest {
 		Controller c2 = new Controller();
 		View v2 = new View(c2);
 		JPanel cd2 = new JPanel(new CardLayout());
-		View.DrawPanel p2 = v2.getDrawPanel();
+		View.QuizPanel p2 = v2.getQuizPanel();
 		p2.setBackground(Color.gray);
 		Font f = new Font("Verdana", Font.BOLD, v2.getFrameHeight()/50);
 		Dimension d = new Dimension(v2.getFrameWidth() / 5, v2.getFrameHeight() / 5);
