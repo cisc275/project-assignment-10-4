@@ -360,4 +360,9 @@ public class Bird extends GameElement implements Serializable{
 	public void setFainted(boolean fainted) {
 		this.fainted = fainted;
 	}
+
+	@Override
+	public int getPointValue() {
+		return 0;
+	}
 }
