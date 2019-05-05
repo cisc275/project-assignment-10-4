@@ -142,7 +142,8 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Updates the position of the bird. If direction == 1 then the bird moves up.
 	 * If direction == 0 then the bird stays in the same y position. If direction ==
-	 * -1 then the bird moves down. Also handles the stunned status of the bird.
+	 * -1 then the bird moves down. Also handles the stunned and powerup status of 
+	 * the bird.
 	 */
 	@Override
 	void update() {
@@ -271,8 +272,8 @@ public class Bird extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @param direction- an int which is 1 if the bird is moving up, a 0 if it is
-	 *                   not moving up or down and a -1 if it is moving down.
+	 * @param direction an int which is 1 if the bird is moving up, a 0 if it is
+	 *                  not moving up or down and a -1 if it is moving down.
 	 */
 	public void setDirection(int direction) {
 		this.direction = direction;
