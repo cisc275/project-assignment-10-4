@@ -283,13 +283,17 @@ public class Model implements Serializable{
 	 * a random number.  And depending on which type of image it is, it will generate its starting position 
 	 * appropriately.
 	 */
-	GameElement generateImgPath(int choice) {
+	private GameElement generateImgPath(int choice) {
 		int curImage = 0;
 		Random randImg = new Random();
 		Random randLoc = new Random();
 		if (choice < 0) {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
-				curImage = randImg.nextInt(4);
+				if (background.isWaterNextZone()) {
+					curImage = randImg.nextInt(3) + 1;
+				} else {
+					curImage = randImg.nextInt(2);
+				}
 			}
 			else {
 				curImage = 4 + randImg.nextInt(4);
@@ -301,7 +305,7 @@ public class Model implements Serializable{
 		int y;
 		String ImgPath = "";
 		Images dir;
-		int xSpeed = 10;
+		int xSpeed = 20;
 		int ySpeed = 0; 
 
 		GameElement newGameElement; 
@@ -314,22 +318,22 @@ public class Model implements Serializable{
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
 				break;
 			case 1:
+				dir = Images.EAGLE;
+				ImgPath = dir.getName();
+				y = randLoc.nextInt(frameHeight/2);
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 2:
 				dir = Images.GOLDENFISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
-			case 2:
+			case 3:
 				dir = Images.FISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
-				break;
-			case 3:
-				dir = Images.EAGLE;
-				ImgPath = dir.getName();
-				y =  randLoc.nextInt(frameHeight/2);
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 4:
 				dir = Images.MOUSE;

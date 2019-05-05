@@ -27,27 +27,23 @@ public class Background implements Serializable{
 	/**
 	 * Constant for speed at which Background begins to scroll at
 	 */
-	private static final int INITIAL_SCROLL_SPEED = 3;
+	private static final int INITIAL_SCROLL_SPEED = 10;
 	/**
 	 * A speed variable which can fluctuate
 	 */
-	private int backgroundScrollSpeed = 3;
+	private int backgroundScrollSpeed = INITIAL_SCROLL_SPEED;
 	/**
 	 * Constant for Grass background object
 	 */
-	private static final BufferedImage GRASS = createImage(GRASS_PATH);
+	static final BufferedImage GRASS = createImage(GRASS_PATH);
 	/**
 	 * Constant for water background object
 	 */
-	private static final BufferedImage WATER = createImage(WATER_PATH);
+	static final BufferedImage WATER = createImage(WATER_PATH);
 	/**
 	 * Array of the X positions of the two backgrounds
 	 */
 	private int[] bgXs = new int[2];
-	/**
-	 * The speed the background will scroll
-	 */
-	private int speed;
 	/**
 	 * The dimension of the screen and in turn the dimension of the background image
 	 */
@@ -75,19 +71,18 @@ public class Background implements Serializable{
 		setBackground(1,GRASS);
 		setBackgroundX(0,0);
 		setBackgroundX(1,frameWidth-3);
-		setSpeed(INITIAL_SCROLL_SPEED);
 		setWidth(frameWidth);
 	}
 	
 	/**
 	 * Updates the position of the background images to scroll.
 	 * If a background image is completely off screen to the left, move it
-	 * so it's position is off screen to the right, next to the other background
+	 * so its position is off screen to the right, next to the other background
 	 */
 	public void update() {
-		bgXs[0] -= speed;
-		bgXs[1] -= speed;
-		if(bgXs[0]+width<=0) {
+		bgXs[0] -= backgroundScrollSpeed;
+		bgXs[1] -= backgroundScrollSpeed;
+		if(bgXs[0] + width <= 0) {
 			bgXs[0] = width-8;
 			updateBackgroundZone(0);
 		}
@@ -97,6 +92,11 @@ public class Background implements Serializable{
 		}
 	}
 
+	/**
+	 * Called when a specified background image goes offscreen, 
+	 * possibly swaps grass/water
+	 * @param num the background image to update
+	 */
 	private void updateBackgroundZone(int num) {
 		if (ospreyMode) {
 			int randResult = rand.nextInt(4);
@@ -108,6 +108,22 @@ public class Background implements Serializable{
 		}
 	}
 	
+	/**
+	 * Returns true if the zone to the right is water
+	 * @return boolean indicating if water is the next zone
+	 */
+	public boolean isWaterNextZone() {
+		if (ospreyMode) {
+			if ((bgXs[0] < bgXs[1] && bgs[1].equals(WATER)) ||
+				(bgXs[1] < bgXs[0] && bgs[0].equals(WATER))) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -115,7 +131,7 @@ public class Background implements Serializable{
 			Background b = (Background)obj;
 			return (b.getBackgroundX(0) == this.getBackgroundX(0) &&
 					b.getBackgroundX(1) == this.getBackgroundX(1) &&
-					b.getSpeed() == this.getSpeed() && 
+					b.getBackgroundScrollSpeed() == this.getBackgroundScrollSpeed() && 
 					b.getWidth() == this.getWidth());
 		} else {
 			return false;
@@ -155,20 +171,6 @@ public class Background implements Serializable{
 	}
 
 	/**
-	 * @return the speed
-	 */
-	public int getSpeed() {
-		return speed;
-	}
-
-	/**
-	 * @param speed the speed to set
-	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	/**
 	 * @return the width
 	 */
 	public int getWidth() {
@@ -204,13 +206,13 @@ public class Background implements Serializable{
 	public int getBackgroundScrollSpeed() {
 		return this.backgroundScrollSpeed;
 	}
+	
 	/**
 	 * @param backgroundScrollSpeed 
 	 */
 	public void setBackgroundScrollSpeed(int backgroundScrollSpeed) {
 		this.backgroundScrollSpeed = backgroundScrollSpeed;
 	}
-
 
 	/**
 	 * @return the ospreyMode
@@ -224,6 +226,5 @@ public class Background implements Serializable{
 	 */
 	public void setOspreyMode(boolean ospreyMode) {
 		this.ospreyMode = ospreyMode;
-
 	}
 }
