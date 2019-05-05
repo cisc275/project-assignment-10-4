@@ -104,7 +104,7 @@ public class Model implements Serializable{
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth,int frameHeight) {
-		bird = new Bird(0,0,0,0,"");
+		//bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
@@ -132,6 +132,10 @@ public class Model implements Serializable{
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {
+		
+		if(distance == 0 ) {
+			createMiniMap();		
+	}
 		updateBird();
 		updateGameElements();
 		updateBackground();
@@ -140,7 +144,19 @@ public class Model implements Serializable{
 		collisionDetection();
 		updateSpawnTimer();
 	}
-
+	
+	/**
+	 * Only called 1 time at the time immediately after the user slects the birdType for gamePlay
+	 * Creates the miniMap corresponding to the bird that was selected
+	 */
+	public void createMiniMap() {
+	if (bird.getBirdType().equals("Osprey")) {
+		miniMap = (MiniMap)generateImgPath(8);
+	}
+	else if(bird.getBirdType().equals("Northern Harrier")) {
+		miniMap = (MiniMap)generateImgPath(9);
+	}
+}
 	/**
 	 * Ticks the spawn timer if needed to introduce a random delay to the Element spawner,
 	 * calling spawnGameElement when needed
@@ -221,7 +237,12 @@ public class Model implements Serializable{
 	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
  	 	miniMap.updatePosition(percentDistTraveled);
  	 	if(percentDistTraveled >= 1) {
- 	 		//System.out.println("Done");
+ 	   // System.out.println("Done");
+ 	//   @SuppressWarnings("unused")
+		//Controller c = new Controller();
+         System.exit(0);
+ 	 		//percentDistTraveled =0;
+ 	 // new Controller();
  	 	}
 	}
 
@@ -303,6 +324,9 @@ public class Model implements Serializable{
 		Images dir;
 		int xSpeed = 10;
 		int ySpeed = 0; 
+		int xLocOfBird;
+		int yLocOfBird;
+		String mapSpriteFile;
 
 		GameElement newGameElement; 
 
@@ -362,12 +386,28 @@ public class Model implements Serializable{
 				y = 0; 
 				xSpeed =0;
 				ySpeed =0;
-		        	int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
-		    	        int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
+		        xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
+		    	yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
 			//	int xLocOfBird = this.frameWidth-101; 
 			//	int yLocOfBird = 110;
 				dir = Images.OSPREY_IMG_FOR_MINIMAP;
-				String mapSpriteFile = dir.getName();
+				mapSpriteFile = dir.getName();
+				newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
+				break;
+			case 9:
+				dir = Images.NH_IMG_FOR_MINIMAP;
+				ImgPath = dir.getName();
+				//x = this.frameWidth - 250;
+				x = 1120;
+				y = 0; 
+				xSpeed =0;
+				ySpeed =0;
+		        xLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_X_LOC;
+		    	yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
+			//	int xLocOfBird = this.frameWidth-101; 
+			//	int yLocOfBird = 110;
+				dir = Images.NH_IMG_FOR_MINIMAP;
+				mapSpriteFile = dir.getName();
 				newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
 				break;
 			default:

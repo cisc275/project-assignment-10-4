@@ -27,6 +27,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private Model model;
 	/**
+	 * True once the user selects a bird
+	 */
+	private boolean isGameInProgress;
+	/**
 	 * The Osprey button for the user to click
 	 */
 	private JButton Obutton;
@@ -75,7 +79,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode() && !model.isDoingQuiz()) {
+    			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress ) {
     				model.update();
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
@@ -158,15 +162,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
-			view.setPanel("O");
+			view.setPanel("O"); 
+			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Osprey");
-			//System.out.println(model.getBird().getBirdType());
+			isGameInProgress = true;
 			start();
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NH");
+			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Northern Harrier");
-			//System.out.println(model.getBird().getBirdType());
+			isGameInProgress = true;
 			start();
 		}	
 	}
