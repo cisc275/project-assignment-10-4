@@ -140,28 +140,25 @@ public class Bird extends GameElement implements Serializable{
 	 * Also handles the stunned status of the bird.
 	 */
 	@Override
-	void updatePosition(){
-		setXloc(getXloc() + getxSpeed());
-		setYloc(getYloc() + (getySpeed() * (-1) * direction));
-		if (poweredUp) {
-			powerTimer++; 
-			if (powerTimer >= POWER_TIMER_LIMIT) {
-				powerTimer = 0; 
-				poweredUp = false; 
-			}
-		}
 	void update(){
 		if (stamina <= 0) {
 			setFainted(true);
 			System.out.println(fainted);
 		}
-		setXloc(getXloc()+getxSpeed());
-		setYloc(getYloc()+(getySpeed()*(-1)*direction));	
+		setXloc(getXloc() + getxSpeed());
+		setYloc(getYloc() + (getySpeed() * (-1) * direction));	
 		if (isStunned) {
 			stunTimer++;
 			if (stunTimer >= STUN_TIME_LIMIT) {
 				stunTimer = 0;
 				isStunned = false;
+			}
+		}
+		if (poweredUp) {
+			powerTimer++; 
+			if (powerTimer >= POWER_TIMER_LIMIT) {
+				powerTimer = 0; 
+				poweredUp = false; 
 			}
 		}
 	}
