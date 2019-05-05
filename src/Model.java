@@ -41,7 +41,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 500; 
+	private static final int END_DISTANCE = 3000; 
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -255,18 +255,17 @@ public class Model implements Serializable {
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
-	void updateMiniMap() {
-	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
-	 	System.out.println(miniMap.getMapXLoc() + "," +   miniMap.getMapYLoc() );
+	void updateMiniMap(double percentDistTraveled) {
 	 	if(percentDistTraveled >= 1) {
-	         System.exit(0);
-	 	 	}
+	         this.reachedEnd = true;
+ 	 	}
 	 	if(bird.getBirdType().equalsIgnoreCase("Osprey")) {
 	 	miniMap.updatePositionOsprey(percentDistTraveled);
  	 	}
  	 	else {
  	 		miniMap.updatePositionNH(percentDistTraveled);
  	 	}
+	}
 	/**
 	 * Updates the nesting animation
 	 */

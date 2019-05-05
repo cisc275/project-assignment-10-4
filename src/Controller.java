@@ -214,18 +214,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
-			view.setPanel("O"); 
-			model.setBird(new Bird(0,0,0,0,"") );
-			model.getBird().setBirdType("Osprey");
-			isGameInProgress = true;
-			start();
+			view.setPanel("OP"); 
 		}
 		else if(e.getSource() == NHbutton) {
-			view.setPanel("NH");
-			model.setBird(new Bird(0,0,0,0,"") );
-			model.getBird().setBirdType("Northern Harrier");
-			isGameInProgress = true;
-		        start();
+			view.setPanel("NHP");
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NHP");
@@ -234,11 +226,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//start();
 		}
 		else if(e.getSource() == OPlanButton) {
+			model.setBird(new Bird(0,0,0,0,"") );
+			model.getBird().setBirdType("Osprey");
+			isGameInProgress = true;
 			view.setPanel("O");
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
 		else if(e.getSource() == NHPlanButton) {
+			model.setBird(new Bird(0,0,0,0,"") );
+			model.getBird().setBirdType("Northern Harrier");
+			isGameInProgress = true;
 			view.setPanel("NH");
 			//System.out.println(model.getBird().getBirdType());
 			start();
