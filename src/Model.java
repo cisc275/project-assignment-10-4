@@ -41,7 +41,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 300000;	
+	private static final int END_DISTANCE = 3000;	
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */

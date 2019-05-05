@@ -201,6 +201,7 @@ public class View extends JPanel implements Serializable{
 		animation = new NestAnimationPanel();
 		c.getDoneAminationButton().setFont(buttonFont);
 		animation.add(c.getDoneAminationButton());
+		animation.getComponent(0).setVisible(false);
 	}
 	
 	/**
@@ -324,6 +325,9 @@ public class View extends JPanel implements Serializable{
 			else {
 				this.nestAnimation.setBackground(createImage("images/nh_nest_background_1080.png"));
 			}
+		}
+		if(this.nestAnimation.isDoneAnimation()) {
+			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();
 		
