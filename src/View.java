@@ -301,7 +301,7 @@ public class View extends JPanel implements Serializable {
 		score = new JLabel("Score: " + bird.getPoints(), SwingConstants.CENTER); 
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35); 
 		score.setFont(font);
-		score.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 2);
+		score.setBounds(0, 0, 1300,100);
 		currentPanel.add(score);
 		frame.repaint();
 	}

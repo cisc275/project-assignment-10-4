@@ -334,8 +334,8 @@ public class Model implements Serializable {
 			}
 		}
 		if (collided != null) {
-			boolean shouldRemove = collided.collision(bird);
 			bird.updateScore(collided.getPointValue());
+			boolean shouldRemove = collided.collision(bird);
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
 				spawnCount++;

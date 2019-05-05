@@ -162,6 +162,7 @@ public class Bird extends GameElement implements Serializable {
 			if (stunTimer >= STUN_TIME_LIMIT) {
 				stunTimer = 0;
 				isStunned = false;
+				System.out.println("Stun expired.");
 			}
 		}
 		if (poweredUp) {
@@ -427,7 +428,10 @@ public class Bird extends GameElement implements Serializable {
 	 * @param pointValue the number of points to add to the score
 	 */
 	public void updateScore(int pointValue) {
-		setPoints(getPoints() + pointValue);		
+		System.out.println("isStunned: " + isStunned);
+		if ((!isStunned && !poweredUp) || (poweredUp && pointValue > 0)) {
+			setPoints(getPoints() + pointValue);
+		}
 	}
 
 	/**
