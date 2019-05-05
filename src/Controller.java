@@ -39,10 +39,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private JButton OPlanButton;
 	/**
-	 * Osprey button to continue to game after map
+	 * Northern Harrier button to continue to game after map
 	 */
 	private JButton NHPlanButton;
-	
+	/**
+	 * Button to continue to bird selection after nesting animation
+	 */
 	private JButton doneAminationButton;
 	/**
 	 * The list of answer buttons for the quiz
@@ -60,19 +62,21 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for answering a quiz question
 	 */
 	Action quizAnswer; 
-	
+	/**
+	 * Action for animating the nesting
+	 */
 	Action animateAction;
-	
 	/**
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30; 
-	
 	/**
-	 * 
+	 * Timer for handling game play
 	 */
 	Timer t; 
-	
+	/**
+	 * Timer for handling the nesting animation
+	 */
 	Timer s;
 	 
 	public Controller() {
@@ -130,14 +134,15 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();
-    			}
-    			
-    				
-    		}
-    		
+    			}   				
+    		}   		
     	};
 	}
 	
+	/**
+	 * Starts the animation. Will continue until the user presses a button
+	 * that will return to the bird selection screen
+	 */
 	void animate() {
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){

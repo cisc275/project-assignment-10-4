@@ -1,17 +1,45 @@
 import java.awt.image.BufferedImage;
 
 public class NestAnimation {
+	/**
+	 * x location of bird nesting
+	 */
 	private int birdx;
+	/**
+	 * y location of bird nesting
+	 */
 	private int birdy;
+	/**
+	 * x velocity of bird nesting
+	 */
 	private int xvel;
+	/**
+	 * y location of bird nesting
+	 */
 	private int yvel;
+	/**
+	 * ending x location for nesting
+	 */
 	private int endx;
+	/**
+	 * ending y location for nesting
+	 */
 	private int endy;
+	/**
+	 * image of bird nesting
+	 */
 	private BufferedImage bird;
+	/**
+	 * image for the background of the nesting animation
+	 */
 	private BufferedImage background;
+	/**
+	 * true if the bird has reached the end lcoation in the animation
+	 */
 	private boolean doneAnimation;
 	
 	/**
+	 * Constructor for nesting animation
 	 * Default values are for osprey animation
 	 */
 	NestAnimation(){
@@ -26,6 +54,9 @@ public class NestAnimation {
 		doneAnimation = false;
 	}
 	
+	/**
+	 * Updates the animation until it has reached the end position
+	 */
 	void animationUpdate() {
 		if(bird!=null && !doneAnimation) {
 			if(birdx<(endx-bird.getWidth()/2)) {
@@ -38,8 +69,6 @@ public class NestAnimation {
 				doneAnimation = true;
 			}
 		}
-		
-		
 	}
 
 	/**

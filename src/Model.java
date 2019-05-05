@@ -114,7 +114,9 @@ public class Model implements Serializable {
 	 * if true, the end of the level is reached
 	 */
 	private boolean reachedEnd;
-	
+	/**
+	 * The nesting animation at the end of the game
+	 */
 	private NestAnimation nestAnimation;
 	
 	/**
@@ -147,7 +149,6 @@ public class Model implements Serializable {
 		setNestAnimation(new NestAnimation());
 	}
 
-
 	/**
 	 * Used to update the current status and positions of the different game components.
 	 * Will call helper update methods for different components.  Calls all other update methods
@@ -164,9 +165,6 @@ public class Model implements Serializable {
 		updateBackground();
 		collisionDetection();
 		updateSpawnTimer();
-		
- 	 	
-		
 	}
 
 	/**
@@ -242,18 +240,22 @@ public class Model implements Serializable {
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
-
 	void updateMiniMap(double percentDistTraveled) {
  	 	miniMap.updatePosition(percentDistTraveled);
 	}
 
+	/**
+	 * Updates the nesting animation
+	 */
 	void updateNestAnimation() {
-		/*if(nestAnimation.getBird()==null) {
-			nestAnimation.setBird(bird.getImage());
-		}*/
 		this.nestAnimation.animationUpdate();
 	}
 	
+	/**
+	 * Configures the nest animation attributes if the bird being played
+	 * is the northern harrier. The default within the nestanimation class
+	 * is for the Osprey
+	 */
 	void configureNestAnimation() {
 		if(this.bird.getBirdType().equals("northern harrier")) {
 			this.nestAnimation.setEndx(1400);
@@ -263,13 +265,11 @@ public class Model implements Serializable {
 		}
 	}
 	
-	
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
