@@ -527,7 +527,7 @@ public class Model implements Serializable {
 	void enterNest() {}
 	
 	public void createQuestions(String birdType) {
-		if(birdType.equals("osprey")) {
+		if(birdType.equals("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt"); 
 		}
 		else {
