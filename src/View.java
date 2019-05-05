@@ -110,6 +110,10 @@ public class View extends JPanel implements Serializable{
     
     private NHFlightPlan NHPlan;
     
+    private NestAnimationPanel animation;
+    
+    private NestAnimation nestAnimation;
+    
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * @param c reference to the Controller object in use
@@ -122,6 +126,7 @@ public class View extends JPanel implements Serializable{
 		this.setUpButtonPanel(c);
 		this.setUpOspreyPlan(c);
 		this.setUpNHPlan(c);
+		this.setUpAnimation(c);
 		
     	OPanel = new DrawPanel(); 
 		OPanel.setBackground(Color.gray);
@@ -133,6 +138,7 @@ public class View extends JPanel implements Serializable{
 		cards.add(OPanel, "O");
 		cards.add(NHPanel, "NH");
 		cards.add(NHPlan,"NHP");
+		cards.add(animation,"NA");
 		//cards.add(quizPanel, "Q"); 
 		
 		currentPanel = buttonPanel;
@@ -180,8 +186,7 @@ public class View extends JPanel implements Serializable{
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
 		ospreyPlan = new OspreyFlightPlan();
 		c.getOPlanButton().setFont(buttonFont);
-		ospreyPlan.add(c.getOPlanButton());
-		
+		ospreyPlan.add(c.getOPlanButton());		
 	}
 	
 	void setUpNHPlan(Controller c) {
@@ -189,8 +194,13 @@ public class View extends JPanel implements Serializable{
 		c.getNHPlanButton().setFont(buttonFont);
 		NHPlan.add(c.getNHPlanButton());
 		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
-		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
-		
+		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");		
+	}
+	
+	void setUpAnimation(Controller c) {
+		animation = new NestAnimationPanel();
+		c.getDoneAminationButton().setFont(buttonFont);
+		animation.add(c.getDoneAminationButton());
 	}
 	
 	/**
@@ -302,7 +312,22 @@ public class View extends JPanel implements Serializable{
 	 * Handles the animation for the bird landing in the nest when the player reaches
 	 * the end of the game
 	 */
-	void nestAnimation() {}
+	void nestAnimationUpdate(NestAnimation nestAnimation) {
+		this.nestAnimation = nestAnimation;
+		if(this.nestAnimation.getBird()==null) {
+			this.nestAnimation.setBird(this.bird.getPics()[2]);
+		}
+		if(this.nestAnimation.getBackground()==null) {
+			if(this.bird.getBirdType().equals("osprey")){
+					this.nestAnimation.setBackground(createImage("images/osprey_nest_background_1080.png"));
+			}
+			else {
+				this.nestAnimation.setBackground(createImage("images/nh_nest_background_1080.png"));
+			}
+		}
+		currentPanel.repaint();
+		
+	}
 	
 	/**
 	 * Updates the display of the bird
@@ -339,6 +364,8 @@ public class View extends JPanel implements Serializable{
 				break;
 			case "NH":
 				currentPanel = NHPanel;
+			case "NA":
+				currentPanel = animation;
 		}
 	}
 	
@@ -497,6 +524,24 @@ public class View extends JPanel implements Serializable{
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
+	}
+	
+	class NestAnimationPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D)g;
+			super.paintComponent(g2d);
+			try {
+				g.drawImage(nestAnimation.getBackground(),0,0,null);
+				g.drawImage(nestAnimation.getBird(),nestAnimation.getBirdx(),nestAnimation.getBirdy(),null);
+			}
+			catch(Exception e) {
+				
+			}	
+		}
+		
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
+		}
 	}
 	
 	class NHFlightPlan extends JPanel{

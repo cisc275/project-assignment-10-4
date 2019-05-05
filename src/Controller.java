@@ -42,6 +42,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Osprey button to continue to game after map
 	 */
 	private JButton NHPlanButton;
+	
+	private JButton doneAminationButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -58,6 +60,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for answering a quiz question
 	 */
 	Action quizAnswer; 
+	
+	Action animateAction;
+	
 	/**
 	 * Time between draw events
 	 */
@@ -67,16 +72,20 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * 
 	 */
 	Timer t; 
+	
+	Timer s;
 	 
 	public Controller() {
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
 		NHPlanButton = new JButton("Start Flight");
+		doneAminationButton = new JButton("Continue");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
 		NHPlanButton.addActionListener(this);
+		doneAminationButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -89,11 +98,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view = new View(this);
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		
+		animateAction = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				model.updateNestAnimation();
+				view.nestAnimationUpdate(model.getNestAnimation());
+			}
+		};
+		
+		
 		//model.setBirdType(view.selectBirdType());
 		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode() && !model.isDoingQuiz()) {
+    			if (!model.isQuizMode() && !model.isDoingQuiz() && !model.isReachedEnd()) {
     				model.update();
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
@@ -108,11 +125,26 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				}
     				view.displayQuiz(model.startQuiz(), quizButtons);
     			}
+    			else if(model.isReachedEnd()) {
+    			    t.stop();
+    			    model.configureNestAnimation();
+    				view.setPanel("NA");
+    				animate();
+    			}
     			
     				
     		}
     		
     	};
+	}
+	
+	void animate() {
+		EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				s = new Timer(DRAW_DELAY, animateAction);
+				s.start();
+			}
+		});
 	}
 	
 	/**
@@ -193,6 +225,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			view.setPanel("NH");
 			//System.out.println(model.getBird().getBirdType());
 			start();
+		}
+		else if(e.getSource() == doneAminationButton) {
+			view.setPanel("B");
 		}
 	}
 
@@ -298,5 +333,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public List<JButton> getQuizButtons(){
 		return this.quizButtons; 
+	}
+
+	/**
+	 * @return the doneAmination
+	 */
+	public JButton getDoneAminationButton() {
+		return doneAminationButton;
+	}
+
+	/**
+	 * @param doneAmination the doneAmination to set
+	 */
+	public void setDoneAminationButton(JButton doneAminationButton) {
+		this.doneAminationButton = doneAminationButton;
 	}
 }
