@@ -249,8 +249,11 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			start();
 		}
 		else if (e.getSource() == doneAnimationButton) {
+			s.stop();
+			doneAnimationButton.setVisible(false);
 			view.setPanel("B");
 			model = new Model(view.getFrameWidth(), view.getFrameHeight());
+			//view.setNestAnimation(model.getNestAnimation());
 		}
 	}
 
