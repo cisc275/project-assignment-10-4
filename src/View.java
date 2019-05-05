@@ -95,23 +95,41 @@ public class View extends JPanel implements Serializable{
      * The background of the game that is scrolling in when displayed
      */
     private Background background; 
-    
+    /**
+     * Image for the bird selection background
+     */
     private BufferedImage buttonPanelBackground;
-    
+    /**
+     * Image for the osprey flight map background
+     */
     private BufferedImage opreyFlightPlanBack;
-    
+    /**
+     * Image for the osprey flight map
+     */
     private BufferedImage opreyFlightPlan;
-    
+    /**
+     * Panel for osprey flight map
+     */
     private OspreyFlightPlan ospreyPlan;
-    
+    /**
+     * Image for the norther harrier flight map background
+     */
     private BufferedImage NHFlightPlanBack;
-    
+    /**
+     * Image for the northern harrier flight map
+     */
     private BufferedImage NHFlightPlan;
-    
+    /**
+     * Panel for the northern harrier flight map
+     */
     private NHFlightPlan NHPlan;
-    
+    /**
+     * Panel to display nesting animation
+     */
     private NestAnimationPanel animation;
-    
+    /**
+     * The nesting animation to be displayed
+     */
     private NestAnimation nestAnimation;
     
 	/**
@@ -148,6 +166,11 @@ public class View extends JPanel implements Serializable{
     	System.out.print(SCREENSIZE);
 	}
 	
+	/**
+	 * Sets up the JFrame with its attributes
+	 * 
+	 * @param c reference to the Controller object in use
+	 */
 	void setUpFrame(Controller c) {
 		frame.add(cards);
 		frame.setFocusable(true);
@@ -160,6 +183,11 @@ public class View extends JPanel implements Serializable{
     	frame.pack();
 	}
 	
+	/**
+	 * Sets up panel for selection of bird
+	 * 
+	 * @param c reference to the Controller object in use
+	 */
 	void setUpButtonPanel(Controller c) {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		buttonPanel = new ButtonPanel();
@@ -180,6 +208,11 @@ public class View extends JPanel implements Serializable{
 		buttonPanel.add(c.getOButton());
 	}
 	
+	/**
+	 * Sets up panel for osprey flight plan map
+	 * 
+	 * @param c reference to the Controller object in use
+	 */
 	void setUpOspreyPlan(Controller c) {
 		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
@@ -188,6 +221,11 @@ public class View extends JPanel implements Serializable{
 		ospreyPlan.add(c.getOPlanButton());		
 	}
 	
+	/**
+	 * Sets up panel for northern harrier flight plan map
+	 * 
+	 * @param c reference to the Controller object in use
+	 */
 	void setUpNHPlan(Controller c) {
 		NHPlan = new NHFlightPlan();
 		c.getNHPlanButton().setFont(buttonFont);
@@ -196,6 +234,11 @@ public class View extends JPanel implements Serializable{
 		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");		
 	}
 	
+	/**
+	 * Sets up panel for nest landing animation
+	 * 
+	 * @param c reference to the Controller object in use
+	 */
 	void setUpAnimation(Controller c) {
 		animation = new NestAnimationPanel();
 		c.getDoneAminationButton().setFont(buttonFont);
@@ -212,7 +255,6 @@ public class View extends JPanel implements Serializable{
 	 * @param miniMap The MiniMap that displays progress
 	 * @param background The background that displays and scrolls
 	 */
-	
 	void updateView(Bird bird, List<GameElement>elements,MiniMap miniMap, Background background) {
 		this.background = background;	
         this.bird = bird; 
@@ -256,7 +298,6 @@ public class View extends JPanel implements Serializable{
 	 * @param f a File to generate image from
 	 * @return BufferedImage the generated image
 	 */
-	
 	BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
@@ -267,7 +308,6 @@ public class View extends JPanel implements Serializable{
 		}
 		return null;
 	}
-	
 	
 	/**
 	 * Draws an image onto the frame
@@ -305,12 +345,19 @@ public class View extends JPanel implements Serializable{
 		currentPanel.add(quizPanel); 
 		currentPanel.repaint(); 
 	}
+	
+	/**
+	 * Removes the quiz from the current panel being displayed
+	 */
 	void endQuiz() {
 		currentPanel.remove(quizPanel); 
 	}
+	
 	/**
 	 * Handles the animation for the bird landing in the nest when the player reaches
 	 * the end of the game
+	 * 
+	 * @param nestAnimation the instance of nestAnimation that has been updated
 	 */
 	void nestAnimationUpdate(NestAnimation nestAnimation) {
 		this.nestAnimation = nestAnimation;
@@ -367,8 +414,16 @@ public class View extends JPanel implements Serializable{
 				break;
 			case "NH":
 				currentPanel = NHPanel;
+				break;
 			case "NA":
 				currentPanel = animation;
+				break;
+			case "OP":
+				currentPanel = ospreyPlan;
+				break;
+			case "NHP":
+				currentPanel = NHPlan;
+				break;
 		}
 	}
 	
@@ -529,6 +584,12 @@ public class View extends JPanel implements Serializable{
 		return new DrawPanel();
 	}
 	
+	/**
+	 * Panel to display the nesting animation
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class NestAnimationPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
@@ -547,6 +608,12 @@ public class View extends JPanel implements Serializable{
 		}
 	}
 	
+	/**
+	 * Panel to display northern harrier flight plan map
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class NHFlightPlan extends JPanel{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
@@ -555,13 +622,17 @@ public class View extends JPanel implements Serializable{
 			g.drawImage(NHFlightPlan, 310, 80, null);
 		}
 			
-			
-			
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
 	
+	/**
+	 * Panel to display osprey flight plan map
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class OspreyFlightPlan extends JPanel{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
@@ -570,26 +641,35 @@ public class View extends JPanel implements Serializable{
 			g.drawImage(opreyFlightPlan, 310, 0, null);
 		}
 			
-			
-			
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
 	
+	/**
+	 * Panel to display bird selection
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class ButtonPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g;
 			super.paintComponent(g2d);
 			g.drawImage(buttonPanelBackground, 0, 0, null);
 		}
-			
-			
-			
+		
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); 
 		}
 	}
+	
+	/**
+	 * Panel to display quiz to be answered by player
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class QuizPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);

@@ -27,6 +27,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private Model model;
 	/**
+	 * True once the user selects a bird
+	 */
+	private boolean isGameInProgress;
+	/**
 	 * The Osprey button for the user to click
 	 */
 	private JButton Obutton;
@@ -39,10 +43,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private JButton OPlanButton;
 	/**
-	 * Osprey button to continue to game after map
+	 * Northern Harrier button to continue to game after map
 	 */
 	private JButton NHPlanButton;
-	
+	/**
+	 * Button to continue to bird selection after nesting animation
+	 */
 	private JButton doneAminationButton;
 	/**
 	 * The list of answer buttons for the quiz
@@ -60,19 +66,21 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for answering a quiz question
 	 */
 	Action quizAnswer; 
-	
+	/**
+	 * Action for animating the nesting
+	 */
 	Action animateAction;
-	
 	/**
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30; 
-	
 	/**
-	 * 
+	 * Timer for handling game play
 	 */
 	Timer t; 
-	
+	/**
+	 * Timer for handling the nesting animation
+	 */
 	Timer s;
 	 
 	public Controller() {
@@ -110,7 +118,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view.setPanel("B");
 		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode() && !model.isDoingQuiz() && !model.isReachedEnd()) {
+    			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
     				model.update();
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),
     								model.getBackground());
@@ -142,6 +150,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 
+	/**
+	 * Starts the animation. Will continue until the user presses a button
+	 * that will return to the bird selection screen
+	 */
 	void animate() {
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
@@ -209,10 +221,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Obutton) {
-			view.setPanel("OP");
-			model.getBird().setBirdType("Osprey");
-			//System.out.println(model.getBird().getBirdType());
-			//start();
+			view.setPanel("OP"); 
+		}
+		else if(e.getSource() == NHbutton) {
+			view.setPanel("NHP");
 		}
 		else if(e.getSource() == NHbutton) {
 			view.setPanel("NHP");
@@ -221,11 +233,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//start();
 		}
 		else if(e.getSource() == OPlanButton) {
+			model.setBird(new Bird(0,0,0,0,"") );
+			model.getBird().setBirdType("Osprey");
+			isGameInProgress = true;
 			view.setPanel("O");
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
 		else if(e.getSource() == NHPlanButton) {
+			model.setBird(new Bird(0,0,0,0,"") );
+			model.getBird().setBirdType("Northern Harrier");
+			isGameInProgress = true;
 			view.setPanel("NH");
 			//System.out.println(model.getBird().getBirdType());
 			start();
