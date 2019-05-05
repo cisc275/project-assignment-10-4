@@ -29,7 +29,7 @@ public class Model implements Serializable{
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 1000;	
+	private static final int END_DISTANCE = 100000;	
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -99,6 +99,13 @@ public class Model implements Serializable{
 	 */
 	private boolean doingQuiz; 
 	/**
+	 * if true, the end of the level is reached
+	 */
+	private boolean reachedEnd;
+	
+	private NestAnimation nestAnimation;
+	
+	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
 	 * @param frameHeight
@@ -124,6 +131,8 @@ public class Model implements Serializable{
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
+		this.reachedEnd = false;
+		setNestAnimation(new NestAnimation());
 	}
 
 
@@ -132,13 +141,20 @@ public class Model implements Serializable{
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
 	void update() {
+		double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
+		if(percentDistTraveled >= 1) {
+ 	 		this.reachedEnd = true;
+ 	 	}
 		updateBird();
 		updateGameElements();
 		updateBackground();
-		updateMiniMap();
+		updateMiniMap(percentDistTraveled);
 		updateBackground();
 		collisionDetection();
 		updateSpawnTimer();
+		
+ 	 	
+		
 	}
 
 	/**
@@ -217,14 +233,18 @@ public class Model implements Serializable{
 	 * Updates the MiniMap to display the current traveled status
 	 */
 
-	void updateMiniMap() {
-	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
+	void updateMiniMap(double percentDistTraveled) {
  	 	miniMap.updatePosition(percentDistTraveled);
- 	 	if(percentDistTraveled >= 1) {
- 	 		//System.out.println("Done");
- 	 	}
 	}
 
+	void updateNestAnimation() {
+		/*if(nestAnimation.getBird()==null) {
+			nestAnimation.setBird(bird.getImage());
+		}*/
+		this.nestAnimation.animationUpdate();
+	}
+	
+	
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
 	 * 
@@ -615,5 +635,37 @@ public class Model implements Serializable{
 	 */
 	public void setDoingQuiz(boolean b) {
 		this.doingQuiz = b; 
+	}
+
+
+	/**
+	 * @return the reachedEnd
+	 */
+	public boolean isReachedEnd() {
+		return reachedEnd;
+	}
+
+
+	/**
+	 * @param reachedEnd the reachedEnd to set
+	 */
+	public void setReachedEnd(boolean reachedEnd) {
+		this.reachedEnd = reachedEnd;
+	}
+
+
+	/**
+	 * @return the nestAnimation
+	 */
+	public NestAnimation getNestAnimation() {
+		return nestAnimation;
+	}
+
+
+	/**
+	 * @param nestAnimation the nestAnimation to set
+	 */
+	public void setNestAnimation(NestAnimation nestAnimation) {
+		this.nestAnimation = nestAnimation;
 	}
 }
