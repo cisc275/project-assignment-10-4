@@ -120,7 +120,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					quizButtons.add(next); 
     				}
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    				System.out.println("Here"); 
     			}
     			else if(model.isReachedEnd()) {
     			    t.stop();
