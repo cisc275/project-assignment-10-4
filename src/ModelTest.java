@@ -102,10 +102,11 @@ class ModelTest {
 
 	@Test
 	void updateMiniMapTest() {
-		Model model = new Model(10, 10); 
-		MiniMap old = model.getMiniMap(); 
-		model.updateMiniMap(); 
-		assertEquals(old, model.getMiniMap());
+		//Model model = new Model(10, 10); 
+		//MiniMap old = model.getMiniMap(); 
+		// TODO fix this test to use implemented minimap features
+		//assertEquals(old, model.getMiniMap());
+		fail("Incomplete test");
 	}
 	
 	@Test

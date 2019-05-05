@@ -12,3 +12,5 @@ migratory
 eakresho
 jhdavis
 gameplay
+offscreen
+onscreen

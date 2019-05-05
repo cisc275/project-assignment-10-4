@@ -38,10 +38,18 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The Northern Harrier button for the user to click
 	 */
 	private JButton NHbutton;
-	
+	/**
+	 * Osprey button to continue to game after map
+	 */
 	private JButton OPlanButton;
-	
+	/**
+	 * Northern Harrier button to continue to game after map
+	 */
 	private JButton NHPlanButton;
+	/**
+	 * Button to continue to bird selection after nesting animation
+	 */
+	private JButton doneAminationButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -59,24 +67,33 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	Action quizAnswer; 
 	/**
+	 * Action for animating the nesting
+	 */
+	Action animateAction;
+	/**
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30; 
-	
 	/**
-	 * 
+	 * Timer for handling game play
 	 */
 	Timer t; 
+	/**
+	 * Timer for handling the nesting animation
+	 */
+	Timer s;
 	 
 	public Controller() {
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
 		NHPlanButton = new JButton("Start Flight");
+		doneAminationButton = new JButton("Continue");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
 		NHPlanButton.addActionListener(this);
+		doneAminationButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -89,11 +106,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		view = new View(this);
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		
+		animateAction = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				model.updateNestAnimation();
+				view.nestAnimationUpdate(model.getNestAnimation());
+			}
+		};
+		
+		
 		//model.setBirdType(view.selectBirdType());
 		view.setPanel("B");
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress ) {
+    			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
     				model.update();
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
@@ -107,13 +132,28 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					quizButtons.add(next); 
     				}
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    				System.out.println("Here"); 
     			}
-    			
-    				
-    		}
-    		
+    			else if(model.isReachedEnd()) {
+    			    t.stop();
+    			    model.configureNestAnimation();
+    				view.setPanel("NA");
+    				animate();
+    			}   				
+    		}   		
     	};
+	}
+	
+	/**
+	 * Starts the animation. Will continue until the user presses a button
+	 * that will return to the bird selection screen
+	 */
+	void animate() {
+		EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				s = new Timer(DRAW_DELAY, animateAction);
+				s.start();
+			}
+		});
 	}
 	
 	/**
@@ -131,7 +171,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	
 	/**
 	 * Required from KeyListener. Will handle any key presses by the player
-	 * 
 	 * @param k The KeyEvent entered by the player
 	 */
 	@Override
@@ -203,6 +242,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			view.setPanel("NH");
 			//System.out.println(model.getBird().getBirdType());
 			start();
+		}
+		else if(e.getSource() == doneAminationButton) {
+			view.setPanel("B");
 		}
 	}
 
@@ -308,5 +350,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public List<JButton> getQuizButtons(){
 		return this.quizButtons; 
+	}
+
+	/**
+	 * @return the doneAmination
+	 */
+	public JButton getDoneAminationButton() {
+		return doneAminationButton;
+	}
+
+	/**
+	 * @param doneAmination the doneAmination to set
+	 */
+	public void setDoneAminationButton(JButton doneAminationButton) {
+		this.doneAminationButton = doneAminationButton;
 	}
 }

@@ -324,31 +324,18 @@ public class Bird extends GameElement implements Serializable{
 		return false;
 	}
 
+	/**
+	 * Gets the current stamina image
+	 * @return BufferedImage the staminaImage
+	 */
 	public BufferedImage getStaminaImage() {
 		return staminaImage;
 	}
 
-	public void updateStaminaImage(){
-		switch(stamina) {
-		case 0:
-			staminaImage = staminaPics[0];
-			break;
-		case 1:
-			staminaImage = staminaPics[1];
-			break;
-		case 2:
-			staminaImage = staminaPics[2];
-			break;
-		case 3:
-			staminaImage = staminaPics[3];
-			break;
-		case 4:
-			staminaImage = staminaPics[4];
-			break;
-		case 5:
-			staminaImage = staminaPics[5];
-			break;
-			
-		}
+	/**
+	 * Sets the current stamina image based on current stamina
+	 */
+	public void updateStaminaImage() {
+		staminaImage = staminaPics[stamina];
 	}
 }

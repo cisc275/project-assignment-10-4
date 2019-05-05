@@ -6,7 +6,6 @@ import java.io.*;
 /**
  * Main class for running the bird game
  * @author jhdavis
- *
  */
 @SuppressWarnings("serial")
 public class Main implements Serializable{

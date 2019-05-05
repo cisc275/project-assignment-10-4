@@ -10,9 +10,21 @@ import java.lang.System;
  *
  */
 @SuppressWarnings("serial")
-public class Model implements Serializable{
+public class Model implements Serializable {
+	/**
+	 * Constant for the maximum number of game elements that can 
+	 * be onscreen at any given moment
+	 */
 	private static final int MAX_GAME_ELEMENTS_ONSCREEN = 3;
+	/**
+	 * Constant for the maximum number of ticks between spawning of
+	 * game elements
+	 */
 	static final int SPAWN_TIME_MAX = 100;
+	/**
+	 * Constant for minimum number of ticks between spawning of
+	 * game elements
+	 */
 	static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
@@ -29,7 +41,7 @@ public class Model implements Serializable{
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 500;	
+	private static final int END_DISTANCE = 500; 
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -99,6 +111,15 @@ public class Model implements Serializable{
 	 */
 	private boolean doingQuiz; 
 	/**
+	 * if true, the end of the level is reached
+	 */
+	private boolean reachedEnd;
+	/**
+	 * The nesting animation at the end of the game
+	 */
+	private NestAnimation nestAnimation;
+	
+	/**
 	 * Model constructor, sets up frame dimensions
 	 * @param frameWidth
 	 * @param frameHeight
@@ -124,22 +145,26 @@ public class Model implements Serializable{
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
+		this.reachedEnd = false;
+		setNestAnimation(new NestAnimation());
 	}
-
 
 	/**
 	 * Used to update the current status and positions of the different game components.
 	 * Will call helper update methods for different components.  Calls all other update methods
 	 */
-	void update() {
-		
+	void update() {	
 		if(distance == 0 ) {
 			createMiniMap();	
 	}
+		double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
+		if(percentDistTraveled >= 1) {
+ 	 		this.reachedEnd = true;
+ 	 	}
 		updateBird();
 		updateGameElements();
 		updateBackground();
-		updateMiniMap();
+		updateMiniMap(percentDistTraveled);
 		updateBackground();
 		collisionDetection();
 		updateSpawnTimer();
@@ -176,8 +201,6 @@ public class Model implements Serializable{
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
-	 * 
-	 * 
 	 */
 	void updateBird() {
 		bird.updateStaminaImage();
@@ -232,7 +255,6 @@ public class Model implements Serializable{
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
-
 	void updateMiniMap() {
 	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
 	 	System.out.println(miniMap.getMapXLoc() + "," +   miniMap.getMapYLoc() );
@@ -245,14 +267,32 @@ public class Model implements Serializable{
  	 	else {
  	 		miniMap.updatePositionNH(percentDistTraveled);
  	 	}
+	/**
+	 * Updates the nesting animation
+	 */
+	void updateNestAnimation() {
+		this.nestAnimation.animationUpdate();
 	}
-
+	
+	/**
+	 * Configures the nest animation attributes if the bird being played
+	 * is the northern harrier. The default within the nestanimation class
+	 * is for the Osprey
+	 */
+	void configureNestAnimation() {
+		if(this.bird.getBirdType().equals("northern harrier")) {
+			this.nestAnimation.setEndx(1400);
+			this.nestAnimation.setEndy(950);
+			this.nestAnimation.setXvel(8);
+			this.nestAnimation.setYvel(5);
+		}
+	}
+	
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
@@ -265,7 +305,6 @@ public class Model implements Serializable{
 		}
 		if (collided != null) {
 			boolean shouldRemove = collided.collision(bird);
-			System.out.println("Stamina is: " + bird.getStamina());
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
 				spawnCount++;
@@ -279,23 +318,24 @@ public class Model implements Serializable{
 
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
-	 * 
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
-	QuizQuestion startQuiz() {return theQuestions.getCurrent();}
+	QuizQuestion startQuiz() {
+		return theQuestions.getCurrent();
+	}
 
 	/**
-	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
-	 * if the player answered the quiz correctly. 
+	 * Ends the quiz and restarts the player controlling the bird. Handles
+	 * powerup start if the player answered the quiz correctly.
 	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
-		if (theQuestions.answerQuestion(answer)) {
+		/*if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct"); 
 		}
 		else {
 			System.out.println("False"); 
-		}
+		}*/
 		quizMode = false; 
 		doingQuiz = false; 
 	}
@@ -305,16 +345,22 @@ public class Model implements Serializable{
 	 * a random number.  And depending on which type of image it is, it will generate its starting position 
 	 * appropriately.
 	 */
-	GameElement generateImgPath(int choice) {
+	private GameElement generateImgPath(int choice) {
 		int curImage = 0;
 		Random randImg = new Random();
 		Random randLoc = new Random();
-		if (choice < 0) {
+		if (choice < 0) { // TODO Make this region a separate method
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
-				curImage = randImg.nextInt(4);
+				if (background.isWaterNextZone()) {
+					curImage = randImg.nextInt(3) + 1;
+					if (curImage == 2) curImage = randImg.nextInt(2) + 2; //re-roll on a golden fish
+				} else {
+					curImage = randImg.nextInt(2);
+				}
 			}
 			else {
-				curImage = 4 + randImg.nextInt(4);
+				curImage = randImg.nextInt(4) + 4;
+				if (curImage == 5) curImage = randImg.nextInt(2) + 4; //re-roll on a golden mouse
 			}
 		} else {
 			curImage = choice;
@@ -323,7 +369,7 @@ public class Model implements Serializable{
 		int y;
 		String ImgPath = "";
 		Images dir;
-		int xSpeed = 10;
+		int xSpeed = 20;
 		int ySpeed = 0; 
 		int xLocOfBird;
 		int yLocOfBird;
@@ -331,7 +377,7 @@ public class Model implements Serializable{
 
 		GameElement newGameElement; 
 
-		switch (curImage) {
+		switch (curImage) { // TODO make the bodies of this switch modularized
 			case 0:
 				dir = Images.BUILDING;
 				ImgPath = dir.getName();
@@ -339,22 +385,22 @@ public class Model implements Serializable{
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
 				break;
 			case 1:
+				dir = Images.EAGLE;
+				ImgPath = dir.getName();
+				y = randLoc.nextInt(frameHeight/2);
+				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				break;
+			case 2:
 				dir = Images.GOLDENFISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
-			case 2:
+			case 3:
 				dir = Images.FISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
-				break;
-			case 3:
-				dir = Images.EAGLE;
-				ImgPath = dir.getName();
-				y =  randLoc.nextInt(frameHeight/2);
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 4:
 				dir = Images.MOUSE;
@@ -659,5 +705,37 @@ public class Model implements Serializable{
 	 */
 	public void setDoingQuiz(boolean b) {
 		this.doingQuiz = b; 
+	}
+
+
+	/**
+	 * @return the reachedEnd
+	 */
+	public boolean isReachedEnd() {
+		return reachedEnd;
+	}
+
+
+	/**
+	 * @param reachedEnd the reachedEnd to set
+	 */
+	public void setReachedEnd(boolean reachedEnd) {
+		this.reachedEnd = reachedEnd;
+	}
+
+
+	/**
+	 * @return the nestAnimation
+	 */
+	public NestAnimation getNestAnimation() {
+		return nestAnimation;
+	}
+
+
+	/**
+	 * @param nestAnimation the nestAnimation to set
+	 */
+	public void setNestAnimation(NestAnimation nestAnimation) {
+		this.nestAnimation = nestAnimation;
 	}
 }
