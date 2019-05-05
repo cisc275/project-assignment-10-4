@@ -145,7 +145,8 @@ class ViewTest {
 	void nestAnimationTest() {
 		Controller c = new Controller();
 		View v = new View(c);
-		v.nestAnimation();
+		NestAnimation nestAnimation = new NestAnimation();
+		v.nestAnimationUpdate(nestAnimation);
 		fail("Stub method");
 	}
 
