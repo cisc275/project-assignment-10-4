@@ -49,10 +49,6 @@ public class Model implements Serializable {
 	 */
 	private MiniMap miniMap;
 	/**
-	 * The current score for the game
-	 */
-	private int points = 0;
-	/**
 	 * Stores whether the bird is in a powerup state
 	 */
 	private boolean birdMode;
@@ -338,8 +334,8 @@ public class Model implements Serializable {
 			}
 		}
 		if (collided != null) {
-			points += collided.getPointValue();
 			boolean shouldRemove = collided.collision(bird);
+			bird.updateScore(collided.getPointValue());
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
 				spawnCount++;
@@ -575,20 +571,6 @@ public class Model implements Serializable {
 	 */
 	public void setMiniMap(MiniMap miniMap) {
 		this.miniMap = miniMap;
-	}
-
-	/**
-	 * @return the points
-	 */
-	public int getPoints() {
-		return points;
-	}
-
-	/**
-	 * @param points the points to set
-	 */
-	public void setPoints(int points) {
-		this.points = points;
 	}
 
 	/**

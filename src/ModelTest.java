@@ -388,9 +388,9 @@ class ModelTest {
 	@Test
 	public void getSetPointsTest() {
 		Model model = new Model(10, 10);
-		int oldPoints = model.getPoints();
-		model.setPoints(oldPoints + 1);
-		assertNotEquals(oldPoints, model.getPoints());
+		int oldPoints = model.getBird().getPoints();
+		model.getBird().setPoints(oldPoints + 1);
+		assertNotEquals(oldPoints, model.getBird().getPoints());
 	}
 
 	@Test

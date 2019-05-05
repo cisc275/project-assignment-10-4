@@ -109,6 +109,10 @@ public class Bird extends GameElement implements Serializable {
 	 * An integer representing the time left for the powerup
 	 */
 	private int powerTimer;
+	/**
+	 * An int representing the player's score
+	 */
+	private int points;
 
 	/**
 	 * 
@@ -416,5 +420,27 @@ public class Bird extends GameElement implements Serializable {
 	@Override
 	public int getPointValue() {
 		return 0;
+	}
+	
+	/**
+	 * Updates the score by adding the passed int to total points
+	 * @param pointValue the number of points to add to the score
+	 */
+	public void updateScore(int pointValue) {
+		setPoints(getPoints() + pointValue);		
+	}
+
+	/**
+	 * @return the points
+	 */
+	public int getPoints() {
+		return points;
+	}
+
+	/**
+	 * @param points the points to set
+	 */
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }
