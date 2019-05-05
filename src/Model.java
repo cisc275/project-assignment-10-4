@@ -428,8 +428,8 @@ public class Model implements Serializable {
 			case 8:
 				dir = Images.OSPREY_MINIMAP;
 				ImgPath = dir.getName();
-				//x = this.frameWidth - 250;
-				x =1120;
+				x = this.frameWidth - 250;
+				//x =1120;
 				y = 0; 
 				xSpeed =0;
 				ySpeed =0;
@@ -444,8 +444,8 @@ public class Model implements Serializable {
 			case 9:
 				dir = Images.NH_MINIMAP;
 				ImgPath = dir.getName();
-				//x = this.frameWidth - 250;
-				x = 1120;
+				x = this.frameWidth - 250;
+				//x = 1120;
 				y = 0; 
 				xSpeed =0;
 				ySpeed =0;
