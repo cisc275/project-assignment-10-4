@@ -161,7 +161,7 @@ public class Model implements Serializable {
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
-		if(birdType.equals("osprey")) {
+		if(birdType.equals("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt"); 
 		}
 		else {
