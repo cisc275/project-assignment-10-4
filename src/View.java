@@ -373,6 +373,7 @@ public class View extends JPanel implements Serializable{
 			}
 		}
 		if(this.nestAnimation.isDoneAnimation()) {
+			this.nestAnimation.setBird(bird.getPics()[1]);
 			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();

@@ -46,7 +46,7 @@ public class Bird extends GameElement implements Serializable{
     /**
      * Constant for Bird's starting stamina value
      */
-	private static final int START_STAMINA = 1;
+	private static final int START_STAMINA = 5;
 	/**
 	 * An int representing the birds speed
 	 */
