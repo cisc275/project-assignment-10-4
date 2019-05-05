@@ -53,7 +53,7 @@ public class Model implements Serializable {
 	/**
 	 * The current score for the game
 	 */
-	private int points;	
+	private int points = 0;	
 	/**
 	 * Stores whether the bird is in a powerup state
 	 */
@@ -340,6 +340,7 @@ public class Model implements Serializable {
 			}
 		}
 		if (collided != null) {
+			points += collided.getPointValue();
 			boolean shouldRemove = collided.collision(bird);
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
@@ -368,6 +369,7 @@ public class Model implements Serializable {
 	void endQuiz(String answer) {
 		/*if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct"); 
+			this.bird.setPoweredUp(true);
 		}
 		else {
 			System.out.println("False"); 
@@ -418,49 +420,49 @@ public class Model implements Serializable {
 				dir = Images.BUILDING;
 				ImgPath = dir.getName();
 				y =  frameHeight;
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
+				newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath,dir);
 				break;
 			case 1:
 				dir = Images.EAGLE;
 				ImgPath = dir.getName();
 				y = randLoc.nextInt(frameHeight/2);
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 2:
 				dir = Images.GOLDENFISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
-				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 3:
 				dir = Images.FISH;
 				ImgPath = dir.getName();
 				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
-				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 4:
 				dir = Images.MOUSE;
 				ImgPath = dir.getName();
 				y = frameHeight; 
-				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 5:
 				dir = Images.GOLDENMOUSE;
 				ImgPath = dir.getName();
 				y = frameHeight;
-				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 6:
 				dir = Images.OWL;
 				ImgPath = dir.getName();
 				y =  randLoc.nextInt(frameHeight/2);
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 7:
 				dir = Images.FOX;
 				ImgPath = dir.getName();
 				y = frameHeight;
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
+				newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath,dir); 
 				break;
 			case 8:
 				dir = Images.OSPREY_MINIMAP;
@@ -498,7 +500,7 @@ public class Model implements Serializable {
 				dir = Images.RECTANGLE;
 				ImgPath = dir.getName();
 				y = randLoc.nextInt(frameHeight);
-				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed, ImgPath, dir);
+				newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
 		}
 		newGameElement.setType(dir);
 		return newGameElement;
@@ -786,6 +788,10 @@ public class Model implements Serializable {
 		this.nestAnimation = nestAnimation;
 	}
 
+	/**
+	 * Returns true if the bird is fainted
+	 * @return boolean indicating bird faintedness
+	 */
 	public boolean birdIsFainted() {
 		return bird.isFainted();
 	}

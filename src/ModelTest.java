@@ -18,8 +18,8 @@ class ModelTest {
 		b.setYloc(280);
 		m.setBird(b);
 		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 =  new Obstacle(1,100,100,1,0,"",Images.BUILDING);
-		GameElement gOffScreen =  new Obstacle(1,-10,100,1,0,"",Images.BUILDING);
+		GameElement g1 =  new Obstacle(100,100,1,0,"",Images.BUILDING);
+		GameElement gOffScreen =  new Obstacle(-10,100,1,0,"",Images.BUILDING);
 		gOffScreen.setWidth(10);
 		list.add(gOffScreen);
 		list.add(g1);
@@ -28,7 +28,7 @@ class ModelTest {
 		
 		Model model2 = new Model(10,10);
 		List<GameElement> list2 = new ArrayList<GameElement>();
-		GameElement g12 =  new Obstacle(1,99,100,1,0,"",Images.BUILDING);
+		GameElement g12 =  new Obstacle(99,100,1,0,"",Images.BUILDING);
 		list2.add(g12);
 		//GameElement rand = new Obstacle(1,10,10,1,1,"");
 		//list2.add(rand);
@@ -67,8 +67,8 @@ class ModelTest {
 	void updateGameElementsTest() {
 		Model model = new Model(10,10);
 		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 =  new Obstacle(1,100,100,1,0,"",Images.BUILDING);
-		GameElement gOffScreen =  new Obstacle(1,-10,100,1,0,"",Images.BUILDING);
+		GameElement g1 =  new Obstacle(100,100,1,0,"",Images.BUILDING);
+		GameElement gOffScreen =  new Obstacle(-10,100,1,0,"",Images.BUILDING);
 		gOffScreen.setWidth(10);
 		list.add(gOffScreen);
 		list.add(g1);
@@ -77,7 +77,7 @@ class ModelTest {
 		
 		Model model2 = new Model(10,10);
 		List<GameElement> list2 = new ArrayList<GameElement>();
-		GameElement g12 =  new Obstacle(1,99,100,1,0,"",Images.BUILDING);
+		GameElement g12 =  new Obstacle(99,100,1,0,"",Images.BUILDING);
 		list2.add(g12);
 		//GameElement rand = new Obstacle(1,10,10,1,1,"");
 		//list2.add(rand);
@@ -115,13 +115,13 @@ class ModelTest {
 		final Field field = model.getClass().getDeclaredField("onScreenCollidables");
         field.setAccessible(true);
         //field.get(model).add(new Obstacle(0,0,0,0,"images/building.png") );
-        Obstacle obstacle = new Obstacle(1,10,500,0,0,"images/building.png",Images.BUILDING);
+        Obstacle obstacle = new Obstacle(10,500,0,0,"images/building.png",Images.BUILDING);
         obstacle.setWidth(100);
         obstacle.setHeight(100);
         model.getOnScreenCollidables().add(obstacle);
         model.updateBird();
         assertEquals(obstacle, model.collisionDetection());
-        Food food = new Food(1,true,10,500,0,0,"images/golden_fish.png",Images.GOLDENFISH);
+        Food food = new Food(true,10,500,0,0,"images/golden_fish.png",Images.GOLDENFISH);
         food.setWidth(100);
         food.setHeight(100);
         model.getOnScreenCollidables().add(food);
