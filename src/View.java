@@ -146,7 +146,6 @@ public class View extends JPanel implements Serializable{
 		setUpFrame(c);
 		
     	System.out.print(SCREENSIZE);
-    	
 	}
 	
 	void setUpFrame(Controller c) {
@@ -163,7 +162,7 @@ public class View extends JPanel implements Serializable{
 	
 	void setUpButtonPanel(Controller c) {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
-		buttonPanel = new ButtonPanel(); 
+		buttonPanel = new ButtonPanel();
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
 		buttonFont = new Font("Verdana", Font.BOLD, 50);

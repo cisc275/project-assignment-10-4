@@ -108,13 +108,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		
 		//model.setBirdType(view.selectBirdType());
 		view.setPanel("B");
-		drawAction = new AbstractAction(){
+		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			if (!model.isQuizMode() && !model.isDoingQuiz() && !model.isReachedEnd()) {
     				model.update();
-    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
-    			} 
-    			else if (model.isQuizMode()){
+    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),
+    								model.getBackground());
+    			} else if (model.isQuizMode()) {
     				t.stop(); 
     				quizButtons.clear(); 
     				QuizQuestion q = model.startQuiz();
@@ -124,20 +124,24 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					quizButtons.add(next); 
     				}
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    			}
-    			else if(model.isReachedEnd()) {
+    			} else if (model.isReachedEnd()) {
     			    t.stop();
     			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();
+    			} 
+    			if (model.birdIsFainted()) {
+    				System.out.println("Resetting the game");
+    				model = new Model(view.getFrameWidth(), view.getFrameHeight(), model.getBird().getBirdType());
     			}
-    			
-    				
     		}
-    		
     	};
 	}
 	
+	protected Controller getController() {
+		return this;
+	}
+
 	void animate() {
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){

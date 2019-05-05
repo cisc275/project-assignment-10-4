@@ -25,7 +25,11 @@ public class Model implements Serializable {
 	 * Constant for minimum number of ticks between spawning of
 	 * game elements
 	 */
-	static final int SPAWN_TIME_MIN = 25;
+	static final int SPAWN_TIME_MIN = 25;	
+	/**
+	 * The constant representing the total distance needed to be traveled
+	 */
+	private static final int END_DISTANCE = 100000;
 	/**
 	 * The Bird the player will control
 	 */
@@ -36,12 +40,8 @@ public class Model implements Serializable {
 	private List<GameElement>onScreenCollidables;	
 	/**
 	 * The distance currently traveled
-	 */
-	private int distance;	
-	/**
-	 * The constant representing the total distance needed to be traveled
-	 */
-	private static final int END_DISTANCE = 3000;	
+	 */	
+	private int distance;
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -146,7 +146,38 @@ public class Model implements Serializable {
 		this.reachedEnd = false;
 		setNestAnimation(new NestAnimation());
 	}
-
+	
+	/**
+	 * Model constructor, sets up frame dimensions but also specifies a bird type
+	 * @param frameWidth
+	 * @param frameHeight
+	 * @param birdType
+	 */
+	public Model(int frameWidth,int frameHeight, String birdType) {
+		bird = new Bird(0,0,0,0,"");
+		bird.setBirdType(birdType);
+		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
+		this.endDistance = END_DISTANCE;
+		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
+		this.background = new Background(frameWidth);
+		this.quizMode = false; 
+		miniMap = (MiniMap)generateImgPath(8);
+		rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
+		spawnCount = 0;
+		spawnTimer = 0;
+		doingQuiz = false; 
+		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+		onScreenCollidables = new ArrayList<GameElement>();
+		//onScreenCollidables.add(generateImgPath(8));
+		//onScreenCollidables.add(generateImgPath(6));
+		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
+			spawnCount++;
+		}
+		this.reachedEnd = false;
+		setNestAnimation(new NestAnimation());
+	}
 
 	/**
 	 * Used to update the current status and positions of the different game components.
@@ -163,10 +194,7 @@ public class Model implements Serializable {
 		updateMiniMap(percentDistTraveled);
 		updateBackground();
 		collisionDetection();
-		updateSpawnTimer();
-		
- 	 	
-		
+		updateSpawnTimer();		
 	}
 
 	/**
@@ -191,10 +219,10 @@ public class Model implements Serializable {
 	 */
 	void updateBird() {
 		bird.updateStaminaImage();
-		if((bird.getYloc()+bird.getHeight())<=frameHeight && bird.getYloc()>=0) {
-			bird.updatePosition();			
+		if ((bird.getYloc() + bird.getHeight()) <= frameHeight && bird.getYloc() >= 0) {
+			bird.update();
 		}
-		else if(bird.getYloc() < 0){
+		else if (bird.getYloc() < 0) {
 			bird.setYloc(0);
 		}
 		else {
@@ -211,12 +239,12 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next(); 
-			curr.updatePosition(); 
+			curr.update(); 
 			if (curr.isOffScreen()) {
 				size++; 
 				iter.remove(); 
 			}
-			if((curr.getYloc()+curr.getHeight())>frameHeight) {
+			if ((curr.getYloc()+curr.getHeight())>frameHeight) {
 				curr.setYloc(frameHeight-curr.getHeight());
 			}
 		}
@@ -242,7 +270,6 @@ public class Model implements Serializable {
 	/**
 	 * Updates the MiniMap to display the current traveled status
 	 */
-
 	void updateMiniMap(double percentDistTraveled) {
  	 	miniMap.updatePosition(percentDistTraveled);
 	}
@@ -263,13 +290,11 @@ public class Model implements Serializable {
 		}
 	}
 	
-	
 	/**
 	 * Checks for collision between the Bird and any Collidable on screen.
 	 * 
 	 * @return The Collidable that has been collided with by the bird
 	 */
-
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
@@ -611,57 +636,62 @@ public class Model implements Serializable {
 	public void setFrameHeight(int frameHeight) {
 		this.frameHeight = frameHeight;
 	}
+	
 	/**
 	 * @return the ImgWidth
 	 */
 	public int getImgWidth() {
 		return imgWidth;
 	}
+	
 	/**
 	 * @param the imgWidth
 	 */
 	public void setImgWidth(int imgWidth) {
 		this.imgWidth = imgWidth;
 	}
+	
 	/**
 	 * @return the ImgHeight
 	 */
 	public int getImgHeight() {
 		return imgHeight;
 	}
+	
 	/**
 	 * @param the ImgHeight
 	 */
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
 	}
+	
 	/**
 	 * @return the Background
 	 */
 	public Background getBackground() {
 		return this.background;
 	}
+	
 	/**
 	 * @param the background
 	 */
 	public void setBackground(Background background) {
 		this.background = background;
 	}
-	/**
-	 * 
+	
+	/** 
 	 * @return is the user doing the quiz or not 
 	 */
 	public boolean isDoingQuiz() {
 		return this.doingQuiz; 
 	}
-	/**
-	 * 
+	
+	/** 
 	 * @param b: sets the value of isDoingQuiz
 	 */
 	public void setDoingQuiz(boolean b) {
 		this.doingQuiz = b; 
 	}
-
 
 	/**
 	 * @return the reachedEnd
@@ -670,14 +700,12 @@ public class Model implements Serializable {
 		return reachedEnd;
 	}
 
-
 	/**
 	 * @param reachedEnd the reachedEnd to set
 	 */
 	public void setReachedEnd(boolean reachedEnd) {
 		this.reachedEnd = reachedEnd;
 	}
-
 
 	/**
 	 * @return the nestAnimation
@@ -686,11 +714,14 @@ public class Model implements Serializable {
 		return nestAnimation;
 	}
 
-
 	/**
 	 * @param nestAnimation the nestAnimation to set
 	 */
 	public void setNestAnimation(NestAnimation nestAnimation) {
 		this.nestAnimation = nestAnimation;
+	}
+
+	public boolean birdIsFainted() {
+		return bird.isFainted();
 	}
 }
