@@ -219,6 +219,9 @@ public class View extends JPanel implements Serializable{
 			arr[5] = createImage("images/5_health.png");
 			this.bird.setStaminaPics(arr);
 		}
+		if (this.bird.getPoweredUpPics()[0] == null) {
+			this.bird.setPoweredUpPics(createImage("images/powers.png"));
+		}
 		this.elements = elements; 
 		this.miniMap = miniMap;
 		//this.miniMap = (MiniMap)elements.get(0); //first element will always be a MiniMap

@@ -76,6 +76,10 @@ public class Bird extends GameElement implements Serializable{
 	 */
     private BufferedImage[] pics;
     /**
+     * 
+     */
+    private BufferedImage[] poweredUpPics; 
+    /**
 	 * An array of BufferedImages that stores the different stamina bar pictures
 	 */
     private BufferedImage[] staminaPics;
@@ -93,9 +97,21 @@ public class Bird extends GameElement implements Serializable{
     private int stunTimer;
     
     /**
+     * An integer representing the time left for the powerup 
+     */
+    private int powerTimer; 
+    
+    /**
+     * 
+     */
+    private static final int POWER_TIMER_LIMIT = 250; 
+    
+    /**
 	 * A constructor which initializes the attributes for the start of the game.  The bird's starting location is set, 
 	 * its direction is set to 0 because it is not moving up or down.  Its xSpeed is set to 0 because it is not moving 
-	 */	
+	 */
+    
+    
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath, null);
 		setXloc(START_X_LOC);
@@ -107,6 +123,7 @@ public class Bird extends GameElement implements Serializable{
 		setWidth(BIRD_WIDTH);
 		frameNum = 0;
 		pics = new BufferedImage[FRAME_COUNT];
+		poweredUpPics = new BufferedImage[FRAME_COUNT]; 
 		stunTimer = 0;
 		stamina = START_STAMINA;
 		staminaPics = new BufferedImage[6];
@@ -120,8 +137,15 @@ public class Bird extends GameElement implements Serializable{
 	 */
 	@Override
 	void updatePosition(){
-		setXloc(getXloc()+getxSpeed());
-		setYloc(getYloc()+(getySpeed()*(-1)*direction));	
+		setXloc(getXloc() + getxSpeed());
+		setYloc(getYloc() + (getySpeed() * (-1) * direction));
+		if (poweredUp) {
+			powerTimer++; 
+			if (powerTimer >= POWER_TIMER_LIMIT) {
+				powerTimer = 0; 
+				poweredUp = false; 
+			}
+		}
 		if (isStunned) {
 			stunTimer++;
 			if (stunTimer >= STUN_TIME_LIMIT) {
@@ -139,7 +163,12 @@ public class Bird extends GameElement implements Serializable{
 	public BufferedImage nextFrame() {
 		int currentFrame = frameNum;
 		frameNum = (frameNum+1)%FRAME_COUNT;
-		return pics[currentFrame];
+		if (!poweredUp) {
+			return pics[currentFrame];
+		} 
+		else { 
+			return poweredUpPics[currentFrame]; 
+		}
 		
 	}
 	
@@ -156,7 +185,11 @@ public class Bird extends GameElement implements Serializable{
 		for(int i = 0; i < FRAME_COUNT; i++)
     		pics[i] = image.getSubimage(this.width*i, 0, this.width, this.height);
 	}
-	
+	public void setPoweredUpPics(BufferedImage image) {
+		for (int i = 0; i < FRAME_COUNT; i++) {
+			poweredUpPics[i] = image.getSubimage(this.width*i, 0, this.width, this.height); 
+		}
+	}
 	/**
 	 * Handles adjusting the birds attributes after it becomes powered up by consuming an instance of food with a, 
 	 * true value for its isSpecialFood attribute
@@ -350,5 +383,8 @@ public class Bird extends GameElement implements Serializable{
 			break;
 			
 		}
+	}
+	public BufferedImage[] getPoweredUpPics() {
+		return this.poweredUpPics; 
 	}
 }

@@ -32,8 +32,8 @@ public class Obstacle extends GameElement implements Serializable{
 	 */
 	@Override
 	public boolean collision(Bird bird) {
-		if (!bird.isStunned()) {
-			bird.setStamina(bird.getStamina()-staminaValue);
+		if (!bird.isStunned() && !bird.isPoweredUp()) {
+			bird.setStamina(bird.getStamina() - staminaValue);
 			bird.setStunned(true);
 		}
 		return false;
