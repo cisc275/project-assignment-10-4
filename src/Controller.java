@@ -220,19 +220,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == Obutton) {
+		if (e.getSource() == Obutton) {
 			view.setPanel("OP"); 
 		}
-		else if(e.getSource() == NHbutton) {
+		else if (e.getSource() == NHbutton) {
 			view.setPanel("NHP");
 		}
-		else if(e.getSource() == NHbutton) {
+		else if (e.getSource() == NHbutton) {
 			view.setPanel("NHP");
 			model.getBird().setBirdType("Northern Harrier");
 			//System.out.println(model.getBird().getBirdType());
 			//start();
 		}
-		else if(e.getSource() == OPlanButton) {
+		else if (e.getSource() == OPlanButton) {
 			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Osprey");
 			isGameInProgress = true;
@@ -240,7 +240,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
-		else if(e.getSource() == NHPlanButton) {
+		else if (e.getSource() == NHPlanButton) {
 			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Northern Harrier");
 			isGameInProgress = true;
@@ -248,8 +248,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
-		else if(e.getSource() == doneAnimationButton) {
+		else if (e.getSource() == doneAnimationButton) {
 			view.setPanel("B");
+			model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		}
 	}
 
