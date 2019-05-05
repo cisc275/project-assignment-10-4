@@ -172,8 +172,6 @@ public class Model implements Serializable {
 	/**
 	 * Used to update the current status and position of the bird based on user input
 	 * and game states.
-	 * 
-	 * 
 	 */
 	void updateBird() {
 		bird.updateStaminaImage();
@@ -303,12 +301,14 @@ public class Model implements Serializable {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
 					curImage = randImg.nextInt(3) + 1;
+					if (curImage == 2) curImage = randImg.nextInt(2) + 2;
 				} else {
 					curImage = randImg.nextInt(2);
 				}
 			}
 			else {
-				curImage = 4 + randImg.nextInt(4);
+				curImage = randImg.nextInt(4) + 4;
+				if (curImage == 5) curImage = randImg.nextInt(2) + 4;
 			}
 		} else {
 			curImage = choice;
