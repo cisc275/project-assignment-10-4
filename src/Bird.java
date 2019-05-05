@@ -396,7 +396,13 @@ public class Bird extends GameElement implements Serializable{
 	public void setFainted(boolean fainted) {
 		this.fainted = fainted;
 	}
+
 	public BufferedImage[] getPoweredUpPics() {
 		return this.poweredUpPics; 
+}
+
+	@Override
+	public int getPointValue() {
+		return 0;
 	}
 }
