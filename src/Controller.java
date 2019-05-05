@@ -49,7 +49,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * Button to continue to bird selection after nesting animation
 	 */
-	private JButton doneAminationButton;
+	private JButton doneAnimationButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -88,12 +88,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
 		NHPlanButton = new JButton("Start Flight");
-		doneAminationButton = new JButton("Continue");
+		doneAnimationButton = new JButton("Continue");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
 		NHPlanButton.addActionListener(this);
-		doneAminationButton.addActionListener(this);
+		doneAnimationButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -248,7 +248,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
-		else if(e.getSource() == doneAminationButton) {
+		else if(e.getSource() == doneAnimationButton) {
 			view.setPanel("B");
 		}
 	}
@@ -360,14 +360,14 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * @return the doneAmination
 	 */
-	public JButton getDoneAminationButton() {
-		return doneAminationButton;
+	public JButton getDoneAnimationButton() {
+		return doneAnimationButton;
 	}
 
 	/**
 	 * @param doneAmination the doneAmination to set
 	 */
-	public void setDoneAminationButton(JButton doneAminationButton) {
-		this.doneAminationButton = doneAminationButton;
+	public void setDoneAnimationButton(JButton doneAminationButton) {
+		this.doneAnimationButton = doneAminationButton;
 	}
 }
