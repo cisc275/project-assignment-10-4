@@ -29,7 +29,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 3000;
+	private static final int END_DISTANCE = 100000;
 	/**
 	 * The Bird the player will control
 	 */
@@ -129,7 +129,7 @@ public class Model implements Serializable {
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
-		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
+		//theQuestions = new QuizQuestions("quiz/osprey_questions.txt"); 
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
 		miniMap = (MiniMap)generateImgPath(8);
@@ -161,7 +161,12 @@ public class Model implements Serializable {
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
-		theQuestions = new QuizQuestions("quiz/quiz_questions.txt"); 
+		if(birdType.equals("osprey")) {
+			theQuestions = new QuizQuestions("quiz/osprey_questions.txt"); 
+		}
+		else {
+			theQuestions = new QuizQuestions("quiz/northern_harrier_questions.txt");
+		}
 		this.background = new Background(frameWidth);
 		this.quizMode = false; 
 		miniMap = (MiniMap)generateImgPath(8);
@@ -518,7 +523,16 @@ public class Model implements Serializable {
 	 * Controls the bird positions for the entering the nest animation upon level completion
 	 */
 	void enterNest() {}
-
+	
+	public void createQuestions(String birdType) {
+		if(birdType.equals("osprey")) {
+			theQuestions = new QuizQuestions("quiz/osprey_questions.txt"); 
+		}
+		else {
+			theQuestions = new QuizQuestions("quiz/northern_harrier_questions.txt");
+		}
+	}
+	
 	/**
 	 * @return the distance
 	 */

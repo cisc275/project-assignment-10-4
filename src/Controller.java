@@ -228,13 +228,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		}
 		else if (e.getSource() == NHbutton) {
 			view.setPanel("NHP");
-			model.getBird().setBirdType("Northern Harrier");
 			//System.out.println(model.getBird().getBirdType());
 			//start();
 		}
 		else if (e.getSource() == OPlanButton) {
 			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Osprey");
+			model.createQuestions("Osprey");
 			isGameInProgress = true;
 			view.setPanel("O");
 			//System.out.println(model.getBird().getBirdType());
@@ -243,6 +243,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		else if (e.getSource() == NHPlanButton) {
 			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Northern Harrier");
+			model.createQuestions("Northern Harrier");
 			isGameInProgress = true;
 			view.setPanel("NH");
 			//System.out.println(model.getBird().getBirdType());
