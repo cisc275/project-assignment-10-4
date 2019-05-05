@@ -19,7 +19,7 @@ public class QuizQuestions implements Serializable{
 	 * The file format is question, answers, and correct all on separate lines
 	 */
 	public QuizQuestions(String filename) {
-		this.unusedQuestions = new ArrayList<QuizQuestion>();
+		this.setUnusedQuestions(new ArrayList<QuizQuestion>());
 		this.current = null; 
 		List<String> qs = new ArrayList<String>(); 
 		qs.add("you gucci"); 
@@ -52,7 +52,7 @@ public class QuizQuestions implements Serializable{
 					case 4: answers.add(line); 
 							break; 
 					case 5: correct = line;
-							this.unusedQuestions.add(new QuizQuestion(question, answers, correct));
+							this.getUnusedQuestions().add(new QuizQuestion(question, answers, correct));
 							break; 
 				}
 				index = (index + 1) % 7; 
@@ -72,8 +72,8 @@ public class QuizQuestions implements Serializable{
 	 */
 	public void newQuestion() {
 		if (questionsRemaining() > 0) {
-			QuizQuestion result = unusedQuestions.get(0);
-			unusedQuestions.remove(result); 
+			QuizQuestion result = getUnusedQuestions().get(0);
+			getUnusedQuestions().remove(result); 
 			current = result;
 		} 
 		else { 
@@ -85,14 +85,14 @@ public class QuizQuestions implements Serializable{
 	 * @return an int of the number of questions remaining
 	 */
 	public int questionsRemaining() {
-		return this.unusedQuestions.size(); 
+		return this.getUnusedQuestions().size(); 
 	}
 	/**
 	 * 
 	 */
 	@Override
 	public String toString() {
-		return this.unusedQuestions.toString(); 
+		return this.getUnusedQuestions().toString(); 
 	}
 	/**
 	 * 
@@ -114,11 +114,17 @@ public class QuizQuestions implements Serializable{
 		}
 		return result; 
 	}
-	
-	public static void main(String[] args) {
-		QuizQuestions qs = new QuizQuestions("quiz/quiz_questions.txt"); 
-		
-		System.out.println(qs); 
+	/**
+	 * @return the unusedQuestions
+	 */
+	public List<QuizQuestion> getUnusedQuestions() {
+		return unusedQuestions;
+	}
+	/**
+	 * @param unusedQuestions the unusedQuestions to set
+	 */
+	public void setUnusedQuestions(List<QuizQuestion> unusedQuestions) {
+		this.unusedQuestions = unusedQuestions;
 	}
 	
 	
