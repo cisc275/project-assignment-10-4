@@ -1,5 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Random;
 /**
  *Provides the image showing the birds progress through its migratory journey.  The minimap is different,
  *depending on if the Osprey or the Northern Harrier is the current bird.  The birds progress on the minimap is 
@@ -25,7 +26,7 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The constant int value of the x location of the small bird Sprite on the minimap's starting position
 	 * for the Osprey
 	 */
-	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1819;
+	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1265;   //1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the minimap's starting position
 	 * for the Osprey
@@ -35,12 +36,22 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The constant int value of the x location of the small bird Sprite on the minimap's starting position
 	 * for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1819;
+	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1209; //1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the minimap's starting position
 	 * for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 110;
+	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 91;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
+	 * during migration in the x direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_X_DIST = 30;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
+	 * during migration in the y direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST = 90;
 	/**
 	 * The int value of the X location of the small bird Sprite on the minimap 
 	 */
@@ -132,29 +143,18 @@ public class MiniMap extends GameElement implements Serializable{
 	}
 	
 	
-	void updatePosition(double percentDistTraveled){
-	/*	int yLoc = this.getMapYLoc();
-	 	int xLoc = this.getMapXLoc();
-	 	Random rand = new Random();
-	 	int delta = rand.nextInt(10);
-	 	if (delta == 1) {
-	 	yLoc -= 2;
-	 	xLoc -= 1;
-	 	this.setMapYLoc(yLoc);
-	 	this.setMapXLoc(xLoc);
-	 	//System.out.println(xLoc + "," + yLoc); 
-	 	System.out.println();
-		*/
-		
-		//int yLoc = this.getMapYLoc();
-		//int xLoc = this.getMapXLoc();
-		//yLoc -= (int)( OSPREY_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
-		//xLoc -= (int)( OSPREY_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
-		//System.out.println(yLoc);
+	void updatePositionOsprey(double percentDistTraveled){
 		int yLoc = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - (int)( OSPREY_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
 		int xLoc = OSPREY_INITIAL_SMALL_BIRD_X_LOC - (int)( OSPREY_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
 		this.setMapYLoc(yLoc);
 		this.setMapXLoc(xLoc);
 	 	} 
+	
+	void updatePositionNH(double percentDistTraveled){
+		int yLoc = NH_INITIAL_SMALL_BIRD_Y_LOC - (int)( NH_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
+		int xLoc = NH_INITIAL_SMALL_BIRD_X_LOC + (int)( NH_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
+		this.setMapYLoc(yLoc); 
+		this.setMapXLoc(xLoc);
+		} 
 }
 

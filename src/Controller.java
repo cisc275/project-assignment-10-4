@@ -38,6 +38,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The Northern Harrier button for the user to click
 	 */
 	private JButton NHbutton;
+	
+	private JButton OPlanButton;
+	
+	private JButton NHPlanButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -58,16 +62,26 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30; 
+	
+	/**
+	 * 
+	 */
+	Timer t; 
 	 
 	public Controller() {
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
+		OPlanButton = new JButton("Start Flight");
+		NHPlanButton = new JButton("Start Flight");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
+		OPlanButton.addActionListener(this);
+		NHPlanButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
-    			view.setPanel("O"); 
+    			view.endQuiz(); 
+    			t.start(); 
     		}
     	};
     	quizButtons = new ArrayList<JButton>(); 
@@ -84,6 +98,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
     			} 
     			else if (model.isQuizMode()){
+    				t.stop(); 
     				quizButtons.clear(); 
     				QuizQuestion q = model.startQuiz();
     				for (String s: q.getAnswers()) {
@@ -91,12 +106,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					next.addActionListener(quizAnswer); 
     					quizButtons.add(next); 
     				}
-    				model.setDoingQuiz(true); 
-    				model.setQuizMode(false);
-    			}
-    			else if (model.isDoingQuiz()) {
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    			} 
+    				System.out.println("Here"); 
+    			}
+    			
     				
     		}
     		
@@ -110,7 +123,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	void start() {
 			EventQueue.invokeLater(new Runnable(){
 				public void run(){
-					Timer t = new Timer(DRAW_DELAY, drawAction);
+					t = new Timer(DRAW_DELAY, drawAction);
 					t.start();
 				}
 			});
@@ -173,8 +186,24 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			model.setBird(new Bird(0,0,0,0,"") );
 			model.getBird().setBirdType("Northern Harrier");
 			isGameInProgress = true;
+		        start();
+		}
+		else if(e.getSource() == NHbutton) {
+			view.setPanel("NHP");
+			model.getBird().setBirdType("Northern Harrier");
+			//System.out.println(model.getBird().getBirdType());
+			//start();
+		}
+		else if(e.getSource() == OPlanButton) {
+			view.setPanel("O");
+			//System.out.println(model.getBird().getBirdType());
 			start();
-		}	
+		}
+		else if(e.getSource() == NHPlanButton) {
+			view.setPanel("NH");
+			//System.out.println(model.getBird().getBirdType());
+			start();
+		}
 	}
 
 	/**
@@ -228,10 +257,39 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * @param button the NHbutton to set
 	 */
-	public void setNHButton(JButton button) {
+	public void setNHbutton(JButton button) {
 		this.NHbutton = button;
 	}
 
+	/**
+	 * @return the OPlanButton
+	 */
+	public JButton getOPlanButton() {
+		return OPlanButton;
+	}
+
+	/**
+	 * @param button the Obutton to set
+	 */
+	public void setOPlanButton(JButton button) {
+		this.OPlanButton = button;
+	}
+	
+	/**
+	 * @return the NHPlanButton
+	 */
+	public JButton getNHPlanButton() {
+		return NHPlanButton;
+	}
+
+	/**
+	 * @param button the Obutton to set
+	 */
+	public void setNHPlanButton(JButton button) {
+		this.NHPlanButton = button;
+	}
+	
+	
 	/**
 	 * @return the keyInputs
 	 */

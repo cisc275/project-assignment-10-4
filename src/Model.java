@@ -29,7 +29,7 @@ public class Model implements Serializable{
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 1000;	
+	private static final int END_DISTANCE = 500;	
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -83,19 +83,19 @@ public class Model implements Serializable{
 	 */
 	private Random rand;
 	/**
-	 * 
+	 * the current number of GameElements that need to be spawned
 	 */
 	private int spawnCount;
 	/**
-	 * 
+	 * The time passed on the way to timeToSpawn (in ticks)
 	 */
 	private int spawnTimer;
 	/**
-	 * 
+	 * The number of ticks before a new GameElement is to be spawned
 	 */
 	private int timeToSpawn;
 	/**
-	 * 
+	 * If true, we are doing a quiz
 	 */
 	private boolean doingQuiz; 
 	/**
@@ -134,7 +134,7 @@ public class Model implements Serializable{
 	void update() {
 		
 		if(distance == 0 ) {
-			createMiniMap();		
+			createMiniMap();	
 	}
 		updateBird();
 		updateGameElements();
@@ -150,10 +150,10 @@ public class Model implements Serializable{
 	 * Creates the miniMap corresponding to the bird that was selected
 	 */
 	public void createMiniMap() {
-	if (bird.getBirdType().equals("Osprey")) {
+	if (bird.getBirdType().equalsIgnoreCase("Osprey")) {
 		miniMap = (MiniMap)generateImgPath(8);
 	}
-	else if(bird.getBirdType().equals("Northern Harrier")) {
+	else if(bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
 		miniMap = (MiniMap)generateImgPath(9);
 	}
 }
@@ -235,14 +235,15 @@ public class Model implements Serializable{
 
 	void updateMiniMap() {
 	 	double percentDistTraveled = (double)this.getDistance() / this.getEndDistance();
- 	 	miniMap.updatePosition(percentDistTraveled);
- 	 	if(percentDistTraveled >= 1) {
- 	   // System.out.println("Done");
- 	//   @SuppressWarnings("unused")
-		//Controller c = new Controller();
-         System.exit(0);
- 	 		//percentDistTraveled =0;
- 	 // new Controller();
+	 	System.out.println(miniMap.getMapXLoc() + "," +   miniMap.getMapYLoc() );
+	 	if(percentDistTraveled >= 1) {
+	         System.exit(0);
+	 	 	}
+	 	if(bird.getBirdType().equalsIgnoreCase("Osprey")) {
+	 	miniMap.updatePositionOsprey(percentDistTraveled);
+ 	 	}
+ 	 	else {
+ 	 		miniMap.updatePositionNH(percentDistTraveled);
  	 	}
 	}
 
@@ -334,55 +335,56 @@ public class Model implements Serializable{
 			case 0:
 				dir = Images.BUILDING;
 				ImgPath = dir.getName();
-				y =  10000;  //spawns the building near the top of the screen
+				y =  frameHeight;
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir);
 				break;
 			case 1:
 				dir = Images.GOLDENFISH;
 				ImgPath = dir.getName();
-				y = 10000;  //spawns food at the lowest possible spot on the screen
+				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 2:
 				dir = Images.FISH;
 				ImgPath = dir.getName();
-				y = 10000;  //spawns food at the lowest possible spot on the screen
+				y = (frameHeight*4)/5 + randLoc.nextInt(frameHeight/10) - frameHeight/20;
 				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 3:
 				dir = Images.EAGLE;
 				ImgPath = dir.getName();
-				y =  randLoc.nextInt(frameHeight/2);  //spawns eagle near top of screen
+				y =  randLoc.nextInt(frameHeight/2);
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 4:
 				dir = Images.MOUSE;
 				ImgPath = dir.getName();
-				y = 10000;  //spawns food at the lowest possible spot on the screen
+				y = frameHeight; 
 				newGameElement = new Food(1, false, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 5:
 				dir = Images.GOLDENMOUSE;
 				ImgPath = dir.getName();
-				y = 10000;  //spawns food at the lowest possible spot on the screen
+				y = frameHeight;
 				newGameElement = new Food(1, true, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 6:
 				dir = Images.OWL;
 				ImgPath = dir.getName();
-				y =  randLoc.nextInt(frameHeight/2);  //spawns owl near top of screen
+				y =  randLoc.nextInt(frameHeight/2);
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 7:
 				dir = Images.FOX;
 				ImgPath = dir.getName();
-				y = 10000;  //spawns the fox near the top of the screen
+				y = frameHeight;
 				newGameElement = new Obstacle(1, x, y, xSpeed, ySpeed,ImgPath, dir); 
 				break;
 			case 8:
 				dir = Images.OSPREY_MINIMAP;
 				ImgPath = dir.getName();
-				x = this.frameWidth - 250;
+				//x = this.frameWidth - 250;
+				x =1120;
 				y = 0; 
 				xSpeed =0;
 				ySpeed =0;
@@ -395,7 +397,7 @@ public class Model implements Serializable{
 				newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
 				break;
 			case 9:
-				dir = Images.NH_IMG_FOR_MINIMAP;
+				dir = Images.NH_MINIMAP;
 				ImgPath = dir.getName();
 				//x = this.frameWidth - 250;
 				x = 1120;
