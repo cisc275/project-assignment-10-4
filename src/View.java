@@ -319,7 +319,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
 		quizPanel = new QuizPanel(); 
-		quizPanel.setBackground(Color.green);
+		quizPanel.setBackground(Color.gray);
 		quizPanel.setLayout(null);
 		int xscale = 2*2; 
 		int yscale = 4*2; 
