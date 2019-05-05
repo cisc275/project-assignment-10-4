@@ -253,7 +253,6 @@ public class Model implements Serializable {
 		}
 		if (collided != null) {
 			boolean shouldRemove = collided.collision(bird);
-			System.out.println("Stamina is: " + bird.getStamina());
 			if (shouldRemove) {
 				onScreenCollidables.remove(collided);
 				spawnCount++;
@@ -267,23 +266,24 @@ public class Model implements Serializable {
 
 	/**
 	 * Starts a quiz if the bird has eaten a special food.
-	 * 
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
-	QuizQuestion startQuiz() {return theQuestions.getCurrent();}
+	QuizQuestion startQuiz() {
+		return theQuestions.getCurrent();
+	}
 
 	/**
-	 * Ends the quiz and restarts the player controlling the bird. Handles powerup start
-	 * if the player answered the quiz correctly. 
+	 * Ends the quiz and restarts the player controlling the bird. Handles
+	 * powerup start if the player answered the quiz correctly.
 	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
-		if (theQuestions.answerQuestion(answer)) {
+		/*if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct"); 
 		}
 		else {
 			System.out.println("False"); 
-		}
+		}*/
 		quizMode = false; 
 		doingQuiz = false; 
 	}
@@ -297,18 +297,18 @@ public class Model implements Serializable {
 		int curImage = 0;
 		Random randImg = new Random();
 		Random randLoc = new Random();
-		if (choice < 0) {
+		if (choice < 0) { // TODO Make this region a separate method
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
 					curImage = randImg.nextInt(3) + 1;
-					if (curImage == 2) curImage = randImg.nextInt(2) + 2;
+					if (curImage == 2) curImage = randImg.nextInt(2) + 2; //re-roll on a golden fish
 				} else {
 					curImage = randImg.nextInt(2);
 				}
 			}
 			else {
 				curImage = randImg.nextInt(4) + 4;
-				if (curImage == 5) curImage = randImg.nextInt(2) + 4;
+				if (curImage == 5) curImage = randImg.nextInt(2) + 4; //re-roll on a golden mouse
 			}
 		} else {
 			curImage = choice;
@@ -322,7 +322,7 @@ public class Model implements Serializable {
 
 		GameElement newGameElement; 
 
-		switch (curImage) {
+		switch (curImage) { // TODO make the bodies of this switch modularized
 			case 0:
 				dir = Images.BUILDING;
 				ImgPath = dir.getName();
