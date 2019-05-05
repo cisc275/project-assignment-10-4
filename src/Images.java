@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * ENUM representing every the image sources for food and obstacles
  * 
  * @author 10-4
  *
  */
-public enum Images {
+public enum Images implements Serializable {
 	/**
 	 * Every String is the path of the corresponding image
 	 */

@@ -1,6 +1,10 @@
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.Serializable;
 
-public class NestAnimation {
+import javax.imageio.ImageIO;
+
+public class NestAnimation implements Serializable {
 	/**
 	 * x location of bird nesting
 	 */
@@ -28,11 +32,11 @@ public class NestAnimation {
 	/**
 	 * image of bird nesting
 	 */
-	private BufferedImage bird;
+	transient private BufferedImage bird;
 	/**
 	 * image for the background of the nesting animation
 	 */
-	private BufferedImage background;
+	transient private BufferedImage background;
 	/**
 	 * true if the bird has reached the end lcoation in the animation
 	 */
@@ -52,6 +56,29 @@ public class NestAnimation {
 		bird = null;
 		setBackground(null);
 		doneAnimation = false;
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in writing to file
+	 * @param ObjectOutputStream to be written to
+	 * 
+	 */
+	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		ImageIO.write(background, "png", out);
+		ImageIO.write(bird, "png", out);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in reading from a file
+	 * @param ObjectOutputStream to be read from
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		this.background = ImageIO.read(in);
+		this.bird = ImageIO.read(in);
 	}
 	
 	/**

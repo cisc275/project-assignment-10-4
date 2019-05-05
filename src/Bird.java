@@ -2,6 +2,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+import javax.imageio.ImageIO;
+
 /**
  * Bird is the sole user controlled GameElement and the focus of the game.  The game is divided into two portions,
  * depending on if the Bird is currently a Northern Harrier or an Osprey
@@ -74,15 +76,15 @@ public class Bird extends GameElement implements Serializable{
 	/**
 	 * An array of BufferedImages that stores the different bird image frames
 	 */
-    private BufferedImage[] pics;
+    transient private BufferedImage[] pics;
     /**
 	 * An array of BufferedImages that stores the different stamina bar pictures
 	 */
-    private BufferedImage[] staminaPics;
+    transient private BufferedImage[] staminaPics;
     /**
      * A BufferedImage representing the current stamina bar image
      */
-    private BufferedImage staminaImage;
+    transient private BufferedImage staminaImage;
     /**
      * An int representing the current frame image that is being displayed
      */
@@ -115,6 +117,45 @@ public class Bird extends GameElement implements Serializable{
 		stamina = START_STAMINA;
 		staminaPics = new BufferedImage[6];
 		this.setType(Images.BIRD);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in writing to file
+	 * @param ObjectOutputStream to be written to
+	 * 
+	 */
+	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeInt(pics.length);
+		for(int i = 0; i<pics.length; i++) {
+			ImageIO.write(pics[i], "png", out);
+		}
+		out.writeInt(staminaPics.length);
+		for(int i = 0; i<staminaPics.length; i++) {
+			ImageIO.write(staminaPics[i], "png", out);
+		}
+		ImageIO.write(staminaImage, "png", out);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in reading from a file
+	 * @param ObjectOutputStream to be read from
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		int imageCount = in.readInt();
+		pics = new BufferedImage[imageCount];
+		for (int i=0; i<imageCount; i++) {
+			pics[i] = ImageIO.read(in);
+		}
+		imageCount = in.readInt();
+		staminaPics = new BufferedImage[imageCount];
+		for (int i=0; i<imageCount; i++) {
+			staminaPics[i] = ImageIO.read(in);
+		}
+		this.staminaImage = ImageIO.read(in);
 	}
 	
 	/**

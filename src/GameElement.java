@@ -1,9 +1,12 @@
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 /**
  * Defines the common attributes and action which all elements that appear 
@@ -48,7 +51,7 @@ public abstract class GameElement implements Serializable{
 	/**
 	 * The image of the GameElement
 	 */
-	protected BufferedImage image;
+	transient protected BufferedImage image;
 	/**
 	 * The type of Game Element
 	 */
@@ -84,6 +87,27 @@ public abstract class GameElement implements Serializable{
 		if(xPolyVals.isEmpty()) {
 			putPolyCoords();
 		}
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in writing to file
+	 * @param ObjectOutputStream to be written to
+	 * 
+	 */
+	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		ImageIO.write(image, "png", out);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in reading from a file
+	 * @param ObjectOutputStream to be read from
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		this.image = ImageIO.read(in);
 	}
 	
 	/**

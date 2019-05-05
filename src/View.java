@@ -147,8 +147,10 @@ public class View extends JPanel implements Serializable{
 		this.setUpAnimation(c);
 		
     	OPanel = new DrawPanel(); 
+    	OPanel.add(c.getSaveGameButtonO());
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
+    	NHPanel.add(c.getSaveGameButtonNH());
 		NHPanel.setBackground(Color.gray);
 		
 		cards.add(buttonPanel, "B");
@@ -218,7 +220,7 @@ public class View extends JPanel implements Serializable{
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
 		ospreyPlan = new OspreyFlightPlan();
 		c.getOPlanButton().setFont(buttonFont);
-		ospreyPlan.add(c.getOPlanButton());		
+		ospreyPlan.add(c.getOPlanButton());
 	}
 	
 	/**

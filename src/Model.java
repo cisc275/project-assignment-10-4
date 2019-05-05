@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 import java.lang.System;
@@ -67,11 +72,11 @@ public class Model implements Serializable {
 	 */
 	private List<QuizQuestion>quizQuestions;
 	/**
-	 * The width of the game frame
+	 * The questions
 	 */
 	private QuizQuestions theQuestions; 
 	/**
-	 * The height of the game frame
+	 * The width of the game frame
 	 */
 	private int frameWidth;
 	/**
