@@ -10,9 +10,21 @@ import java.lang.System;
  *
  */
 @SuppressWarnings("serial")
-public class Model implements Serializable{
+public class Model implements Serializable {
+	/**
+	 * Constant for the maximum number of game elements that can 
+	 * be onscreen at any given moment
+	 */
 	private static final int MAX_GAME_ELEMENTS_ONSCREEN = 3;
+	/**
+	 * Constant for the maximum number of ticks between spawning of
+	 * game elements
+	 */
 	static final int SPAWN_TIME_MAX = 100;
+	/**
+	 * Constant for minimum number of ticks between spawning of
+	 * game elements
+	 */
 	static final int SPAWN_TIME_MIN = 25;
 	/**
 	 * The Bird the player will control
