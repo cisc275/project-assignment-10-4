@@ -319,7 +319,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	void displayQuiz(QuizQuestion question, List<JButton> buttons) {
 		quizPanel = new QuizPanel(); 
-		quizPanel.setBackground(Color.green);
+		quizPanel.setBackground(Color.gray);
 		quizPanel.setLayout(null);
 		int xscale = 2*2; 
 		int yscale = 4*2; 
@@ -360,21 +360,22 @@ public class View extends JPanel implements Serializable{
 	 * @param nestAnimation the instance of nestAnimation that has been updated
 	 */
 	void nestAnimationUpdate(NestAnimation nestAnimation) {
-		this.nestAnimation = nestAnimation;
-		if(this.nestAnimation.getBird()==null) {
-			this.nestAnimation.setBird(this.bird.getPics()[2]);
+		this.setNestAnimation(nestAnimation);
+		if(this.getNestAnimation().getBird()==null) {
+			this.getNestAnimation().setBird(this.bird.getPics()[2]);
 		}
-		if(this.nestAnimation.getBackground()==null) {
+		if(this.getNestAnimation().getBackground()==null) {
 			if(this.bird.getBirdType().equals("osprey")){
-					this.nestAnimation.setBackground(createImage("images/osprey_nest_background_1080.png"));
+					this.getNestAnimation().setBackground(createImage("images/osprey_nest_background_1080.png"));
 			}
 			else {
-				this.nestAnimation.setBackground(createImage("images/nh_nest_background_1080.png"));
+				this.getNestAnimation().setBackground(createImage("images/nh_nest_background_1080.png"));
 			}
 		}
-		if(this.nestAnimation.isDoneAnimation()) {
-			this.nestAnimation.setBird(bird.getPics()[1]);
+		if(this.getNestAnimation().isDoneAnimation()) {
+			this.getNestAnimation().setBird(bird.getPics()[1]);
 			currentPanel.getComponent(0).setVisible(true);
+			
 		}
 		currentPanel.repaint();
 		
@@ -424,6 +425,9 @@ public class View extends JPanel implements Serializable{
 				break;
 			case "NHP":
 				currentPanel = NHPlan;
+				break;
+			case "B":
+				currentPanel = buttonPanel;
 				break;
 		}
 	}
@@ -586,6 +590,20 @@ public class View extends JPanel implements Serializable{
 	}
 	
 	/**
+	 * @return the nestAnimation
+	 */
+	public NestAnimation getNestAnimation() {
+		return nestAnimation;
+	}
+
+	/**
+	 * @param nestAnimation the nestAnimation to set
+	 */
+	public void setNestAnimation(NestAnimation nestAnimation) {
+		this.nestAnimation = nestAnimation;
+	}
+
+	/**
 	 * Panel to display the nesting animation
 	 * 
 	 * @author 10-4
@@ -596,8 +614,8 @@ public class View extends JPanel implements Serializable{
 			Graphics2D g2d = (Graphics2D)g;
 			super.paintComponent(g2d);
 			try {
-				g.drawImage(nestAnimation.getBackground(),0,0,null);
-				g.drawImage(nestAnimation.getBird(),nestAnimation.getBirdx(),nestAnimation.getBirdy(),null);
+				g.drawImage(getNestAnimation().getBackground(),0,0,null);
+				g.drawImage(getNestAnimation().getBird(),getNestAnimation().getBirdx(),getNestAnimation().getBirdy(),null);
 			}
 			catch(Exception e) {
 				
