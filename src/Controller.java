@@ -49,7 +49,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * Button to continue to bird selection after nesting animation
 	 */
-	private JButton doneAminationButton;
+	private JButton doneAnimationButton;
 	/**
 	 * The list of answer buttons for the quiz
 	 */
@@ -88,12 +88,12 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
 		NHPlanButton = new JButton("Start Flight");
-		doneAminationButton = new JButton("Continue");
+		doneAnimationButton = new JButton("Continue");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
 		NHPlanButton.addActionListener(this);
-		doneAminationButton.addActionListener(this);
+		doneAnimationButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -116,13 +116,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		
 		//model.setBirdType(view.selectBirdType());
 		view.setPanel("B");
-		drawAction = new AbstractAction(){
+		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
     				model.update();
-    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),model.getBackground());
-    			} 
-    			else if (model.isQuizMode()){
+    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),
+    								model.getBackground());
+    			} else if (model.isQuizMode()) {
     				t.stop(); 
     				quizButtons.clear(); 
     				QuizQuestion q = model.startQuiz();
@@ -132,17 +132,24 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     					quizButtons.add(next); 
     				}
     				view.displayQuiz(model.startQuiz(), quizButtons);
-    			}
-    			else if(model.isReachedEnd()) {
+    			} else if (model.isReachedEnd()) {
     			    t.stop();
     			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();
-    			}   				
-    		}   		
+    			} 
+    			if (model.birdIsFainted()) {
+    				System.out.println("Resetting the game");
+    				model = new Model(view.getFrameWidth(), view.getFrameHeight(), model.getBird().getBirdType());
+    			}
+    		}
     	};
 	}
 	
+	protected Controller getController() {
+		return this;
+	}
+
 	/**
 	 * Starts the animation. Will continue until the user presses a button
 	 * that will return to the bird selection screen
@@ -241,7 +248,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//System.out.println(model.getBird().getBirdType());
 			start();
 		}
-		else if(e.getSource() == doneAminationButton) {
+		else if(e.getSource() == doneAnimationButton) {
 			view.setPanel("B");
 		}
 	}
@@ -353,14 +360,14 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * @return the doneAmination
 	 */
-	public JButton getDoneAminationButton() {
-		return doneAminationButton;
+	public JButton getDoneAnimationButton() {
+		return doneAnimationButton;
 	}
 
 	/**
 	 * @param doneAmination the doneAmination to set
 	 */
-	public void setDoneAminationButton(JButton doneAminationButton) {
-		this.doneAminationButton = doneAminationButton;
+	public void setDoneAnimationButton(JButton doneAminationButton) {
+		this.doneAnimationButton = doneAminationButton;
 	}
 }

@@ -164,7 +164,6 @@ public class View extends JPanel implements Serializable{
 		setUpFrame(c);
 		
     	System.out.print(SCREENSIZE);
-    	
 	}
 	
 	/**
@@ -191,7 +190,7 @@ public class View extends JPanel implements Serializable{
 	 */
 	void setUpButtonPanel(Controller c) {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
-		buttonPanel = new ButtonPanel(); 
+		buttonPanel = new ButtonPanel();
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
@@ -242,8 +241,8 @@ public class View extends JPanel implements Serializable{
 	 */
 	void setUpAnimation(Controller c) {
 		animation = new NestAnimationPanel();
-		c.getDoneAminationButton().setFont(buttonFont);
-		animation.add(c.getDoneAminationButton());
+		c.getDoneAnimationButton().setFont(buttonFont);
+		animation.add(c.getDoneAnimationButton());
 		animation.getComponent(0).setVisible(false);
 	}
 	

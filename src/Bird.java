@@ -46,7 +46,7 @@ public class Bird extends GameElement implements Serializable{
     /**
      * Constant for Bird's starting stamina value
      */
-	private static final int START_STAMINA = 5;
+	private static final int START_STAMINA = 1;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -91,6 +91,10 @@ public class Bird extends GameElement implements Serializable{
      * Represents the time stunned upon collision
      */
     private int stunTimer;
+    /**
+     * If true, the bird has run out of stamina and the level needs to restart
+     */
+	private boolean fainted = false;
     
     /**
 	 * A constructor which initializes the attributes for the start of the game.  The bird's starting location is set, 
@@ -119,7 +123,11 @@ public class Bird extends GameElement implements Serializable{
 	 * Also handles the stunned status of the bird.
 	 */
 	@Override
-	void updatePosition(){
+	void update(){
+		if (stamina <= 0) {
+			setFainted(true);
+			System.out.println(fainted);
+		}
 		setXloc(getXloc()+getxSpeed());
 		setYloc(getYloc()+(getySpeed()*(-1)*direction));	
 		if (isStunned) {
@@ -130,7 +138,7 @@ public class Bird extends GameElement implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * It changes the frame to be the next frame and returns the old frame to be displayed
 	 * 
@@ -337,5 +345,19 @@ public class Bird extends GameElement implements Serializable{
 	 */
 	public void updateStaminaImage() {
 		staminaImage = staminaPics[stamina];
+	}
+
+	/**
+	 * @return the fainted
+	 */
+	public boolean isFainted() {
+		return fainted;
+	}
+
+	/**
+	 * @param fainted the fainted to set
+	 */
+	public void setFainted(boolean fainted) {
+		this.fainted = fainted;
 	}
 }

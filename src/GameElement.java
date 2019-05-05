@@ -133,7 +133,7 @@ public abstract class GameElement implements Serializable{
 	 * Will update the location of the GameElement
 	 * 
 	 */
-	void updatePosition() {
+	void update() {
 		xloc -= xSpeed;
 		polygon.translate(-xSpeed,0);
 	}

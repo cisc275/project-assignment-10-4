@@ -1,6 +1,5 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Random;
 /**
  *Provides the image showing the birds progress through its migratory journey.  The minimap is different,
  *depending on if the Osprey or the Northern Harrier is the current bird.  The birds progress on the minimap is 
