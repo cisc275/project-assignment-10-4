@@ -367,13 +367,13 @@ public class Model implements Serializable {
 	 * Ends quiz mode 
 	 */
 	void endQuiz(String answer) {
-		/*if (theQuestions.answerQuestion(answer)) {
+		if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct"); 
 			this.bird.setPoweredUp(true);
 		}
 		else {
 			System.out.println("False"); 
-		}*/
+		}
 		quizMode = false; 
 		doingQuiz = false; 
 	}
