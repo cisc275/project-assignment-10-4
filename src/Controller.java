@@ -123,6 +123,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			}
     			else if(model.isReachedEnd()) {
     			    t.stop();
+    			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();
     			}

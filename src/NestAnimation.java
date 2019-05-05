@@ -11,6 +11,9 @@ public class NestAnimation {
 	private BufferedImage background;
 	private boolean doneAnimation;
 	
+	/**
+	 * Default values are for osprey animation
+	 */
 	NestAnimation(){
 		birdx = 0;
 		birdy = 0;

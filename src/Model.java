@@ -41,7 +41,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 100000;	
+	private static final int END_DISTANCE = 3000;	
 	/**
 	 * The variable of the total distance needed to be traveled
 	 */
@@ -252,6 +252,15 @@ public class Model implements Serializable {
 			nestAnimation.setBird(bird.getImage());
 		}*/
 		this.nestAnimation.animationUpdate();
+	}
+	
+	void configureNestAnimation() {
+		if(this.bird.getBirdType().equals("northern harrier")) {
+			this.nestAnimation.setEndx(1400);
+			this.nestAnimation.setEndy(950);
+			this.nestAnimation.setXvel(8);
+			this.nestAnimation.setYvel(5);
+		}
 	}
 	
 	

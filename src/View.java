@@ -318,7 +318,12 @@ public class View extends JPanel implements Serializable{
 			this.nestAnimation.setBird(this.bird.getPics()[2]);
 		}
 		if(this.nestAnimation.getBackground()==null) {
-			this.nestAnimation.setBackground(createImage("images/osprey_nest_background_1080.png"));
+			if(this.bird.getBirdType().equals("osprey")){
+					this.nestAnimation.setBackground(createImage("images/osprey_nest_background_1080.png"));
+			}
+			else {
+				this.nestAnimation.setBackground(createImage("images/nh_nest_background_1080.png"));
+			}
 		}
 		currentPanel.repaint();
 		
