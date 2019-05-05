@@ -36,12 +36,12 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The constant int value of the x location of the small bird Sprite on the minimap's starting position
 	 * for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1763; //1819;
+	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1805; //1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the minimap's starting position
 	 * for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 91;
+	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 140;
 	/**
 	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
 	 * during migration in the x direction for the Northern Harrier
@@ -51,7 +51,7 @@ public class MiniMap extends GameElement implements Serializable{
 	 * The constant int value of the distance the small bird Sprite on the minimap has to travel 
 	 * during migration in the y direction for the Northern Harrier
 	 */
-	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST = 90;
+	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST = 110;
 	/**
 	 * The int value of the X location of the small bird Sprite on the minimap 
 	 */
@@ -152,7 +152,7 @@ public class MiniMap extends GameElement implements Serializable{
 	
 	void updatePositionNH(double percentDistTraveled){
 		int yLoc = NH_INITIAL_SMALL_BIRD_Y_LOC - (int)( NH_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
-		int xLoc = NH_INITIAL_SMALL_BIRD_X_LOC + (int)( NH_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
+		int xLoc = NH_INITIAL_SMALL_BIRD_X_LOC - (int)( NH_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
 		this.setMapYLoc(yLoc); 
 		this.setMapXLoc(xLoc);
 		} 
