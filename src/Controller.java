@@ -34,9 +34,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The Northern Harrier button for the user to click
 	 */
 	private JButton NHbutton;
-	
+	/**
+	 * Osprey button to continue to game after map
+	 */
 	private JButton OPlanButton;
-	
+	/**
+	 * Osprey button to continue to game after map
+	 */
 	private JButton NHPlanButton;
 	/**
 	 * The list of answer buttons for the quiz
@@ -126,7 +130,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	
 	/**
 	 * Required from KeyListener. Will handle any key presses by the player
-	 * 
 	 * @param k The KeyEvent entered by the player
 	 */
 	@Override
