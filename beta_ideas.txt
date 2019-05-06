@@ -1,0 +1,16 @@
+- thread for loading images and thread for moving x and y
+- use swing workers instead of threads
+- put laggy stuff in swing workers
+- non-migratory: circles around DE instead of going to a to b
+- methods should fit on a screen (modularize, don't repeat)
+- adjust "constants" dynamically based on damage/player skill
+- trash in the water to avoid (check if this is realistic)
+- keyboard quiz controls so you don't have to switch to mouse
+- eliminate magic numbers
+- interactive tutorial (use storyboard)
+- eliminate words on the screen
+- good to have a short version for interviews
+- keep up with mvc, model should work alone/with ascii view
+- get other people to play the game
+- don't serialize view
+- ask another team for the osprey (note in comments, give credit)
