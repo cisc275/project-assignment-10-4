@@ -1,5 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.imageio.ImageIO;
 
 /**
  * Provides the image showing the birds progress through its migratory journey.
@@ -71,7 +72,7 @@ public class MiniMap extends GameElement implements Serializable {
 	 * This is the bufferedImage that will be placed on the miniMap to represent the
 	 * current location of the bird
 	 */
-	private BufferedImage smallBird;
+	transient private BufferedImage smallBird;
 
 	/**
 	 * @param x             an int representing the x location of the GameElement
@@ -100,7 +101,27 @@ public class MiniMap extends GameElement implements Serializable {
 		this.mapXLoc = mapXLoc;
 		this.mapYLoc = mapYLoc;
 	}
-
+	
+	/**
+	 * Handles the non-serlializable fields of class in writing to file
+	 * @param ObjectOutputStream to be written to
+	 * 
+	 */
+	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		ImageIO.write(smallBird, "png", out);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in reading from a file
+	 * @param ObjectOutputStream to be read from
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		this.smallBird = ImageIO.read(in);
+	}
 	/**
 	 * @return the mapXLoc
 	 */

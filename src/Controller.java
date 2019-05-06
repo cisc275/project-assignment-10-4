@@ -51,6 +51,14 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private JButton doneAnimationButton;
 	/**
+	 * Button to serialize game during Osprey
+	 */
+	private JButton saveGameButtonO;
+	/**
+	 * Button to serialize game during Northern Harrier
+	 */
+	private JButton saveGameButtonNH;
+	/**
 	 * The list of answer buttons for the quiz
 	 */
 	private List<JButton> quizButtons; 
@@ -89,11 +97,15 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		OPlanButton = new JButton("Start Flight");
 		NHPlanButton = new JButton("Start Flight");
 		doneAnimationButton = new JButton("Continue");
+		saveGameButtonO = new JButton("Save Game");
+		saveGameButtonNH = new JButton("Save Game");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
 		NHPlanButton.addActionListener(this);
 		doneAnimationButton.addActionListener(this);
+		saveGameButtonO.addActionListener(this);
+		saveGameButtonNH.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -256,6 +268,24 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			model = new Model(view.getFrameWidth(), view.getFrameHeight());
 			//view.setNestAnimation(model.getNestAnimation());
 		}
+		else if(e.getSource() == saveGameButtonO || e.getSource() == saveGameButtonNH) {
+			try {
+				this.saveGame();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Serialize method which saves the state of the game
+	 * @throws IOException 
+	 */
+	public void saveGame() throws IOException{
+		FileOutputStream out = new FileOutputStream("gameState.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(out);
+		oos.writeObject(model);
 	}
 
 	/**
@@ -374,5 +404,29 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public void setDoneAnimationButton(JButton doneAminationButton) {
 		this.doneAnimationButton = doneAminationButton;
+	}
+	/**
+	 * @return the saveGameButtonO
+	 */
+	public JButton getSaveGameButtonO() {
+		return saveGameButtonO;
+	}
+	/**
+	 * @param saveGameButtonO the saveGameButtonO to set
+	 */
+	public void setSaveGameButtonO(JButton saveGameButtonO) {
+		this.saveGameButtonO = saveGameButtonO;
+	}
+	/**
+	 * @return the saveGameButtonNH
+	 */
+	public JButton getSaveGameButtonNH() {
+		return saveGameButtonNH;
+	}
+	/**
+	 * @param saveGameButtonNH the saveGameButtonNH to set
+	 */
+	public void setSaveGameButtonNH(JButton saveGameButtonNH) {
+		this.saveGameButtonNH = saveGameButtonNH;
 	}
 }

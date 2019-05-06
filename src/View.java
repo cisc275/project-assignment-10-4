@@ -148,10 +148,12 @@ public class View extends JPanel implements Serializable {
 		this.setUpOspreyPlan(c);
 		this.setUpNHPlan(c);
 		this.setUpAnimation(c);
-
-		OPanel = new DrawPanel();
+		
+    	OPanel = new DrawPanel(); 
+    	OPanel.add(c.getSaveGameButtonO());
 		OPanel.setBackground(Color.gray);
-		NHPanel = new DrawPanel();
+    	NHPanel = new DrawPanel(); 
+    	NHPanel.add(c.getSaveGameButtonNH());
 		NHPanel.setBackground(Color.gray);
 
 		cards.add(buttonPanel, "B");

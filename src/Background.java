@@ -35,11 +35,11 @@ public class Background implements Serializable{
 	/**
 	 * Constant for Grass background object
 	 */
-	static final BufferedImage GRASS = createImage(GRASS_PATH);
+	transient static BufferedImage GRASS = createImage(GRASS_PATH);
 	/**
 	 * Constant for water background object
 	 */
-	static final BufferedImage WATER = createImage(WATER_PATH);
+	transient static BufferedImage WATER = createImage(WATER_PATH);
 	/**
 	 * Array of the X positions of the two backgrounds
 	 */
@@ -55,12 +55,12 @@ public class Background implements Serializable{
 	/**
 	 * Array of containing the two image objects current being used as backgrounds
 	 */
-	private BufferedImage[] bgs = new BufferedImage[2];
+	transient private BufferedImage[] bgs = new BufferedImage[2];
 	/**
 	 * Random object for inserting random sea zones
 	 */
 	private Random rand;
-	
+
 	/**
 	 * 
 	 * @param model.getWidth() the width dimension of the screen
@@ -73,7 +73,7 @@ public class Background implements Serializable{
 		setBackgroundX(1,frameWidth-3);
 		setWidth(frameWidth);
 	}
-	
+
 	/**
 	 * Updates the position of the background images to scroll.
 	 * If a background image is completely off screen to the left, move it
@@ -107,7 +107,7 @@ public class Background implements Serializable{
 			setBackground(num, GRASS);
 		}
 	}
-	
+
 	/**
 	 * Returns true if the zone to the right is water
 	 * @return boolean indicating if water is the next zone
@@ -115,7 +115,7 @@ public class Background implements Serializable{
 	public boolean isWaterNextZone() {
 		if (ospreyMode) {
 			if ((bgXs[0] < bgXs[1] && bgs[1].equals(WATER)) ||
-				(bgXs[1] < bgXs[0] && bgs[0].equals(WATER))) {
+					(bgXs[1] < bgXs[0] && bgs[0].equals(WATER))) {
 				return true;
 			} else {
 				return false;
@@ -137,7 +137,7 @@ public class Background implements Serializable{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Creates a BufferedImage of the background using specified path
 	 * The game will always start with this background
@@ -148,12 +148,44 @@ public class Background implements Serializable{
 	static BufferedImage createImage(String path){
 		BufferedImage bufferedImage;
 		try {
-		    bufferedImage = ImageIO.read(new File(path));
-		    return bufferedImage;
+			bufferedImage = ImageIO.read(new File(path));
+			return bufferedImage;
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Handles the non-serlializable fields of class in writing to file
+	 * @param ObjectOutputStream to be written to
+	 * 
+	 */
+	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeInt(bgs.length);
+		for(int i = 0; i<bgs.length; i++) {
+			ImageIO.write(bgs[i], "png", out);
+		}
+		ImageIO.write(GRASS, "png", out);
+		ImageIO.write(WATER, "png", out);
+	}
+	
+	/**
+	 * Handles the non-serlializable fields of class in reading from a file
+	 * @param ObjectOutputStream to be read from
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		int imageCount = in.readInt();
+		bgs = new BufferedImage[imageCount];
+		for (int i=0; i<imageCount; i++) {
+			bgs[i] = ImageIO.read(in);
+		}
+		this.GRASS = ImageIO.read(in);
+		this.WATER = ImageIO.read(in);
 	}
 
 	/**
@@ -191,7 +223,7 @@ public class Background implements Serializable{
 	public BufferedImage getBackground(int num) {
 		return bgs[num];
 	}
-	
+
 	/**
 	 * @param num which background image object to set, 1 or 2
 	 * @param bg the background BufferedImage to set
@@ -206,7 +238,7 @@ public class Background implements Serializable{
 	public int getBackgroundScrollSpeed() {
 		return this.backgroundScrollSpeed;
 	}
-	
+
 	/**
 	 * @param backgroundScrollSpeed 
 	 */
