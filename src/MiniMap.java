@@ -67,12 +67,12 @@ public class MiniMap extends GameElement implements Serializable {
 	 * Northern Harrier or the Osprey, depending on what the current bird is. This
 	 * is the Sprite that will be placed on the miniMap
 	 */
-	private String mapSpriteFile;
+	private Images mapSpriteFile;
 	/**
 	 * This is the bufferedImage that will be placed on the miniMap to represent the
 	 * current location of the bird
 	 */
-	transient private BufferedImage smallBird;
+	private Images smallBird;
 
 	/**
 	 * @param x             an int representing the x location of the GameElement
@@ -94,33 +94,12 @@ public class MiniMap extends GameElement implements Serializable {
 	 *                      minimap
 	 */
 
-	public MiniMap(int x, int y, int xSpeed, int ySpeed, String imagePath, String mapSpriteFile, int mapXLoc,
+	public MiniMap(int x, int y, int xSpeed, int ySpeed, Images Img, Images mapSpriteFile, int mapXLoc,
 			int mapYLoc) {
-		super(x, y, xSpeed, ySpeed, imagePath, null);
+		super(x, y, xSpeed, ySpeed, Img.getName(), Img);
 		this.mapSpriteFile = mapSpriteFile;
 		this.mapXLoc = mapXLoc;
 		this.mapYLoc = mapYLoc;
-	}
-	
-	/**
-	 * Handles the non-serlializable fields of class in writing to file
-	 * @param ObjectOutputStream to be written to
-	 * 
-	 */
-	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		ImageIO.write(smallBird, "png", out);
-	}
-	
-	/**
-	 * Handles the non-serlializable fields of class in reading from a file
-	 * @param ObjectOutputStream to be read from
-	 * 
-	 */
-	@SuppressWarnings("static-access")
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		this.smallBird = ImageIO.read(in);
 	}
 	/**
 	 * @return the mapXLoc
@@ -153,7 +132,7 @@ public class MiniMap extends GameElement implements Serializable {
 	/**
 	 * @return the mapSpriteFile
 	 */
-	public String getMapSpriteFile() {
+	public Images getMapSpriteFile() {
 		return mapSpriteFile;
 	}
 
@@ -161,18 +140,18 @@ public class MiniMap extends GameElement implements Serializable {
 	 * @return the BufferedImage of the small bird showing the player's progress on
 	 *         the minimap
 	 */
-	public BufferedImage getSmallBird() {
+	public Images getSmallBird() {
 		return smallBird;
 	}
 
-	public void setSmallBird(BufferedImage smallBird) {
+	public void setSmallBird(Images smallBird) {
 		this.smallBird = smallBird;
 	}
 
 	/**
 	 * @param mapSpriteFile the mapSpriteFile to set
 	 */
-	public void setMapSpriteFile(String mapSpriteFile) {
+	public void setMapSpriteFile(Images mapSpriteFile) {
 		this.mapSpriteFile = mapSpriteFile;
 	}
 

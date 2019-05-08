@@ -49,13 +49,9 @@ public abstract class GameElement implements Serializable {
 	 */
 	protected int ySpeed;
 	/**
-	 * The image of the GameElement
+	 * The image of Game Element
 	 */
-	transient protected BufferedImage image;
-	/**
-	 * The type of Game Element
-	 */
-	protected Images type;
+	protected Images image;
 	/**
 	 * A HashMap that stores the x coordinates for each game element's collision
 	 * polygon
@@ -85,31 +81,10 @@ public abstract class GameElement implements Serializable {
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
 		this.imagePath = imagePath;
-		this.type = type;
+		this.image = type;
 		if (xPolyVals.isEmpty()) {
 			putPolyCoords();
 		}
-	}
-
-	/**
-	 * Handles the non-serlializable fields of class in writing to file
-	 * @param ObjectOutputStream to be written to
-	 * 
-	 */
-	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		ImageIO.write(image, "png", out);
-	}
-	
-	/**
-	 * Handles the non-serlializable fields of class in reading from a file
-	 * @param ObjectOutputStream to be read from
-	 * 
-	 */
-	@SuppressWarnings("static-access")
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		this.image = ImageIO.read(in);
 	}
 	
 	/**
@@ -187,8 +162,8 @@ public abstract class GameElement implements Serializable {
 
 		xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
 		yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
-		// System.out.println(xPolyVals.get(Images.BIRD).length ==
-		// yPolyVals.get(Images.BIRD).length);
+		//System.out.println(xPolyVals.get(Images.BIRD).length ==
+		//yPolyVals.get(Images.BIRD).length);
 
 	}
 
@@ -207,8 +182,8 @@ public abstract class GameElement implements Serializable {
 	 */
 	public void fixPolygon() {
 		this.polygon.reset();
-		int[] x = xPolyVals.get(this.type);
-		int[] y = yPolyVals.get(this.type);
+		int[] x = xPolyVals.get(this.image);
+		int[] y = yPolyVals.get(this.image);
 		polygon = new Polygon(x, y, x.length);
 		polygon.translate(this.xloc, this.yloc);
 	}
@@ -318,16 +293,16 @@ public abstract class GameElement implements Serializable {
 	/**
 	 * @param a BufferedImage img of the GameElement
 	 */
-	public void setImage(BufferedImage img) {
+	public void setImage(Images img) {
 		image = img;
-		setWidth(image.getWidth());
-		setHeight(image.getHeight());
+		setWidth(Images.getCorrespondingImage(image).getWidth());
+		setHeight(Images.getCorrespondingImage(image).getHeight());
 	}
 
 	/**
-	 * @return BufferedImage
+	 * @return Images
 	 */
-	public BufferedImage getImage() {
+	public Images getImage() {
 		return image;
 	}
 
@@ -352,10 +327,10 @@ public abstract class GameElement implements Serializable {
 	 * @param i the GameElement type to become
 	 */
 	public void setType(Images i) {
-		this.type = i;
-		if (this.type != Images.OSPREY_IMG_FOR_MINIMAP && this.type != Images.NH_IMG_FOR_MINIMAP) {
-			int[] x = xPolyVals.get(this.type);
-			int[] y = yPolyVals.get(this.type);
+		this.image = i;
+		if (this.image != Images.OSPREY_MINIMAP && this.image != Images.NH_MINIMAP) {
+			int[] x = xPolyVals.get(this.image);
+			int[] y = yPolyVals.get(this.image);
 			polygon = new Polygon(x, y, x.length);
 			polygon.translate(this.xloc, this.yloc);
 		}
@@ -366,7 +341,7 @@ public abstract class GameElement implements Serializable {
 	 * @return the type of the GameElement
 	 */
 	public Images getType() {
-		return this.type;
+		return this.image;
 	}
 
 	/**

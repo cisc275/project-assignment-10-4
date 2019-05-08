@@ -410,7 +410,7 @@ public class Model implements Serializable {
 		int ySpeed = 0;
 		int xLocOfBird;
 		int yLocOfBird;
-		String mapSpriteFile;
+		Images mapSpriteFile;
 
 		GameElement newGameElement;
 
@@ -418,7 +418,7 @@ public class Model implements Serializable {
 		case 0:
 			dir = Images.BUILDING;
 			ImgPath = dir.getName();
-			y = frameHeight;
+			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
 			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
 			break;
 		case 1:
@@ -442,13 +442,13 @@ public class Model implements Serializable {
 		case 4:
 			dir = Images.MOUSE;
 			ImgPath = dir.getName();
-			y = frameHeight;
+			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
 			newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath, dir);
 			break;
 		case 5:
 			dir = Images.GOLDENMOUSE;
 			ImgPath = dir.getName();
-			y = frameHeight;
+			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
 			newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath, dir);
 			break;
 		case 6:
@@ -460,12 +460,12 @@ public class Model implements Serializable {
 		case 7:
 			dir = Images.FOX;
 			ImgPath = dir.getName();
-			y = frameHeight;
+			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
 			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
 			break;
 		case 8:
+			Images Img1 = Images.OSPREY_MINIMAP;
 			dir = Images.OSPREY_MINIMAP;
-			ImgPath = dir.getName();
 			x = this.frameWidth - 250;
 			// x =1120;
 			y = 0;
@@ -475,13 +475,12 @@ public class Model implements Serializable {
 			yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
 			// int xLocOfBird = this.frameWidth-101;
 			// int yLocOfBird = 110;
-			dir = Images.OSPREY_IMG_FOR_MINIMAP;
-			mapSpriteFile = dir.getName();
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
+			mapSpriteFile = Images.OSPREY_IMG_FOR_MINIMAP;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img1, mapSpriteFile, xLocOfBird, yLocOfBird);
 			break;
 		case 9:
+			Images Img2 = Images.NH_MINIMAP;
 			dir = Images.NH_MINIMAP;
-			ImgPath = dir.getName();
 			x = this.frameWidth - 250;
 			// x = 1120;
 			y = 0;
@@ -491,9 +490,8 @@ public class Model implements Serializable {
 			yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
 			// int xLocOfBird = this.frameWidth-101;
 			// int yLocOfBird = 110;
-			dir = Images.NH_IMG_FOR_MINIMAP;
-			mapSpriteFile = dir.getName();
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, ImgPath, mapSpriteFile, xLocOfBird, yLocOfBird);
+			mapSpriteFile = Images.NH_IMG_FOR_MINIMAP;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img2, mapSpriteFile, xLocOfBird, yLocOfBird);
 			break;
 		default:
 			dir = Images.RECTANGLE;
@@ -502,6 +500,7 @@ public class Model implements Serializable {
 			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
 		}
 		newGameElement.setType(dir);
+		//System.out.println(dir);
 		return newGameElement;
 	}
 

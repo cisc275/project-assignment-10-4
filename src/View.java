@@ -73,13 +73,13 @@ public class View extends JPanel implements Serializable {
 	/**
 	 * Width of the frame to display the game
 	 */
-	private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
-	//private static final int FRAMEWIDTH = 1920;
+	//private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	private static final int FRAMEWIDTH = 1920;
 	/**
 	 * Height of the frame to display the game
 	 */
-	private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
-	//private static final int FRAMEHEIGHT = 1080;
+	//private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	private static final int FRAMEHEIGHT = 1080;
 	/**
 	 * The miniMap that is on the screen
 	 */
@@ -201,8 +201,10 @@ public class View extends JPanel implements Serializable {
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
+		c.getReloadGameButton().setFont(buttonFont);
 		c.getNHButton().setBounds(100, 20, 600, 100);
 		c.getOButton().setBounds(1300, 20, 400, 100);
+		c.getReloadGameButton().setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
 		JLabel text = new JLabel();
 		text.setText("Choose a Bird");
 		text.setFont(buttonFont);
@@ -211,6 +213,7 @@ public class View extends JPanel implements Serializable {
 		buttonPanel.add(text);
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
+		buttonPanel.add(c.getReloadGameButton());
 	}
 
 	/**
@@ -264,31 +267,32 @@ public class View extends JPanel implements Serializable {
 		this.background = background;
 		this.bird = bird;
 		if (this.bird.getImage() == null) {
-			this.bird.setImage(createImage("images/big_bird_animate.png"));
+			this.bird.setImage(Images.BIRD);
 		}
 		if (this.bird.getStaminaPics()[0] == null) {
-			BufferedImage[] arr = new BufferedImage[6];
-			arr[0] = createImage("images/0_health.png");
-			arr[1] = createImage("images/1_health.png");
-			arr[2] = createImage("images/2_health.png");
-			arr[3] = createImage("images/3_health.png");
-			arr[4] = createImage("images/4_health.png");
-			arr[5] = createImage("images/5_health.png");
+			Images[] arr = new Images[6];
+			arr[0] = Images.HEALTH_0;
+			arr[1] = Images.HEALTH_1;
+			arr[2] = Images.HEALTH_2;
+			arr[3] = Images.HEALTH_3;
+			arr[4] = Images.HEALTH_4;
+			arr[5] = Images.HEALTH_5;
 			this.bird.setStaminaPics(arr);
 		}
-		if (this.bird.getPoweredUpPics()[0] == null) {
-			this.bird.setPoweredUpPics(createImage("images/powers.png"));
+		if (this.bird.getPoweredUpPics() == null) {
+			this.bird.setPoweredUpPics(Images.POWERUP);
 		}
 		this.elements = elements;
 		this.miniMap = miniMap;
 		// this.miniMap = (MiniMap)elements.get(0); //first element will always be a
 		// MiniMap
 		if (miniMap.getSmallBird() == null) {
-			miniMap.setSmallBird(createImage(miniMap.getMapSpriteFile()));
+			miniMap.setSmallBird(miniMap.getMapSpriteFile());
 		}
 
 		if (miniMap.getImage() == null) {
-			miniMap.setImage(createImage(miniMap.getImagePath()));
+			System.out.println(miniMap.getType());
+			miniMap.setImage(miniMap.getType());
 		}
 
 		Iterator<GameElement> it = this.elements.iterator();
@@ -296,7 +300,7 @@ public class View extends JPanel implements Serializable {
 		while (it.hasNext()) {
 			e = it.next();
 			if (e.getImage() == null) {
-				e.setImage(createImage(e.getImagePath()));
+				e.setImage(e.getType());
 			}
 		}
 		if (score != null) currentPanel.remove(score);
@@ -380,7 +384,7 @@ public class View extends JPanel implements Serializable {
 	void nestAnimationUpdate(NestAnimation nestAnimation) {
 		this.setNestAnimation(nestAnimation);
 		if (this.getNestAnimation().getBird() == null) {
-			this.getNestAnimation().setBird(this.bird.getPics()[2]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(this.bird.getImage())[2]);
 		}
 		if (this.getNestAnimation().getBackground() == null) {
 			if (this.bird.getBirdType().equals("osprey")) {
@@ -390,7 +394,7 @@ public class View extends JPanel implements Serializable {
 			}
 		}
 		if (this.getNestAnimation().isDoneAnimation()) {
-			this.getNestAnimation().setBird(bird.getPics()[1]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(bird.getImage())[1]);
 			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();
@@ -452,7 +456,14 @@ public class View extends JPanel implements Serializable {
 	}
 
 	/**
-	 * @return the currentPanel
+	 * @return currentPanel the currentPanel to set
+	 */
+	public void setCurrentPanel(JPanel currentPanel) {
+		this.currentPanel = currentPanel;
+	}
+	
+	/**
+	 * @param the currentPanel 
 	 */
 	public JPanel getCurrentPanel() {
 		return currentPanel;
@@ -735,16 +746,19 @@ public class View extends JPanel implements Serializable {
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
 			try {
-				g2d.drawImage(background.getBackground(0), background.getBackgroundX(0), 0, this);
-				g2d.drawImage(background.getBackground(1), background.getBackgroundX(1), 0, this);
+				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(0)), 
+						background.getBackgroundX(0), 0, this);
+				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(1)), 
+						background.getBackgroundX(1), 0, this);
 			} catch (NullPointerException e) {
 				System.out.println("Null pointer exception!\n" + e);
 			}
 
 			if (elements != null) {
 				for (GameElement e : elements) {
-					g2d.drawImage(e.getImage(), e.getXloc(), e.getYloc(), this);
-					// g2d.drawPolygon(e.polyBounds());
+					//System.out.print(e.getImage() + "" + e.getXloc() + " " + e.getYloc());
+					g2d.drawImage(Images.getCorrespondingImage(e.getImage()), e.getXloc(), e.getYloc(), this);
+					//g2d.drawPolygon(e.polyBounds());
 				}
 				if (bird != null) {
 					if (bird.isStunned()) {
@@ -753,13 +767,14 @@ public class View extends JPanel implements Serializable {
 					}
 					g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 					g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
-					// g2d.drawRect(bird.xloc+25,bird.yloc+140,bird.width-75,60);
+					//g2d.drawRect(bird.xloc,bird.yloc+40,bird.width-75,60);
 				}
 				if (miniMap != null) {
-					g2d.drawImage(miniMap.getImage(), miniMap.getXloc(), miniMap.getYloc(), this);
+					//System.out.println(miniMap.getImage());
+					g2d.drawImage(Images.getCorrespondingImage(miniMap.getImage()), miniMap.getXloc(), miniMap.getYloc(), this);
 					// System.out.println(miniMap.getMapXLoc() + ", " + miniMap.getMapYLoc() );
 					// System.out.println(miniMap.getXloc() + ", " + miniMap.getYloc() );
-					g2d.drawImage(miniMap.getSmallBird(), miniMap.getMapXLoc(), miniMap.getMapYLoc(), this);
+					g2d.drawImage(Images.getCorrespondingImage(miniMap.getSmallBird()), miniMap.getMapXLoc(), miniMap.getMapYLoc(), this);
 				}
 			}
 		}

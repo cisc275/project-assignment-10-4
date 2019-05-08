@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.io.*;
 import java.util.List; 
@@ -59,6 +60,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private JButton saveGameButtonNH;
 	/**
+	 * Button to start the game at a previously saved point
+	 */
+	private JButton reloadGameButton; 
+	/**
 	 * The list of answer buttons for the quiz
 	 */
 	private List<JButton> quizButtons; 
@@ -99,6 +104,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		doneAnimationButton = new JButton("Continue");
 		saveGameButtonO = new JButton("Save Game");
 		saveGameButtonNH = new JButton("Save Game");
+		reloadGameButton = new JButton("Reload Game");
 		Obutton.addActionListener(this);
 		NHbutton.addActionListener(this);
 		OPlanButton.addActionListener(this);
@@ -106,6 +112,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		doneAnimationButton.addActionListener(this);
 		saveGameButtonO.addActionListener(this);
 		saveGameButtonNH.addActionListener(this);
+		reloadGameButton.addActionListener(this);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -244,7 +251,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//start();
 		}
 		else if (e.getSource() == OPlanButton) {
-			model.setBird(new Bird(0,0,0,0,"") );
+			model.setBird(new Bird(0,0,0,0,Images.BIRD.getName()) );
 			model.getBird().setBirdType("Osprey");
 			model.createQuestions("Osprey");
 			isGameInProgress = true;
@@ -276,16 +283,43 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				e1.printStackTrace();
 			}
 		}
+		else if(e.getSource() == reloadGameButton) {
+			try {
+				this.reloadGame();
+				//System.out.println("pressed");
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	/**
 	 * Serialize method which saves the state of the game
 	 * @throws IOException 
 	 */
+	@SuppressWarnings("resource")
 	public void saveGame() throws IOException{
 		FileOutputStream out = new FileOutputStream("gameState.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(out);
 		oos.writeObject(model);
+	}
+	
+	@SuppressWarnings("resource")
+	public void reloadGame() throws IOException, ClassNotFoundException {
+		FileInputStream in = new FileInputStream("gameState.txt");
+		ObjectInputStream ois = new ObjectInputStream(in);
+		model = (Model) ois.readObject();
+		if(model.getBird().getBirdType().equalsIgnoreCase("osprey")){
+			view.setPanel("O");
+		}else {
+			view.setPanel("NH");
+		}
+		isGameInProgress = true;
+		this.start();
 	}
 
 	/**
@@ -428,5 +462,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public void setSaveGameButtonNH(JButton saveGameButtonNH) {
 		this.saveGameButtonNH = saveGameButtonNH;
+	}
+	/**
+	 * @return the reloadGameButton
+	 */
+	public JButton getReloadGameButton() {
+		return reloadGameButton;
+	}
+	/**
+	 * @param reloadGameButton the reloadGameButton to set
+	 */
+	public void setReloadGameButton(JButton reloadGameButton) {
+		this.reloadGameButton = reloadGameButton;
 	}
 }

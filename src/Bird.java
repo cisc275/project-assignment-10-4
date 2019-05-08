@@ -78,22 +78,18 @@ public class Bird extends GameElement implements Serializable {
 	 * damaged, and gained upon eating.
 	 */
 	private int stamina;
-	/**
-	 * An array of BufferedImages that stores the different bird image frames
-	 */
-    transient private BufferedImage[] pics;
     /**
-	 * An array of BufferedImages that stores the different stamina bar pictures
+	 * An array of Images that stores the different stamina bar pictures
 	 */
-    transient private BufferedImage[] staminaPics;
+    private Images[] staminaPics;
     /**
-     * A BufferedImage representing the current stamina bar image
+     * A Images representing the current stamina bar image
      */
-    transient private BufferedImage staminaImage;
+    private Images staminaImage;
 	/**
-	 * 
+	 * An Image representing the different powered up image frames
 	 */
-	transient private BufferedImage[] poweredUpPics;
+	private Images poweredUpPics;
 	/**
 	 * An int representing the current frame image that is being displayed
 	 */
@@ -128,7 +124,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
-		super(x, y, xSpeed, ySpeed, imagePath, null);
+		super(x, y, xSpeed, ySpeed, imagePath, Images.BIRD);
 		setXloc(START_X_LOC);
 		setYloc(START_Y_LOC);
 		direction = 0;
@@ -137,61 +133,20 @@ public class Bird extends GameElement implements Serializable {
 		setHeight(BIRD_HEIGHT);
 		setWidth(BIRD_WIDTH);
 		frameNum = 0;
-		pics = new BufferedImage[FRAME_COUNT];
-		poweredUpPics = new BufferedImage[FRAME_COUNT];
+		poweredUpPics = Images.POWERUP;
 		stunTimer = 0;
 		stamina = START_STAMINA;
-		staminaPics = new BufferedImage[6];
+		staminaPics = new Images[6];
+		staminaPics[0] = Images.HEALTH_0;
+		staminaPics[1] = Images.HEALTH_1;
+		staminaPics[2] = Images.HEALTH_2;
+		staminaPics[3] = Images.HEALTH_3;
+		staminaPics[4] = Images.HEALTH_4;
+		staminaPics[5] = Images.HEALTH_5;
+		staminaImage = staminaPics[0];
 		this.setType(Images.BIRD);
 	}
 
-	/**
-	 * Handles the non-serlializable fields of class in writing to file
-	 * @param ObjectOutputStream to be written to
-	 * 
-	 */
-	public void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		out.writeInt(pics.length);
-		for(int i = 0; i<pics.length; i++) {
-			ImageIO.write(pics[i], "png", out);
-		}
-		out.writeInt(staminaPics.length);
-		for(int i = 0; i<staminaPics.length; i++) {
-			ImageIO.write(staminaPics[i], "png", out);
-		}
-		out.writeInt(poweredUpPics.length);
-		for(int i = 0; i<poweredUpPics.length; i++) {
-			ImageIO.write(poweredUpPics[i], "png", out);
-		}
-		ImageIO.write(staminaImage, "png", out);
-	}
-	
-	/**
-	 * Handles the non-serlializable fields of class in reading from a file
-	 * @param ObjectOutputStream to be read from
-	 * 
-	 */
-	@SuppressWarnings("static-access")
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		int imageCount = in.readInt();
-		pics = new BufferedImage[imageCount];
-		for (int i=0; i<imageCount; i++) {
-			pics[i] = ImageIO.read(in);
-		}
-		imageCount = in.readInt();
-		staminaPics = new BufferedImage[imageCount];
-		for (int i=0; i<imageCount; i++) {
-			staminaPics[i] = ImageIO.read(in);
-		}
-		imageCount = in.readInt();
-		poweredUpPics = new BufferedImage[imageCount];
-		for (int i=0; i<imageCount; i++) {
-			poweredUpPics[i] = ImageIO.read(in);
-		}
-		this.staminaImage = ImageIO.read(in);
-	}
 	
 	/**
 	 * Updates the position of the bird. If direction == 1 then the bird moves up.
@@ -234,9 +189,9 @@ public class Bird extends GameElement implements Serializable {
 		int currentFrame = frameNum;
 		frameNum = (frameNum + 1) % FRAME_COUNT;
 		if (!poweredUp) {
-			return pics[currentFrame];
+			return Images.getCorrespondingImageArray(this.image)[currentFrame];
 		} else {
-			return poweredUpPics[currentFrame];
+			return Images.getCorrespondingImageArray(poweredUpPics)[currentFrame];
 		}
 
 	}
@@ -247,18 +202,14 @@ public class Bird extends GameElement implements Serializable {
 	 * @param image the BufferedImage to set
 	 */
 	@Override
-	public void setImage(BufferedImage image) {
+	public void setImage(Images image) {
 		this.image = image;
-		this.width = image.getWidth() / FRAME_COUNT;
-		this.height = image.getHeight();
-		for (int i = 0; i < FRAME_COUNT; i++)
-			pics[i] = image.getSubimage(this.width * i, 0, this.width, this.height);
+		this.width = Images.getCorrespondingImage(image).getWidth() / FRAME_COUNT;
+		this.height = Images.getCorrespondingImage(image).getHeight();
 	}
 
-	public void setPoweredUpPics(BufferedImage image) {
-		for (int i = 0; i < FRAME_COUNT; i++) {
-			poweredUpPics[i] = image.getSubimage(this.width * i, 0, this.width, this.height);
-		}
+	public void setPoweredUpPics(Images image) {
+		poweredUpPics = image;
 	}
 
 	/**
@@ -271,7 +222,7 @@ public class Bird extends GameElement implements Serializable {
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(this.xloc + 25, this.yloc + 140, this.width - 75, 60);
+		return new Rectangle(this.xloc, this.yloc + 40, this.width - 75, 60);
 	}
 
 	/**
@@ -348,27 +299,12 @@ public class Bird extends GameElement implements Serializable {
 		this.stamina = stamina;
 	}
 
-	/**
-	 * 
-	 * @return the frames of the bird
-	 */
-	public BufferedImage[] getPics() {
-		return this.pics;
-	}
-
-	/**
-	 * 
-	 * @param pics the frames to set
-	 */
-	public void setPics(BufferedImage[] pics) {
-		this.pics = pics;
-	}
 
 	/**
 	 * 
 	 * @return the staminaPics of the bird
 	 */
-	public BufferedImage[] getStaminaPics() {
+	public Images[] getStaminaPics() {
 		return this.staminaPics;
 	}
 
@@ -376,7 +312,7 @@ public class Bird extends GameElement implements Serializable {
 	 * 
 	 * @param pics the frames to set
 	 */
-	public void setStaminaPics(BufferedImage[] pics) {
+	public void setStaminaPics(Images[] pics) {
 		this.staminaPics = pics;
 	}
 
@@ -440,7 +376,7 @@ public class Bird extends GameElement implements Serializable {
 	 * @return BufferedImage the staminaImage
 	 */
 	public BufferedImage getStaminaImage() {
-		return staminaImage;
+		return Images.getCorrespondingImage(staminaImage);
 	}
 
 	/**
@@ -464,7 +400,7 @@ public class Bird extends GameElement implements Serializable {
 		this.fainted = fainted;
 	}
 
-	public BufferedImage[] getPoweredUpPics() {
+	public Images getPoweredUpPics() {
 		return this.poweredUpPics;
 	}
 
