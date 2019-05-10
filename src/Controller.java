@@ -113,6 +113,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		saveGameButtonO.addActionListener(this);
 		saveGameButtonNH.addActionListener(this);
 		reloadGameButton.addActionListener(this);
+		saveGameButtonO.setFocusable(false);
+		saveGameButtonNH.setFocusable(false);
 		quizAnswer = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
@@ -201,12 +203,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyPressed(KeyEvent k) {
-		//System.out.println("A key has been pressed.");
+		System.out.println("A key has been pressed.");
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
 			model.getBird().setDirection(1);
 		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
 			model.getBird().setDirection(-1);
 		}
+		
 	}
 
 	/**
