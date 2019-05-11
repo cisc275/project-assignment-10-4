@@ -39,7 +39,8 @@ public enum ImagesLoaded {
 	HEALTH_2_I(createImage(Images.HEALTH_2.getName())),
 	HEALTH_3_I(createImage(Images.HEALTH_3.getName())),
 	HEALTH_4_I(createImage(Images.HEALTH_4.getName())),
-	HEALTH_5_I(createImage(Images.HEALTH_5.getName()));
+	HEALTH_5_I(createImage(Images.HEALTH_5.getName())),
+	TRASH_I(createImage(Images.TRASH.getName()));
 	
 	
 	
