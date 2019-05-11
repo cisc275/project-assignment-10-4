@@ -466,7 +466,7 @@ public class Model implements Serializable {
 		case 8:
 			Images Img1 = Images.OSPREY_MINIMAP;
 			dir = Images.OSPREY_MINIMAP;
-			x = this.frameWidth - 250;
+			x = 1120; //100; //1120; //this.frameWidth - 250;
 			// x =1120;
 			y = 0;
 			xSpeed = 0;
@@ -481,7 +481,7 @@ public class Model implements Serializable {
 		case 9:
 			Images Img2 = Images.NH_MINIMAP;
 			dir = Images.NH_MINIMAP;
-			x = this.frameWidth - 250;
+			x = 1120; //this.frameWidth - 250;
 			// x = 1120;
 			y = 0;
 			xSpeed = 0;

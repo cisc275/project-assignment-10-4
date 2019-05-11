@@ -284,8 +284,7 @@ public class View extends JPanel implements Serializable {
 		}
 		this.elements = elements;
 		this.miniMap = miniMap;
-		// this.miniMap = (MiniMap)elements.get(0); //first element will always be a
-		// MiniMap
+
 		if (miniMap.getSmallBird() == null) {
 			miniMap.setSmallBird(miniMap.getMapSpriteFile());
 		}
@@ -774,7 +773,21 @@ public class View extends JPanel implements Serializable {
 					g2d.drawImage(Images.getCorrespondingImage(miniMap.getImage()), miniMap.getXloc(), miniMap.getYloc(), this);
 					// System.out.println(miniMap.getMapXLoc() + ", " + miniMap.getMapYLoc() );
 					// System.out.println(miniMap.getXloc() + ", " + miniMap.getYloc() );
-					g2d.drawImage(Images.getCorrespondingImage(miniMap.getSmallBird()), miniMap.getMapXLoc(), miniMap.getMapYLoc(), this);
+					int smalBirdXLoc = miniMap.getMapXLoc();
+					int smalBirdYLoc = miniMap.getMapYLoc();
+					//g2d.drawImage(Images.getCorrespondingImage(miniMap.getSmallBird()), miniMap.getMapXLoc(), miniMap.getMapYLoc(), this);
+					g2d.drawImage(Images.getCorrespondingImage(miniMap.getSmallBird()), smalBirdXLoc, smalBirdYLoc, this);
+					g2d.drawLine(smalBirdXLoc, smalBirdYLoc, miniMap.getLastMapXLoc(), miniMap.getLastMapYLoc());
+					ArrayList<int []> birdPath = miniMap.getBirdPath();
+					if ( birdPath.size() > 1) {
+						g2d.setColor(Color.RED);
+												
+						for (int i = 0; i < birdPath.size()-1; i++) {
+							int [] startingPos = birdPath.get(i);
+							int [] nextPos = birdPath.get(i+1);
+							g2d.drawLine(startingPos[0], startingPos[1], nextPos[0] , nextPos[1]);
+						}
+					}
 				}
 			}
 		}

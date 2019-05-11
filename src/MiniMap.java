@@ -1,6 +1,8 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides the image showing the birds progress through its migratory journey.
@@ -15,45 +17,85 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class MiniMap extends GameElement implements Serializable {
 	/**
-	 * The constant int value of the distance the small bird Sprite on the minimap
-	 * has to travel during migration in the x direction for the Osprey
+	 * An ArrayList where each index contains an int array which will contain an ordered pair of x and y
+	 * coordinates of a point where the small bird on the miniMap has been
 	 */
-	private static final int OSPREY_SMALL_BIRD_TOTAL_X_DIST = 42;
+	private ArrayList<int []> birdPath;
+	/**
+	 * Offset to make drawing the path from the center of the bird image which is on the minimap
+	 * instead of the top left corner
+	 */
+	private static final int OSPREY_OFFSET = 15;
 	/**
 	 * The constant int value of the distance the small bird Sprite on the minimap
-	 * has to travel during migration in the y direction for the Osprey
+	 * has to travel in the x direction for the Osprey during the first stage of the migration 
 	 */
-	private static final int OSPREY_SMALL_BIRD_TOTAL_Y_DIST = 84;
+	private static final int OSPREY_SMALL_BIRD_TOTAL_X_DIST = 65;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel in the y direction for the Osprey during the first stage of the migration 
+	 */
+	private static final int OSPREY_SMALL_BIRD_TOTAL_Y_DIST = 57;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel in the x direction for the Osprey during the second stage of the migration 
+	 */	
+	private static final int OSPREY_BIRD_TOTAL_Y_DIST_SECOND_PATH = 50;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel in the x direction for the Osprey during the second stage of the migration 
+	 */	
+	private static final int OSPREY_BIRD_TOTAL_X_DIST_SECOND_PATH = 90;
 	/**
 	 * The constant int value of the x location of the small bird Sprite on the
 	 * minimap's starting position for the Osprey
 	 */
-	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1819; // 1819;
+	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1210; // 1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the
 	 * minimap's starting position for the Osprey
 	 */
-	static final int OSPREY_INITIAL_SMALL_BIRD_Y_LOC = 110;
+	static final int OSPREY_INITIAL_SMALL_BIRD_Y_LOC = 120;
 	/**
 	 * The constant int value of the x location of the small bird Sprite on the
 	 * minimap's starting position for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1805; // 1819;
+	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1265; // 1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the
 	 * minimap's starting position for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 140;
+	static final int NH_INITIAL_SMALL_BIRD_Y_LOC = 150;
 	/**
 	 * The constant int value of the distance the small bird Sprite on the minimap
-	 * has to travel during migration in the x direction for the Northern Harrier
+	 * has to travel during the first phase of migration in the x direction for the Northern Harrier
 	 */
-	private static final int NH_SMALL_BIRD_TOTAL_X_DIST = 30;
+	private static final int NH_SMALL_BIRD_TOTAL_X_DIST = 40;
 	/**
 	 * The constant int value of the distance the small bird Sprite on the minimap
-	 * has to travel during migration in the y direction for the Northern Harrier
+	 * has to travel during the first phase of migration in the y direction for the Northern Harrier
 	 */
-	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST = 110;
+	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST = 30;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel during the second phase of migration in the x direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_X_DIST_SECOND_PATH = 40;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel during the second phase of migration in the y direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST_SECOND_PATH = 15;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel during the third phase of migration in the x direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_X_DIST_THIRD_PATH = 1;
+	/**
+	 * The constant int value of the distance the small bird Sprite on the minimap
+	 * has to travel during the third phase of migration in the y direction for the Northern Harrier
+	 */
+	private static final int NH_SMALL_BIRD_TOTAL_Y_DIST_THIRD_PATH = 44;
 	/**
 	 * The int value of the X location of the small bird Sprite on the minimap
 	 */
@@ -73,7 +115,17 @@ public class MiniMap extends GameElement implements Serializable {
 	 * current location of the bird
 	 */
 	private Images smallBird;
-
+	/**
+	 * This is the value of the X location of the small bird Sprite on the minimap, prior to the last
+	 * call to updateMinimap in model
+	 */
+	private int lastMapXLoc;
+	/**
+	 * This is the value of the Y location of the small bird Sprite on the minimap, prior to the last
+	 * call to updateMinimap in model
+	 */
+	private int lastMapYLoc;
+	
 	/**
 	 * @param x             an int representing the x location of the GameElement
 	 * @param y             an int representing the y location of the GameElement
@@ -100,30 +152,32 @@ public class MiniMap extends GameElement implements Serializable {
 		this.mapSpriteFile = mapSpriteFile;
 		this.mapXLoc = mapXLoc;
 		this.mapYLoc = mapYLoc;
+		this.birdPath = new ArrayList<int []>() ;
+		
 	}
 	/**
-	 * @return the mapXLoc
+	 * @return the current int value of the x location of the of the small bird on the minimap
 	 */
 	public int getMapXLoc() {
 		return mapXLoc;
 	}
 
 	/**
-	 * @param mapXLoc the mapXLoc to set
+	 * @param the current int value of the x location of the of the small bird on the minimap
 	 */
 	public void setMapXLoc(int mapXLoc) {
 		this.mapXLoc = mapXLoc;
 	}
 
 	/**
-	 * @return the mapYLoc
+	 * @return the current int value of the y location of the of the small bird on the minimap
 	 */
 	public int getMapYLoc() {
 		return mapYLoc;
 	}
 
 	/**
-	 * @param mapYLoc the mapYLoc to set
+	 * @param the current int value of the y location of the of the small bird on the minimap
 	 */
 	public void setMapYLoc(int mapYLoc) {
 		this.mapYLoc = mapYLoc;
@@ -147,12 +201,50 @@ public class MiniMap extends GameElement implements Serializable {
 	public void setSmallBird(Images smallBird) {
 		this.smallBird = smallBird;
 	}
+	/**
+	 * @param the previously current int value of the x location of the of the small bird on the minimap          
+	 */
+	public void setLastMapXLoc(int lastMapXLoc) {
+		this.lastMapXLoc = lastMapXLoc;
+	}
+	/**
+	 * @return the previously current int value of the x location of the of the small bird on the minimap
+	 */
+	public int getLastMapXLoc() {
+		return this.lastMapXLoc;
+	}
+	/**
+	 * @param the previously current int value of the y location of the of the small bird on the minimap          
+	 */
+	public void setLastMapYLoc(int lastMapXLoc) {
+		this.lastMapYLoc = lastMapXLoc;
+	}
+	/**
+	 * @return the previously current int value of the y location of the of the small bird on the minimap
+	 */
+	public int getLastMapYLoc() {
+		return this.lastMapYLoc;
+	}
 
 	/**
 	 * @param mapSpriteFile the mapSpriteFile to set
 	 */
 	public void setMapSpriteFile(Images mapSpriteFile) {
 		this.mapSpriteFile = mapSpriteFile;
+	}
+	/**
+	 * @param An ArrayList where each index contains an int array which will contain an ordered pair of x and y
+	 * coordinates of a point where the small bird on the miniMap has been
+	 */
+	public void setBirdPath(ArrayList<int[]> birdPath) {
+		this.birdPath = birdPath;
+	}
+	/**
+	 * @return An ArrayList where each index contains an int array which will contain an ordered pair of x and y
+	 * coordinates of a point where the small bird on the miniMap has been
+	 */
+	public ArrayList<int[]> getBirdPath() {
+		return this.birdPath;
 	}
 
 	@Override
@@ -161,17 +253,63 @@ public class MiniMap extends GameElement implements Serializable {
 	}
 
 	void updatePositionOsprey(double percentDistTraveled) {
-		int yLoc = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
-		int xLoc = OSPREY_INITIAL_SMALL_BIRD_X_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
-		this.setMapYLoc(yLoc);
-		this.setMapXLoc(xLoc);
+		int [] birdPos = {this.getMapXLoc() + OSPREY_OFFSET , this.getMapYLoc()+ OSPREY_OFFSET };  //31x27
+		birdPath.add( birdPos  );
+		this.setLastMapXLoc(this.getMapXLoc());
+		this.setLastMapYLoc(this.getMapYLoc());
+		//System.out.println(this.lastMapXLoc + "," + this.lastMapYLoc);
+		if (percentDistTraveled <= .5) {
+			int yLoc = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_Y_DIST * 2 * percentDistTraveled);
+			int xLoc = OSPREY_INITIAL_SMALL_BIRD_X_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_X_DIST * 2 * percentDistTraveled);
+			this.setMapYLoc(yLoc);
+			this.setMapXLoc(xLoc);
+		}
+		
+		else
+		{   percentDistTraveled -= .5;
+			int midwayY = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - OSPREY_SMALL_BIRD_TOTAL_Y_DIST ;
+			int midwayX = OSPREY_INITIAL_SMALL_BIRD_X_LOC - OSPREY_SMALL_BIRD_TOTAL_X_DIST ;
+			int yLoc = midwayY - (int) (OSPREY_BIRD_TOTAL_Y_DIST_SECOND_PATH * 2 *  percentDistTraveled);
+			int xLoc = midwayX + (int) (OSPREY_BIRD_TOTAL_X_DIST_SECOND_PATH  * 2 * percentDistTraveled); 
+			this.setMapYLoc(yLoc);
+			this.setMapXLoc(xLoc);
+		}
 	}
 
 	void updatePositionNH(double percentDistTraveled) {
-		int yLoc = NH_INITIAL_SMALL_BIRD_Y_LOC - (int) (NH_SMALL_BIRD_TOTAL_Y_DIST * percentDistTraveled);
-		int xLoc = NH_INITIAL_SMALL_BIRD_X_LOC - (int) (NH_SMALL_BIRD_TOTAL_X_DIST * percentDistTraveled);
-		this.setMapYLoc(yLoc);
-		this.setMapXLoc(xLoc);
+		int [] birdPos = {this.getMapXLoc() + OSPREY_OFFSET , this.getMapYLoc() + OSPREY_OFFSET };  //31x27
+		birdPath.add( birdPos  );
+		this.setLastMapXLoc(this.getMapXLoc());
+		this.setLastMapYLoc(this.getMapYLoc());
+		if (percentDistTraveled <= .333333) {
+			int yLoc = NH_INITIAL_SMALL_BIRD_Y_LOC - (int) (NH_SMALL_BIRD_TOTAL_Y_DIST * 3 * percentDistTraveled);
+			int xLoc = NH_INITIAL_SMALL_BIRD_X_LOC - (int) (NH_SMALL_BIRD_TOTAL_X_DIST * 3 * percentDistTraveled);
+			this.setMapYLoc(yLoc);
+			this.setMapXLoc(xLoc);
+		}
+		
+		else if (percentDistTraveled <= .666666) {
+			percentDistTraveled -= .3333333;
+			int midwayY = NH_INITIAL_SMALL_BIRD_Y_LOC - NH_SMALL_BIRD_TOTAL_Y_DIST ;
+			int midwayX = NH_INITIAL_SMALL_BIRD_X_LOC - NH_SMALL_BIRD_TOTAL_X_DIST ;
+			int yLoc = midwayY - (int) (NH_SMALL_BIRD_TOTAL_Y_DIST_SECOND_PATH * 3 * percentDistTraveled);
+			int xLoc = midwayX + (int) (NH_SMALL_BIRD_TOTAL_X_DIST_SECOND_PATH * 3 * percentDistTraveled); 
+			this.setMapYLoc(yLoc);
+			this.setMapXLoc(xLoc);
+			System.out.println(xLoc + "," + yLoc);
+		}
+		
+		else 
+		{   percentDistTraveled -= .666666;
+			int midwayY = NH_INITIAL_SMALL_BIRD_Y_LOC - NH_SMALL_BIRD_TOTAL_Y_DIST - NH_SMALL_BIRD_TOTAL_Y_DIST_SECOND_PATH ;
+			int midwayX = NH_INITIAL_SMALL_BIRD_X_LOC - NH_SMALL_BIRD_TOTAL_X_DIST + NH_SMALL_BIRD_TOTAL_X_DIST_SECOND_PATH;
+			int yLoc = midwayY + (int) (NH_SMALL_BIRD_TOTAL_Y_DIST_THIRD_PATH * 3 * percentDistTraveled);
+			int xLoc = midwayX - (int) (NH_SMALL_BIRD_TOTAL_X_DIST_THIRD_PATH * 3 * percentDistTraveled); 
+			this.setMapYLoc(yLoc);
+			this.setMapXLoc(xLoc);
+		}
+
+		
 	}
 
 	@Override
