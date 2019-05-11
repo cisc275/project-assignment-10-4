@@ -32,7 +32,9 @@ public enum Images implements Serializable {
     POWERUP("images/powers.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
 	GRASS_PATH("images/background_grass_1080.png"),
+	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
 	WATER_PATH("images/background_water_1080.png"),
+	WATER_MIRROR_PATH("images/background_water_mirror_1080.png"),
 	HEALTH_0("images/0_health.png"),
 	HEALTH_1("images/1_health.png"),
 	HEALTH_2("images/2_health.png"),
@@ -103,8 +105,12 @@ public enum Images implements Serializable {
 			return ImagesLoaded.RECTANGLE_I.getImage();
 		case GRASS_PATH:
 			return ImagesLoaded.GRASS_PATH_I.getImage();
+		case GRASS_MIRROR_PATH:
+			return ImagesLoaded.GRASS_PATH_MIRROR_I.getImage();
 		case WATER_PATH:
 			return ImagesLoaded.WATER_PATH_I.getImage();
+		case WATER_MIRROR_PATH:
+			return ImagesLoaded.WATER_PATH_MIRROR_I.getImage();
 		case HEALTH_0:
 			return ImagesLoaded.HEALTH_0_I.getImage();
 		case HEALTH_1:

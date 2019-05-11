@@ -52,7 +52,7 @@ public class Background implements Serializable{
 	Background(int frameWidth) {
 		rand = new Random();
 		setBackground(0,Images.GRASS_PATH);
-		setBackground(1,Images.GRASS_PATH);
+		setBackground(1,Images.GRASS_MIRROR_PATH);
 		setBackgroundX(0,0);
 		setBackgroundX(1,frameWidth-3);
 		setWidth(frameWidth);
@@ -85,10 +85,22 @@ public class Background implements Serializable{
 		if (ospreyMode) {
 			int randResult = rand.nextInt(4);
 			if (randResult == 3) {
-				setBackground(num, Images.WATER_PATH);
+				if(num==0) {
+					setBackground(num, Images.WATER_PATH);
+				}
+				else {
+					setBackground(num, Images.WATER_MIRROR_PATH);
+				}
+					
 			}
 		} else {
-			setBackground(num, Images.GRASS_PATH);
+			if(num==0) {
+				setBackground(num, Images.GRASS_PATH);
+			}
+			else {
+				setBackground(num, Images.GRASS_MIRROR_PATH);
+			}
+			
 		}
 	}
 
@@ -98,8 +110,11 @@ public class Background implements Serializable{
 	 */
 	public boolean isWaterNextZone() {
 		if (ospreyMode) {
-			if ((bgXs[0] < bgXs[1] && bgs[1].equals(Images.WATER_PATH)) ||
-					(bgXs[1] < bgXs[0] && bgs[0].equals(Images.WATER_PATH))) {
+			if ((bgXs[0] < bgXs[1] && 
+					(bgs[1].equals(Images.WATER_PATH) || bgs[1].equals(Images.WATER_MIRROR_PATH))) 
+					||
+				(bgXs[1] < bgXs[0] && 
+						(bgs[0].equals(Images.WATER_PATH) || bgs[0].equals(Images.WATER_MIRROR_PATH)))){
 				return true;
 			} else {
 				return false;

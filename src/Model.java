@@ -32,7 +32,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 3000;
+	private static final int END_DISTANCE = 100000;
 	/**
 	 * The Bird the player will control
 	 */
