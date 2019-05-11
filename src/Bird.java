@@ -487,7 +487,7 @@ public class Bird extends GameElement implements Serializable {
 	 * @param stunTimer the stunTimer to set
 	 */
 	public void setStunTimer(int state) {
-		this.stunTimer.setTime(state);
+		this.stunTimer.setState(state);
 	}
 
 
@@ -509,7 +509,7 @@ public class Bird extends GameElement implements Serializable {
 	 * @param powerTimer the powerTimer to set
 	 */
 	public void setPowerTimer(int state) {
-		this.powerTimer.setTime(state);
+		this.powerTimer.setState(state);
 	}
     
      /**
