@@ -11,7 +11,7 @@ public class QuizQuestions implements Serializable{
 	 */
 	private QuizQuestion current;
 	
-	private QuizQuestion last; 
+	//private QuizQuestion last; 
 	
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class QuizQuestions implements Serializable{
 		qs.add("so powerful"); 
 		qs.add("you is a winner in my <3"); 
 		qs.add("so smart"); 
-		this.last = new QuizQuestion("Yo you win", qs, "I'm crying bc sad"); 
+		//this.last = new QuizQuestion("Yo you win", qs, "I'm crying bc sad"); 
 		/**
 		 * Create the questions
 		 */
@@ -76,9 +76,6 @@ public class QuizQuestions implements Serializable{
 			getUnusedQuestions().remove(result); 
 			current = result;
 		} 
-		else { 
-			current = last; 
-		}
 	}
 	/**
 	 * 
@@ -127,5 +124,7 @@ public class QuizQuestions implements Serializable{
 		this.unusedQuestions = unusedQuestions;
 	}
 	
-	
+	public boolean noMoreQuestions() {
+		return unusedQuestions.size() == 0; 
+	}
 }

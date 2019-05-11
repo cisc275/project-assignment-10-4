@@ -12,6 +12,9 @@ public class Timing implements Serializable {
 	public void reset() {
 		this.state = this.start; 
 	}
+	public void reset(int start) {
+		this.state = start; 
+	}
 	public void decr() {
 		this.state = this.state - 1; 
 	}
