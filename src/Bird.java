@@ -51,7 +51,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	private static final int MAX_STAMINA = 5;
 	/**
-	 * TODO add comment
+	 * a constant for how many ticks the bird is powered up
 	 */
 	private static final int POWER_TIMER_LIMIT = 250;
 	/**
@@ -124,7 +124,6 @@ public class Bird extends GameElement implements Serializable {
 	 * bird's starting location is set, its direction is set to 0 because it is not
 	 * moving up or down. Its xSpeed is set to 0 because it is not moving
 	 */
-
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath, Images.BIRD);
 		setXloc(START_X_LOC);
@@ -211,10 +210,6 @@ public class Bird extends GameElement implements Serializable {
 		this.height = Images.getCorrespondingImage(image).getHeight();
 	}
 
-	public void setPoweredUpPics(Images image) {
-		poweredUpPics = image;
-	}
-
 	/**
 	 * Handles adjusting the birds attributes after it becomes powered up by
 	 * consuming an instance of food with a, true value for its isSpecialFood
@@ -223,6 +218,9 @@ public class Bird extends GameElement implements Serializable {
 	void powerUp() {
 	}
 
+	/**
+	 * @return a rectangle representing the bounds of the bird
+	 */
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(this.xloc+20, this.yloc + 140, this.width - 65, 60);
@@ -310,7 +308,6 @@ public class Bird extends GameElement implements Serializable {
 			this.stamina = MAX_STAMINA;
 		}
 	}
-
 
 	/**
 	 * 
@@ -412,10 +409,26 @@ public class Bird extends GameElement implements Serializable {
 		this.fainted = fainted;
 	}
 
+	/**
+	 * @param image to set poweredUpPics to
+	 */
+	public void setPoweredUpPics(Images image) {
+		poweredUpPics = image;
+	}
+	
+	/**
+	 * @return an Image, the poweredUpPics
+	 */
 	public Images getPoweredUpPics() {
 		return this.poweredUpPics;
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method
+	 * a bird does not get points for collision
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return 0;
