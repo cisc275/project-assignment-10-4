@@ -19,11 +19,11 @@ public class Model implements Serializable {
 	/**
 	 * Constant for the maximum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MAX = 100;
+	static final int SPAWN_TIME_MAX = 40;
 	/**
 	 * Constant for minimum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MIN = 25;
+	static final int SPAWN_TIME_MIN = 10;
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
