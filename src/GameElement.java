@@ -182,7 +182,7 @@ public abstract class GameElement implements Serializable {
 	 */
 	void update(int speedAdjust) {
 		xloc -= (xSpeed + speedAdjust * 2);
-		polygon.translate(-xSpeed, 0);
+		polygon.translate(-(xSpeed + speedAdjust * 2), 0);
 	}
 
 	/**
