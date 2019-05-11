@@ -95,7 +95,7 @@ public class Model implements Serializable {
 	/**
 	 * The time passed on the way to timeToSpawn (in ticks)
 	 */
-	private int spawnTimer;
+	private Timing spawnTimer;
 	/**
 	 * The number of ticks before a new GameElement is to be spawned
 	 */
@@ -131,9 +131,10 @@ public class Model implements Serializable {
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		spawnTimer = 0;
+		 
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
 		// onScreenCollidables.add(generateImgPath(8));
 		// onScreenCollidables.add(generateImgPath(6));
@@ -168,9 +169,10 @@ public class Model implements Serializable {
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		spawnTimer = 0;
+		
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
 		// onScreenCollidables.add(generateImgPath(8));
 		// onScreenCollidables.add(generateImgPath(6));
@@ -221,12 +223,12 @@ public class Model implements Serializable {
 	 */
 	void updateSpawnTimer() {
 		if (spawnCount > 0) {
-			spawnTimer++;
-			if (spawnTimer == timeToSpawn) {
+			spawnTimer.decr(); 
+			if (spawnTimer.end()) {
 				spawnCount--;
 				spawnGameElement();
 				timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
-				spawnTimer = 0;
+				spawnTimer.reset(); 
 			}
 		}
 	}
@@ -363,7 +365,6 @@ public class Model implements Serializable {
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct");
-			this.bird.setPowerTimer(0);
 			this.bird.setPoweredUp(true);
 		} else {
 			System.out.println("False");
