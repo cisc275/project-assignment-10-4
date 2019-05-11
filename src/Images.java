@@ -1,9 +1,6 @@
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 
-import javax.imageio.ImageIO;
 
 /**
  * ENUM representing every the image sources for food and obstacles
@@ -69,8 +66,9 @@ public enum Images implements Serializable {
 			return ImagesLoaded.BIRD_I.getImageArray();
 		case POWERUP:
 			return ImagesLoaded.POWERUP_I.getImageArray();
+		default:
+			return null;
 		}
-		return null;
 	}
 	
 	static BufferedImage getCorrespondingImage(Images e) {
@@ -123,7 +121,8 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_4_I.getImage();
 		case HEALTH_5:
 			return ImagesLoaded.HEALTH_5_I.getImage();
+		default:
+			return null;
 		}
-		return null;
 	}
 }

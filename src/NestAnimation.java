@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("serial")
 public class NestAnimation implements Serializable {
 	/**
 	 * x location of bird nesting
