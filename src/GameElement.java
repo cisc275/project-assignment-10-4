@@ -1,12 +1,8 @@
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 /**
  * Defines the common attributes and action which all elements that appear in

@@ -2,7 +2,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-import javax.imageio.ImageIO;
 
 /**
  * Bird is the sole user controlled GameElement and the focus of the game. The
