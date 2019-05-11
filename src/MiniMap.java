@@ -49,7 +49,7 @@ public class MiniMap extends GameElement implements Serializable {
 	 * The constant int value of the x location of the small bird Sprite on the
 	 * minimap's starting position for the Osprey
 	 */
-	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1210; // 1819;
+	static final int OSPREY_INITIAL_SMALL_BIRD_X_LOC = 1764; // 1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the
 	 * minimap's starting position for the Osprey
@@ -59,7 +59,7 @@ public class MiniMap extends GameElement implements Serializable {
 	 * The constant int value of the x location of the small bird Sprite on the
 	 * minimap's starting position for the Northern Harrier
 	 */
-	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1265; // 1819;
+	static final int NH_INITIAL_SMALL_BIRD_X_LOC = 1812; // 1819;
 	/**
 	 * The constant int value of the y location of the small bird Sprite on the
 	 * minimap's starting position for the Northern Harrier
