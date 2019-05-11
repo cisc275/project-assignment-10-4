@@ -363,6 +363,7 @@ public class Model implements Serializable {
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
 			System.out.println("Correct");
+			this.bird.setPowerTimer(0);
 			this.bird.setPoweredUp(true);
 		} else {
 			System.out.println("False");

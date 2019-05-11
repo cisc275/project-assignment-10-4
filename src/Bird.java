@@ -456,4 +456,19 @@ public class Bird extends GameElement implements Serializable {
 	public static int getStunTimeLimit() {
 		return STUN_TIME_LIMIT;
 	}
+	
+	/**
+	 * @return the powerTimer
+	 */
+	public int getPowerTimer() {
+		return powerTimer;
+	}
+
+
+	/**
+	 * @param powerTimer the powerTimer to set
+	 */
+	public void setPowerTimer(int powerTimer) {
+		this.powerTimer = powerTimer;
+	}
 }
