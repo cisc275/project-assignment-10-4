@@ -76,9 +76,6 @@ public class QuizQuestions implements Serializable{
 			getUnusedQuestions().remove(result); 
 			current = result;
 		} 
-		else { 
-			current = last; 
-		}
 	}
 	/**
 	 * 
@@ -127,5 +124,7 @@ public class QuizQuestions implements Serializable{
 		this.unusedQuestions = unusedQuestions;
 	}
 	
-	
+	public boolean noMoreQuestions() {
+		return unusedQuestions.size() == 0; 
+	}
 }
