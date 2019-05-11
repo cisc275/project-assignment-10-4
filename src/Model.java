@@ -27,7 +27,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 20000;
+	private static final int END_DISTANCE = 100000;
 	/**
 	 * The Bird the player will control
 	 */
@@ -373,17 +373,17 @@ public class Model implements Serializable {
 		quizMode = false;
 		doingQuiz = false;
 	}
-
+	
 	/**
-	 * @return A GameElement . Uses the Images enumeration to select the path for an
-	 *         image based off a random number. And depending on which type of image
-	 *         it is, it will generate its starting position appropriately.
+	 * Method to generate random choice for generating image
+	 * @param choice
+	 * @return new randomized choice
 	 */
-	private GameElement generateImgPath(int choice) {
-		int curImage = 0;
+	public int randomImage(int choice) {
 		Random randImg = new Random();
-		Random randLoc = new Random();
-		if (choice < 0) { // TODO Make this region a separate method
+		int curImage = 0;
+		
+		if (choice < 0) {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
 					curImage = randImg.nextInt(3) + 1;
@@ -400,107 +400,130 @@ public class Model implements Serializable {
 		} else {
 			curImage = choice;
 		}
-		int x = frameWidth;
-		int y;
-		String ImgPath = "";
-		Images dir;
-		int xSpeed = 20;
+		return curImage;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return a Food in the correct location based on its type
+	 */
+	public GameElement genFood(Images i) {
+		Random randLoc = new Random();
+		GameElement newGameElement;
+		if(i.equals(Images.FISH) || i.equals(Images.GOLDENFISH)) {
+			int y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
+			newGameElement = new Food(true, frameWidth, y, 20, 0, i.getName(), i);
+		}else {
+			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
+			newGameElement = new Food(false, frameWidth, y, 20, 0, i.getName(), i);
+		}
+		return newGameElement;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return an Obstacle in the correct location based on its type
+	 */
+	public GameElement genObstacle(Images i) {
+		Random randLoc = new Random();
+		GameElement newGameElement;
+		if(i.equals(Images.BUILDING) || i.equals(Images.FOX)) {
+			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
+			newGameElement = new Food(true, frameWidth, y, 20, 0, i.getName(), i);
+		}else {
+			int y = randLoc.nextInt(frameHeight / 2);
+			newGameElement = new Food(false, frameWidth, y, 20, 0, i.getName(), i);
+		}
+		return newGameElement;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return a Map and MapSprite in the correct location based on its type
+	 */
+	public GameElement genMap(Images i) {
+		GameElement newGameElement;
+		int x = this.frameWidth - 250;
+		// x =1120;
+		int y = 0;
+		int xSpeed = 0;
 		int ySpeed = 0;
-		int xLocOfBird;
-		int yLocOfBird;
-		Images mapSpriteFile;
+		if(i.equals(Images.OSPREY_MINIMAP)) {
+			int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
+			int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, i, Images.OSPREY_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird);
+		}else {
+			int xLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_X_LOC;
+			int yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, i, Images.NH_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird);
+		}
+		return newGameElement;
+	}
 
+	/**
+	 * @return A GameElement . Uses the Images enumeration to select the path for an
+	 *         image based off a random number. And depending on which type of image
+	 *         it is, it will generate its starting position appropriately.
+	 */
+	private GameElement generateImgPath(int choice) {
+		int curImage = randomImage(choice);
+		Random randLoc = new Random();
+		Images dir;
 		GameElement newGameElement;
 
-		switch (curImage) { // TODO make the bodies of this switch modularized
+		switch (curImage) {
 		case 0:
 			dir = Images.BUILDING;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.BUILDING);
 			break;
 		case 1:
 			dir = Images.EAGLE;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight / 2);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.EAGLE);
 			break;
 		case 2:
 			dir = Images.GOLDENFISH;
-			ImgPath = dir.getName();
-			y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
-			newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genFood(Images.GOLDENFISH);
 			break;
 		case 3:
 			dir = Images.FISH;
-			ImgPath = dir.getName();
-			y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
-			newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genFood(Images.FISH);
 			break;
 		case 4:
 			dir = Images.MOUSE;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genFood(Images.MOUSE);
 			break;
 		case 5:
 			dir = Images.GOLDENMOUSE;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genFood(Images.GOLDENMOUSE);
 			break;
 		case 6:
 			dir = Images.OWL;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight / 2);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.OWL);
 			break;
 		case 7:
 			dir = Images.FOX;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.FOX);
 			break;
 		case 8:
-			Images Img1 = Images.OSPREY_MINIMAP;
 			dir = Images.OSPREY_MINIMAP;
-			x = this.frameWidth - 250;
-			// x =1120;
-			y = 0;
-			xSpeed = 0;
-			ySpeed = 0;
-			xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
-			yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
-			// int xLocOfBird = this.frameWidth-101;
-			// int yLocOfBird = 110;
-			mapSpriteFile = Images.OSPREY_IMG_FOR_MINIMAP;
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img1, mapSpriteFile, xLocOfBird, yLocOfBird);
+			newGameElement = genMap(dir);
 			break;
 		case 9:
-			Images Img2 = Images.NH_MINIMAP;
 			dir = Images.NH_MINIMAP;
-			x = this.frameWidth - 250;
-			// x = 1120;
-			y = 0;
-			xSpeed = 0;
-			ySpeed = 0;
-			xLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_X_LOC;
-			yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
-			// int xLocOfBird = this.frameWidth-101;
-			// int yLocOfBird = 110;
-			mapSpriteFile = Images.NH_IMG_FOR_MINIMAP;
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img2, mapSpriteFile, xLocOfBird, yLocOfBird);
+			newGameElement = genMap(dir);
 			break;
 		default:
 			dir = Images.RECTANGLE;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			int y = randLoc.nextInt(frameHeight);
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, dir.getName(), dir);
 		}
 		newGameElement.setType(dir);
-		//System.out.println(dir);
 		return newGameElement;
 	}
+		
 
 	/**
 	 * Spawns new collidable immediately
