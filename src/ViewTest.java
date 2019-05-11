@@ -6,12 +6,9 @@ import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,13 +25,7 @@ class ViewTest {
 
 	@Test
 	void updateViewTest() {
-		BufferedImage bi = null;
-		try {
-			bi = ImageIO.read(new File("images/big_bird_animate.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// to be updated
+		// TODO check that this still works with the new images system
 		Controller c = new Controller();
 		View v = c.getView();
 		v.setGameBackground(new Background(1000));
@@ -44,7 +35,7 @@ class ViewTest {
 		GameElement g1 = new Obstacle(100, 100, 1, 0, "", Images.EAGLE);
 		g1.setImagePath("images/big_bird_animate.png");
 		GameElement g2 = new Obstacle(500, 100, 1, 0, "", Images.FISH);
-		g2.setImage(bi);
+		g2.setImage(Images.BIRD);
 		list.add(g1);
 		list.add(g2);
 		v.setElements(list);
@@ -53,20 +44,20 @@ class ViewTest {
 		View v1 = c.getView();
 		v.setGameBackground(new Background(1500));
 		Bird ba = new Bird(0, 0, 1, 1, "images/big_bird_animate.png");
-		ba.setImage(bi);
+		ba.setImage(Images.BIRD);
 		v1.setBird(ba);
 		List<GameElement> list1 = new ArrayList<GameElement>();
 		GameElement g1a = new Obstacle(100, 100, 1, 0, "", Images.EAGLE);
-		g1a.setImage(bi);
+		g1a.setImage(Images.BIRD);
 		g1a.setImagePath("images/big_bird_animate.png");
 		GameElement g2a = new Obstacle(500, 100, 1, 0, "", Images.FISH);
-		g2a.setImage(bi);
+		g2a.setImage(Images.BIRD);
 		list1.add(g1a);
 		list1.add(g2a);
 		v.setElements(list1);
 
-		v.updateView(b, list, new MiniMap(5, 5, 5, 5, "images/big_bird_animate.png", "", 0, 0), new Background(1500));
-
+		v.updateView(b, list, new MiniMap(5, 5, 5, 5, Images.BIRD, Images.OSPREY_MINIMAP, 0, 0), 
+					new Background(1500));
 		assertEquals(v.getBird().getImage(), v1.getBird().getImage());
 		assertEquals(v.getBackground(), v1.getBackground());
 		assertEquals(v.getElements().get(0).getImage(), v1.getElements().get(0).getImage());

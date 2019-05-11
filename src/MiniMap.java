@@ -1,6 +1,4 @@
-import java.awt.image.BufferedImage;
 import java.io.*;
-import javax.imageio.ImageIO;
 
 /**
  * Provides the image showing the birds progress through its migratory journey.

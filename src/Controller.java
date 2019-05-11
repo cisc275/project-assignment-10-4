@@ -4,7 +4,6 @@ import java.awt.event.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.io.*;
 import java.util.List; 
