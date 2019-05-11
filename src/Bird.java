@@ -163,7 +163,7 @@ public class Bird extends GameElement implements Serializable {
 		setYloc(getYloc() + (getySpeed() * (-1) * direction));
 		if (isStunned) {
 			stunTimer++;
-			if (stunTimer >= STUN_TIME_LIMIT) {
+			if (stunTimer >= getStunTimeLimit()) {
 				stunTimer = 0;
 				isStunned = false;
 			}
@@ -432,5 +432,28 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public void setPoints(int points) {
 		this.points = points;
+	}
+	
+	/**
+	 * @return the stunTimer
+	 */
+	public int getStunTimer() {
+		return stunTimer;
+	}
+
+
+	/**
+	 * @param stunTimer the stunTimer to set
+	 */
+	public void setStunTimer(int stunTimer) {
+		this.stunTimer = stunTimer;
+	}
+
+
+	/**
+	 * @return the stunTimeLimit
+	 */
+	public static int getStunTimeLimit() {
+		return STUN_TIME_LIMIT;
 	}
 }
