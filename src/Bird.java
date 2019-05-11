@@ -478,8 +478,8 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * @param powerTimer the powerTimer to set
 	 */
-	public void setPowerTimer(Timing powerTimer) {
-		this.powerTimer = powerTimer;
+	public void setPowerTimer(int state) {
+		this.powerTimer.setTime(state);
 	}
     
      /**
