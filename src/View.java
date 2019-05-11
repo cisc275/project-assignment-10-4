@@ -765,9 +765,9 @@ public class View extends JPanel implements Serializable {
 						AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 						g2d.setComposite(ac);
 					}
+					//g2d.drawRect(bird.getBounds().x,bird.getBounds().y,bird.getBounds().width,bird.getBounds().height);
 					g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
 					g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
-					//g2d.drawRect(bird.xloc,bird.yloc+40,bird.width-75,60);
 				}
 				if (miniMap != null) {
 					//System.out.println(miniMap.getImage());
