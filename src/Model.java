@@ -387,7 +387,7 @@ public class Model implements Serializable {
 				if (background.isWaterNextZone()) {
 					curImage = randImg.nextInt(4) + 1;
 					if (curImage == 3)
-						curImage = randImg.nextInt(3) + 2; // re-roll on a golden fish
+						curImage = randImg.nextInt(2) + 3; // re-roll on a golden fish
 				} else {
 					curImage = randImg.nextInt(2);
 				}
