@@ -100,7 +100,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Represents the time stunned upon collision
 	 */
-	private int stunTimer;
+	private Timing stunTimer;
 	/**
 	 * If true, the bird has run out of stamina and the level needs to restart
 	 */
@@ -109,7 +109,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * An integer representing the time left for the powerup
 	 */
-	private int powerTimer;
+	private Timing powerTimer;
 	/**
 	 * An int representing the player's score
 	 */
@@ -136,7 +136,8 @@ public class Bird extends GameElement implements Serializable {
 		setWidth(BIRD_WIDTH);
 		frameNum = 0;
 		poweredUpPics = Images.POWERUP;
-		stunTimer = 0;
+		stunTimer = new Timing(STUN_TIME_LIMIT); 
+		powerTimer = new Timing(POWER_TIMER_LIMIT);
 		foodStreak = 0;
 		stamina = MAX_STAMINA;
 		staminaPics = new Images[6];
@@ -166,16 +167,16 @@ public class Bird extends GameElement implements Serializable {
 		setXloc(getXloc() + getxSpeed());
 		setYloc(getYloc() + (getySpeed() * (-1) * direction));
 		if (isStunned) {
-			stunTimer++;
-			if (stunTimer >= getStunTimeLimit()) {
-				stunTimer = 0;
+			stunTimer.decr(); 
+			if (stunTimer.end()) {
+				stunTimer.reset(); 
 				isStunned = false;
 			}
 		}
 		if (poweredUp) {
-			powerTimer++;
-			if (powerTimer >= POWER_TIMER_LIMIT) {
-				powerTimer = 0;
+			powerTimer.decr(); 
+			if (powerTimer.end()) {
+				powerTimer.reset(); 
 				poweredUp = false;
 			}
 		}
@@ -447,7 +448,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * @return the stunTimer
 	 */
-	public int getStunTimer() {
+	public Timing getStunTimer() {
 		return stunTimer;
 	}
 
@@ -455,8 +456,8 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * @param stunTimer the stunTimer to set
 	 */
-	public void setStunTimer(int stunTimer) {
-		this.stunTimer = stunTimer;
+	public void setStunTimer(int state) {
+		this.stunTimer.setTime(state);
 	}
 
 
@@ -467,15 +468,27 @@ public class Bird extends GameElement implements Serializable {
 		return STUN_TIME_LIMIT;
 	}
 
+	/**
+	 * @return the powerTimer
+	 */
+	public Timing getPowerTimer() {
+		return powerTimer;
+	}
 
 	/**
+	 * @param powerTimer the powerTimer to set
+	 */
+	public void setPowerTimer(Timing powerTimer) {
+		this.powerTimer = powerTimer;
+	}
+    
+     /**
 	 * @return the foodStreak
 	 */
 	public int getFoodStreak() {
 		return foodStreak;
 	}
-
-
+	
 	/**
 	 * @param foodStreak the foodStreak to set
 	 */
