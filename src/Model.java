@@ -410,10 +410,10 @@ public class Model implements Serializable {
 		GameElement newGameElement;
 		if(i.equals(Images.FISH) || i.equals(Images.GOLDENFISH)) {
 			int y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
-			newGameElement = new Food(true, frameWidth, y, 20, 0, i.getName(), i);
-		}else {
+			newGameElement = new Food(i.equals(Images.GOLDENFISH), frameWidth, y, 20, 0, i.getName(), i);
+		} else {
 			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
-			newGameElement = new Food(false, frameWidth, y, 20, 0, i.getName(), i);
+			newGameElement = new Food(i.equals(Images.GOLDENMOUSE), frameWidth, y, 20, 0, i.getName(), i);
 		}
 		return newGameElement;
 	}
@@ -428,10 +428,10 @@ public class Model implements Serializable {
 		GameElement newGameElement;
 		if(i.equals(Images.BUILDING) || i.equals(Images.FOX)) {
 			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
-			newGameElement = new Food(true, frameWidth, y, 20, 0, i.getName(), i);
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
 		}else {
 			int y = randLoc.nextInt(frameHeight / 2);
-			newGameElement = new Food(false, frameWidth, y, 20, 0, i.getName(), i);
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
 		}
 		return newGameElement;
 	}
