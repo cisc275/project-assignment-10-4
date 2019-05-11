@@ -342,7 +342,7 @@ public class Model implements Serializable {
 				onScreenCollidables.remove(collided);
 				spawnCount++;
 			}
-			if (collided.getSpecialFood()) {
+			if (collided.getSpecialFood() && !theQuestions.noMoreQuestions()) {
 				quizMode = true;
 			}
 		}
@@ -386,15 +386,24 @@ public class Model implements Serializable {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
 					curImage = randImg.nextInt(4) + 1;
-					if (curImage == 3)
+					if (curImage == 3 && !theQuestions.noMoreQuestions()) {
 						curImage = randImg.nextInt(2) + 3; // re-roll on a golden fish
+					} 
+					else if (theQuestions.noMoreQuestions() && curImage == 3) {
+						curImage += 1; 
+					}
+				
 				} else {
 					curImage = randImg.nextInt(2);
 				}
 			} else {
 				curImage = randImg.nextInt(4) + 5;
-				if (curImage == 6)
+				if (curImage == 6 && !theQuestions.noMoreQuestions()) {
 					curImage = randImg.nextInt(2) + 5; // re-roll on a golden mouse
+				} 
+				else if (theQuestions.noMoreQuestions() && curImage == 6) {
+					curImage -= 1; 
+				}
 			}
 		} else {
 			curImage = choice;
