@@ -11,7 +11,7 @@ import java.io.*;
  *
  */
 @SuppressWarnings("serial")
-public class Background implements Serializable{
+public class Background implements Serializable {
 	/**
 	 * An int representing the offset gap between background panels
 	 */
@@ -62,8 +62,10 @@ public class Background implements Serializable{
 	 * Updates the position of the background images to scroll.
 	 * If a background image is completely off screen to the left, move it
 	 * so its position is off screen to the right, next to the other background
+	 * @param speedAdjust how much to adjust the scroll speed by for this tick
 	 */
-	public void update() {
+	public void update(int speedAdjust) {
+		backgroundScrollSpeed = INITIAL_SCROLL_SPEED + speedAdjust;
 		bgXs[0] -= backgroundScrollSpeed;
 		bgXs[1] -= backgroundScrollSpeed;
 		if(bgXs[0] + width <= 0) {
