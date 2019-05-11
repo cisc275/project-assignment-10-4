@@ -85,7 +85,8 @@ public class QuizQuestions implements Serializable{
 		return this.getUnusedQuestions().size(); 
 	}
 	/**
-	 * 
+	 * returns the unused questions as a String
+	 * @return String of unused questinos
 	 */
 	@Override
 	public String toString() {
@@ -124,6 +125,11 @@ public class QuizQuestions implements Serializable{
 		this.unusedQuestions = unusedQuestions;
 	}
 	
+	/**
+	 * returns true if there are no more unused questions
+	 * returns false if there are still unused questions
+	 * @return boolean
+	 */
 	public boolean noMoreQuestions() {
 		return unusedQuestions.size() == 0; 
 	}
