@@ -78,6 +78,13 @@ public abstract class GameElement implements Serializable {
 		this.ySpeed = ySpeed;
 		this.imagePath = imagePath;
 		this.image = type;
+		if (type.equals(Images.BIRD) || type.equals(Images.POWERUP)) { // TODO this ain't pretty
+			this.width = Images.getCorrespondingImageArray(type)[0].getWidth();
+			this.height = Images.getCorrespondingImageArray(type)[0].getHeight();
+		} else {
+			this.width = Images.getCorrespondingImage(type).getWidth();
+			this.height = Images.getCorrespondingImage(type).getHeight();
+		}
 		if (xPolyVals.isEmpty()) {
 			putPolyCoords();
 		}

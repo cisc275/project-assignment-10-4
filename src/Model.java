@@ -27,7 +27,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 3000;
+	private static final int END_DISTANCE = 20000;
 	/**
 	 * The Bird the player will control
 	 */
@@ -257,6 +257,9 @@ public class Model implements Serializable {
 			GameElement curr = iter.next();
 			curr.update();
 			if (curr.isOffScreen()) {
+				System.out.println("Object " + curr + " went off screen at (" 
+									+ curr.getXloc() + "," + curr.getYloc()
+									+ "). Its width is " + curr.getWidth() + ".");
 				size++;
 				iter.remove();
 			}
