@@ -392,7 +392,7 @@ public class Model implements Serializable {
 					else if (theQuestions.noMoreQuestions() && curImage == 3) {
 						curImage += 1; 
 					}
-					
+				
 				} else {
 					curImage = randImg.nextInt(2);
 				}
