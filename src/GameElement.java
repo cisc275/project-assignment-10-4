@@ -99,6 +99,11 @@ public abstract class GameElement implements Serializable {
 		yPolyVals.put(Images.BUILDING, new int[] { 0, 0, 675, 675 });
 		// System.out.println(xPolyVals.get(Images.BUILDING).length ==
 		// yPolyVals.get(Images.BUILDING).length);
+		
+		xPolyVals.put(Images.TRASH, new int[] { 181, 122, 52, 48, 3, 14, 3, 88, 219, 331, 462, 471, 479, 422, 415,
+				283, 270, 181});
+		yPolyVals.put(Images.TRASH, new int[] {55, 2, 35, 193, 313, 439, 562, 576, 603, 573, 569, 429, 310, 149, 23,
+				13, 155, 170});
 
 		xPolyVals.put(Images.MOUSE, new int[] { 6, 23, 38, 35, 42, 49, 57, 66, 71, 94, 115, 129, 132, 132, 139, 132,
 				116, 67, 53, 63, 54, 44, 44, 60, 62, 46, 32, 33, 50, 49, 38, 21, 9 });

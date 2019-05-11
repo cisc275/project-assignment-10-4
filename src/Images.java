@@ -37,7 +37,8 @@ public enum Images implements Serializable {
 	HEALTH_2("images/2_health.png"),
 	HEALTH_3("images/3_health.png"),
 	HEALTH_4("images/4_health.png"),
-	HEALTH_5("images/5_health.png");
+	HEALTH_5("images/5_health.png"),
+	TRASH("images/plasticbag_1080.png");
 	
 	
 	
@@ -121,6 +122,8 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_4_I.getImage();
 		case HEALTH_5:
 			return ImagesLoaded.HEALTH_5_I.getImage();
+		case TRASH:
+			return ImagesLoaded.TRASH_I.getImage();
 		default:
 			return null;
 		}

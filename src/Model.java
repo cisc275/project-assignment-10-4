@@ -127,7 +127,7 @@ public class Model implements Serializable {
 		// theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
 		this.background = new Background(frameWidth);
 		this.quizMode = false;
-		miniMap = (MiniMap) generateImgPath(8);
+		miniMap = (MiniMap) generateImgPath(9);
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
@@ -164,7 +164,7 @@ public class Model implements Serializable {
 		}
 		this.background = new Background(frameWidth);
 		this.quizMode = false;
-		miniMap = (MiniMap) generateImgPath(8);
+		miniMap = (MiniMap) generateImgPath(9);
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
@@ -209,9 +209,9 @@ public class Model implements Serializable {
 	 */
 	public void createMiniMap() {
 		if (bird.getBirdType().equalsIgnoreCase("Osprey")) {
-			miniMap = (MiniMap) generateImgPath(8);
-		} else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
 			miniMap = (MiniMap) generateImgPath(9);
+		} else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
+			miniMap = (MiniMap) generateImgPath(10);
 		}
 	}
 
@@ -383,16 +383,16 @@ public class Model implements Serializable {
 		if (choice < 0) {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
-					curImage = randImg.nextInt(3) + 1;
-					if (curImage == 2)
-						curImage = randImg.nextInt(2) + 2; // re-roll on a golden fish
+					curImage = randImg.nextInt(4) + 1;
+					if (curImage == 3)
+						curImage = randImg.nextInt(3) + 2; // re-roll on a golden fish
 				} else {
 					curImage = randImg.nextInt(2);
 				}
 			} else {
-				curImage = randImg.nextInt(4) + 4;
-				if (curImage == 5)
-					curImage = randImg.nextInt(2) + 4; // re-roll on a golden mouse
+				curImage = randImg.nextInt(4) + 5;
+				if (curImage == 6)
+					curImage = randImg.nextInt(2) + 5; // re-roll on a golden mouse
 			}
 		} else {
 			curImage = choice;
@@ -428,6 +428,9 @@ public class Model implements Serializable {
 		GameElement newGameElement;
 		if(i.equals(Images.BUILDING) || i.equals(Images.FOX)) {
 			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+		}else if(i.equals(Images.TRASH)) {
+			int y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
 			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
 		}else {
 			int y = randLoc.nextInt(frameHeight / 2);
@@ -481,34 +484,38 @@ public class Model implements Serializable {
 			newGameElement = genObstacle(Images.EAGLE);
 			break;
 		case 2:
+			dir = Images.TRASH;
+			newGameElement = genObstacle(Images.TRASH);
+			break;
+		case 3:
 			dir = Images.GOLDENFISH;
 			newGameElement = genFood(Images.GOLDENFISH);
 			break;
-		case 3:
+		case 4:
 			dir = Images.FISH;
 			newGameElement = genFood(Images.FISH);
 			break;
-		case 4:
+		case 5:
 			dir = Images.MOUSE;
 			newGameElement = genFood(Images.MOUSE);
 			break;
-		case 5:
+		case 6:
 			dir = Images.GOLDENMOUSE;
 			newGameElement = genFood(Images.GOLDENMOUSE);
 			break;
-		case 6:
+		case 7:
 			dir = Images.OWL;
 			newGameElement = genObstacle(Images.OWL);
 			break;
-		case 7:
+		case 8:
 			dir = Images.FOX;
 			newGameElement = genObstacle(Images.FOX);
 			break;
-		case 8:
+		case 9:
 			dir = Images.OSPREY_MINIMAP;
 			newGameElement = genMap(dir);
 			break;
-		case 9:
+		case 10:
 			dir = Images.NH_MINIMAP;
 			newGameElement = genMap(dir);
 			break;
