@@ -13,6 +13,10 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class Background implements Serializable{
 	/**
+	 * An int representing the offset gap between background panels
+	 */
+	private static final int BACKGROUND_OFFSET = 5;
+	/**
 	 * Constant for speed at which Background begins to scroll at
 	 */
 	private static final int INITIAL_SCROLL_SPEED = 10;
@@ -63,11 +67,11 @@ public class Background implements Serializable{
 		bgXs[0] -= backgroundScrollSpeed;
 		bgXs[1] -= backgroundScrollSpeed;
 		if(bgXs[0] + width <= 0) {
-			bgXs[0] = width-8;
+			bgXs[0] = bgXs[1] + width - BACKGROUND_OFFSET;
 			updateBackgroundZone(0);
 		}
 		if(bgXs[1] + width <= 0) {
-			bgXs[1] = width-8;
+			bgXs[1] = bgXs[0] + width;
 			updateBackgroundZone(1);
 		}
 	}
