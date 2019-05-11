@@ -46,7 +46,7 @@ public class Background implements Serializable {
 	private Random rand;
 
 	/**
-	 * 
+	 * Constructor for backgrounds
 	 * @param model.getWidth() the width dimension of the screen
 	 */
 	Background(int frameWidth) {
@@ -122,7 +122,12 @@ public class Background implements Serializable {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Overrides the Object equals method
+	 * @param object to be compared to this instance
+	 * @return a boolean representing the equality of the parameter and this instance
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Background) {
