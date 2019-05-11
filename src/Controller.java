@@ -94,9 +94,16 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Timer for handling the nesting animation
 	 */
 	Timer s;
-	
+	/**
+	 * number of iterations through the game
+	 */
 	private int timesPlayed;
-	 
+	
+	/**
+	 * constructor for Controller
+	 * instantiates all buttons
+	 * sets all panels
+	 */
 	public Controller() {
 		timesPlayed = 0;
 		Obutton = new JButton("Osprey");
@@ -169,6 +176,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     	};
 	}
 	
+	/**
+	 * @return the controller object
+	 */
 	protected Controller getController() {
 		return this;
 	}
@@ -325,6 +335,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		oos.writeObject(model);
 	}
 	
+	/**
+	 * reloads the game at the previously saved point
+	 * restarts the game at that point immediately
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@SuppressWarnings("resource")
 	public void reloadGame() throws IOException, ClassNotFoundException {
 		FileInputStream in = new FileInputStream("gameState.txt");

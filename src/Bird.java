@@ -51,7 +51,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	private static final int MAX_STAMINA = 5;
 	/**
-	 * TODO add comment
+	 * a constant for how many ticks the bird is powered up
 	 */
 	private static final int POWER_TIMER_LIMIT = 250;
 	/**
@@ -105,7 +105,6 @@ public class Bird extends GameElement implements Serializable {
 	 * If true, the bird has run out of stamina and the level needs to restart
 	 */
 	private boolean fainted = false;
-
 	/**
 	 * An integer representing the time left for the powerup
 	 */
@@ -124,7 +123,6 @@ public class Bird extends GameElement implements Serializable {
 	 * bird's starting location is set, its direction is set to 0 because it is not
 	 * moving up or down. Its xSpeed is set to 0 because it is not moving
 	 */
-
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath, Images.BIRD);
 		setXloc(START_X_LOC);
@@ -144,9 +142,9 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[0] = Images.HEALTH_0;
 		staminaPics[1] = Images.HEALTH_1;
 		staminaPics[2] = Images.HEALTH_2;
-		staminaPics[3] = Images.HEALTH_3;
-		staminaPics[4] = Images.HEALTH_4;
-		staminaPics[5] = Images.HEALTH_5;
+		staminaPics[3] = Images.HEALTH_3_OSPREY;
+		staminaPics[4] = Images.HEALTH_4_OSPREY;
+		staminaPics[5] = Images.HEALTH_5_OSPREY;
 		staminaImage = staminaPics[0];
 		//this.setType(Images.NORTHERN_HARRIER);
 	}
@@ -211,10 +209,6 @@ public class Bird extends GameElement implements Serializable {
 		this.height = Images.getCorrespondingImage(image).getHeight();
 	}
 
-	public void setPoweredUpPics(Images image) {
-		poweredUpPics = image;
-	}
-
 	/**
 	 * Handles adjusting the birds attributes after it becomes powered up by
 	 * consuming an instance of food with a, true value for its isSpecialFood
@@ -223,6 +217,9 @@ public class Bird extends GameElement implements Serializable {
 	void powerUp() {
 	}
 
+	/**
+	 * @return a rectangle representing the bounds of the bird
+	 */
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(this.xloc+20, this.yloc + 140, this.width - 65, 60);
@@ -311,7 +308,6 @@ public class Bird extends GameElement implements Serializable {
 		}
 	}
 
-
 	/**
 	 * 
 	 * @return the staminaPics of the bird
@@ -366,9 +362,25 @@ public class Bird extends GameElement implements Serializable {
 		if (birdType.equalsIgnoreCase("osprey")) {
 			this.birdType = "osprey";
 			this.setType(Images.OSPREY);
+			staminaPics = new Images[6];
+			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[1] = Images.HEALTH_1_OSPREY;
+			staminaPics[2] = Images.HEALTH_2_OSPREY;
+			staminaPics[3] = Images.HEALTH_3_OSPREY;
+			staminaPics[4] = Images.HEALTH_4_OSPREY;
+			staminaPics[5] = Images.HEALTH_5_OSPREY;
+			staminaImage = staminaPics[0];
 		} else {
 			this.birdType = "northern harrier";
 			this.setType(Images.NORTHERN_HARRIER);
+			staminaPics = new Images[6];
+			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[1] = Images.HEALTH_1;
+			staminaPics[2] = Images.HEALTH_2;
+			staminaPics[3] = Images.HEALTH_3;
+			staminaPics[4] = Images.HEALTH_4;
+			staminaPics[5] = Images.HEALTH_5;
+			staminaImage = staminaPics[0];
 		}
 	}
 
@@ -414,10 +426,26 @@ public class Bird extends GameElement implements Serializable {
 		this.fainted = fainted;
 	}
 
+	/**
+	 * @param image to set poweredUpPics to
+	 */
+	public void setPoweredUpPics(Images image) {
+		poweredUpPics = image;
+	}
+	
+	/**
+	 * @return an Image, the poweredUpPics
+	 */
 	public Images getPoweredUpPics() {
 		return this.poweredUpPics;
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method
+	 * a bird does not get points for collision
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return 0;
