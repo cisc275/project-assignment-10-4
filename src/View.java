@@ -744,15 +744,12 @@ public class View extends JPanel implements Serializable {
 			super.paintComponent(g2d);
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
-			try {
+			if (background != null) {
 				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(0)), 
 						background.getBackgroundX(0), 0, this);
 				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(1)), 
 						background.getBackgroundX(1), 0, this);
-			} catch (NullPointerException e) {
-				System.out.println("Null pointer exception!\n" + e);
 			}
-
 			if (elements != null) {
 				for (GameElement e : elements) {
 					//System.out.print(e.getImage() + "" + e.getXloc() + " " + e.getYloc());
@@ -763,10 +760,20 @@ public class View extends JPanel implements Serializable {
 					if (bird.isStunned()) {
 						AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 						g2d.setComposite(ac);
+						
+						g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
+						
+						ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+						g2d.setComposite(ac);
+						
+						g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
 					}
-					g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
-					g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
-					//g2d.drawRect(bird.xloc,bird.yloc+40,bird.width-75,60);
+					else {
+						g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
+						g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
+						
+					}
+					//g2d.drawRect(bird.getBounds().x,bird.getBounds().y,bird.getBounds().width,bird.getBounds().height);
 				}
 				if (miniMap != null) {
 					//System.out.println(miniMap.getImage());
@@ -792,6 +799,9 @@ public class View extends JPanel implements Serializable {
 			}
 		}
 
+		/**
+		 * @return the dimension of the preferred game screen
+		 */
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT);
 		}

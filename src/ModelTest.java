@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Field;
 
 /**
@@ -398,7 +399,7 @@ class ModelTest {
 		Model model = new Model(10, 10);
 		MiniMap old = model.getMiniMap();
 		assertEquals(model.getMiniMap(), null);
-		model.setMiniMap(new MiniMap(0, 0, 0, 0, "", "", 0, 0));
+		//model.setMiniMap(new MiniMap(0, 0, 0, 0, new Image(), new Image(), 0, 0));
 		assertNotEquals(old, model.getMiniMap());
 	}
 

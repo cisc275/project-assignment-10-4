@@ -38,6 +38,12 @@ public class Obstacle extends GameElement implements Serializable {
 	 */
 	@Override
 	public boolean collision(Bird bird) {
+		if(bird.isPoweredUp() && (bird.getPowerTimer().getState() <=5)) {
+			bird.setPowerTimer(bird.getStunTimer().getState() + 5);
+		}
+		if(bird.isStunned() && (bird.getStunTimer().getState() <= 5)) {
+			bird.setStunTimer(bird.getStunTimer().getState() + 5);
+		}
 		if (!bird.isStunned() && !bird.isPoweredUp()) {
 			bird.setStamina(bird.getStamina() - STAMINA_VALUE);
 			bird.setStunned(true);
@@ -45,6 +51,12 @@ public class Obstacle extends GameElement implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method to return this
+	 * element's point value to the constant value assigned
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return POINT_VALUE;

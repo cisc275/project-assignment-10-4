@@ -2,7 +2,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-import javax.imageio.ImageIO;
 
 /**
  * Bird is the sole user controlled GameElement and the focus of the game. The
@@ -50,7 +49,11 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Constant for Bird's starting stamina value
 	 */
-	private static final int START_STAMINA = 5;
+	private static final int MAX_STAMINA = 5;
+	/**
+	 * a constant for how many ticks the bird is powered up
+	 */
+	private static final int POWER_TIMER_LIMIT = 250;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -97,32 +100,29 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Represents the time stunned upon collision
 	 */
-	private int stunTimer;
+	private Timing stunTimer;
 	/**
 	 * If true, the bird has run out of stamina and the level needs to restart
 	 */
 	private boolean fainted = false;
-
 	/**
 	 * An integer representing the time left for the powerup
 	 */
-	private int powerTimer;
+	private Timing powerTimer;
 	/**
 	 * An int representing the player's score
 	 */
 	private int points;
-
 	/**
-	 * 
+	 * Number of food objects eaten since the last obstacle hit
 	 */
-	private static final int POWER_TIMER_LIMIT = 250;
+	private int foodStreak;
 
 	/**
 	 * A constructor which initializes the attributes for the start of the game. The
 	 * bird's starting location is set, its direction is set to 0 because it is not
 	 * moving up or down. Its xSpeed is set to 0 because it is not moving
 	 */
-
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath, Images.BIRD);
 		setXloc(START_X_LOC);
@@ -134,8 +134,10 @@ public class Bird extends GameElement implements Serializable {
 		setWidth(BIRD_WIDTH);
 		frameNum = 0;
 		poweredUpPics = Images.POWERUP;
-		stunTimer = 0;
-		stamina = START_STAMINA;
+		stunTimer = new Timing(STUN_TIME_LIMIT); 
+		powerTimer = new Timing(POWER_TIMER_LIMIT);
+		foodStreak = 0;
+		stamina = MAX_STAMINA;
 		staminaPics = new Images[6];
 		staminaPics[0] = Images.HEALTH_0;
 		staminaPics[1] = Images.HEALTH_1;
@@ -144,7 +146,7 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
 		staminaImage = staminaPics[0];
-		this.setType(Images.BIRD);
+		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
 	
@@ -155,7 +157,7 @@ public class Bird extends GameElement implements Serializable {
 	 * the bird.
 	 */
 	@Override
-	void update() {
+	void update(int speedAdjust) {
 		if (stamina <= 0) {
 			setFainted(true);
 			System.out.println(fainted);
@@ -163,17 +165,16 @@ public class Bird extends GameElement implements Serializable {
 		setXloc(getXloc() + getxSpeed());
 		setYloc(getYloc() + (getySpeed() * (-1) * direction));
 		if (isStunned) {
-			stunTimer++;
-			if (stunTimer >= STUN_TIME_LIMIT) {
-				stunTimer = 0;
+			stunTimer.decr(); 
+			if (stunTimer.end()) {
+				stunTimer.reset(); 
 				isStunned = false;
-				System.out.println("Stun expired.");
 			}
 		}
 		if (poweredUp) {
-			powerTimer++;
-			if (powerTimer >= POWER_TIMER_LIMIT) {
-				powerTimer = 0;
+			powerTimer.decr(); 
+			if (powerTimer.end()) {
+				powerTimer.reset(); 
 				poweredUp = false;
 			}
 		}
@@ -208,10 +209,6 @@ public class Bird extends GameElement implements Serializable {
 		this.height = Images.getCorrespondingImage(image).getHeight();
 	}
 
-	public void setPoweredUpPics(Images image) {
-		poweredUpPics = image;
-	}
-
 	/**
 	 * Handles adjusting the birds attributes after it becomes powered up by
 	 * consuming an instance of food with a, true value for its isSpecialFood
@@ -220,9 +217,12 @@ public class Bird extends GameElement implements Serializable {
 	void powerUp() {
 	}
 
+	/**
+	 * @return a rectangle representing the bounds of the bird
+	 */
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(this.xloc, this.yloc + 40, this.width - 75, 60);
+		return new Rectangle(this.xloc+20, this.yloc + 140, this.width - 65, 60);
 	}
 
 	/**
@@ -247,8 +247,8 @@ public class Bird extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @param poweredUp- a boolean which is true if the bird is currently powered
-	 *                   up, false otherwise
+	 * @param poweredUp a boolean which is true if the bird is currently powered
+	 *                  up, false otherwise
 	 */
 	public void setPoweredUp(boolean poweredUp) {
 		this.poweredUp = poweredUp;
@@ -262,11 +262,14 @@ public class Bird extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @param isStunned- a boolean which is true if the bird is currently stunned,
-	 *                   false otherwise
+	 * @param isStunned a boolean which is true if the bird is currently stunned,
+	 *                  false otherwise
 	 */
 	public void setStunned(boolean isStunned) {
 		this.isStunned = isStunned;
+		if (isStunned) {
+			this.foodStreak = 0;
+		}
 	}
 
 	/**
@@ -296,9 +299,14 @@ public class Bird extends GameElement implements Serializable {
 	 * @param stamina the stamina to set
 	 */
 	public void setStamina(int stamina) {
+		if (stamina > this.stamina) {
+			foodStreak++;
+		}
 		this.stamina = stamina;
+		if (this.stamina > MAX_STAMINA) {
+			this.stamina = MAX_STAMINA;
+		}
 	}
-
 
 	/**
 	 * 
@@ -353,8 +361,28 @@ public class Bird extends GameElement implements Serializable {
 	public void setBirdType(String birdType) {
 		if (birdType.equalsIgnoreCase("osprey")) {
 			this.birdType = "osprey";
+			this.setType(Images.OSPREY);
+			this.setPoweredUpPics(Images.POWERUP_OSPREY);
+			staminaPics = new Images[6];
+			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[1] = Images.HEALTH_1_OSPREY;
+			staminaPics[2] = Images.HEALTH_2_OSPREY;
+			staminaPics[3] = Images.HEALTH_3_OSPREY;
+			staminaPics[4] = Images.HEALTH_4_OSPREY;
+			staminaPics[5] = Images.HEALTH_5_OSPREY;
+			//staminaImage = staminaPics[0];
 		} else {
 			this.birdType = "northern harrier";
+			this.setType(Images.NORTHERN_HARRIER);
+			this.setPoweredUpPics(Images.POWERUP);
+			staminaPics = new Images[6];
+			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[1] = Images.HEALTH_1;
+			staminaPics[2] = Images.HEALTH_2;
+			staminaPics[3] = Images.HEALTH_3;
+			staminaPics[4] = Images.HEALTH_4;
+			staminaPics[5] = Images.HEALTH_5;
+			//staminaImage = staminaPics[0];
 		}
 	}
 
@@ -400,10 +428,26 @@ public class Bird extends GameElement implements Serializable {
 		this.fainted = fainted;
 	}
 
+	/**
+	 * @param image to set poweredUpPics to
+	 */
+	public void setPoweredUpPics(Images image) {
+		poweredUpPics = image;
+	}
+	
+	/**
+	 * @return an Image, the poweredUpPics
+	 */
 	public Images getPoweredUpPics() {
 		return this.poweredUpPics;
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method
+	 * a bird does not get points for collision
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return 0;
@@ -414,7 +458,6 @@ public class Bird extends GameElement implements Serializable {
 	 * @param pointValue the number of points to add to the score
 	 */
 	public void updateScore(int pointValue) {
-		System.out.println("isStunned: " + isStunned);
 		if ((!isStunned && !poweredUp) || (poweredUp && pointValue > 0)) {
 			setPoints(getPoints() + pointValue);
 		}
@@ -432,5 +475,56 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public void setPoints(int points) {
 		this.points = points;
+	}
+	
+	/**
+	 * @return the stunTimer
+	 */
+	public Timing getStunTimer() {
+		return stunTimer;
+	}
+
+
+	/**
+	 * @param stunTimer the stunTimer to set
+	 */
+	public void setStunTimer(int state) {
+		this.stunTimer.setState(state);
+	}
+
+
+	/**
+	 * @return the stunTimeLimit
+	 */
+	public static int getStunTimeLimit() {
+		return STUN_TIME_LIMIT;
+	}
+
+	/**
+	 * @return the powerTimer
+	 */
+	public Timing getPowerTimer() {
+		return powerTimer;
+	}
+
+	/**
+	 * @param powerTimer the powerTimer to set
+	 */
+	public void setPowerTimer(int state) {
+		this.powerTimer.setState(state);
+	}
+    
+     /**
+	 * @return the foodStreak
+	 */
+	public int getFoodStreak() {
+		return foodStreak;
+	}
+	
+	/**
+	 * @param foodStreak the foodStreak to set
+	 */
+	public void setFoodStreak(int foodStreak) {
+		this.foodStreak = foodStreak;
 	}
 }

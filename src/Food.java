@@ -63,12 +63,12 @@ public class Food extends GameElement implements Serializable {
 	 */
 	@Override
 	public boolean collision(Bird bird) {
-		if ((bird.getStamina() + STAMINA_VALUE) < 5) {
+		if (!bird.isStunned()) {
 			bird.setStamina(bird.getStamina() + STAMINA_VALUE);
+			return true;
 		} else {
-			bird.setStamina(5);
+			return false;
 		}
-		return true;
 	}
 
 	/**

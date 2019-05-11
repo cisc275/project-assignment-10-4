@@ -1,9 +1,6 @@
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 
-import javax.imageio.ImageIO;
 
 /**
  * ENUM representing every the image sources for food and obstacles
@@ -28,24 +25,34 @@ public enum Images implements Serializable {
 	EAGLE("images/eagle_1080.png"), //Osprey
 	OWL("images/owl_1080.png"), //Northern Harrier
 	FOX("images/fox_1080.png"), //Northern Harrier
-    BIRD("images/bird_animated.png"),
+    OSPREY("images/big_osprey_animate.png"),
+    NORTHERN_HARRIER("images/big_bird_animate.png"),
+    BIRD("images/big_bird_animate.png"),
     POWERUP("images/powers.png"),
+    POWERUP_OSPREY("images/osprey_powerup.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
 	GRASS_PATH("images/background_grass_1080.png"),
+	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
 	WATER_PATH("images/background_water_1080.png"),
+	WATER_MIRROR_PATH("images/background_water_mirror_1080.png"),
 	HEALTH_0("images/0_health.png"),
 	HEALTH_1("images/1_health.png"),
 	HEALTH_2("images/2_health.png"),
 	HEALTH_3("images/3_health.png"),
 	HEALTH_4("images/4_health.png"),
-	HEALTH_5("images/5_health.png");
+	HEALTH_5("images/5_health.png"),
+	HEALTH_1_OSPREY("images/1_health_osprey.png"),
+	HEALTH_2_OSPREY("images/2_health_osprey.png"),
+	HEALTH_3_OSPREY("images/3_health_osprey.png"),
+	HEALTH_4_OSPREY("images/4_health_osprey.png"),
+	HEALTH_5_OSPREY("images/5_health_osprey.png"),
+	TRASH("images/plasticbag_1080.png");
 	
 	
 	
 	/**
 	 * @param a String representing the ImagePath of the GameElement
-	 */
-		
+	 */	
 	private Images(String s){
 		name = s;
 		
@@ -61,16 +68,33 @@ public enum Images implements Serializable {
 		return name;
 	}
 	
+	/**
+	 * gets the BufferedImage array for Images
+	 * @param e, an enum
+	 * @return the BufferedImage array for an animated Image
+	 */
 	static BufferedImage[] getCorrespondingImageArray(Images e) {
 		switch(e) {
 		case BIRD:
 			return ImagesLoaded.BIRD_I.getImageArray();
+		case OSPREY:
+			return ImagesLoaded.OSPREY_I.getImageArray();
+		case NORTHERN_HARRIER:
+			return ImagesLoaded.NORTHERN_HARRIER_I.getImageArray();
 		case POWERUP:
 			return ImagesLoaded.POWERUP_I.getImageArray();
+		case POWERUP_OSPREY:
+			return ImagesLoaded.POWERUP_OSPREY_I.getImageArray();
+		default:
+			return null;
 		}
-		return null;
 	}
 	
+	/**
+	 * gets the corresponding image for Images
+	 * @param e an enum
+	 * @return the BufferedImage for corresponding enum
+	 */
 	static BufferedImage getCorrespondingImage(Images e) {
 		switch(e) {
 		case NH_MINIMAP:
@@ -103,8 +127,12 @@ public enum Images implements Serializable {
 			return ImagesLoaded.RECTANGLE_I.getImage();
 		case GRASS_PATH:
 			return ImagesLoaded.GRASS_PATH_I.getImage();
+		case GRASS_MIRROR_PATH:
+			return ImagesLoaded.GRASS_PATH_MIRROR_I.getImage();
 		case WATER_PATH:
 			return ImagesLoaded.WATER_PATH_I.getImage();
+		case WATER_MIRROR_PATH:
+			return ImagesLoaded.WATER_PATH_MIRROR_I.getImage();
 		case HEALTH_0:
 			return ImagesLoaded.HEALTH_0_I.getImage();
 		case HEALTH_1:
@@ -117,7 +145,20 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_4_I.getImage();
 		case HEALTH_5:
 			return ImagesLoaded.HEALTH_5_I.getImage();
+		case HEALTH_1_OSPREY:
+			return ImagesLoaded.HEALTH_1_I_OSPREY.getImage();
+		case HEALTH_2_OSPREY:
+			return ImagesLoaded.HEALTH_2_I_OSPREY.getImage();
+		case HEALTH_3_OSPREY:
+			return ImagesLoaded.HEALTH_3_I_OSPREY.getImage();
+		case HEALTH_4_OSPREY:
+			return ImagesLoaded.HEALTH_4_I_OSPREY.getImage();
+		case HEALTH_5_OSPREY:
+			return ImagesLoaded.HEALTH_5_I_OSPREY.getImage();
+		case TRASH:
+			return ImagesLoaded.TRASH_I.getImage();
+		default:
+			return null;
 		}
-		return null;
 	}
 }

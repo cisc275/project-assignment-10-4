@@ -4,7 +4,6 @@ import java.awt.event.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.io.*;
 import java.util.List; 
@@ -95,8 +94,18 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Timer for handling the nesting animation
 	 */
 	Timer s;
-	 
+	/**
+	 * number of iterations through the game
+	 */
+	private int timesPlayed;
+	
+	/**
+	 * constructor for Controller
+	 * instantiates all buttons
+	 * sets all panels
+	 */
 	public Controller() {
+		timesPlayed = 0;
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
@@ -167,6 +176,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     	};
 	}
 	
+	/**
+	 * @return the controller object
+	 */
 	protected Controller getController() {
 		return this;
 	}
@@ -203,7 +215,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyPressed(KeyEvent k) {
-		System.out.println("A key has been pressed.");
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
 			model.getBird().setDirection(1);
 		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -254,7 +265,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			//start();
 		}
 		else if (e.getSource() == OPlanButton) {
-			model.setBird(new Bird(0,0,0,0,Images.BIRD.getName()) );
+			model.setBird(new Bird(0,0,0,0,Images.OSPREY.getName()) );
 			model.getBird().setBirdType("Osprey");
 			model.createQuestions("Osprey");
 			isGameInProgress = true;
@@ -263,7 +274,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			start();
 		}
 		else if (e.getSource() == NHPlanButton) {
-			model.setBird(new Bird(0,0,0,0,"") );
+			model.setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()) );
 			model.getBird().setBirdType("Northern Harrier");
 			model.createQuestions("Northern Harrier");
 			isGameInProgress = true;
@@ -272,8 +283,21 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			start();
 		}
 		else if (e.getSource() == doneAnimationButton) {
+			timesPlayed++;
 			s.stop();
 			doneAnimationButton.setVisible(false);
+			if(timesPlayed%2==0) {
+				Obutton.setVisible(true);
+				NHbutton.setVisible(true);
+			}
+			else if(model.getBird().getBirdType().equals("osprey")) {
+				Obutton.setVisible(false);
+				NHbutton.setVisible(true);
+			}
+			else{
+				Obutton.setVisible(true);
+				NHbutton.setVisible(false);
+			}
 			view.setPanel("B");
 			model = new Model(view.getFrameWidth(), view.getFrameHeight());
 			//view.setNestAnimation(model.getNestAnimation());
@@ -311,6 +335,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		oos.writeObject(model);
 	}
 	
+	/**
+	 * reloads the game at the previously saved point
+	 * restarts the game at that point immediately
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@SuppressWarnings("resource")
 	public void reloadGame() throws IOException, ClassNotFoundException {
 		FileInputStream in = new FileInputStream("gameState.txt");

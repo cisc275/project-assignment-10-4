@@ -1,4 +1,3 @@
-import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
@@ -145,7 +144,6 @@ public class MiniMap extends GameElement implements Serializable {
 	 *                      (either the Northern Harrier or the Osprey) on the
 	 *                      minimap
 	 */
-
 	public MiniMap(int x, int y, int xSpeed, int ySpeed, Images Img, Images mapSpriteFile, int mapXLoc,
 			int mapYLoc) {
 		super(x, y, xSpeed, ySpeed, Img.getName(), Img);
@@ -198,6 +196,10 @@ public class MiniMap extends GameElement implements Serializable {
 		return smallBird;
 	}
 
+	/**
+	 * 
+	 * @param smallBird to set
+	 */
 	public void setSmallBird(Images smallBird) {
 		this.smallBird = smallBird;
 	}
@@ -247,11 +249,21 @@ public class MiniMap extends GameElement implements Serializable {
 		return this.birdPath;
 	}
 
+	/**
+	 * Overrides GameElement collision() method
+	 * collision is irrelevant for the MiniMap and MapSprite
+	 */
 	@Override
 	public boolean collision(Bird bird) {
 		return false;
 	}
 
+	/**
+	 * For when the game is in Osprey mode
+	 * updates the location of the mapSprite image based upon the percent of
+	 * the game the player has completed
+	 * @param percentDistTraveled
+	 */
 	void updatePositionOsprey(double percentDistTraveled) {
 		int [] birdPos = {this.getMapXLoc() + OSPREY_OFFSET , this.getMapYLoc()+ OSPREY_OFFSET };  //31x27
 		birdPath.add( birdPos  );
@@ -276,6 +288,12 @@ public class MiniMap extends GameElement implements Serializable {
 		}
 	}
 
+	/**
+	 * For when the game is in Northern Harrier mode
+	 * updates the location of the mapSprite image based upon the percent of
+	 * the game the player has completed
+	 * @param percentDistTraveled
+	 */
 	void updatePositionNH(double percentDistTraveled) {
 		int [] birdPos = {this.getMapXLoc() + OSPREY_OFFSET , this.getMapYLoc() + OSPREY_OFFSET };  //31x27
 		birdPath.add( birdPos  );
@@ -312,6 +330,12 @@ public class MiniMap extends GameElement implements Serializable {
 		
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method
+	 * a MiniMap does not get points for collision
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return 0;

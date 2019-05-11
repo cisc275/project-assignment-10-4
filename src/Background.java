@@ -1,9 +1,5 @@
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import java.io.*;
 
 /**
@@ -15,7 +11,11 @@ import java.io.*;
  *
  */
 @SuppressWarnings("serial")
-public class Background implements Serializable{
+public class Background implements Serializable {
+	/**
+	 * An int representing the offset gap between background panels
+	 */
+	private static final int BACKGROUND_OFFSET = 5;
 	/**
 	 * Constant for speed at which Background begins to scroll at
 	 */
@@ -46,13 +46,13 @@ public class Background implements Serializable{
 	private Random rand;
 
 	/**
-	 * 
+	 * Constructor for backgrounds
 	 * @param model.getWidth() the width dimension of the screen
 	 */
 	Background(int frameWidth) {
 		rand = new Random();
 		setBackground(0,Images.GRASS_PATH);
-		setBackground(1,Images.GRASS_PATH);
+		setBackground(1,Images.GRASS_MIRROR_PATH);
 		setBackgroundX(0,0);
 		setBackgroundX(1,frameWidth-3);
 		setWidth(frameWidth);
@@ -62,16 +62,18 @@ public class Background implements Serializable{
 	 * Updates the position of the background images to scroll.
 	 * If a background image is completely off screen to the left, move it
 	 * so its position is off screen to the right, next to the other background
+	 * @param speedAdjust how much to adjust the scroll speed by for this tick
 	 */
-	public void update() {
+	public void update(int speedAdjust) {
+		backgroundScrollSpeed = INITIAL_SCROLL_SPEED + speedAdjust;
 		bgXs[0] -= backgroundScrollSpeed;
 		bgXs[1] -= backgroundScrollSpeed;
 		if(bgXs[0] + width <= 0) {
-			bgXs[0] = width-8;
+			bgXs[0] = bgXs[1] + width - BACKGROUND_OFFSET;
 			updateBackgroundZone(0);
 		}
 		if(bgXs[1] + width <= 0) {
-			bgXs[1] = width-8;
+			bgXs[1] = bgXs[0] + width;
 			updateBackgroundZone(1);
 		}
 	}
@@ -82,13 +84,22 @@ public class Background implements Serializable{
 	 * @param num the background image to update
 	 */
 	private void updateBackgroundZone(int num) {
-		if (ospreyMode) {
-			int randResult = rand.nextInt(4);
-			if (randResult == 3) {
+		int randResult = rand.nextInt(4);
+		if (ospreyMode && randResult == 3) {
+			if(num == 0) {
 				setBackground(num, Images.WATER_PATH);
 			}
+			else {
+				setBackground(num, Images.WATER_MIRROR_PATH);
+			}
 		} else {
-			setBackground(num, Images.GRASS_PATH);
+			if(num == 0) {
+				setBackground(num, Images.GRASS_PATH);
+			}
+			else {
+				setBackground(num, Images.GRASS_MIRROR_PATH);
+			}
+			
 		}
 	}
 
@@ -98,8 +109,11 @@ public class Background implements Serializable{
 	 */
 	public boolean isWaterNextZone() {
 		if (ospreyMode) {
-			if ((bgXs[0] < bgXs[1] && bgs[1].equals(Images.WATER_PATH)) ||
-					(bgXs[1] < bgXs[0] && bgs[0].equals(Images.WATER_PATH))) {
+			if ((bgXs[0] < bgXs[1] && 
+					(bgs[1].equals(Images.WATER_PATH) || bgs[1].equals(Images.WATER_MIRROR_PATH))) 
+					||
+				(bgXs[1] < bgXs[0] && 
+						(bgs[0].equals(Images.WATER_PATH) || bgs[0].equals(Images.WATER_MIRROR_PATH)))){
 				return true;
 			} else {
 				return false;
@@ -108,7 +122,12 @@ public class Background implements Serializable{
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Overrides the Object equals method
+	 * @param object to be compared to this instance
+	 * @return a boolean representing the equality of the parameter and this instance
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Background) {

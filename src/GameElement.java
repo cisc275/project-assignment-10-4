@@ -1,12 +1,8 @@
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 /**
  * Defines the common attributes and action which all elements that appear in
@@ -82,6 +78,15 @@ public abstract class GameElement implements Serializable {
 		this.ySpeed = ySpeed;
 		this.imagePath = imagePath;
 		this.image = type;
+		if (type.equals(Images.BIRD) || type.equals(Images.OSPREY) || 
+				type.equals(Images.NORTHERN_HARRIER) || type.equals(Images.POWERUP) 
+				|| type.equals(Images.POWERUP_OSPREY)) { // TODO this ain't pretty
+			this.width = Images.getCorrespondingImageArray(type)[0].getWidth();
+			this.height = Images.getCorrespondingImageArray(type)[0].getHeight();
+		} else {
+			this.width = Images.getCorrespondingImage(type).getWidth();
+			this.height = Images.getCorrespondingImage(type).getHeight();
+		}
 		if (xPolyVals.isEmpty()) {
 			putPolyCoords();
 		}
@@ -96,6 +101,11 @@ public abstract class GameElement implements Serializable {
 		yPolyVals.put(Images.BUILDING, new int[] { 0, 0, 675, 675 });
 		// System.out.println(xPolyVals.get(Images.BUILDING).length ==
 		// yPolyVals.get(Images.BUILDING).length);
+		
+		xPolyVals.put(Images.TRASH, new int[] { 21, 9, 8, 1, 4, 1, 16, 38, 58, 78, 81, 81, 73, 72, 49,
+				47, 33, 32});
+		yPolyVals.put(Images.TRASH, new int[] {2, 6, 31, 54, 75, 95, 98, 102, 94, 95, 77, 53, 29, 4, 2,
+				27, 28, 7});
 
 		xPolyVals.put(Images.MOUSE, new int[] { 6, 23, 38, 35, 42, 49, 57, 66, 71, 94, 115, 129, 132, 132, 139, 132,
 				116, 67, 53, 63, 54, 44, 44, 60, 62, 46, 32, 33, 50, 49, 38, 21, 9 });
@@ -160,8 +170,8 @@ public abstract class GameElement implements Serializable {
 		// System.out.println(xPolyVals.get(Images.FOX).length ==
 		// yPolyVals.get(Images.FOX).length);
 
-		xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
-		yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
+		//xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
+		//yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
 		//System.out.println(xPolyVals.get(Images.BIRD).length ==
 		//yPolyVals.get(Images.BIRD).length);
 
@@ -169,11 +179,12 @@ public abstract class GameElement implements Serializable {
 
 	/**
 	 * Will update the location of the GameElement
+	 * @param speedAdjust the amount to add to the base speed for this tick
 	 * 
 	 */
-	void update() {
-		xloc -= xSpeed;
-		polygon.translate(-xSpeed, 0);
+	void update(int speedAdjust) {
+		xloc -= (xSpeed + speedAdjust * 2);
+		polygon.translate(-(xSpeed + speedAdjust * 2), 0);
 	}
 
 	/**
@@ -328,7 +339,8 @@ public abstract class GameElement implements Serializable {
 	 */
 	public void setType(Images i) {
 		this.image = i;
-		if (this.image != Images.OSPREY_MINIMAP && this.image != Images.NH_MINIMAP) {
+		if (this.image != Images.OSPREY_MINIMAP && this.image != Images.NH_MINIMAP
+				&& this.image != Images.OSPREY && this.image != Images.NORTHERN_HARRIER && this.image != Images.BIRD) {
 			int[] x = xPolyVals.get(this.image);
 			int[] y = yPolyVals.get(this.image);
 			polygon = new Polygon(x, y, x.length);

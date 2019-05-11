@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 import java.lang.System;
@@ -24,15 +19,15 @@ public class Model implements Serializable {
 	/**
 	 * Constant for the maximum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MAX = 100;
+	static final int SPAWN_TIME_MAX = 50;
 	/**
 	 * Constant for minimum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MIN = 25;
+	static final int SPAWN_TIME_MIN = 15;
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 3000;
+	private static final int END_DISTANCE = 100000;
 	/**
 	 * The Bird the player will control
 	 */
@@ -100,7 +95,7 @@ public class Model implements Serializable {
 	/**
 	 * The time passed on the way to timeToSpawn (in ticks)
 	 */
-	private int spawnTimer;
+	private Timing spawnTimer;
 	/**
 	 * The number of ticks before a new GameElement is to be spawned
 	 */
@@ -132,13 +127,14 @@ public class Model implements Serializable {
 		// theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
 		this.background = new Background(frameWidth);
 		this.quizMode = false;
-		miniMap = (MiniMap) generateImgPath(8);
+		miniMap = (MiniMap) generateImgPath(9);
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		spawnTimer = 0;
+		 
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
 		// onScreenCollidables.add(generateImgPath(8));
 		// onScreenCollidables.add(generateImgPath(6));
@@ -169,13 +165,14 @@ public class Model implements Serializable {
 		}
 		this.background = new Background(frameWidth);
 		this.quizMode = false;
-		miniMap = (MiniMap) generateImgPath(8);
+		miniMap = (MiniMap) generateImgPath(9);
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		spawnTimer = 0;
+		
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
+		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
 		// onScreenCollidables.add(generateImgPath(8));
 		// onScreenCollidables.add(generateImgPath(6));
@@ -214,9 +211,9 @@ public class Model implements Serializable {
 	 */
 	public void createMiniMap() {
 		if (bird.getBirdType().equalsIgnoreCase("Osprey")) {
-			miniMap = (MiniMap) generateImgPath(8);
-		} else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
 			miniMap = (MiniMap) generateImgPath(9);
+		} else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
+			miniMap = (MiniMap) generateImgPath(10);
 		}
 	}
 
@@ -226,12 +223,12 @@ public class Model implements Serializable {
 	 */
 	void updateSpawnTimer() {
 		if (spawnCount > 0) {
-			spawnTimer++;
-			if (spawnTimer == timeToSpawn) {
+			spawnTimer.decr(); 
+			if (spawnTimer.end()) {
 				spawnCount--;
 				spawnGameElement();
 				timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
-				spawnTimer = 0;
+				spawnTimer.reset(timeToSpawn); 
 			}
 		}
 	}
@@ -243,7 +240,7 @@ public class Model implements Serializable {
 	void updateBird() {
 		bird.updateStaminaImage();
 		if ((bird.getYloc() + bird.getHeight()) <= frameHeight && bird.getYloc() >= 0) {
-			bird.update();
+			bird.update(0);
 		} else if (bird.getYloc() < 0) {
 			bird.setYloc(0);
 		} else {
@@ -260,7 +257,7 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next();
-			curr.update();
+			curr.update(bird.getFoodStreak());
 			if (curr.isOffScreen()) {
 				size++;
 				iter.remove();
@@ -285,7 +282,7 @@ public class Model implements Serializable {
 		} else {
 			background.setOspreyMode(false);
 		}
-		background.update();
+		background.update(bird.getFoodStreak());
 	}
 
 	/**
@@ -345,7 +342,7 @@ public class Model implements Serializable {
 				onScreenCollidables.remove(collided);
 				spawnCount++;
 			}
-			if (collided.getSpecialFood()) {
+			if (collided.getSpecialFood() && !theQuestions.noMoreQuestions()) {
 				quizMode = true;
 			}
 		}
@@ -375,6 +372,107 @@ public class Model implements Serializable {
 		quizMode = false;
 		doingQuiz = false;
 	}
+	
+	/**
+	 * Method to generate random choice for generating image
+	 * @param choice
+	 * @return new randomized choice
+	 */
+	public int randomImage(int choice) {
+		Random randImg = new Random();
+		int curImage = 0;
+		
+		if (choice < 0) {
+			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
+				if (background.isWaterNextZone()) {
+					curImage = randImg.nextInt(4) + 1;
+					if (curImage == 3 && !theQuestions.noMoreQuestions()) {
+						curImage = randImg.nextInt(2) + 3; // re-roll on a golden fish
+					} 
+					else if (theQuestions.noMoreQuestions() && curImage == 3) {
+						curImage += 1; 
+					}
+				
+				} else {
+					curImage = randImg.nextInt(2);
+				}
+			} else {
+				curImage = randImg.nextInt(4) + 5;
+				if (curImage == 6 && !theQuestions.noMoreQuestions()) {
+					curImage = randImg.nextInt(2) + 5; // re-roll on a golden mouse
+				} 
+				else if (theQuestions.noMoreQuestions() && curImage == 6) {
+					curImage -= 1; 
+				}
+			}
+		} else {
+			curImage = choice;
+		}
+		return curImage;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return a Food in the correct location based on its type
+	 */
+	public GameElement genFood(Images i) {
+		Random randLoc = new Random();
+		GameElement newGameElement;
+		if(i.equals(Images.FISH) || i.equals(Images.GOLDENFISH)) {
+			int y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
+			newGameElement = new Food(i.equals(Images.GOLDENFISH), frameWidth, y, 20, 0, i.getName(), i);
+		} else {
+			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
+			newGameElement = new Food(i.equals(Images.GOLDENMOUSE), frameWidth, y, 20, 0, i.getName(), i);
+		}
+		return newGameElement;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return an Obstacle in the correct location based on its type
+	 */
+	public GameElement genObstacle(Images i) {
+		Random randLoc = new Random();
+		GameElement newGameElement;
+		if(i.equals(Images.BUILDING) || i.equals(Images.FOX)) {
+			int y = frameHeight - Images.getCorrespondingImage(i).getHeight();
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+		}else if(i.equals(Images.TRASH)) {
+			int y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+		}else {
+			int y = randLoc.nextInt(frameHeight / 2);
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+		}
+		return newGameElement;
+	}
+	
+	/**
+	 * Modularized for generateImgPath
+	 * @param i representing the Images enumeration for the game element
+	 * @return a Map and MapSprite in the correct location based on its type
+	 */
+	public GameElement genMap(Images i) {
+		GameElement newGameElement;
+		int x = this.frameWidth - 250;
+		// x =1120;
+		int y = 0;
+		int xSpeed = 0;
+		int ySpeed = 0;
+		if(i.equals(Images.OSPREY_MINIMAP)) {
+			int xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
+			int yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, i, Images.OSPREY_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird);
+		}else {
+			int xLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_X_LOC;
+			int yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
+			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, i, Images.NH_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird);
+		}
+		return newGameElement;
+	}
 
 	/**
 	 * @return A GameElement . Uses the Images enumeration to select the path for an
@@ -382,127 +480,65 @@ public class Model implements Serializable {
 	 *         it is, it will generate its starting position appropriately.
 	 */
 	private GameElement generateImgPath(int choice) {
-		int curImage = 0;
-		Random randImg = new Random();
+		int curImage = randomImage(choice);
 		Random randLoc = new Random();
-		if (choice < 0) { // TODO Make this region a separate method
-			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
-				if (background.isWaterNextZone()) {
-					curImage = randImg.nextInt(3) + 1;
-					if (curImage == 2)
-						curImage = randImg.nextInt(2) + 2; // re-roll on a golden fish
-				} else {
-					curImage = randImg.nextInt(2);
-				}
-			} else {
-				curImage = randImg.nextInt(4) + 4;
-				if (curImage == 5)
-					curImage = randImg.nextInt(2) + 4; // re-roll on a golden mouse
-			}
-		} else {
-			curImage = choice;
-		}
-		int x = frameWidth;
-		int y;
-		String ImgPath = "";
 		Images dir;
-		int xSpeed = 20;
-		int ySpeed = 0;
-		int xLocOfBird;
-		int yLocOfBird;
-		Images mapSpriteFile;
-
 		GameElement newGameElement;
 
-		switch (curImage) { // TODO make the bodies of this switch modularized
+		switch (curImage) {
 		case 0:
 			dir = Images.BUILDING;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.BUILDING);
 			break;
 		case 1:
 			dir = Images.EAGLE;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight / 2);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			newGameElement = genObstacle(Images.EAGLE);
 			break;
 		case 2:
-			dir = Images.GOLDENFISH;
-			ImgPath = dir.getName();
-			y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
-			newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.TRASH;
+			newGameElement = genObstacle(Images.TRASH);
 			break;
 		case 3:
-			dir = Images.FISH;
-			ImgPath = dir.getName();
-			y = (frameHeight * 4) / 5 + randLoc.nextInt(frameHeight / 10) - frameHeight / 20;
-			newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.GOLDENFISH;
+			newGameElement = genFood(Images.GOLDENFISH);
 			break;
 		case 4:
-			dir = Images.MOUSE;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Food(false, x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.FISH;
+			newGameElement = genFood(Images.FISH);
 			break;
 		case 5:
-			dir = Images.GOLDENMOUSE;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Food(true, x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.MOUSE;
+			newGameElement = genFood(Images.MOUSE);
 			break;
 		case 6:
-			dir = Images.OWL;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight / 2);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.GOLDENMOUSE;
+			newGameElement = genFood(Images.GOLDENMOUSE);
 			break;
 		case 7:
-			dir = Images.FOX;
-			ImgPath = dir.getName();
-			y = frameHeight - Images.getCorrespondingImage(dir).getHeight();
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			dir = Images.OWL;
+			newGameElement = genObstacle(Images.OWL);
 			break;
 		case 8:
-			Images Img1 = Images.OSPREY_MINIMAP;
-			dir = Images.OSPREY_MINIMAP;
-			x = 1120; //100; //1120; //this.frameWidth - 250;
-			// x =1120;
-			y = 0;
-			xSpeed = 0;
-			ySpeed = 0;
-			xLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_X_LOC;
-			yLocOfBird = MiniMap.OSPREY_INITIAL_SMALL_BIRD_Y_LOC;
-			// int xLocOfBird = this.frameWidth-101;
-			// int yLocOfBird = 110;
-			mapSpriteFile = Images.OSPREY_IMG_FOR_MINIMAP;
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img1, mapSpriteFile, xLocOfBird, yLocOfBird);
+			dir = Images.FOX;
+			newGameElement = genObstacle(Images.FOX);
 			break;
 		case 9:
-			Images Img2 = Images.NH_MINIMAP;
+			dir = Images.OSPREY_MINIMAP;
+			newGameElement = genMap(dir);
+			break;
+		case 10:
 			dir = Images.NH_MINIMAP;
-			x = 1120; //this.frameWidth - 250;
-			// x = 1120;
-			y = 0;
-			xSpeed = 0;
-			ySpeed = 0;
-			xLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_X_LOC;
-			yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
-			// int xLocOfBird = this.frameWidth-101;
-			// int yLocOfBird = 110;
-			mapSpriteFile = Images.NH_IMG_FOR_MINIMAP;
-			newGameElement = new MiniMap(x, y, xSpeed, ySpeed, Img2, mapSpriteFile, xLocOfBird, yLocOfBird);
+			newGameElement = genMap(dir);
 			break;
 		default:
 			dir = Images.RECTANGLE;
-			ImgPath = dir.getName();
-			y = randLoc.nextInt(frameHeight);
-			newGameElement = new Obstacle(x, y, xSpeed, ySpeed, ImgPath, dir);
+			int y = randLoc.nextInt(frameHeight);
+			newGameElement = new Obstacle(frameWidth, y, 20, 0, dir.getName(), dir);
 		}
 		newGameElement.setType(dir);
-		//System.out.println(dir);
 		return newGameElement;
 	}
+		
 
 	/**
 	 * Spawns new collidable immediately
@@ -527,6 +563,10 @@ public class Model implements Serializable {
 	void enterNest() {
 	}
 
+	/**
+	 * sets the quiz questions based upon the bird chosen
+	 * @param birdType
+	 */
 	public void createQuestions(String birdType) {
 		if (birdType.equals("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
