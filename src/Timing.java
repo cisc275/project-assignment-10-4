@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Timing {
+@SuppressWarnings("serial")
+public class Timing implements Serializable {
 	int state; 
 	int start; 
 	public Timing(int start) {
