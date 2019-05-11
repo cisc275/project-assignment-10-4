@@ -745,15 +745,12 @@ public class View extends JPanel implements Serializable {
 			super.paintComponent(g2d);
 			float alpha = (float) 0.5;
 			g2d.setColor(Color.blue);
-			try {
+			if (background != null) {
 				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(0)), 
 						background.getBackgroundX(0), 0, this);
 				g2d.drawImage(Images.getCorrespondingImage(background.getBackground(1)), 
 						background.getBackgroundX(1), 0, this);
-			} catch (NullPointerException e) {
-				System.out.println("Null pointer exception!\n" + e);
 			}
-
 			if (elements != null) {
 				for (GameElement e : elements) {
 					//System.out.print(e.getImage() + "" + e.getXloc() + " " + e.getYloc());
