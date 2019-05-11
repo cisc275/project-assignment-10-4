@@ -25,6 +25,8 @@ public enum Images implements Serializable {
 	EAGLE("images/eagle_1080.png"), //Osprey
 	OWL("images/owl_1080.png"), //Northern Harrier
 	FOX("images/fox_1080.png"), //Northern Harrier
+    OSPREY("images/big_osprey_animate.png"),
+    NORTHERN_HARRIER("images/big_bird_animate.png"),
     BIRD("images/big_bird_animate.png"),
     POWERUP("images/powers.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
@@ -65,6 +67,10 @@ public enum Images implements Serializable {
 		switch(e) {
 		case BIRD:
 			return ImagesLoaded.BIRD_I.getImageArray();
+		case OSPREY:
+			return ImagesLoaded.OSPREY_I.getImageArray();
+		case NORTHERN_HARRIER:
+			return ImagesLoaded.NORTHERN_HARRIER_I.getImageArray();
 		case POWERUP:
 			return ImagesLoaded.POWERUP_I.getImageArray();
 		default:

@@ -27,6 +27,8 @@ public enum ImagesLoaded {
 	EAGLE_I(createImage(Images.EAGLE.getName())), //Osprey
 	OWL_I(createImage(Images.OWL.getName())), //Northern Harrier
 	FOX_I(createImage(Images.FOX.getName())), //Northern Harrier
+    OSPREY_I(createImageArray(Images.OSPREY.getName(),4),4),
+    NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),4),4),
     BIRD_I(createImageArray(Images.BIRD.getName(),4),4),
     POWERUP_I(createImageArray(Images.POWERUP.getName(),4),4),
 	RECTANGLE_I(createImage(Images.RECTANGLE.getName())),
