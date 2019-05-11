@@ -563,6 +563,10 @@ public class Model implements Serializable {
 	void enterNest() {
 	}
 
+	/**
+	 * sets the quiz questions based upon the bird chosen
+	 * @param birdType
+	 */
 	public void createQuestions(String birdType) {
 		if (birdType.equals("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt");

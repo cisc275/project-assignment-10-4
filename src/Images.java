@@ -52,8 +52,7 @@ public enum Images implements Serializable {
 	
 	/**
 	 * @param a String representing the ImagePath of the GameElement
-	 */
-		
+	 */	
 	private Images(String s){
 		name = s;
 		
@@ -69,6 +68,11 @@ public enum Images implements Serializable {
 		return name;
 	}
 	
+	/**
+	 * gets the BufferedImage array for Images
+	 * @param e, an enum
+	 * @return the BufferedImage array for an animated Image
+	 */
 	static BufferedImage[] getCorrespondingImageArray(Images e) {
 		switch(e) {
 		case BIRD:
@@ -86,6 +90,11 @@ public enum Images implements Serializable {
 		}
 	}
 	
+	/**
+	 * gets the corresponding image for Images
+	 * @param e an enum
+	 * @return the BufferedImage for corresponding enum
+	 */
 	static BufferedImage getCorrespondingImage(Images e) {
 		switch(e) {
 		case NH_MINIMAP:

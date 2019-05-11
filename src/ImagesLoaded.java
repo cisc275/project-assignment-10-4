@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  */
 public enum ImagesLoaded {
 	/**
-	 * Every String is the path of the corresponding image
+	 * Every BufferedImage is the BufferedImage of the corresponding Images
 	 */
 	NH_MINIMAP_I(createImage(Images.NH_MINIMAP.getName())),   //("images/NHMiniMapp.png"),          306x215
 	OBSTACLE_I(createImage(Images.OBSTACLE.getName())),
@@ -52,12 +52,16 @@ public enum ImagesLoaded {
 	
 	/**
 	 * @param a BufferedImage representing the BufferedImage of the GameElement
-	 */
-		
+	 */	
 	private ImagesLoaded(BufferedImage b){
 		image = b;
 		
 	}
+	/**
+	 * constructor for creating an animated image
+	 * @param a BufferedImage array representing the frames of the animation
+	 * @param f the number of frames as an int
+	 */
 	private ImagesLoaded(BufferedImage[] a, int f) {
 		setImageArray(a);
 		setFrameCount(f);
@@ -66,7 +70,13 @@ public enum ImagesLoaded {
 	 * a BufferedImage attribute the BufferedImage of the GameElement
 	 */
 	private BufferedImage image = null;
+	/**
+	 * BufferedImmage array attribute for animated Images
+	 */
 	private BufferedImage[] imageArray = null;
+	/**
+	 * frame count initialized to one for non-animated images
+	 */
 	private int frameCount = 1;
 	
 	/**
@@ -93,6 +103,13 @@ public enum ImagesLoaded {
 		return null;
 	}
 	
+	/**
+	 * Creates a BufferedImage array using specified path
+	 * @param path location of image file to create from
+	 * @param the number of frames
+	 * 
+	 * @return the BufferedImage array
+	 */
 	static BufferedImage[] createImageArray(String path, int f) {
 		BufferedImage temp = createImage(path);
 		BufferedImage[] arr = new BufferedImage[f];
@@ -101,15 +118,31 @@ public enum ImagesLoaded {
 		}
 		return arr;
 	}
+	/**
+	 *
+	 * @return bufferedImage array
+	 */
 	public BufferedImage[] getImageArray() {
 		return imageArray;
 	}
+	/**
+	 * 
+	 * @param imageArray to set
+	 */
 	public void setImageArray(BufferedImage[] imageArray) {
 		this.imageArray = imageArray;
 	}
+	/**
+	 * 
+	 * @return the frame count
+	 */
 	public int getFrameCount() {
 		return frameCount;
 	}
+	/**
+	 * 
+	 * @param frameCount to set
+	 */
 	public void setFrameCount(int frameCount) {
 		this.frameCount = frameCount;
 	}

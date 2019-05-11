@@ -15,3 +15,4 @@ gameplay
 offscreen
 onscreen
 faintedness
+countdown
