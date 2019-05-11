@@ -78,19 +78,16 @@ public class Background implements Serializable{
 	 * @param num the background image to update
 	 */
 	private void updateBackgroundZone(int num) {
-		if (ospreyMode) {
-			int randResult = rand.nextInt(4);
-			if (randResult == 3) {
-				if(num==0) {
-					setBackground(num, Images.WATER_PATH);
-				}
-				else {
-					setBackground(num, Images.WATER_MIRROR_PATH);
-				}
-					
+		int randResult = rand.nextInt(4);
+		if (ospreyMode && randResult == 3) {
+			if(num == 0) {
+				setBackground(num, Images.WATER_PATH);
+			}
+			else {
+				setBackground(num, Images.WATER_MIRROR_PATH);
 			}
 		} else {
-			if(num==0) {
+			if(num == 0) {
 				setBackground(num, Images.GRASS_PATH);
 			}
 			else {

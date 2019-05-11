@@ -257,9 +257,6 @@ public class Model implements Serializable {
 			GameElement curr = iter.next();
 			curr.update();
 			if (curr.isOffScreen()) {
-				System.out.println("Object " + curr + " went off screen at (" 
-									+ curr.getXloc() + "," + curr.getYloc()
-									+ "). Its width is " + curr.getWidth() + ".");
 				size++;
 				iter.remove();
 			}
