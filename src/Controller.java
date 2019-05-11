@@ -94,8 +94,11 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Timer for handling the nesting animation
 	 */
 	Timer s;
+	
+	private int timesPlayed;
 	 
 	public Controller() {
+		timesPlayed = 0;
 		Obutton = new JButton("Osprey");
 		NHbutton = new JButton("Northern Harrier");
 		OPlanButton = new JButton("Start Flight");
@@ -270,8 +273,21 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			start();
 		}
 		else if (e.getSource() == doneAnimationButton) {
+			timesPlayed++;
 			s.stop();
 			doneAnimationButton.setVisible(false);
+			if(timesPlayed%2==0) {
+				Obutton.setVisible(true);
+				NHbutton.setVisible(true);
+			}
+			else if(model.getBird().getBirdType().equals("osprey")) {
+				Obutton.setVisible(false);
+				NHbutton.setVisible(true);
+			}
+			else{
+				Obutton.setVisible(true);
+				NHbutton.setVisible(false);
+			}
 			view.setPanel("B");
 			model = new Model(view.getFrameWidth(), view.getFrameHeight());
 			//view.setNestAnimation(model.getNestAnimation());
