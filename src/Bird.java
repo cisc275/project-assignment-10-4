@@ -49,7 +49,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Constant for Bird's starting stamina value
 	 */
-	private static final int START_STAMINA = 5;
+	private static final int MAX_STAMINA = 5;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -112,7 +112,7 @@ public class Bird extends GameElement implements Serializable {
 	private int points;
 
 	/**
-	 * 
+	 * TODO add comment
 	 */
 	private static final int POWER_TIMER_LIMIT = 250;
 
@@ -134,7 +134,7 @@ public class Bird extends GameElement implements Serializable {
 		frameNum = 0;
 		poweredUpPics = Images.POWERUP;
 		stunTimer = 0;
-		stamina = START_STAMINA;
+		stamina = MAX_STAMINA;
 		staminaPics = new Images[6];
 		staminaPics[0] = Images.HEALTH_0;
 		staminaPics[1] = Images.HEALTH_1;
@@ -295,6 +295,9 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
+		if (this.stamina > MAX_STAMINA) {
+			this.stamina = MAX_STAMINA;
+		}
 	}
 
 
