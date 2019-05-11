@@ -51,6 +51,10 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	private static final int MAX_STAMINA = 5;
 	/**
+	 * TODO add comment
+	 */
+	private static final int POWER_TIMER_LIMIT = 250;
+	/**
 	 * An int representing the birds speed
 	 */
 	private int flyingSpeed;
@@ -110,11 +114,10 @@ public class Bird extends GameElement implements Serializable {
 	 * An int representing the player's score
 	 */
 	private int points;
-
 	/**
-	 * TODO add comment
+	 * Number of food objects eaten since the last obstacle hit
 	 */
-	private static final int POWER_TIMER_LIMIT = 250;
+	private int foodStreak;
 
 	/**
 	 * A constructor which initializes the attributes for the start of the game. The
@@ -134,6 +137,7 @@ public class Bird extends GameElement implements Serializable {
 		frameNum = 0;
 		poweredUpPics = Images.POWERUP;
 		stunTimer = 0;
+		foodStreak = 0;
 		stamina = MAX_STAMINA;
 		staminaPics = new Images[6];
 		staminaPics[0] = Images.HEALTH_0;
@@ -154,7 +158,7 @@ public class Bird extends GameElement implements Serializable {
 	 * the bird.
 	 */
 	@Override
-	void update() {
+	void update(int speedAdjust) {
 		if (stamina <= 0) {
 			setFainted(true);
 			System.out.println(fainted);
@@ -245,8 +249,8 @@ public class Bird extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @param poweredUp- a boolean which is true if the bird is currently powered
-	 *                   up, false otherwise
+	 * @param poweredUp a boolean which is true if the bird is currently powered
+	 *                  up, false otherwise
 	 */
 	public void setPoweredUp(boolean poweredUp) {
 		this.poweredUp = poweredUp;
@@ -260,11 +264,14 @@ public class Bird extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @param isStunned- a boolean which is true if the bird is currently stunned,
-	 *                   false otherwise
+	 * @param isStunned a boolean which is true if the bird is currently stunned,
+	 *                  false otherwise
 	 */
 	public void setStunned(boolean isStunned) {
 		this.isStunned = isStunned;
+		if (isStunned) {
+			this.foodStreak = 0;
+		}
 	}
 
 	/**
@@ -294,6 +301,9 @@ public class Bird extends GameElement implements Serializable {
 	 * @param stamina the stamina to set
 	 */
 	public void setStamina(int stamina) {
+		if (stamina > this.stamina) {
+			foodStreak++;
+		}
 		this.stamina = stamina;
 		if (this.stamina > MAX_STAMINA) {
 			this.stamina = MAX_STAMINA;
@@ -455,5 +465,21 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public static int getStunTimeLimit() {
 		return STUN_TIME_LIMIT;
+	}
+
+
+	/**
+	 * @return the foodStreak
+	 */
+	public int getFoodStreak() {
+		return foodStreak;
+	}
+
+
+	/**
+	 * @param foodStreak the foodStreak to set
+	 */
+	public void setFoodStreak(int foodStreak) {
+		this.foodStreak = foodStreak;
 	}
 }

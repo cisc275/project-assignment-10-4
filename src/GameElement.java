@@ -172,10 +172,11 @@ public abstract class GameElement implements Serializable {
 
 	/**
 	 * Will update the location of the GameElement
+	 * @param speedAdjust the amount to add to the base speed for this tick
 	 * 
 	 */
-	void update() {
-		xloc -= xSpeed;
+	void update(int speedAdjust) {
+		xloc -= (xSpeed + speedAdjust * 2);
 		polygon.translate(-xSpeed, 0);
 	}
 

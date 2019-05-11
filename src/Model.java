@@ -238,7 +238,7 @@ public class Model implements Serializable {
 	void updateBird() {
 		bird.updateStaminaImage();
 		if ((bird.getYloc() + bird.getHeight()) <= frameHeight && bird.getYloc() >= 0) {
-			bird.update();
+			bird.update(0);
 		} else if (bird.getYloc() < 0) {
 			bird.setYloc(0);
 		} else {
@@ -255,7 +255,7 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next();
-			curr.update();
+			curr.update(bird.getFoodStreak());
 			if (curr.isOffScreen()) {
 				size++;
 				iter.remove();
@@ -280,7 +280,7 @@ public class Model implements Serializable {
 		} else {
 			background.setOspreyMode(false);
 		}
-		background.update();
+		background.update(bird.getFoodStreak());
 	}
 
 	/**
