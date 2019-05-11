@@ -78,7 +78,8 @@ public abstract class GameElement implements Serializable {
 		this.ySpeed = ySpeed;
 		this.imagePath = imagePath;
 		this.image = type;
-		if (type.equals(Images.BIRD) || type.equals(Images.POWERUP)) { // TODO this ain't pretty
+		if (type.equals(Images.BIRD) || type.equals(Images.OSPREY) || 
+				type.equals(Images.NORTHERN_HARRIER) || type.equals(Images.POWERUP)) { // TODO this ain't pretty
 			this.width = Images.getCorrespondingImageArray(type)[0].getWidth();
 			this.height = Images.getCorrespondingImageArray(type)[0].getHeight();
 		} else {
@@ -168,8 +169,8 @@ public abstract class GameElement implements Serializable {
 		// System.out.println(xPolyVals.get(Images.FOX).length ==
 		// yPolyVals.get(Images.FOX).length);
 
-		xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
-		yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
+		//xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
+		//yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
 		//System.out.println(xPolyVals.get(Images.BIRD).length ==
 		//yPolyVals.get(Images.BIRD).length);
 
@@ -337,7 +338,8 @@ public abstract class GameElement implements Serializable {
 	 */
 	public void setType(Images i) {
 		this.image = i;
-		if (this.image != Images.OSPREY_MINIMAP && this.image != Images.NH_MINIMAP) {
+		if (this.image != Images.OSPREY_MINIMAP && this.image != Images.NH_MINIMAP
+				&& this.image != Images.OSPREY && this.image != Images.NORTHERN_HARRIER && this.image != Images.BIRD) {
 			int[] x = xPolyVals.get(this.image);
 			int[] y = yPolyVals.get(this.image);
 			polygon = new Polygon(x, y, x.length);

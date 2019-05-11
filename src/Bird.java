@@ -148,7 +148,7 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
 		staminaImage = staminaPics[0];
-		this.setType(Images.BIRD);
+		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
 	
@@ -365,8 +365,10 @@ public class Bird extends GameElement implements Serializable {
 	public void setBirdType(String birdType) {
 		if (birdType.equalsIgnoreCase("osprey")) {
 			this.birdType = "osprey";
+			this.setType(Images.OSPREY);
 		} else {
 			this.birdType = "northern harrier";
+			this.setType(Images.NORTHERN_HARRIER);
 		}
 	}
 
