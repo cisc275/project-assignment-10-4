@@ -766,10 +766,11 @@ public class View extends JPanel implements Serializable {
 						g2d.setComposite(ac);
 						
 						g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
-						g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
 						
 						ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 						g2d.setComposite(ac);
+						
+						g2d.drawImage(bird.getStaminaImage(), 0, 0, this);
 					}
 					else {
 						g2d.drawImage(bird.nextFrame(), bird.getXloc(), bird.getYloc(), this);
