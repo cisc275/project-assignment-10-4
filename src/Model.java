@@ -19,11 +19,11 @@ public class Model implements Serializable {
 	/**
 	 * Constant for the maximum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MAX = 40;
+	static final int SPAWN_TIME_MAX = 50;
 	/**
 	 * Constant for minimum number of ticks between spawning of game elements
 	 */
-	static final int SPAWN_TIME_MIN = 10;
+	static final int SPAWN_TIME_MIN = 15;
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
@@ -228,7 +228,7 @@ public class Model implements Serializable {
 				spawnCount--;
 				spawnGameElement();
 				timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
-				spawnTimer.reset(); 
+				spawnTimer.reset(timeToSpawn); 
 			}
 		}
 	}
