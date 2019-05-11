@@ -786,6 +786,9 @@ public class View extends JPanel implements Serializable {
 			}
 		}
 
+		/**
+		 * @return the dimension of the preferred game screen
+		 */
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT);
 		}

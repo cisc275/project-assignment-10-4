@@ -51,6 +51,12 @@ public class Obstacle extends GameElement implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Overrides the GameElement getPointValue() method to return this
+	 * element's point value to the constant value assigned
+	 * 
+	 * @return integer representing point value
+	 */
 	@Override
 	public int getPointValue() {
 		return POINT_VALUE;
