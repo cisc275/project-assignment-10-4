@@ -288,6 +288,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				public void run(){
 					t = new Timer(DRAW_DELAY, drawAction);
 					t.start();
+					if (model.isQuizMode()) {
+						t.stop(); 
+					}
 				}
 			});
 	}
