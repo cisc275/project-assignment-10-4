@@ -61,7 +61,7 @@ public abstract class GameElement implements Serializable {
 	/**
 	 * The polygon of the GameElement
 	 */
-	protected Polygon polygon;;
+	protected Polygon polygon;
 
 	/**
 	 * @param x         an int representing the x location of the GameElement

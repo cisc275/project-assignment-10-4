@@ -276,9 +276,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	public void fuck() {
-		System.out.println("fuck"); 
-	}
+	
 	/**
 	 * Starts the game play. Will then prompt user to choose a bird to play as.
 	 * Will update game as it progresses and end the game when the nest is reached.
