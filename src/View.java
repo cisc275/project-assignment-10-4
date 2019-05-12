@@ -133,27 +133,32 @@ public class View extends JPanel implements Serializable {
 	 */
 	private NestAnimation nestAnimation;
 	private Component score;
-
+	private HashMap<String, JButton> buttons; 
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	public View(Controller c) {
+	public View() {
+		buttons = new HashMap<String, JButton>(); 
+		createButtons(); 
 		System.out.println("(" + FRAMEWIDTH + "," + FRAMEHEIGHT + ")");
 		frame = new JFrame();
 		cards = new JPanel(new CardLayout());
 
-		this.setUpButtonPanel(c);
-		this.setUpOspreyPlan(c);
-		this.setUpNHPlan(c);
-		this.setUpAnimation(c);
+		this.setUpButtonPanel();
+		this.setUpOspreyPlan();
+		this.setUpNHPlan();
+		this.setUpAnimation();
 		
     	OPanel = new DrawPanel(); 
-    	OPanel.add(c.getSaveGameButtonO());
+    	//OPanel.add(c.getSaveGameButtonO());
+    	OPanel.add(buttons.get("saveGameButtonO")); 
 		OPanel.setBackground(Color.gray);
     	NHPanel = new DrawPanel(); 
-    	NHPanel.add(c.getSaveGameButtonNH());
+    	//NHPanel.add(c.getSaveGameButtonNH());
+    	NHPanel.add(buttons.get("saveGameButtonNH")); 
 		NHPanel.setBackground(Color.gray);
 
 		cards.add(buttonPanel, "B");
@@ -166,20 +171,32 @@ public class View extends JPanel implements Serializable {
 
 		currentPanel = buttonPanel;
 
-		setUpFrame(c);
+		setUpFrame();
 
 		System.out.print(SCREENSIZE);
 	}
-
+	/**
+	 * Creates the map of button names to buttons
+	 */
+	public void createButtons() { 
+		buttons.put("OButton", new JButton("Osprey"));
+		buttons.put("NHButton", new JButton("Northern Harrier"));
+		buttons.put("OPlanButton", new JButton("Start Flight"));
+		buttons.put("NHPlanButton", new JButton("Start Flight"));
+		buttons.put("doneAnimationButton", new JButton("Continue"));
+		buttons.put("saveGameButtonO", new JButton("Save Game"));
+		buttons.put("saveGameButtonNH", new JButton("Save Game"));
+		buttons.put("reloadGameButton", new JButton("Reload Game"));
+	}
 	/**
 	 * Sets up the JFrame with its attributes
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	void setUpFrame(Controller c) {
+	void setUpFrame() {
 		frame.add(cards);
 		frame.setFocusable(true);
-		frame.addKeyListener(c);
+		//frame.addKeyListener(c);
 		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -193,40 +210,58 @@ public class View extends JPanel implements Serializable {
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	void setUpButtonPanel(Controller c) {
+	void setUpButtonPanel() {
 		buttonPanelBackground = createImage("images/selection_background_1080.png");
 		buttonPanel = new ButtonPanel();
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(Color.gray);
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("OButton").setFont(buttonFont);
+		buttons.get("NHButton").setFont(buttonFont);
+		buttons.get("reloadGameButton").setFont(buttonFont);
+		buttons.get("NHButton").setBounds(100, 20, 600, 100);
+		buttons.get("OButton").setBounds(1300, 20, 400, 100);
+		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
+		/**
 		c.getOButton().setFont(buttonFont);
 		c.getNHButton().setFont(buttonFont);
 		c.getReloadGameButton().setFont(buttonFont);
 		c.getNHButton().setBounds(100, 20, 600, 100);
 		c.getOButton().setBounds(1300, 20, 400, 100);
 		c.getReloadGameButton().setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
+		**/ 
 		JLabel text = new JLabel();
 		text.setText("Choose a Bird");
 		text.setFont(buttonFont);
 		text.setBounds(800, 600, 400, 200);
 		text.setBackground(Color.blue);
 		buttonPanel.add(text);
+		buttonPanel.add(buttons.get("NHButton")); 
+		buttonPanel.add(buttons.get("OButton")); 
+		buttonPanel.add(buttons.get("reloadGameButton")); 
+		/**
 		buttonPanel.add(c.getNHButton());
 		buttonPanel.add(c.getOButton());
 		buttonPanel.add(c.getReloadGameButton());
+		**/ 
+		
 	}
-
+	
 	/**
 	 * Sets up panel for osprey flight plan map
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	void setUpOspreyPlan(Controller c) {
+	void setUpOspreyPlan() {
 		opreyFlightPlanBack = createImage("images/osprey_flight_plan_yellow_background.png");
 		opreyFlightPlan = createImage("images/oprey_flight_plan_1080.png");
 		ospreyPlan = new OspreyFlightPlan();
+		buttons.get("OPlanButton").setFont(buttonFont);
+		ospreyPlan.add(buttons.get("OPlanButton"));
+		/**
 		c.getOPlanButton().setFont(buttonFont);
 		ospreyPlan.add(c.getOPlanButton());
+		**/ 
 	}
 
 	/**
@@ -234,10 +269,14 @@ public class View extends JPanel implements Serializable {
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	void setUpNHPlan(Controller c) {
+	void setUpNHPlan() {
 		NHPlan = new NHFlightPlan();
+		buttons.get("NHPlanButton").setFont(buttonFont);
+		NHPlan.add(buttons.get("NHPlanButton"));
+		/**
 		c.getNHPlanButton().setFont(buttonFont);
 		NHPlan.add(c.getNHPlanButton());
+		**/ 
 		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
 		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 	}
@@ -247,10 +286,14 @@ public class View extends JPanel implements Serializable {
 	 * 
 	 * @param c reference to the Controller object in use
 	 */
-	void setUpAnimation(Controller c) {
+	void setUpAnimation() {
 		animation = new NestAnimationPanel();
+		buttons.get("doneAnimationButton").setFont(buttonFont); 
+		animation.add(buttons.get("doneAnimationButton")); 
+		/**
 		c.getDoneAnimationButton().setFont(buttonFont);
 		animation.add(c.getDoneAnimationButton());
+		**/ 
 		animation.getComponent(0).setVisible(false);
 	}
 
@@ -453,7 +496,12 @@ public class View extends JPanel implements Serializable {
 			break;
 		}
 	}
-
+	public void hide(String buttonName) {
+		buttons.get(buttonName).setVisible(false); 
+	}
+	public void show(String buttonName) {
+		buttons.get(buttonName).setVisible(true);
+	}
 	/**
 	 * @return currentPanel the currentPanel to set
 	 */
@@ -805,5 +853,8 @@ public class View extends JPanel implements Serializable {
 		public Dimension getPreferredSize() {
 			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT);
 		}
+	}
+	public HashMap<String, JButton> getButtons(){
+		return this.buttons; 
 	}
 }
