@@ -442,7 +442,7 @@ public class View extends JPanel implements Serializable {
 	void nestAnimationUpdate(NestAnimation nestAnimation) {
 		this.setNestAnimation(nestAnimation);
 		if (this.getNestAnimation().getBird() == null) {
-			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(this.bird.getImage())[2]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(this.bird.getImage())[0]);
 		}
 		if (this.getNestAnimation().getBackground() == null) {
 			if (this.bird.getBirdType().equals("osprey")) {
@@ -452,7 +452,7 @@ public class View extends JPanel implements Serializable {
 			}
 		}
 		if (this.getNestAnimation().isDoneAnimation()) {
-			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(bird.getImage())[1]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(bird.getImage())[2]);
 			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();
