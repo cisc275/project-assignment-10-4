@@ -112,6 +112,8 @@ public class Model implements Serializable {
 	 * The nesting animation at the end of the game
 	 */
 	private NestAnimation nestAnimation;
+	
+	private Tutorial tutorial;
 
 	/**
 	 * Model constructor, sets up frame dimensions
@@ -143,6 +145,7 @@ public class Model implements Serializable {
 		}
 		this.reachedEnd = false;
 		setNestAnimation(new NestAnimation());
+		tutorial = new Tutorial(frameWidth,frameHeight);
 	}
 
 	/**
@@ -318,6 +321,10 @@ public class Model implements Serializable {
 			this.nestAnimation.setXvel(8);
 			this.nestAnimation.setYvel(5);
 		}
+	}
+	
+	void updateTutorial() {
+		tutorial.updateTutorial();
 	}
 
 	/**
@@ -820,5 +827,19 @@ public class Model implements Serializable {
 	 */
 	public boolean birdIsFainted() {
 		return bird.isFainted();
+	}
+
+	/**
+	 * @return the tutorial
+	 */
+	public Tutorial getTutorial() {
+		return tutorial;
+	}
+
+	/**
+	 * @param tutorial the tutorial to set
+	 */
+	public void setTutorial(Tutorial tutorial) {
+		this.tutorial = tutorial;
 	}
 }

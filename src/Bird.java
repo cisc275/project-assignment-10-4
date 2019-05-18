@@ -149,7 +149,7 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[3] = Images.HEALTH_3;
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
-		staminaImage = staminaPics[0];
+		staminaImage = staminaPics[5];
 		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
