@@ -148,6 +148,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				t.stop();
     			} else if (model.isReachedEnd()) {
     			    t.stop();
+    			    view.getCurrentPanel().remove(view.getScore());
     			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();

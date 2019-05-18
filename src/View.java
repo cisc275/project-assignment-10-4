@@ -180,6 +180,7 @@ public class View extends JPanel implements Serializable {
 		setUpFrame();
 
 		System.out.print(SCREENSIZE);
+
 	}
 	/**
 	 * Creates the map of button names to buttons
@@ -361,7 +362,9 @@ public class View extends JPanel implements Serializable {
 				e.setImage(e.getType());
 			}
 		}
-		if (score != null) currentPanel.remove(score);
+		if (score != null) {
+			currentPanel.remove(score);
+		}
 		score = new JLabel("Score: " + bird.getPoints(), SwingConstants.CENTER); 
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35); 
 		score.setFont(font);
@@ -957,5 +960,17 @@ public class View extends JPanel implements Serializable {
 	 */
 	public void setTutorial(Tutorial tutorial) {
 		this.tutorial = tutorial;
+	}
+	/**
+	 * @return the score
+	 */
+	public Component getScore() {
+		return score;
+	}
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(Component score) {
+		this.score = score;
 	}
 }
