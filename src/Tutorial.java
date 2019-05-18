@@ -14,13 +14,17 @@ public class Tutorial implements Serializable{
 	 * An obstacle that will be hit
 	 */
 	private Obstacle hitObstacle;
-	
+	/**
+	 * The obstacle to show off the powerup invincibility
+	 */
 	private Obstacle invincibleObstacle;
 	/**
 	 * Food that will be eaten
 	 */
 	private Food food;
-	
+	/**
+	 * Food to show what golden food does
+	 */
 	private Food goldenFood;
 	/**
 	 * The width of the frame
