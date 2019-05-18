@@ -73,13 +73,13 @@ public class View extends JPanel implements Serializable {
 	/**
 	 * Width of the frame to display the game
 	 */
-	private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
-	//private static final int FRAMEWIDTH = 1920;
+	//private static final int FRAMEWIDTH = (int)SCREENSIZE.getWidth();
+	private static final int FRAMEWIDTH = 1920;
 	/**
 	 * Height of the frame to display the game
 	 */
-	private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
-	//private static final int FRAMEHEIGHT = 1080;
+	//private static final int FRAMEHEIGHT = (int)SCREENSIZE.getHeight(); 
+	private static final int FRAMEHEIGHT = 1080;
 	/**
 	 * The miniMap that is on the screen
 	 */
@@ -135,6 +135,10 @@ public class View extends JPanel implements Serializable {
 	private Component score;
 	private HashMap<String, JButton> buttons; 
 	
+	private Tutorial tutorial;
+	
+	private TutorialPanel tutorialPanel;
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * 
@@ -151,6 +155,7 @@ public class View extends JPanel implements Serializable {
 		this.setUpOspreyPlan();
 		this.setUpNHPlan();
 		this.setUpAnimation();
+		this.setUpTutorial();
 		
     	OPanel = new DrawPanel(); 
     	//OPanel.add(c.getSaveGameButtonO());
@@ -161,6 +166,7 @@ public class View extends JPanel implements Serializable {
     	NHPanel.add(buttons.get("saveGameButtonNH")); 
 		NHPanel.setBackground(Color.gray);
 
+		cards.add(tutorialPanel,"TP");
 		cards.add(buttonPanel, "B");
 		cards.add(ospreyPlan, "OP");
 		cards.add(OPanel, "O");
@@ -169,11 +175,12 @@ public class View extends JPanel implements Serializable {
 		cards.add(animation, "NA");
 		// cards.add(quizPanel, "Q");
 
-		currentPanel = buttonPanel;
+		currentPanel = tutorialPanel;
 
 		setUpFrame();
 
 		System.out.print(SCREENSIZE);
+
 	}
 	/**
 	 * Creates the map of button names to buttons
@@ -187,6 +194,7 @@ public class View extends JPanel implements Serializable {
 		buttons.put("saveGameButtonO", new JButton("Save Game"));
 		buttons.put("saveGameButtonNH", new JButton("Save Game"));
 		buttons.put("reloadGameButton", new JButton("Reload Game"));
+		buttons.put("endTutorial", new JButton("Click This Button To End The Tutorial"));
 	}
 	/**
 	 * Sets up the JFrame with its attributes
@@ -296,6 +304,15 @@ public class View extends JPanel implements Serializable {
 		**/ 
 		animation.getComponent(0).setVisible(false);
 	}
+	
+	void setUpTutorial() {
+		tutorialPanel = new TutorialPanel();
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("endTutorial").setFont(buttonFont);
+		buttons.get("endTutorial").setBounds(100, 20, 600, 100);
+		tutorialPanel.add(buttons.get("endTutorial"));
+		tutorialPanel.getComponent(0).setVisible(false);
+	}
 
 	/**
 	 * Will update the game display based on changes to different game components.
@@ -345,7 +362,9 @@ public class View extends JPanel implements Serializable {
 				e.setImage(e.getType());
 			}
 		}
-		if (score != null) currentPanel.remove(score);
+		if (score != null) {
+			currentPanel.remove(score);
+		}
 		score = new JLabel("Score: " + bird.getPoints(), SwingConstants.CENTER); 
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35); 
 		score.setFont(font);
@@ -426,7 +445,7 @@ public class View extends JPanel implements Serializable {
 	void nestAnimationUpdate(NestAnimation nestAnimation) {
 		this.setNestAnimation(nestAnimation);
 		if (this.getNestAnimation().getBird() == null) {
-			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(this.bird.getImage())[2]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(this.bird.getImage())[0]);
 		}
 		if (this.getNestAnimation().getBackground() == null) {
 			if (this.bird.getBirdType().equals("osprey")) {
@@ -436,7 +455,20 @@ public class View extends JPanel implements Serializable {
 			}
 		}
 		if (this.getNestAnimation().isDoneAnimation()) {
-			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(bird.getImage())[1]);
+			this.getNestAnimation().setBird(Images.getCorrespondingImageArray(bird.getImage())[2]);
+			currentPanel.getComponent(0).setVisible(true);
+		}
+		currentPanel.repaint();
+	}
+	
+	/**
+	 * updates the visuals of a tutorial
+	 * 
+	 * @param t the tutorial to update
+	 */
+	void tutorialUpdate(Tutorial t) {
+		this.setTutorial(t);
+		if(this.tutorial.isDoneTutorial()) {
 			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();
@@ -683,6 +715,65 @@ public class View extends JPanel implements Serializable {
 	public void setNestAnimation(NestAnimation nestAnimation) {
 		this.nestAnimation = nestAnimation;
 	}
+	
+	/**
+	 * Panel to display the tutorial sequence
+	 * 
+	 * @author 10-4
+	 *
+	 */
+	class TutorialPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D) g;
+			super.paintComponent(g2d);
+			float alpha = (float) 0.5;
+			g2d.drawImage(Images.getCorrespondingImage(Images.GRASS_PATH),0, 0, this);
+			try {
+				g.drawImage(Images.getCorrespondingImage(getTutorial().getObstacle().getImage()),getTutorial().getObstacle().getXloc(),getTutorial().getObstacle().getYloc(),null);
+				g.drawImage(Images.getCorrespondingImage(getTutorial().getHitObstacle().getImage()),getTutorial().getHitObstacle().getXloc(),getTutorial().getHitObstacle().getYloc(),null);
+				if(!getTutorial().getFood().isEaten()) {
+					g.drawImage(Images.getCorrespondingImage(getTutorial().getFood().getImage()),getTutorial().getFood().getXloc(),getTutorial().getFood().getYloc(),null);
+				}
+				if(getTutorial().isCollectFood()) {
+					g.drawImage(Images.getCorrespondingImage(Images.DOWN_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
+				}
+				if(getTutorial().isAvoidObstacle()) {
+					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
+				}
+				
+				if(getTutorial().isDisplayArrow()) {
+					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW),500,0,null);
+				}
+				
+				if (getTutorial().getBird().isStunned()) {
+					AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+					g2d.setComposite(ac);
+					
+					g2d.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+					
+					ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+					g2d.setComposite(ac);
+					
+					g2d.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
+				}
+				else {
+					g2d.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+					g2d.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
+					
+				}
+				//g2d.drawRect(getTutorial().getBird().getBounds().x,getTutorial().getBird().getBounds().y,getTutorial().getBird().getBounds().width,getTutorial().getBird().getBounds().height);
+
+				
+			}
+			catch(Exception e) {
+				
+			}
+		}
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT);
+		}
+	}
 
 	/**
 	 * Panel to display the nesting animation
@@ -787,6 +878,7 @@ public class View extends JPanel implements Serializable {
 	 *
 	 */
 	class DrawPanel extends JPanel {
+		@Override
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 			super.paintComponent(g2d);
@@ -856,5 +948,29 @@ public class View extends JPanel implements Serializable {
 	}
 	public HashMap<String, JButton> getButtons(){
 		return this.buttons; 
+	}
+	/**
+	 * @return the tutorial
+	 */
+	public Tutorial getTutorial() {
+		return tutorial;
+	}
+	/**
+	 * @param tutorial the tutorial to set
+	 */
+	public void setTutorial(Tutorial tutorial) {
+		this.tutorial = tutorial;
+	}
+	/**
+	 * @return the score
+	 */
+	public Component getScore() {
+		return score;
+	}
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(Component score) {
+		this.score = score;
 	}
 }

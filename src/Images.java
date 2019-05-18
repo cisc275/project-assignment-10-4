@@ -25,28 +25,32 @@ public enum Images implements Serializable {
 	EAGLE("images/eagle_1080.png"), //Osprey
 	OWL("images/owl_1080.png"), //Northern Harrier
 	FOX("images/fox_1080.png"), //Northern Harrier
-    OSPREY("images/big_osprey_animate.png"),
-    NORTHERN_HARRIER("images/big_bird_animate.png"),
-    BIRD("images/big_bird_animate.png"),
-    POWERUP("images/powers.png"),
+    OSPREY("images/osprey_animate.png"),
+    NORTHERN_HARRIER("images/northern_harrier_animate.png"),
+    BIRD("images/northern_harrier_animate.png"),
+    POWERUP("images/northern_harrier_powerup.png"),
     POWERUP_OSPREY("images/osprey_powerup.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
 	GRASS_PATH("images/background_grass_1080.png"),
 	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
 	WATER_PATH("images/background_water_1080.png"),
 	WATER_MIRROR_PATH("images/background_water_mirror_1080.png"),
-	HEALTH_0("images/0_health.png"),
-	HEALTH_1("images/1_health.png"),
-	HEALTH_2("images/2_health.png"),
-	HEALTH_3("images/3_health.png"),
-	HEALTH_4("images/4_health.png"),
-	HEALTH_5("images/5_health.png"),
+	HEALTH_0("images/0_health_northern_harrier.png"),
+	HEALTH_1("images/1_health_northern_harrier.png"),
+	HEALTH_2("images/2_health_northern_harrier.png"),
+	HEALTH_3("images/3_health_northern_harrier.png"),
+	HEALTH_4("images/4_health_northern_harrier.png"),
+	HEALTH_5("images/5_health_northern_harrier.png"),
+	HEALTH_0_OSPREY("images/0_health_osprey.png"),
 	HEALTH_1_OSPREY("images/1_health_osprey.png"),
 	HEALTH_2_OSPREY("images/2_health_osprey.png"),
 	HEALTH_3_OSPREY("images/3_health_osprey.png"),
 	HEALTH_4_OSPREY("images/4_health_osprey.png"),
 	HEALTH_5_OSPREY("images/5_health_osprey.png"),
-	TRASH("images/plasticbag_1080.png");
+	TRASH("images/plasticbag_1080.png"),
+	DOWN_ARROW("images/down_arrow.png"),
+	UP_ARROW("images/up_arrow.png"),
+	RED_ARROW("images/red_arrow.png");
 	
 	
 	
@@ -145,6 +149,8 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_4_I.getImage();
 		case HEALTH_5:
 			return ImagesLoaded.HEALTH_5_I.getImage();
+		case HEALTH_0_OSPREY:
+			return ImagesLoaded.HEALTH_0_I_OSPREY.getImage();
 		case HEALTH_1_OSPREY:
 			return ImagesLoaded.HEALTH_1_I_OSPREY.getImage();
 		case HEALTH_2_OSPREY:
@@ -157,6 +163,12 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_5_I_OSPREY.getImage();
 		case TRASH:
 			return ImagesLoaded.TRASH_I.getImage();
+		case DOWN_ARROW:
+			return ImagesLoaded.DOWN_ARROW_I.getImage();
+		case UP_ARROW:
+			return ImagesLoaded.UP_ARROW_I.getImage();
+		case RED_ARROW:
+			return ImagesLoaded.RED_ARROW_I.getImage();
 		default:
 			return null;
 		}

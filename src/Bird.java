@@ -29,7 +29,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Constant for Bird's starting y speed
 	 */
-	private static final int START_Y_SPEED = 10;
+	private static final int START_Y_SPEED = 20;
 	/**
 	 * Constant for Bird's starting y location
 	 */
@@ -45,7 +45,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * An int for the number of frames that the bird cycles through to animate.
 	 */
-	private static final int FRAME_COUNT = 4;
+	private static final int FRAME_COUNT = 5;
 	/**
 	 * Constant for Bird's starting stamina value
 	 */
@@ -54,6 +54,10 @@ public class Bird extends GameElement implements Serializable {
 	 * a constant for how many ticks the bird is powered up
 	 */
 	private static final int POWER_TIMER_LIMIT = 250;
+	/**
+	 * a value to delay animation of the bird
+	 */
+	private int animationDelay = 1;
 	/**
 	 * An int representing the birds speed
 	 */
@@ -145,7 +149,7 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[3] = Images.HEALTH_3;
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
-		staminaImage = staminaPics[0];
+		staminaImage = staminaPics[5];
 		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
@@ -188,13 +192,18 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public BufferedImage nextFrame() {
 		int currentFrame = frameNum;
-		frameNum = (frameNum + 1) % FRAME_COUNT;
+		if(animationDelay == 0) {
+			frameNum = (frameNum + 1) % FRAME_COUNT;
+			animationDelay = 1;
+		}
+		else {
+			animationDelay -= 1;
+		}
 		if (!poweredUp) {
 			return Images.getCorrespondingImageArray(this.image)[currentFrame];
 		} else {
 			return Images.getCorrespondingImageArray(poweredUpPics)[currentFrame];
 		}
-
 	}
 
 	/**
@@ -222,7 +231,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(this.xloc+20, this.yloc + 140, this.width - 65, 60);
+		return new Rectangle(this.xloc+30, this.yloc + 80, this.width - 130, 40);
 	}
 
 	/**
@@ -364,7 +373,7 @@ public class Bird extends GameElement implements Serializable {
 			this.setType(Images.OSPREY);
 			this.setPoweredUpPics(Images.POWERUP_OSPREY);
 			staminaPics = new Images[6];
-			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[0] = Images.HEALTH_0_OSPREY;
 			staminaPics[1] = Images.HEALTH_1_OSPREY;
 			staminaPics[2] = Images.HEALTH_2_OSPREY;
 			staminaPics[3] = Images.HEALTH_3_OSPREY;

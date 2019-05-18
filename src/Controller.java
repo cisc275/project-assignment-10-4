@@ -31,8 +31,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * True once the user selects a bird
 	 */
 	private boolean isGameInProgress;
-	
-	
 	/**
 	 * Maps names of buttons to their listener 
 	 */
@@ -41,10 +39,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The list of answer buttons for the quiz
 	 */
 	private List<JButton> quizButtons; 
-	/**
-	 * Stores the key inputs by the player
-	 */
-	private KeyEvent keyInputs;
 	/**
 	 * Holds the Action code
 	 */
@@ -57,6 +51,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for animating the nesting
 	 */
 	Action animateAction;
+	
+	Action tutorialAction;
 	/**
 	 * Time between draw events
 	 */
@@ -70,9 +66,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	Timer s;
 	/**
+	 * Timer for handling the tutorial
+	 */
+	Timer r;
+	/**
 	 * number of iterations through the game
 	 */
 	private int timesPlayed;
+	/**
+	 * True if the tutorial is in progress
+	 */
+	private boolean tutorialMode;
 	
 	/**
 	 * constructor for Controller
@@ -81,28 +85,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public Controller() {
 		timesPlayed = 0;
-		/**
-		Obutton = new JButton("Osprey");
-		NHbutton = new JButton("Northern Harrier");
-		OPlanButton = new JButton("Start Flight");
-		NHPlanButton = new JButton("Start Flight");
-		doneAnimationButton = new JButton("Continue");
-		saveGameButtonO = new JButton("Save Game");
-		saveGameButtonNH = new JButton("Save Game");
-		reloadGameButton = new JButton("Reload Game");
-		
-		Obutton.addActionListener(this);
-		NHbutton.addActionListener(this);
-		OPlanButton.addActionListener(this);
-		NHPlanButton.addActionListener(this);
-		doneAnimationButton.addActionListener(this);
-		saveGameButtonO.addActionListener(this);
-		saveGameButtonNH.addActionListener(this);
-		reloadGameButton.addActionListener(this);
-		
-		saveGameButtonO.setFocusable(false);
-		saveGameButtonNH.setFocusable(false);
-		**/ 
+		 
 		listeners  = new HashMap<String, ActionListener>(); 
 		createListeners(); 
 		quizAnswer = new AbstractAction() {
@@ -135,9 +118,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		};
 		
+		tutorialAction = new AbstractAction(){
+			public void actionPerformed(ActionEvent e) {
+				model.updateTutorial();
+				view.tutorialUpdate(model.getTutorial());
+				
+			}
+		};
+		
 		
 		//model.setBirdType(view.selectBirdType());
-		view.setPanel("B");
+		view.setPanel("TP");
 		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
@@ -157,6 +148,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				t.stop();
     			} else if (model.isReachedEnd()) {
     			    t.stop();
+    			    view.getCurrentPanel().remove(view.getScore());
     			    model.configureNestAnimation();
     				view.setPanel("NA");
     				animate();
@@ -167,6 +159,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			}
     		}
     	};
+    	tutorialMode = true;
+    	this.executeTutorial();
 	}
 	
 	/**
@@ -176,6 +170,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 	public void createListeners() {
+		listeners.put("endTutorial",new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.setPanel("B");
+				r.stop();
+				tutorialMode = false;
+			}
+		});
 		listeners.put("OButton", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("OP");
@@ -264,6 +265,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		}); 
 		
 	}
+	
+	/**
+	 * Starts the tutorial. Will continue until the user presses the continue button
+	 * at the end of the tutorial
+	 */
+	void executeTutorial() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				r = new Timer(DRAW_DELAY, tutorialAction);
+				r.start();
+			}
+		});
+	}
 	/**
 	 * Starts the animation. Will continue until the user presses a button
 	 * that will return to the bird selection screen
@@ -299,10 +313,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyPressed(KeyEvent k) {
-		if (k.getKeyCode() == KeyEvent.VK_UP) {
-			model.getBird().setDirection(1);
-		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
-			model.getBird().setDirection(-1);
+		if(!tutorialMode) {
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getBird().setDirection(1);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getBird().setDirection(-1);
+			}
+		}
+		else {
+			if (k.getKeyCode() == KeyEvent.VK_UP && model.getTutorial().isAvoidObstacle()) {
+				model.getTutorial().getBird().setDirection(1);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN && model.getTutorial().isCollectFood()) {
+				model.getTutorial().getBird().setDirection(-1);
+			}
 		}
 		
 	}
@@ -314,11 +337,20 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyReleased(KeyEvent k) {
-		//System.out.println("A key has been pressed.");
-		if (k.getKeyCode() == KeyEvent.VK_UP) {
-			model.getBird().setDirection(0);
-		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
-			model.getBird().setDirection(0);
+		if(!tutorialMode) {
+			//System.out.println("A key has been pressed.");
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getBird().setDirection(0);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getBird().setDirection(0);
+			}
+		}
+		else {
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getTutorial().getBird().setDirection(0);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getTutorial().getBird().setDirection(0);
+			}
 		}
 	}
 
@@ -337,77 +369,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/**
-		if (e.getSource() == Obutton) {
-			view.setPanel("OP"); 
-		}
-		else if (e.getSource() == NHbutton) {
-			view.setPanel("NHP");
-		}
-		else if (e.getSource() == NHbutton) {
-			view.setPanel("NHP");
-			//System.out.println(model.getBird().getBirdType());
-			//start();
-		}
-		else if (e.getSource() == OPlanButton) {
-			model.setBird(new Bird(0,0,0,0,Images.OSPREY.getName()) );
-			model.getBird().setBirdType("Osprey");
-			model.createQuestions("Osprey");
-			isGameInProgress = true;
-			view.setPanel("O");
-			//System.out.println(model.getBird().getBirdType());
-			start();
-		}
-		else if (e.getSource() == NHPlanButton) {
-			model.setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()) );
-			model.getBird().setBirdType("Northern Harrier");
-			model.createQuestions("Northern Harrier");
-			isGameInProgress = true;
-			view.setPanel("NH");
-			//System.out.println(model.getBird().getBirdType());
-			start();
-		}
-		else if (e.getSource() == doneAnimationButton) {
-			timesPlayed++;
-			s.stop();
-			doneAnimationButton.setVisible(false);
-			if(timesPlayed%2==0) {
-				Obutton.setVisible(true);
-				NHbutton.setVisible(true);
-			}
-			else if(model.getBird().getBirdType().equals("osprey")) {
-				Obutton.setVisible(false);
-				NHbutton.setVisible(true);
-			}
-			else{
-				Obutton.setVisible(true);
-				NHbutton.setVisible(false);
-			}
-			view.setPanel("B");
-			model = new Model(view.getFrameWidth(), view.getFrameHeight());
-			//view.setNestAnimation(model.getNestAnimation());
-		}
-		else if(e.getSource() == saveGameButtonO || e.getSource() == saveGameButtonNH) {
-			try {
-				this.saveGame();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		else if(e.getSource() == reloadGameButton) {
-			try {
-				this.reloadGame();
-				//System.out.println("pressed");
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		**/ 
+		
 	}
 	
 	/**

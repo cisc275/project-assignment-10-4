@@ -27,17 +27,18 @@ public enum ImagesLoaded {
 	EAGLE_I(createImage(Images.EAGLE.getName())), //Osprey
 	OWL_I(createImage(Images.OWL.getName())), //Northern Harrier
 	FOX_I(createImage(Images.FOX.getName())), //Northern Harrier
-    OSPREY_I(createImageArray(Images.OSPREY.getName(),4),4),
-    NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),4),4),
-    BIRD_I(createImageArray(Images.BIRD.getName(),4),4),
-    POWERUP_I(createImageArray(Images.POWERUP.getName(),4),4),
-    POWERUP_OSPREY_I(createImageArray(Images.POWERUP_OSPREY.getName(),4),4),
+    OSPREY_I(createImageArray(Images.OSPREY.getName(),5),5),
+    NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),5),5),
+    BIRD_I(createImageArray(Images.BIRD.getName(),5),5),
+    POWERUP_I(createImageArray(Images.POWERUP.getName(),5),5),
+    POWERUP_OSPREY_I(createImageArray(Images.POWERUP_OSPREY.getName(),5),5),
 	RECTANGLE_I(createImage(Images.RECTANGLE.getName())),
 	GRASS_PATH_I(createImage(Images.GRASS_PATH.getName())),
 	GRASS_PATH_MIRROR_I(createImage(Images.GRASS_MIRROR_PATH.getName())),
 	WATER_PATH_I(createImage(Images.WATER_PATH.getName())),
 	WATER_PATH_MIRROR_I(createImage(Images.WATER_MIRROR_PATH.getName())),
 	HEALTH_0_I(createImage(Images.HEALTH_0.getName())),
+	HEALTH_0_I_OSPREY(createImage(Images.HEALTH_0_OSPREY.getName())),
 	HEALTH_1_I_OSPREY(createImage(Images.HEALTH_1_OSPREY.getName())),
 	HEALTH_2_I_OSPREY(createImage(Images.HEALTH_2_OSPREY.getName())),
 	HEALTH_3_I_OSPREY(createImage(Images.HEALTH_3_OSPREY.getName())),
@@ -48,7 +49,10 @@ public enum ImagesLoaded {
 	HEALTH_3_I(createImage(Images.HEALTH_3.getName())),
 	HEALTH_4_I(createImage(Images.HEALTH_4.getName())),
 	HEALTH_5_I(createImage(Images.HEALTH_5.getName())),
-	TRASH_I(createImage(Images.TRASH.getName()));
+	TRASH_I(createImage(Images.TRASH.getName())),
+	DOWN_ARROW_I(createImage(Images.DOWN_ARROW.getName())),
+	UP_ARROW_I(createImage(Images.UP_ARROW.getName())),
+	RED_ARROW_I(createImage(Images.RED_ARROW.getName()));
 	
 	/**
 	 * @param a BufferedImage representing the BufferedImage of the GameElement
