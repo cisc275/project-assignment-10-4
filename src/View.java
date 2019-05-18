@@ -716,7 +716,8 @@ public class View extends JPanel implements Serializable {
 					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
 				}
 				g.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
-
+				//g.drawImage(Images.getCorrespondingImage(getTutorial().getBird().getStaminaPics()[5]), 0, 0, null);
+				g.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
 			}
 			catch(Exception e) {
 				

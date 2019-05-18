@@ -19,6 +19,8 @@ public class Tutorial implements Serializable{
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
 		bird.setYloc(300);
+		bird.setStamina(4);
+		bird.updateStaminaImage();
 		setObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
 		obstacle.setType(Images.FOX);
 		setFood(new Food(false,3*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
@@ -31,6 +33,7 @@ public class Tutorial implements Serializable{
 	
 	
 	public void updateTutorial() {
+		//System.out.println(bird.getStaminaPics()[5].getName());
 		if(!collectFood && !avoidObstacle) {
 			obstacle.update(0);
 			food.update(0);
@@ -42,6 +45,8 @@ public class Tutorial implements Serializable{
 			}
 			if (food.polyBounds().intersects(bird.getBounds())) {
 				food.setEaten(true);
+				bird.setStamina(5);
+				bird.updateStaminaImage();
 			}
 		}
 		
