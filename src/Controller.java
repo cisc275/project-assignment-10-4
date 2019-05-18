@@ -31,8 +31,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * True once the user selects a bird
 	 */
 	private boolean isGameInProgress;
-	
-	
 	/**
 	 * Maps names of buttons to their listener 
 	 */
@@ -41,10 +39,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * The list of answer buttons for the quiz
 	 */
 	private List<JButton> quizButtons; 
-	/**
-	 * Stores the key inputs by the player
-	 */
-	private KeyEvent keyInputs;
 	/**
 	 * Holds the Action code
 	 */
