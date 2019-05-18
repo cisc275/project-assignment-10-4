@@ -373,7 +373,7 @@ public class Bird extends GameElement implements Serializable {
 			this.setType(Images.OSPREY);
 			this.setPoweredUpPics(Images.POWERUP_OSPREY);
 			staminaPics = new Images[6];
-			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[0] = Images.HEALTH_0_OSPREY;
 			staminaPics[1] = Images.HEALTH_1_OSPREY;
 			staminaPics[2] = Images.HEALTH_2_OSPREY;
 			staminaPics[3] = Images.HEALTH_3_OSPREY;

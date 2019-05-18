@@ -35,17 +35,18 @@ public enum Images implements Serializable {
 	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
 	WATER_PATH("images/background_water_1080.png"),
 	WATER_MIRROR_PATH("images/background_water_mirror_1080.png"),
-	HEALTH_0("images/0_health.png"),
-	HEALTH_1("images/1_health.png"),
-	HEALTH_2("images/2_health.png"),
-	HEALTH_3("images/3_health.png"),
-	HEALTH_4("images/4_health.png"),
-	HEALTH_5("images/5_health.png"),
-	HEALTH_1_OSPREY("images/1_health_osprey.png"),
-	HEALTH_2_OSPREY("images/2_health_osprey.png"),
-	HEALTH_3_OSPREY("images/3_health_osprey.png"),
-	HEALTH_4_OSPREY("images/4_health_osprey.png"),
-	HEALTH_5_OSPREY("images/5_health_osprey.png"),
+	HEALTH_0("images/0_health_northern_harrier.png"),
+	HEALTH_1("images/1_health_northern_harrier.png"),
+	HEALTH_2("images/2_health_northern_harrier.png"),
+	HEALTH_3("images/3_health_northern_harrier.png"),
+	HEALTH_4("images/4_health_northern_harrier.png"),
+	HEALTH_5("images/5_health_northern_harrier.png"),
+	HEALTH_0_OSPREY("images/0_health_osprey_new.png"),
+	HEALTH_1_OSPREY("images/1_health_osprey_new.png"),
+	HEALTH_2_OSPREY("images/2_health_osprey_new.png"),
+	HEALTH_3_OSPREY("images/3_health_osprey_new.png"),
+	HEALTH_4_OSPREY("images/4_health_osprey_new.png"),
+	HEALTH_5_OSPREY("images/5_health_osprey_new.png"),
 	TRASH("images/plasticbag_1080.png");
 	
 	
@@ -145,6 +146,8 @@ public enum Images implements Serializable {
 			return ImagesLoaded.HEALTH_4_I.getImage();
 		case HEALTH_5:
 			return ImagesLoaded.HEALTH_5_I.getImage();
+		case HEALTH_0_OSPREY:
+			return ImagesLoaded.HEALTH_0_I_OSPREY.getImage();
 		case HEALTH_1_OSPREY:
 			return ImagesLoaded.HEALTH_1_I_OSPREY.getImage();
 		case HEALTH_2_OSPREY:

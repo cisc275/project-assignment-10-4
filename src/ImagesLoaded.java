@@ -38,6 +38,7 @@ public enum ImagesLoaded {
 	WATER_PATH_I(createImage(Images.WATER_PATH.getName())),
 	WATER_PATH_MIRROR_I(createImage(Images.WATER_MIRROR_PATH.getName())),
 	HEALTH_0_I(createImage(Images.HEALTH_0.getName())),
+	HEALTH_0_I_OSPREY(createImage(Images.HEALTH_0_OSPREY.getName())),
 	HEALTH_1_I_OSPREY(createImage(Images.HEALTH_1_OSPREY.getName())),
 	HEALTH_2_I_OSPREY(createImage(Images.HEALTH_2_OSPREY.getName())),
 	HEALTH_3_I_OSPREY(createImage(Images.HEALTH_3_OSPREY.getName())),
