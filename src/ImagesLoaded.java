@@ -48,7 +48,8 @@ public enum ImagesLoaded {
 	HEALTH_3_I(createImage(Images.HEALTH_3.getName())),
 	HEALTH_4_I(createImage(Images.HEALTH_4.getName())),
 	HEALTH_5_I(createImage(Images.HEALTH_5.getName())),
-	TRASH_I(createImage(Images.TRASH.getName()));
+	TRASH_I(createImage(Images.TRASH.getName())),
+	DOWN_ARROW_I(createImage(Images.DOWN_ARROW.getName()));
 	
 	/**
 	 * @param a BufferedImage representing the BufferedImage of the GameElement

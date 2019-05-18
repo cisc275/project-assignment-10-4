@@ -705,7 +705,15 @@ public class View extends JPanel implements Serializable {
 			super.paintComponent(g2d);
 			g2d.drawImage(Images.getCorrespondingImage(Images.GRASS_PATH),0, 0, this);
 			try {
+				g.drawImage(Images.getCorrespondingImage(getTutorial().getObstacle().getImage()),getTutorial().getObstacle().getXloc(),getTutorial().getObstacle().getYloc(),null);
+				if(!getTutorial().getFood().isEaten()) {
+					g.drawImage(Images.getCorrespondingImage(getTutorial().getFood().getImage()),getTutorial().getFood().getXloc(),getTutorial().getFood().getYloc(),null);
+				}
+				if(getTutorial().isCollectFood()) {
+					g.drawImage(Images.getCorrespondingImage(Images.DOWN_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
+				}
 				g.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+
 			}
 			catch(Exception e) {
 				

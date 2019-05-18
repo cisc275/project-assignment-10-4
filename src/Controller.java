@@ -78,6 +78,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private int timesPlayed;
 	
+	private boolean tutorialMode;
+	
 	/**
 	 * constructor for Controller
 	 * instantiates all buttons
@@ -157,7 +159,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			}
     		}
     	};
-    	
+    	tutorialMode = true;
     	this.executeTutorial();
 	}
 	
@@ -300,10 +302,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyPressed(KeyEvent k) {
-		if (k.getKeyCode() == KeyEvent.VK_UP) {
-			model.getBird().setDirection(1);
-		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
-			model.getBird().setDirection(-1);
+		if(!tutorialMode) {
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getBird().setDirection(1);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getBird().setDirection(-1);
+			}
+		}
+		else {
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getTutorial().getBird().setDirection(1);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getTutorial().getBird().setDirection(-1);
+			}
 		}
 		
 	}
@@ -315,11 +326,20 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyReleased(KeyEvent k) {
-		//System.out.println("A key has been pressed.");
-		if (k.getKeyCode() == KeyEvent.VK_UP) {
-			model.getBird().setDirection(0);
-		} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
-			model.getBird().setDirection(0);
+		if(!tutorialMode) {
+			//System.out.println("A key has been pressed.");
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getBird().setDirection(0);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getBird().setDirection(0);
+			}
+		}
+		else {
+			if (k.getKeyCode() == KeyEvent.VK_UP) {
+				model.getTutorial().getBird().setDirection(0);
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+				model.getTutorial().getBird().setDirection(0);
+			}
 		}
 	}
 
