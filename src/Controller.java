@@ -124,6 +124,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			public void actionPerformed(ActionEvent e) {
 				model.updateTutorial();
 				view.tutorialUpdate(model.getTutorial());
+				
 			}
 		};
 		
@@ -170,6 +171,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 	public void createListeners() {
+		listeners.put("endTutorial",new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.setPanel("B");
+				r.stop();
+				tutorialMode = false;
+			}
+		});
 		listeners.put("OButton", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("OP");

@@ -193,6 +193,7 @@ public class View extends JPanel implements Serializable {
 		buttons.put("saveGameButtonO", new JButton("Save Game"));
 		buttons.put("saveGameButtonNH", new JButton("Save Game"));
 		buttons.put("reloadGameButton", new JButton("Reload Game"));
+		buttons.put("endTutorial", new JButton("Click This Button To End The Tutorial"));
 	}
 	/**
 	 * Sets up the JFrame with its attributes
@@ -305,6 +306,11 @@ public class View extends JPanel implements Serializable {
 	
 	void setUpTutorial() {
 		tutorialPanel = new TutorialPanel();
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("endTutorial").setFont(buttonFont);
+		buttons.get("endTutorial").setBounds(100, 20, 600, 100);
+		tutorialPanel.add(buttons.get("endTutorial"));
+		tutorialPanel.getComponent(0).setVisible(false);
 	}
 
 	/**
@@ -454,6 +460,9 @@ public class View extends JPanel implements Serializable {
 	
 	void tutorialUpdate(Tutorial t) {
 		this.setTutorial(t);
+		if(this.tutorial.isDoneTutorial()) {
+			currentPanel.getComponent(0).setVisible(true);
+		}
 		currentPanel.repaint();
 	}
 

@@ -21,6 +21,8 @@ public class Tutorial implements Serializable{
 	
 	private boolean hitAnObstacle;
 	
+	private boolean doneTutorial;
+	
 	Tutorial(int frameWidth, int frameHeight){
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
@@ -39,6 +41,8 @@ public class Tutorial implements Serializable{
 		avoidObstacle = false;
 		displayArrow = false;
 		hitAnObstacle = false;
+		doneTutorial = false;
+		
 	}
 	
 	
@@ -81,6 +85,10 @@ public class Tutorial implements Serializable{
 				hitAnObstacle = true;
 				displayArrow = true;
 			}
+			
+			if(obstacle.getXloc() + obstacle.getWidth() < 0) {
+				doneTutorial = true;
+			}
 		}
 		
 		if(collectFood || avoidObstacle) {
@@ -99,6 +107,7 @@ public class Tutorial implements Serializable{
 		if(hitAnObstacle && (hitObstacle.getXloc() + hitObstacle.getWidth() < 100)) {
 			hitAnObstacle = false;
 		}
+		
 		
 		
 		
@@ -230,5 +239,21 @@ public class Tutorial implements Serializable{
 	 */
 	public void setHitAnObstacle(boolean hitAnObstacle) {
 		this.hitAnObstacle = hitAnObstacle;
+	}
+
+
+	/**
+	 * @return the doneTutorial
+	 */
+	public boolean isDoneTutorial() {
+		return doneTutorial;
+	}
+
+
+	/**
+	 * @param doneTutorial the doneTutorial to set
+	 */
+	public void setDoneTutorial(boolean doneTutorial) {
+		this.doneTutorial = doneTutorial;
 	}
 }
