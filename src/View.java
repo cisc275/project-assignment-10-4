@@ -703,9 +703,11 @@ public class View extends JPanel implements Serializable {
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 			super.paintComponent(g2d);
+			float alpha = (float) 0.5;
 			g2d.drawImage(Images.getCorrespondingImage(Images.GRASS_PATH),0, 0, this);
 			try {
 				g.drawImage(Images.getCorrespondingImage(getTutorial().getObstacle().getImage()),getTutorial().getObstacle().getXloc(),getTutorial().getObstacle().getYloc(),null);
+				g.drawImage(Images.getCorrespondingImage(getTutorial().getHitObstacle().getImage()),getTutorial().getHitObstacle().getXloc(),getTutorial().getHitObstacle().getYloc(),null);
 				if(!getTutorial().getFood().isEaten()) {
 					g.drawImage(Images.getCorrespondingImage(getTutorial().getFood().getImage()),getTutorial().getFood().getXloc(),getTutorial().getFood().getYloc(),null);
 				}
@@ -715,9 +717,25 @@ public class View extends JPanel implements Serializable {
 				if(getTutorial().isAvoidObstacle()) {
 					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
 				}
-				g.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
-				//g.drawImage(Images.getCorrespondingImage(getTutorial().getBird().getStaminaPics()[5]), 0, 0, null);
-				g.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
+				
+				
+				if (getTutorial().getBird().isStunned()) {
+					AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+					g2d.setComposite(ac);
+					
+					g2d.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+					
+					ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+					g2d.setComposite(ac);
+					
+					g2d.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
+				}
+				else {
+					g2d.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+					g2d.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
+					
+				}
+				
 			}
 			catch(Exception e) {
 				

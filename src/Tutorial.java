@@ -5,6 +5,8 @@ public class Tutorial implements Serializable{
 	
 	private Obstacle obstacle;
 	
+	private Obstacle hitObstacle;
+	
 	private Food food;
 	
 	private int frameWidth;
@@ -21,8 +23,10 @@ public class Tutorial implements Serializable{
 		bird.setYloc(300);
 		bird.setStamina(4);
 		bird.updateStaminaImage();
-		setObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setObstacle(new Obstacle(4*frameWidth,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
 		obstacle.setType(Images.FOX);
+		setHitObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		hitObstacle.setType(Images.FOX);
 		setFood(new Food(false,3*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
 		food.setType(Images.MOUSE);
 		this.frameWidth = frameWidth;
@@ -36,6 +40,7 @@ public class Tutorial implements Serializable{
 		//System.out.println(bird.getStaminaPics()[5].getName());
 		if(!collectFood && !avoidObstacle) {
 			obstacle.update(0);
+			hitObstacle.update(0);
 			food.update(0);
 			if(food.getXloc()== (frameWidth*3/4)) {
 				collectFood = true;
@@ -47,6 +52,15 @@ public class Tutorial implements Serializable{
 				food.setEaten(true);
 				bird.setStamina(5);
 				bird.updateStaminaImage();
+			}
+			if(hitObstacle.polyBounds().intersects(bird.getBounds())) {
+				bird.setStunned(true);
+				bird.setStunTimer(1);
+				bird.setStamina(4);
+				bird.updateStaminaImage();
+			}
+			if(obstacle.getXloc() == frameWidth) {
+				bird.setStunned(false);
 			}
 		}
 		
@@ -143,5 +157,21 @@ public class Tutorial implements Serializable{
 	 */
 	public void setAvoidObstacle(boolean avoidObstacle) {
 		this.avoidObstacle = avoidObstacle;
+	}
+
+
+	/**
+	 * @return the hitObstacle
+	 */
+	public Obstacle getHitObstacle() {
+		return hitObstacle;
+	}
+
+
+	/**
+	 * @param hitObstacle the hitObstacle to set
+	 */
+	public void setHitObstacle(Obstacle hitObstacle) {
+		this.hitObstacle = hitObstacle;
 	}
 }
