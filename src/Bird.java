@@ -29,7 +29,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Constant for Bird's starting y speed
 	 */
-	private static final int START_Y_SPEED = 10;
+	private static final int START_Y_SPEED = 20;
 	/**
 	 * Constant for Bird's starting y location
 	 */
