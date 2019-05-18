@@ -65,13 +65,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Timer for handling the nesting animation
 	 */
 	Timer s;
-	
+	/**
+	 * Timer for handling the tutorial
+	 */
 	Timer r;
 	/**
 	 * number of iterations through the game
 	 */
 	private int timesPlayed;
-	
+	/**
+	 * True if the tutorial is in progress
+	 */
 	private boolean tutorialMode;
 	
 	/**
@@ -261,6 +265,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		
 	}
 	
+	/**
+	 * Starts the tutorial. Will continue until the user presses the continue button
+	 * at the end of the tutorial
+	 */
 	void executeTutorial() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

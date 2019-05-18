@@ -2,26 +2,49 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Tutorial implements Serializable{
+	/**
+	 * The bird for the tutorial the user will control
+	 */
 	private Bird bird;
-	
+	/**
+	 * An obstacle that will need to be dodged
+	 */
 	private Obstacle obstacle;
-	
+	/**
+	 * An obstacle that will be hit
+	 */
 	private Obstacle hitObstacle;
-	
+	/**
+	 * Food that will be eaten
+	 */
 	private Food food;
-	
+	/**
+	 * The width of the frame
+	 */
 	private int frameWidth;
-	
+	/**
+	 * The height of the frame
+	 */
 	private int frameHeight;
-	
+	/**
+	 * True if the tutorial is in the food collection phase
+	 */
 	private boolean collectFood;
-	
+	/**
+	 * True if the tutorial is in the avoid obstacle phase
+	 */
 	private boolean avoidObstacle;
-	
+	/**
+	 * True if the arrow to highlight the stamina should be dispalyed
+	 */
 	private boolean displayArrow;
-	
+	/**
+	 * True if the hitting an obstacle phase is active
+	 */
 	private boolean hitAnObstacle;
-	
+	/**
+	 * True if the tutorial has been completed
+	 */
 	private boolean doneTutorial;
 	
 	Tutorial(int frameWidth, int frameHeight){
@@ -46,9 +69,11 @@ public class Tutorial implements Serializable{
 		
 	}
 	
-	
+	/**
+	 * Updates the tutorial to the different phases to ensure that the player understands
+	 * the different aspects of the game
+	 */
 	public void updateTutorial() {
-		//System.out.println(bird.getStaminaPics()[5].getName());
 		if(!collectFood && !avoidObstacle) {
 			obstacle.update(0);
 			hitObstacle.update(0);
@@ -113,7 +138,6 @@ public class Tutorial implements Serializable{
 		
 		
 	}
-
 
 	/**
 	 * @return the bird

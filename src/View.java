@@ -458,6 +458,11 @@ public class View extends JPanel implements Serializable {
 		currentPanel.repaint();
 	}
 	
+	/**
+	 * updates the visuals of a tutorial
+	 * 
+	 * @param t the tutorial to update
+	 */
 	void tutorialUpdate(Tutorial t) {
 		this.setTutorial(t);
 		if(this.tutorial.isDoneTutorial()) {
@@ -708,6 +713,12 @@ public class View extends JPanel implements Serializable {
 		this.nestAnimation = nestAnimation;
 	}
 	
+	/**
+	 * Panel to display the tutorial sequence
+	 * 
+	 * @author 10-4
+	 *
+	 */
 	class TutorialPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;

@@ -112,7 +112,9 @@ public class Model implements Serializable {
 	 * The nesting animation at the end of the game
 	 */
 	private NestAnimation nestAnimation;
-	
+	/**
+	 * The tutorial for the start of the game
+	 */
 	private Tutorial tutorial;
 
 	/**
@@ -323,6 +325,9 @@ public class Model implements Serializable {
 		}
 	}
 	
+	/**
+	 * updates the tutorial
+	 */
 	void updateTutorial() {
 		tutorial.updateTutorial();
 	}
