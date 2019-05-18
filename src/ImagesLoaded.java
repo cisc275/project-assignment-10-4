@@ -27,11 +27,11 @@ public enum ImagesLoaded {
 	EAGLE_I(createImage(Images.EAGLE.getName())), //Osprey
 	OWL_I(createImage(Images.OWL.getName())), //Northern Harrier
 	FOX_I(createImage(Images.FOX.getName())), //Northern Harrier
-    OSPREY_I(createImageArray(Images.OSPREY.getName(),4),4),
-    NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),4),4),
-    BIRD_I(createImageArray(Images.BIRD.getName(),4),4),
-    POWERUP_I(createImageArray(Images.POWERUP.getName(),4),4),
-    POWERUP_OSPREY_I(createImageArray(Images.POWERUP_OSPREY.getName(),4),4),
+    OSPREY_I(createImageArray(Images.OSPREY.getName(),5),5),
+    NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),5),5),
+    BIRD_I(createImageArray(Images.BIRD.getName(),5),5),
+    POWERUP_I(createImageArray(Images.POWERUP.getName(),5),5),
+    POWERUP_OSPREY_I(createImageArray(Images.POWERUP_OSPREY.getName(),5),5),
 	RECTANGLE_I(createImage(Images.RECTANGLE.getName())),
 	GRASS_PATH_I(createImage(Images.GRASS_PATH.getName())),
 	GRASS_PATH_MIRROR_I(createImage(Images.GRASS_MIRROR_PATH.getName())),

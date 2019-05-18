@@ -25,11 +25,11 @@ public enum Images implements Serializable {
 	EAGLE("images/eagle_1080.png"), //Osprey
 	OWL("images/owl_1080.png"), //Northern Harrier
 	FOX("images/fox_1080.png"), //Northern Harrier
-    OSPREY("images/big_osprey_animate.png"),
-    NORTHERN_HARRIER("images/big_bird_animate.png"),
-    BIRD("images/big_bird_animate.png"),
-    POWERUP("images/powers.png"),
-    POWERUP_OSPREY("images/osprey_powerup.png"),
+    OSPREY("images/osprey_new_resize.png"),
+    NORTHERN_HARRIER("images/northern_harrier_new.png"),
+    BIRD("images/osprey_new_resize.png"),
+    POWERUP("images/northern_harrier_powerup.png"),
+    POWERUP_OSPREY("images/osprey_powerup_new.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
 	GRASS_PATH("images/background_grass_1080.png"),
 	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
