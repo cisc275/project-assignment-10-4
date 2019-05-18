@@ -50,15 +50,25 @@ public class Tutorial implements Serializable{
 	 * True if the tutorial has been completed
 	 */
 	private boolean doneTutorial;
-	
+	/**
+	 * The minimap for the tutorial
+	 */
 	private MiniMap miniMap;
-	
+	/**
+	 * The percent of the minimap to be traveled
+	 */
 	private double percent;
-	
+	/**
+	 * True if the minimap tutorial should be displayed
+	 */
 	private boolean showMiniMap;
-	
+	/**
+	 * True if the arrow to point at the minimap should be displayed
+	 */
 	private boolean displayBackArrow;
-	
+	/**
+	 * True if the power up section of the tutorial should be displayed
+	 */
 	private boolean showInvincible;
 	
 	Tutorial(int frameWidth, int frameHeight){
@@ -131,10 +141,6 @@ public class Tutorial implements Serializable{
 				bird.setStamina(4);
 				bird.updateStaminaImage();
 			}
-			
-			/*if(obstacle.getXloc() == frameWidth) {
-				bird.setStunned(false);
-			}*/
 			
 			if(goldenFood.getXloc()<frameWidth) {
 				bird.setStunned(false);
