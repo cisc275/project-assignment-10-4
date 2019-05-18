@@ -25,11 +25,11 @@ public enum Images implements Serializable {
 	EAGLE("images/eagle_1080.png"), //Osprey
 	OWL("images/owl_1080.png"), //Northern Harrier
 	FOX("images/fox_1080.png"), //Northern Harrier
-    OSPREY("images/osprey_new_resize.png"),
-    NORTHERN_HARRIER("images/northern_harrier_new.png"),
-    BIRD("images/osprey_new_resize.png"),
+    OSPREY("images/osprey_animate.png"),
+    NORTHERN_HARRIER("images/northern_harrier_animate.png"),
+    BIRD("images/northern_harrier_animate.png"),
     POWERUP("images/northern_harrier_powerup.png"),
-    POWERUP_OSPREY("images/osprey_powerup_new.png"),
+    POWERUP_OSPREY("images/osprey_powerup.png"),
 	RECTANGLE("images/rectangle-icon-256.png"),
 	GRASS_PATH("images/background_grass_1080.png"),
 	GRASS_MIRROR_PATH("images/background_grass_mirror_1080.png"),
@@ -41,12 +41,12 @@ public enum Images implements Serializable {
 	HEALTH_3("images/3_health_northern_harrier.png"),
 	HEALTH_4("images/4_health_northern_harrier.png"),
 	HEALTH_5("images/5_health_northern_harrier.png"),
-	HEALTH_0_OSPREY("images/0_health_osprey_new.png"),
-	HEALTH_1_OSPREY("images/1_health_osprey_new.png"),
-	HEALTH_2_OSPREY("images/2_health_osprey_new.png"),
-	HEALTH_3_OSPREY("images/3_health_osprey_new.png"),
-	HEALTH_4_OSPREY("images/4_health_osprey_new.png"),
-	HEALTH_5_OSPREY("images/5_health_osprey_new.png"),
+	HEALTH_0_OSPREY("images/0_health_osprey.png"),
+	HEALTH_1_OSPREY("images/1_health_osprey.png"),
+	HEALTH_2_OSPREY("images/2_health_osprey.png"),
+	HEALTH_3_OSPREY("images/3_health_osprey.png"),
+	HEALTH_4_OSPREY("images/4_health_osprey.png"),
+	HEALTH_5_OSPREY("images/5_health_osprey.png"),
 	TRASH("images/plasticbag_1080.png");
 	
 	
