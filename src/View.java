@@ -746,7 +746,7 @@ public class View extends JPanel implements Serializable {
 				}
 				
 				if(getTutorial().isDisplayBackArrow()) {
-					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW_BACKWARD),1200,0,null);
+					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW_BACKWARD),950,0,null);
 				}
 				
 				if (getTutorial().getBird().isStunned()) {

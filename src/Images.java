@@ -51,7 +51,7 @@ public enum Images implements Serializable {
 	DOWN_ARROW("images/down_arrow.png"),
 	UP_ARROW("images/up_arrow.png"),
 	RED_ARROW("images/red_arrow.png"),
-	RED_ARROW_BACKWARD("images/red_arrow_backward.png");
+	RED_ARROW_BACKWARD("images/minimap_arrow.png");
 	
 	
 	
