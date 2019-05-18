@@ -66,7 +66,7 @@ class ViewTest {
 
 	@Test
 	void createImageTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View view = new View();
 		BufferedImage i = view.createImage("images/test-image.jpg");
 		assertTrue(i != null);
@@ -74,7 +74,7 @@ class ViewTest {
 
 	@Test
 	void drawImageTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		v.drawImage();
 		fail("Stub method");
@@ -83,7 +83,7 @@ class ViewTest {
 	@Test
 	void displayQuizTest() {
 		// before method call
-		Controller c1 = new Controller();
+		//Controller c1 = new Controller();
 		View v1 = new View();
 		List<JButton> l1 = new ArrayList<JButton>();
 		JButton b1 = new JButton();
@@ -96,7 +96,7 @@ class ViewTest {
 		QuizQuestion q1 = new QuizQuestion("What?", answers, "a");
 
 		// after method call
-		Controller c2 = new Controller();
+		//Controller c2 = new Controller();
 		View v2 = new View();
 		JPanel cd2 = new JPanel(new CardLayout());
 		View.QuizPanel p2 = v2.getQuizPanel();
@@ -129,7 +129,7 @@ class ViewTest {
 
 	@Test
 	void nestAnimationTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		NestAnimation nestAnimation = new NestAnimation();
 		v.nestAnimationUpdate(nestAnimation);
@@ -138,7 +138,7 @@ class ViewTest {
 
 	@Test
 	void updateBirdTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		v.updateBird();
 		fail("Stub method");
@@ -146,7 +146,7 @@ class ViewTest {
 
 	@Test
 	void updateCollidablesTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		Model m = new Model(1000, 1000);
 		View v = new View();
 		v.updateCollidables(m.getBird());
@@ -155,7 +155,7 @@ class ViewTest {
 
 	@Test
 	void updateMiniMapTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		Model m = new Model(1000, 1000);
 		v.updateMiniMap(m.getMiniMap());
@@ -164,7 +164,7 @@ class ViewTest {
 
 	@Test
 	void updateBackgroundTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		v.updateBackground();
 		fail("Stub method");
@@ -172,7 +172,7 @@ class ViewTest {
 
 	@Test
 	void setPanelTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		v.setPanel("O");
 		assertEquals(v.getCurrentPanel(), v.getOPanel());
@@ -182,7 +182,7 @@ class ViewTest {
 
 	@Test
 	void frameTest() {
-		Controller c = new Controller();
+		//Controller c = new Controller();
 		View v = new View();
 		JFrame f = new JFrame();
 		v.setFrame(f);

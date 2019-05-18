@@ -787,6 +787,7 @@ public class View extends JPanel implements Serializable {
 	 *
 	 */
 	class DrawPanel extends JPanel {
+		@Override
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 			super.paintComponent(g2d);
