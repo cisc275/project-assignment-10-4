@@ -137,6 +137,8 @@ public class View extends JPanel implements Serializable {
 	
 	private Tutorial tutorial;
 	
+	private TutorialPanel tutorialPanel;
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * 
@@ -153,6 +155,7 @@ public class View extends JPanel implements Serializable {
 		this.setUpOspreyPlan();
 		this.setUpNHPlan();
 		this.setUpAnimation();
+		this.setUpTutorial();
 		
     	OPanel = new DrawPanel(); 
     	//OPanel.add(c.getSaveGameButtonO());
@@ -163,6 +166,7 @@ public class View extends JPanel implements Serializable {
     	NHPanel.add(buttons.get("saveGameButtonNH")); 
 		NHPanel.setBackground(Color.gray);
 
+		cards.add(tutorialPanel,"TP");
 		cards.add(buttonPanel, "B");
 		cards.add(ospreyPlan, "OP");
 		cards.add(OPanel, "O");
@@ -171,7 +175,7 @@ public class View extends JPanel implements Serializable {
 		cards.add(animation, "NA");
 		// cards.add(quizPanel, "Q");
 
-		currentPanel = buttonPanel;
+		currentPanel = tutorialPanel;
 
 		setUpFrame();
 
@@ -297,6 +301,10 @@ public class View extends JPanel implements Serializable {
 		animation.add(c.getDoneAnimationButton());
 		**/ 
 		animation.getComponent(0).setVisible(false);
+	}
+	
+	void setUpTutorial() {
+		tutorialPanel = new TutorialPanel();
 	}
 
 	/**
@@ -445,7 +453,8 @@ public class View extends JPanel implements Serializable {
 	}
 	
 	void tutorialUpdate(Tutorial t) {
-		this.tutorial = t;
+		this.setTutorial(t);
+		currentPanel.repaint();
 	}
 
 	/**
@@ -689,6 +698,24 @@ public class View extends JPanel implements Serializable {
 	public void setNestAnimation(NestAnimation nestAnimation) {
 		this.nestAnimation = nestAnimation;
 	}
+	
+	class TutorialPanel extends JPanel{
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D) g;
+			super.paintComponent(g2d);
+			g2d.drawImage(Images.getCorrespondingImage(Images.GRASS_PATH),0, 0, this);
+			try {
+				g.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
+			}
+			catch(Exception e) {
+				
+			}
+		}
+			
+		public Dimension getPreferredSize() {
+			return new Dimension(FRAMEWIDTH, FRAMEHEIGHT);
+		}
+	}
 
 	/**
 	 * Panel to display the nesting animation
@@ -862,5 +889,17 @@ public class View extends JPanel implements Serializable {
 	}
 	public HashMap<String, JButton> getButtons(){
 		return this.buttons; 
+	}
+	/**
+	 * @return the tutorial
+	 */
+	public Tutorial getTutorial() {
+		return tutorial;
+	}
+	/**
+	 * @param tutorial the tutorial to set
+	 */
+	public void setTutorial(Tutorial tutorial) {
+		this.tutorial = tutorial;
 	}
 }
