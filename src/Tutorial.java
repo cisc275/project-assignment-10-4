@@ -1,5 +1,6 @@
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Tutorial implements Serializable{
 	private Bird bird;
 	
@@ -81,7 +82,7 @@ public class Tutorial implements Serializable{
 				displayArrow = false;
 			}
 			
-			if(hitObstacle.getXloc() == (frameWidth*3/4)) {
+			if(hitObstacle.getXloc() == (frameWidth*5/8)) {
 				hitAnObstacle = true;
 				displayArrow = true;
 			}
