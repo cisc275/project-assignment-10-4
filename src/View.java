@@ -718,6 +718,9 @@ public class View extends JPanel implements Serializable {
 					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
 				}
 				
+				if(getTutorial().isDisplayArrow()) {
+					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW),500,0,null);
+				}
 				
 				if (getTutorial().getBird().isStunned()) {
 					AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);

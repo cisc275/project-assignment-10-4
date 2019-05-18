@@ -17,6 +17,10 @@ public class Tutorial implements Serializable{
 	
 	private boolean avoidObstacle;
 	
+	private boolean displayArrow;
+	
+	private boolean hitAnObstacle;
+	
 	Tutorial(int frameWidth, int frameHeight){
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
@@ -33,6 +37,8 @@ public class Tutorial implements Serializable{
 		this.frameHeight = frameHeight;
 		collectFood = false;
 		avoidObstacle = false;
+		displayArrow = false;
+		hitAnObstacle = false;
 	}
 	
 	
@@ -45,22 +51,35 @@ public class Tutorial implements Serializable{
 			if(food.getXloc()== (frameWidth*3/4)) {
 				collectFood = true;
 			}
+			
 			if(obstacle.getXloc() == (frameWidth/2)) {
 				avoidObstacle = true;
 			}
+			
 			if (food.polyBounds().intersects(bird.getBounds())) {
 				food.setEaten(true);
 				bird.setStamina(5);
 				bird.updateStaminaImage();
 			}
+			
 			if(hitObstacle.polyBounds().intersects(bird.getBounds())) {
 				bird.setStunned(true);
 				bird.setStunTimer(1);
 				bird.setStamina(4);
 				bird.updateStaminaImage();
 			}
+			
 			if(obstacle.getXloc() == frameWidth) {
 				bird.setStunned(false);
+			}
+			
+			if(!hitAnObstacle && ((food.getXloc() + food.getWidth()) < 0 || (hitObstacle.getXloc() + hitObstacle.getWidth()) < 0)) {
+				displayArrow = false;
+			}
+			
+			if(hitObstacle.getXloc() == (frameWidth*3/4)) {
+				hitAnObstacle = true;
+				displayArrow = true;
 			}
 		}
 		
@@ -70,11 +89,17 @@ public class Tutorial implements Serializable{
 		
 		if(collectFood && ((bird.getYloc()+bird.getHeight()/2) >= food.getYloc())) {
 			collectFood = false;
+			displayArrow = true;
 		}
 		
 		if(avoidObstacle && ((bird.getYloc()+bird.getHeight()*3/2 < obstacle.getYloc()))) {
 			avoidObstacle = false;
 		}
+		
+		if(hitAnObstacle && (hitObstacle.getXloc() + hitObstacle.getWidth() < 100)) {
+			hitAnObstacle = false;
+		}
+		
 		
 		
 	}
@@ -173,5 +198,37 @@ public class Tutorial implements Serializable{
 	 */
 	public void setHitObstacle(Obstacle hitObstacle) {
 		this.hitObstacle = hitObstacle;
+	}
+
+
+	/**
+	 * @return the displayArrow
+	 */
+	public boolean isDisplayArrow() {
+		return displayArrow;
+	}
+
+
+	/**
+	 * @param displayArrow the displayArrow to set
+	 */
+	public void setDisplayArrow(boolean displayArrow) {
+		this.displayArrow = displayArrow;
+	}
+
+
+	/**
+	 * @return the hitAnObstacle
+	 */
+	public boolean isHitAnObstacle() {
+		return hitAnObstacle;
+	}
+
+
+	/**
+	 * @param hitAnObstacle the hitAnObstacle to set
+	 */
+	public void setHitAnObstacle(boolean hitAnObstacle) {
+		this.hitAnObstacle = hitAnObstacle;
 	}
 }

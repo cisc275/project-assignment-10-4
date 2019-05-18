@@ -48,7 +48,8 @@ public enum Images implements Serializable {
 	HEALTH_5_OSPREY("images/5_health_osprey.png"),
 	TRASH("images/plasticbag_1080.png"),
 	DOWN_ARROW("images/down_arrow.png"),
-	UP_ARROW("images/up_arrow.png");
+	UP_ARROW("images/up_arrow.png"),
+	RED_ARROW("images/red_arrow.png");
 	
 	
 	
@@ -163,6 +164,8 @@ public enum Images implements Serializable {
 			return ImagesLoaded.DOWN_ARROW_I.getImage();
 		case UP_ARROW:
 			return ImagesLoaded.UP_ARROW_I.getImage();
+		case RED_ARROW:
+			return ImagesLoaded.RED_ARROW_I.getImage();
 		default:
 			return null;
 		}
