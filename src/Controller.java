@@ -310,9 +310,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		}
 		else {
-			if (k.getKeyCode() == KeyEvent.VK_UP) {
+			if (k.getKeyCode() == KeyEvent.VK_UP && model.getTutorial().isAvoidObstacle()) {
 				model.getTutorial().getBird().setDirection(1);
-			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
+			} else if (k.getKeyCode() == KeyEvent.VK_DOWN && model.getTutorial().isCollectFood()) {
 				model.getTutorial().getBird().setDirection(-1);
 			}
 		}

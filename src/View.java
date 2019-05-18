@@ -712,6 +712,9 @@ public class View extends JPanel implements Serializable {
 				if(getTutorial().isCollectFood()) {
 					g.drawImage(Images.getCorrespondingImage(Images.DOWN_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
 				}
+				if(getTutorial().isAvoidObstacle()) {
+					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW),getFrameWidth()/4,getFrameHeight()/4,null);
+				}
 				g.drawImage(getTutorial().getBird().nextFrame(),getTutorial().getBird().getXloc(),getTutorial().getBird().getYloc(),null);
 
 			}

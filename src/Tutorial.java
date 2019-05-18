@@ -19,7 +19,7 @@ public class Tutorial implements Serializable{
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
 		bird.setYloc(300);
-		setObstacle(new Obstacle(4*frameWidth,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
 		obstacle.setType(Images.FOX);
 		setFood(new Food(false,3*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
 		food.setType(Images.MOUSE);
@@ -37,15 +37,24 @@ public class Tutorial implements Serializable{
 			if(food.getXloc()== (frameWidth*3/4)) {
 				collectFood = true;
 			}
+			if(obstacle.getXloc() == (frameWidth/2)) {
+				avoidObstacle = true;
+			}
 			if (food.polyBounds().intersects(bird.getBounds())) {
 				food.setEaten(true);
 			}
 		}
-		if(collectFood) {
+		
+		if(collectFood || avoidObstacle) {
 			bird.update(0);
 		}
-		if((bird.getYloc()+bird.getHeight()/2) >= food.getYloc()) {
+		
+		if(collectFood && ((bird.getYloc()+bird.getHeight()/2) >= food.getYloc())) {
 			collectFood = false;
+		}
+		
+		if(avoidObstacle && ((bird.getYloc()+bird.getHeight()*3/2 < obstacle.getYloc()))) {
+			avoidObstacle = false;
 		}
 		
 		
