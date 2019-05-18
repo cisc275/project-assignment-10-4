@@ -47,6 +47,14 @@ public class Tutorial implements Serializable{
 	 */
 	private boolean doneTutorial;
 	
+	private MiniMap miniMap;
+	
+	private double percent;
+	
+	private boolean showMiniMap;
+	
+	private boolean displayBackArrow;
+	
 	Tutorial(int frameWidth, int frameHeight){
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
@@ -66,6 +74,9 @@ public class Tutorial implements Serializable{
 		displayArrow = false;
 		hitAnObstacle = false;
 		doneTutorial = false;
+		percent = 0.0;
+		showMiniMap = false;
+		displayBackArrow = false;
 		
 	}
 	
@@ -74,7 +85,9 @@ public class Tutorial implements Serializable{
 	 * the different aspects of the game
 	 */
 	public void updateTutorial() {
-		if(!collectFood && !avoidObstacle) {
+		if(!collectFood && !avoidObstacle && !showMiniMap && !doneTutorial) {
+			miniMap.updatePositionNH(percent);
+			percent += 0.001;
 			obstacle.update(0);
 			hitObstacle.update(0);
 			food.update(0);
@@ -113,8 +126,22 @@ public class Tutorial implements Serializable{
 			}
 			
 			if(obstacle.getXloc() + obstacle.getWidth() < 0) {
-				doneTutorial = true;
+				showMiniMap = true;
 			}
+		}
+		
+		if(percent>=1) {
+			displayBackArrow = false;
+			showMiniMap = false;
+			doneTutorial = true;
+			percent = 0;
+		}
+		
+		if(showMiniMap) {
+			displayBackArrow = true;
+			percent += 0.005;
+			miniMap.updatePositionNH(percent);
+			
 		}
 		
 		if(collectFood || avoidObstacle) {
@@ -280,5 +307,47 @@ public class Tutorial implements Serializable{
 	 */
 	public void setDoneTutorial(boolean doneTutorial) {
 		this.doneTutorial = doneTutorial;
+	}
+
+	/**
+	 * @return the miniMap
+	 */
+	public MiniMap getMiniMap() {
+		return miniMap;
+	}
+
+	/**
+	 * @param miniMap the miniMap to set
+	 */
+	public void setMiniMap(MiniMap miniMap) {
+		this.miniMap = miniMap;
+	}
+
+	/**
+	 * @return the showMiniMap
+	 */
+	public boolean isShowMiniMap() {
+		return showMiniMap;
+	}
+
+	/**
+	 * @param showMiniMap the showMiniMap to set
+	 */
+	public void setShowMiniMap(boolean showMiniMap) {
+		this.showMiniMap = showMiniMap;
+	}
+
+	/**
+	 * @return the displayBackArrow
+	 */
+	public boolean isDisplayBackArrow() {
+		return displayBackArrow;
+	}
+
+	/**
+	 * @param displayBackArrow the displayBackArrow to set
+	 */
+	public void setDisplayBackArrow(boolean displayBackArrow) {
+		this.displayBackArrow = displayBackArrow;
 	}
 }

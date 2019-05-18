@@ -52,7 +52,8 @@ public enum ImagesLoaded {
 	TRASH_I(createImage(Images.TRASH.getName())),
 	DOWN_ARROW_I(createImage(Images.DOWN_ARROW.getName())),
 	UP_ARROW_I(createImage(Images.UP_ARROW.getName())),
-	RED_ARROW_I(createImage(Images.RED_ARROW.getName()));
+	RED_ARROW_I(createImage(Images.RED_ARROW.getName())),
+	RED_ARROW_BACKWARD_I(createImage(Images.RED_ARROW_BACKWARD.getName()));
 	
 	/**
 	 * @param a BufferedImage representing the BufferedImage of the GameElement

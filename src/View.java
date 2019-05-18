@@ -745,6 +745,10 @@ public class View extends JPanel implements Serializable {
 					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW),500,0,null);
 				}
 				
+				if(getTutorial().isDisplayBackArrow()) {
+					g.drawImage(Images.getCorrespondingImage(Images.RED_ARROW_BACKWARD),1200,0,null);
+				}
+				
 				if (getTutorial().getBird().isStunned()) {
 					AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 					g2d.setComposite(ac);
@@ -763,6 +767,25 @@ public class View extends JPanel implements Serializable {
 				}
 				//g2d.drawRect(getTutorial().getBird().getBounds().x,getTutorial().getBird().getBounds().y,getTutorial().getBird().getBounds().width,getTutorial().getBird().getBounds().height);
 
+				
+				if (getTutorial().getMiniMap() != null) {
+					g.drawImage(Images.getCorrespondingImage(getTutorial().getMiniMap().getImage()), getTutorial().getMiniMap().getXloc(), getTutorial().getMiniMap().getYloc(), null);
+					int smalBirdXLoc = getTutorial().getMiniMap().getMapXLoc();
+					int smalBirdYLoc = getTutorial().getMiniMap().getMapYLoc();
+					g.drawImage(Images.getCorrespondingImage(getTutorial().getMiniMap().getSmallBird()), smalBirdXLoc, smalBirdYLoc, null);
+					g.drawLine(smalBirdXLoc, smalBirdYLoc, getTutorial().getMiniMap().getLastMapXLoc(), getTutorial().getMiniMap().getLastMapYLoc());
+					ArrayList<int []> birdPath = getTutorial().getMiniMap().getBirdPath();
+					if ( birdPath.size() > 1) {
+						g.setColor(Color.RED);
+												
+						for (int i = 0; i < birdPath.size()-1; i++) {
+							int [] startingPos = birdPath.get(i);
+							int [] nextPos = birdPath.get(i+1);
+							g.drawLine(startingPos[0], startingPos[1], nextPos[0] , nextPos[1]);
+						}
+					}
+				}
+				
 				
 			}
 			catch(Exception e) {
