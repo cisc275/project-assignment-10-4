@@ -14,10 +14,14 @@ public class Tutorial implements Serializable{
 	 * An obstacle that will be hit
 	 */
 	private Obstacle hitObstacle;
+	
+	private Obstacle invincibleObstacle;
 	/**
 	 * Food that will be eaten
 	 */
 	private Food food;
+	
+	private Food goldenFood;
 	/**
 	 * The width of the frame
 	 */
@@ -55,18 +59,24 @@ public class Tutorial implements Serializable{
 	
 	private boolean displayBackArrow;
 	
+	private boolean showInvincible;
+	
 	Tutorial(int frameWidth, int frameHeight){
 		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
 		bird.setYloc(300);
 		bird.setStamina(4);
 		bird.updateStaminaImage();
-		setObstacle(new Obstacle(4*frameWidth,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setObstacle(new Obstacle(6*frameWidth,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
 		obstacle.setType(Images.FOX);
 		setHitObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
 		hitObstacle.setType(Images.FOX);
+		setInvincibleObstacle(new Obstacle(19*frameWidth/4,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		invincibleObstacle.setType(Images.FOX);
 		setFood(new Food(false,3*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
 		food.setType(Images.MOUSE);
+		setGoldenFood(new Food(true,4*frameWidth,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
+		goldenFood.setType(Images.GOLDENMOUSE);
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		collectFood = false;
@@ -77,6 +87,7 @@ public class Tutorial implements Serializable{
 		percent = 0.0;
 		showMiniMap = false;
 		displayBackArrow = false;
+		showInvincible = false;
 		
 	}
 	
@@ -91,6 +102,8 @@ public class Tutorial implements Serializable{
 			obstacle.update(0);
 			hitObstacle.update(0);
 			food.update(0);
+			invincibleObstacle.update(0);
+			goldenFood.update(0);
 			if(food.getXloc()== (frameWidth*3/4)) {
 				collectFood = true;
 			}
@@ -105,6 +118,13 @@ public class Tutorial implements Serializable{
 				bird.updateStaminaImage();
 			}
 			
+			if(goldenFood.polyBounds().intersects(bird.getBounds())) {
+				goldenFood.setEaten(true);
+				bird.setStamina(5);
+				bird.updateStaminaImage();
+				bird.setPoweredUp(true);
+			}
+			
 			if(hitObstacle.polyBounds().intersects(bird.getBounds())) {
 				bird.setStunned(true);
 				bird.setStunTimer(1);
@@ -112,7 +132,11 @@ public class Tutorial implements Serializable{
 				bird.updateStaminaImage();
 			}
 			
-			if(obstacle.getXloc() == frameWidth) {
+			/*if(obstacle.getXloc() == frameWidth) {
+				bird.setStunned(false);
+			}*/
+			
+			if(goldenFood.getXloc()<frameWidth) {
 				bird.setStunned(false);
 			}
 			
@@ -128,6 +152,15 @@ public class Tutorial implements Serializable{
 			if(obstacle.getXloc() + obstacle.getWidth() < 0) {
 				showMiniMap = true;
 			}
+			
+			if(invincibleObstacle.getXloc()<frameWidth) {
+				displayArrow = true;
+			}
+			
+			if(invincibleObstacle.getXloc()+invincibleObstacle.getWidth() < 0) {
+				displayArrow = false;
+				bird.setPoweredUp(false);
+			}
 		}
 		
 		if(percent>=1) {
@@ -139,7 +172,7 @@ public class Tutorial implements Serializable{
 		
 		if(showMiniMap) {
 			displayBackArrow = true;
-			percent += 0.005;
+			percent += 0.003;
 			miniMap.updatePositionNH(percent);
 			
 		}
@@ -349,5 +382,33 @@ public class Tutorial implements Serializable{
 	 */
 	public void setDisplayBackArrow(boolean displayBackArrow) {
 		this.displayBackArrow = displayBackArrow;
+	}
+
+	/**
+	 * @return the invincibleObstacle
+	 */
+	public Obstacle getInvincibleObstacle() {
+		return invincibleObstacle;
+	}
+
+	/**
+	 * @param invincibleObstacle the invincibleObstacle to set
+	 */
+	public void setInvincibleObstacle(Obstacle invincibleObstacle) {
+		this.invincibleObstacle = invincibleObstacle;
+	}
+
+	/**
+	 * @return the goldenFood
+	 */
+	public Food getGoldenFood() {
+		return goldenFood;
+	}
+
+	/**
+	 * @param goldenFood the goldenFood to set
+	 */
+	public void setGoldenFood(Food goldenFood) {
+		this.goldenFood = goldenFood;
 	}
 }
