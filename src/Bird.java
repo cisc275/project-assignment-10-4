@@ -231,7 +231,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(this.xloc, this.yloc + 70, this.width - 65, 60);
+		return new Rectangle(this.xloc+30, this.yloc + 80, this.width - 130, 40);
 	}
 
 	/**

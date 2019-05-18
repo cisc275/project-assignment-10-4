@@ -758,6 +758,8 @@ public class View extends JPanel implements Serializable {
 					g2d.drawImage(getTutorial().getBird().getStaminaImage(),0,0,null);
 					
 				}
+				//g2d.drawRect(getTutorial().getBird().getBounds().x,getTutorial().getBird().getBounds().y,getTutorial().getBird().getBounds().width,getTutorial().getBird().getBounds().height);
+
 				
 			}
 			catch(Exception e) {
