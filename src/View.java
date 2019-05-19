@@ -409,7 +409,15 @@ public class View extends JPanel implements Serializable {
 		JLabel text = new JLabel(question.getQuestion(), SwingConstants.CENTER);
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35);
 		text.setFont(font);
-		text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8);
+		if(!question.getHint().equals("")) {
+			text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8 - (2* font.getSize()));
+			JLabel hint = new JLabel(question.getHint(), SwingConstants.CENTER);
+			hint.setFont(font);
+			hint.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8 + (font.getSize()/4));
+			quizPanel.add(hint);
+		}else {
+			text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8);
+		}
 		quizPanel.add(text);
 		int xshift = 0;
 		int yshift = 0;

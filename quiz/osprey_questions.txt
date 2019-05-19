@@ -4,6 +4,7 @@ Fish
 Turtles
 Smaller Birds
 Fish
+
 ______________________________________________________________
 Where does the Osprey go to mate? 
 South America
@@ -11,6 +12,7 @@ North America
 The Arctic
 The Antarctic
 North America
+(Hint: Where is the bird going on the Mini Map?)
 _______________________________________________________________
 What is a predator of the Osprey?
 Foxes
@@ -18,6 +20,7 @@ Humans
 Other Osprey
 Eagles
 Eagles
+
 ______________________________________________________________
 What is an Osprey? 
 A migratory bird
@@ -25,3 +28,4 @@ A non-migratory bird
 A type of seagull
 An omnivore
 A migratory bird
+(Hint: See the Mini Map.)

@@ -93,7 +93,7 @@ class ViewTest {
 		List<String> answers = new ArrayList<String>();
 		answers.add("a");
 		answers.add("b");
-		QuizQuestion q1 = new QuizQuestion("What?", answers, "a");
+		QuizQuestion q1 = new QuizQuestion("What?", answers, "a", "");
 
 		// after method call
 		//Controller c2 = new Controller();
