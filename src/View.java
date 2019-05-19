@@ -227,13 +227,13 @@ public class View extends JPanel implements Serializable {
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		buttons.get("OButton").setFont(buttonFont);
 		buttons.get("NHButton").setFont(buttonFont);
-		buttonFont = new Font("Verdana", Font.BOLD, 25);
+		buttonFont = new Font("Verdana", Font.BOLD, 30);
 		buttons.get("reloadGameButton").setFont(buttonFont);
 		buttons.get("tutorial").setFont(buttonFont);
 		buttons.get("NHButton").setBounds(100, 20, 600, 100);
 		buttons.get("OButton").setBounds(1300, 20, 400, 100);
-		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
-		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,300,100);
+		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH-300, FRAMEHEIGHT-100, 300, 100);
+		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,200,100);
 		
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		JLabel text = new JLabel();
