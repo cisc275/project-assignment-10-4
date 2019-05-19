@@ -279,13 +279,7 @@ public class Model implements Serializable {
 	}
 	
 	boolean tooLow(GameElement g) {
-		if(bird.getBirdType().equalsIgnoreCase("osprey")){
-			return g.getYloc() >= 810;
-		}
-		else {
-			return g.getYloc() >= 810;
-		}
-		 
+		return g.getYloc() >= (3*frameHeight/4)-g.getHeight();
 	}
 	/**
 	 * Updates the background depending on the distance the player has reached and
@@ -468,6 +462,12 @@ public class Model implements Serializable {
 		}else {
 			int y = randLoc.nextInt(frameHeight / 2);
 			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+			if(randLoc.nextInt(2) == 0) {
+				newGameElement.setFlip(1);
+			}
+			else {
+				newGameElement.setFlip(-1);
+			}
 		}
 		return newGameElement;
 	}

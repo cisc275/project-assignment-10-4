@@ -66,7 +66,7 @@ public abstract class GameElement implements Serializable {
 	/**
 	 * y sign flip 
 	 */
-	protected int flip; 
+	private int flip; 
 	/**
 	 * @param x         an int representing the x location of the GameElement
 	 * @param y         an int representing the y location of the GameElement
@@ -169,8 +169,8 @@ public abstract class GameElement implements Serializable {
 	void update(int speedAdjust) {
 		xloc -= (xSpeed + speedAdjust * 2);
 		if (imagePath.equals("images/owl_1080.png") || imagePath.equals("images/eagle_1080.png")) {
-			yloc -= flip*(ySpeed + speedAdjust * 2); 
-			polygon.translate(-(xSpeed + speedAdjust * 2), -flip*(ySpeed + speedAdjust * 2));
+			yloc -= flip*(ySpeed); 
+			polygon.translate(-(xSpeed + speedAdjust * 2), -flip*(ySpeed));
 		} 
 		else {
 			polygon.translate(-(xSpeed + speedAdjust * 2), 0);
@@ -396,4 +396,18 @@ public abstract class GameElement implements Serializable {
 	 * @return the pointValue
 	 */
 	public abstract int getPointValue();
+
+	/**
+	 * @return the flip
+	 */
+	public int getFlip() {
+		return flip;
+	}
+
+	/**
+	 * @param flip the flip to set
+	 */
+	public void setFlip(int flip) {
+		this.flip = flip;
+	}
 }
