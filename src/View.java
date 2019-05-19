@@ -429,12 +429,6 @@ public class View extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Draws an image onto the frame
-	 */
-	void drawImage() {
-	}
-
-	/**
 	 * Displays a quiz question that will need to be answered by the player to
 	 * progress
 	 */
@@ -518,34 +512,6 @@ public class View extends JPanel implements Serializable {
 			currentPanel.getComponent(0).setVisible(true);
 		}
 		currentPanel.repaint();
-	}
-
-	/**
-	 * Updates the display of the bird
-	 */
-	void updateBird() {
-	}
-
-	/**
-	 * Updates the display of the onscreen collidables
-	 * 
-	 * @param bird the bird controlled by the player
-	 */
-	void updateCollidables(Bird bird) {
-	}
-
-	/**
-	 * Updates the display of the minimap based on game progress
-	 * 
-	 * @param miniMap The minimap to be updated and displayed
-	 */
-	void updateMiniMap(MiniMap miniMap) {
-	}
-
-	/**
-	 * update the background based on how far the player has traveled.
-	 */
-	void updateBackground() {
 	}
 
 	/**
@@ -752,6 +718,30 @@ public class View extends JPanel implements Serializable {
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
+	}
+	/**
+	 * @return the ospreyPlan
+	 */
+	public OspreyFlightPlan getOspreyPlan() {
+		return ospreyPlan;
+	}
+	/**
+	 * @param ospreyPlan the ospreyPlan to set
+	 */
+	public void setOspreyPlan(OspreyFlightPlan ospreyPlan) {
+		this.ospreyPlan = ospreyPlan;
+	}
+	/**
+	 * @return the nHPlan
+	 */
+	public NHFlightPlan getNHPlan() {
+		return NHPlan;
+	}
+	/**
+	 * @param nHPlan the nHPlan to set
+	 */
+	public void setNHPlan(NHFlightPlan nHPlan) {
+		NHPlan = nHPlan;
 	}
 
 	/**
@@ -1051,6 +1041,18 @@ public class View extends JPanel implements Serializable {
 	 */
 	public void setScore(Component score) {
 		this.score = score;
+	}
+	/**
+	 * @return the nest animation panel
+	 */
+	public NestAnimationPanel getNestAnimationPanel() {
+		return animation;
+	}
+	/**
+	 * @param n the animation to set
+	 */
+	public void setNestAnimationPanel(NestAnimationPanel n) {
+		animation = n;
 	}
 	/**
 	 * @return the tutorialPanel

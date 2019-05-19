@@ -118,14 +118,6 @@ class ViewTest {
 	}
 
 	@Test
-	void drawImageTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.drawImage();
-		fail("Stub method");
-	}
-
-	@Test
 	void displayQuizTest() {
 		// before method call
 		//Controller c1 = new Controller();
@@ -182,40 +174,6 @@ class ViewTest {
 	}
 
 	@Test
-	void updateBirdTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.updateBird();
-		fail("Stub method");
-	}
-
-	@Test
-	void updateCollidablesTest() {
-		//Controller c = new Controller();
-		Model m = new Model(1000, 1000);
-		View v = new View();
-		v.updateCollidables(m.getBird());
-		fail("Stub method");
-	}
-
-	@Test
-	void updateMiniMapTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		Model m = new Model(1000, 1000);
-		v.updateMiniMap(m.getMiniMap());
-		fail("Stub method");
-	}
-
-	@Test
-	void updateBackgroundTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.updateBackground();
-		fail("Stub method");
-	}
-
-	@Test
 	void setPanelTest() {
 		//Controller c = new Controller();
 		View v = new View();
@@ -223,6 +181,18 @@ class ViewTest {
 		assertEquals(v.getCurrentPanel(), v.getOPanel());
 		v.setPanel("NH");
 		assertEquals(v.getCurrentPanel(), v.getNHPanel());
+		v.setPanel("NA");
+		assertEquals(v.getCurrentPanel(), v.getNestAnimationPanel());
+		v.setPanel("OP");
+		assertEquals(v.getCurrentPanel(), v.getOspreyPlan());
+		v.setPanel("NHP");
+		assertEquals(v.getCurrentPanel(), v.getNHPlan());
+		v.setPanel("B");
+		assertEquals(v.getCurrentPanel(), v.getbuttonPanel());
+		v.setPanel("TP");
+		assertEquals(v.getCurrentPanel(), v.getTutorialPanel());
+		v.setPanel("WP");
+		assertEquals(v.getCurrentPanel(), v.getWelcomePanel());
 	}
 
 	@Test
