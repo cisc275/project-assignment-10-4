@@ -152,19 +152,12 @@ public class View extends JPanel implements Serializable {
 		cards = new JPanel(new CardLayout());
 
 		this.setUpButtonPanel();
+		this.setUpOPanel();
+		this.setUpNHPanel();
 		this.setUpOspreyPlan();
 		this.setUpNHPlan();
 		this.setUpAnimation();
 		this.setUpTutorial();
-		
-    	OPanel = new DrawPanel(); 
-    	//OPanel.add(c.getSaveGameButtonO());
-    	OPanel.add(buttons.get("saveGameButtonO")); 
-		OPanel.setBackground(Color.gray);
-    	NHPanel = new DrawPanel(); 
-    	//NHPanel.add(c.getSaveGameButtonNH());
-    	NHPanel.add(buttons.get("saveGameButtonNH")); 
-		NHPanel.setBackground(Color.gray);
 
 		cards.add(tutorialPanel,"TP");
 		cards.add(buttonPanel, "B");
@@ -194,17 +187,18 @@ public class View extends JPanel implements Serializable {
 		buttons.put("saveGameButtonO", new JButton("Save Game"));
 		buttons.put("saveGameButtonNH", new JButton("Save Game"));
 		buttons.put("reloadGameButton", new JButton("Reload Game"));
-		buttons.put("endTutorial", new JButton("Click This Button To End The Tutorial"));
+		buttons.put("endTutorial", new JButton("Click Here To End The Tutorial"));
+		buttons.put("tutorial", new JButton("Tutorial"));
+		buttons.put("noStaminaO", new JButton("You Ran Out of Stamina! Return Home"));
+		buttons.put("noStaminaNH", new JButton("You Ran Out of Stamina! Return Home"));
 	}
+	
 	/**
 	 * Sets up the JFrame with its attributes
-	 * 
-	 * @param c reference to the Controller object in use
 	 */
 	void setUpFrame() {
 		frame.add(cards);
 		frame.setFocusable(true);
-		//frame.addKeyListener(c);
 		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -212,7 +206,40 @@ public class View extends JPanel implements Serializable {
 		frame.setVisible(true);
 		frame.pack();
 	}
-
+	
+	/**
+	 * Sets up the Osprey game panel
+	 */
+	void setUpOPanel() {
+		OPanel = new DrawPanel(); 
+    	OPanel.setLayout(null);
+    	buttons.get("saveGameButtonO").setBounds(910,0,100,30);
+    	OPanel.add(buttons.get("saveGameButtonO")); 
+		OPanel.setBackground(Color.gray);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("noStaminaO").setFont(buttonFont);
+		buttons.get("noStaminaO").setBounds(400, 500, 1120, 80);
+		buttons.get("noStaminaO").setVisible(false);
+		OPanel.add(buttons.get("noStaminaO"));
+	}
+	
+	/**
+	 * Sets up the Northern Harrier game panel
+	 */
+	void setUpNHPanel() {
+		NHPanel = new DrawPanel();
+    	NHPanel.setLayout(null);
+    	buttons.get("saveGameButtonNH").setBounds(910,0,100,30);
+    	NHPanel.add(buttons.get("saveGameButtonNH")); 
+		NHPanel.setBackground(Color.gray);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("noStaminaNH").setFont(buttonFont);
+		buttons.get("noStaminaNH").setBounds(400, 500, 1120, 80);
+		buttons.get("noStaminaNH").setVisible(false);
+		NHPanel.add(buttons.get("noStaminaNH"));
+		
+	}
+	
 	/**
 	 * Sets up panel for selection of bird
 	 * 
@@ -226,18 +253,15 @@ public class View extends JPanel implements Serializable {
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		buttons.get("OButton").setFont(buttonFont);
 		buttons.get("NHButton").setFont(buttonFont);
+		buttonFont = new Font("Verdana", Font.BOLD, 30);
 		buttons.get("reloadGameButton").setFont(buttonFont);
+		buttons.get("tutorial").setFont(buttonFont);
 		buttons.get("NHButton").setBounds(100, 20, 600, 100);
 		buttons.get("OButton").setBounds(1300, 20, 400, 100);
-		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
-		/**
-		c.getOButton().setFont(buttonFont);
-		c.getNHButton().setFont(buttonFont);
-		c.getReloadGameButton().setFont(buttonFont);
-		c.getNHButton().setBounds(100, 20, 600, 100);
-		c.getOButton().setBounds(1300, 20, 400, 100);
-		c.getReloadGameButton().setBounds(FRAMEWIDTH/2, FRAMEHEIGHT-100, 600, 100);
-		**/ 
+		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH-300, FRAMEHEIGHT-100, 300, 100);
+		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,200,100);
+		
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		JLabel text = new JLabel();
 		text.setText("Choose a Bird");
 		text.setFont(buttonFont);
@@ -247,11 +271,7 @@ public class View extends JPanel implements Serializable {
 		buttonPanel.add(buttons.get("NHButton")); 
 		buttonPanel.add(buttons.get("OButton")); 
 		buttonPanel.add(buttons.get("reloadGameButton")); 
-		/**
-		buttonPanel.add(c.getNHButton());
-		buttonPanel.add(c.getOButton());
-		buttonPanel.add(c.getReloadGameButton());
-		**/ 
+		buttonPanel.add(buttons.get("tutorial"));
 		
 	}
 	
@@ -307,9 +327,10 @@ public class View extends JPanel implements Serializable {
 	
 	void setUpTutorial() {
 		tutorialPanel = new TutorialPanel();
+		tutorialPanel.setLayout(null);
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		buttons.get("endTutorial").setFont(buttonFont);
-		buttons.get("endTutorial").setBounds(100, 20, 600, 100);
+		buttons.get("endTutorial").setBounds(490, 500, 940, 80);
 		tutorialPanel.add(buttons.get("endTutorial"));
 		tutorialPanel.getComponent(0).setVisible(false);
 	}
@@ -409,7 +430,15 @@ public class View extends JPanel implements Serializable {
 		JLabel text = new JLabel(question.getQuestion(), SwingConstants.CENTER);
 		Font font = new Font("Verdana", Font.BOLD, FRAMEHEIGHT / 35);
 		text.setFont(font);
-		text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8);
+		if(!question.getHint().equals("")) {
+			text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8 - (2* font.getSize()));
+			JLabel hint = new JLabel(question.getHint(), SwingConstants.CENTER);
+			hint.setFont(font);
+			hint.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8 + (font.getSize()/4));
+			quizPanel.add(hint);
+		}else {
+			text.setBounds(0, 0, FRAMEWIDTH / 2, FRAMEHEIGHT / 8);
+		}
 		quizPanel.add(text);
 		int xshift = 0;
 		int yshift = 0;
@@ -525,6 +554,9 @@ public class View extends JPanel implements Serializable {
 			break;
 		case "B":
 			currentPanel = buttonPanel;
+			break;
+		case "TP":
+			currentPanel = tutorialPanel;
 			break;
 		}
 	}
@@ -999,5 +1031,17 @@ public class View extends JPanel implements Serializable {
 	 */
 	public void setScore(Component score) {
 		this.score = score;
+	}
+	/**
+	 * @return the tutorialPanel
+	 */
+	public TutorialPanel getTutorialPanel() {
+		return tutorialPanel;
+	}
+	/**
+	 * @param tutorialPanel the tutorialPanel to set
+	 */
+	public void setTutorialPanel(TutorialPanel tutorialPanel) {
+		this.tutorialPanel = tutorialPanel;
 	}
 }

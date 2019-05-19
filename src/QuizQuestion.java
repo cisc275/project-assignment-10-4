@@ -19,6 +19,10 @@ public class QuizQuestion implements Serializable{
 	 */
 	private String question;
 	/**
+	 * A hint to help the user
+	 */
+	private String hint;
+	/**
 	 * A list of potential answers to the multiple choice question
 	 */
 	private List<String>answers;
@@ -28,10 +32,11 @@ public class QuizQuestion implements Serializable{
 	 * @param answers: the list of possible answers 
 	 * @param correct: the correct answer
 	 */
-	public QuizQuestion(String question, List<String> answers, String correct) {
+	public QuizQuestion(String question, List<String> answers, String correct, String hint) {
 		this.question = question; 
 		this.answers = answers; 
 		this.correctAnswer = correct; 
+		this.hint = hint;
 		
 	}
 	/**
@@ -88,6 +93,18 @@ public class QuizQuestion implements Serializable{
 	 * @return a String representation of the Quiz Question
 	 */
 	public String toString() {
-		return this.question + " " + this.answers + " " + this.correctAnswer; 
+		return this.question + " " + this.answers + " " + this.correctAnswer + " " + this.hint; 
+	}
+	/**
+	 * @return the hint
+	 */
+	public String getHint() {
+		return hint;
+	}
+	/**
+	 * @param hint the hint to set
+	 */
+	public void setHint(String hint) {
+		this.hint = hint;
 	}
 }

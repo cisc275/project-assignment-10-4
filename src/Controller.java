@@ -157,7 +157,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			} 
     			if (model.birdIsFainted()) {
     				System.out.println("Resetting the game");
-    				model = new Model(view.getFrameWidth(), view.getFrameHeight(), model.getBird().getBirdType());
+    				t.stop();
+    				view.getCurrentPanel().getComponent(1).setVisible(true);
+    				//model = new Model(view.getFrameWidth(), view.getFrameHeight(), model.getBird().getBirdType());
     			}
     		}
     	};
@@ -172,6 +174,31 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 	public void createListeners() {
+		listeners.put("noStaminaO", new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				view.getCurrentPanel().getComponent(1).setVisible(false);
+				view.setPanel("B");
+				view.show("OButton"); 
+				view.show("NHButton"); 
+				model = new Model(view.getFrameWidth(), view.getFrameHeight());
+			}
+		});
+		listeners.put("noStaminaNH", new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				view.getCurrentPanel().getComponent(1).setVisible(false);
+				view.setPanel("B");
+				view.show("OButton"); 
+				view.show("NHButton"); 
+				model = new Model(view.getFrameWidth(), view.getFrameHeight());
+			}
+		});
+		listeners.put("tutorial",new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.setPanel("TP");
+				tutorialMode = true;
+				executeTutorial();
+			}
+		});
 		listeners.put("endTutorial",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("B");
@@ -275,6 +302,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	void executeTutorial() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				model.setTutorial(new Tutorial(view.getFrameWidth(),view.getFrameHeight()));
+				view.getTutorialPanel().getComponent(0).setVisible(false);
 				r = new Timer(DRAW_DELAY, tutorialAction);
 				r.start();
 			}

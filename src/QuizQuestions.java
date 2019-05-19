@@ -16,7 +16,7 @@ public class QuizQuestions implements Serializable{
 	/**
 	 * 
 	 * @param filename: the file that stores all of the quiz questions
-	 * The file format is question, answers, and correct all on separate lines
+	 * The file format is question, answers, correct, and hint all on separate lines
 	 */
 	public QuizQuestions(String filename) {
 		this.setUnusedQuestions(new ArrayList<QuizQuestion>());
@@ -38,6 +38,7 @@ public class QuizQuestions implements Serializable{
 			String question = ""; 
 			List<String> answers = new ArrayList<String>(); 
 			String correct = ""; 
+			String hint = "";
 			while ((line = reader.readLine()) != null) {
 				switch(index) {
 					case 0: question = line;
@@ -52,10 +53,12 @@ public class QuizQuestions implements Serializable{
 					case 4: answers.add(line); 
 							break; 
 					case 5: correct = line;
-							this.getUnusedQuestions().add(new QuizQuestion(question, answers, correct));
 							break; 
+					case 6: hint = line;
+							this.getUnusedQuestions().add(new QuizQuestion(question, answers, correct, hint));
+							break;
 				}
-				index = (index + 1) % 7; 
+				index = (index + 1) % 8; 
 			}
 			reader.close();
 			} 

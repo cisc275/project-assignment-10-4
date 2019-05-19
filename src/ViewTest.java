@@ -7,6 +7,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -22,6 +23,37 @@ import org.junit.jupiter.api.Test;
  * @author jhdavis
  */
 class ViewTest {
+	
+	@Test
+	void createButtonsTest() {
+		Controller c = new Controller();
+		View v = c.getView();
+		HashMap<String,JButton> buttons = v.getButtons();
+		assertTrue(buttons.containsKey("OButton"));
+		assertTrue(buttons.containsKey("NHButton"));
+		assertTrue(buttons.containsKey("OPlanButton"));
+		assertTrue(buttons.containsKey("NHPlanButton"));
+		assertTrue(buttons.containsKey("doneAnimationButton"));
+		assertTrue(buttons.containsKey("saveGameButtonO"));
+		assertTrue(buttons.containsKey("saveGameButtonNH"));
+		assertTrue(buttons.containsKey("reloadGameButton"));
+		assertTrue(buttons.containsKey("endTutorial"));
+		assertTrue(buttons.containsKey("tutorial"));
+	}
+	
+	@Test
+	void setUpFrameTest() {
+		Controller c = new Controller();
+		View v = c.getView();
+		v.setUpFrame();
+		
+		assertTrue(v.getFrame().isFocusable());
+		assertEquals(v.getFrame().getBackground(), Color.gray);
+		assertEquals(v.getFrame().getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
+		assertFalse(v.getFrame().isResizable());
+		assertTrue(v.getFrame().isVisible());
+		assertTrue(v.getFrame().isDisplayable());
+	}
 
 	@Test
 	void updateViewTest() {
@@ -93,7 +125,7 @@ class ViewTest {
 		List<String> answers = new ArrayList<String>();
 		answers.add("a");
 		answers.add("b");
-		QuizQuestion q1 = new QuizQuestion("What?", answers, "a");
+		QuizQuestion q1 = new QuizQuestion("What?", answers, "a", "");
 
 		// after method call
 		//Controller c2 = new Controller();
