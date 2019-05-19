@@ -139,6 +139,8 @@ public class View extends JPanel implements Serializable {
 	
 	private TutorialPanel tutorialPanel;
 	
+	private ButtonPanel welcomePanel;
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * 
@@ -158,7 +160,9 @@ public class View extends JPanel implements Serializable {
 		this.setUpNHPlan();
 		this.setUpAnimation();
 		this.setUpTutorial();
+		this.setUpWelcome();
 
+		cards.add(welcomePanel, "WP");
 		cards.add(tutorialPanel,"TP");
 		cards.add(buttonPanel, "B");
 		cards.add(ospreyPlan, "OP");
@@ -168,7 +172,7 @@ public class View extends JPanel implements Serializable {
 		cards.add(animation, "NA");
 		// cards.add(quizPanel, "Q");
 
-		currentPanel = tutorialPanel;
+		currentPanel = welcomePanel;
 
 		setUpFrame();
 
@@ -191,6 +195,7 @@ public class View extends JPanel implements Serializable {
 		buttons.put("tutorial", new JButton("Replay Tutorial"));
 		buttons.put("noStaminaO", new JButton("You Ran Out of Stamina! Return Home"));
 		buttons.put("noStaminaNH", new JButton("You Ran Out of Stamina! Return Home"));
+		buttons.put("startTutorial", new JButton("Click Here To Begin The Tutorial!"));
 	}
 	
 	/**
@@ -205,6 +210,15 @@ public class View extends JPanel implements Serializable {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.pack();
+	}
+	
+	void setUpWelcome() {
+		welcomePanel = new ButtonPanel();
+		welcomePanel.setLayout(null);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("startTutorial").setFont(buttonFont);
+		buttons.get("startTutorial").setBounds(460,0,1000,100);
+		welcomePanel.add(buttons.get("startTutorial"));
 	}
 	
 	/**
@@ -557,6 +571,9 @@ public class View extends JPanel implements Serializable {
 			break;
 		case "TP":
 			currentPanel = tutorialPanel;
+			break;
+		case "WP":
+			currentPanel = welcomePanel;
 			break;
 		}
 	}
@@ -1043,5 +1060,17 @@ public class View extends JPanel implements Serializable {
 	 */
 	public void setTutorialPanel(TutorialPanel tutorialPanel) {
 		this.tutorialPanel = tutorialPanel;
+	}
+	/**
+	 * @return the welcomePanel
+	 */
+	public ButtonPanel getWelcomePanel() {
+		return welcomePanel;
+	}
+	/**
+	 * @param welcomePanel the welcomePanel to set
+	 */
+	public void setWelcomePanel(ButtonPanel welcomePanel) {
+		this.welcomePanel = welcomePanel;
 	}
 }

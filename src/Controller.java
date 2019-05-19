@@ -130,7 +130,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		
 		
 		//model.setBirdType(view.selectBirdType());
-		view.setPanel("TP");
+		view.setPanel("WP");
 		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
@@ -163,8 +163,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     			}
     		}
     	};
-    	tutorialMode = true;
-    	this.executeTutorial();
+    	//tutorialMode = true;
+    	//this.executeTutorial();
     	//view.setPanel("B");
 	}
 	
@@ -175,6 +175,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 	public void createListeners() {
+		listeners.put("startTutorial", new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.setPanel("TP");
+				tutorialMode = true;
+				executeTutorial();
+			}
+		});
 		listeners.put("noStaminaO", new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				view.getCurrentPanel().getComponent(1).setVisible(false);
