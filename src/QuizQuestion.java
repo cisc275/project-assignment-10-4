@@ -31,6 +31,7 @@ public class QuizQuestion implements Serializable{
 	 * @param question: the quiz question
 	 * @param answers: the list of possible answers 
 	 * @param correct: the correct answer
+	 * @param hint:	a hint for the question
 	 */
 	public QuizQuestion(String question, List<String> answers, String correct, String hint) {
 		this.question = question; 

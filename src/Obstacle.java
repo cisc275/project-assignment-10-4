@@ -24,8 +24,7 @@ public class Obstacle extends GameElement implements Serializable {
 	 * @param ySpeed        an int representing the vertical speed of the obstacle
 	 * @param imagePath     a string representing the path of the image of the
 	 *                      obstacle
-	 * @param STAMINA_VALUE an int representing the negative effect on stamina
-	 *                      consuming this obstacle will give the bird
+	 * @param type			the enumeration type for the obstacle
 	 */
 	public Obstacle(int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
 		super(x, y, xSpeed, ySpeed, imagePath, type);

@@ -1,9 +1,11 @@
+import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.*;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.io.*;
 import java.util.List; 
@@ -40,6 +42,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private List<JButton> quizButtons; 
 	/**
+	 * int to store how much time is left before showing the button
+	 */
+	private int delay;
+	/**
 	 * Holds the Action code
 	 */
 	Action drawAction;
@@ -56,9 +62,17 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	Action tutorialAction;
 	/**
+	 * Action for delaying the start flight button
+	 */
+	Action buttonDelayAction;
+	/**
 	 * Time between draw events
 	 */
-	final static int DRAW_DELAY = 30; 
+	final static int DRAW_DELAY = 30;
+	/**
+	 * Time to wait to display the start flight button
+	 */
+	final static int BUTTON_DELAY = 70;
 	/**
 	 * Timer for handling game play
 	 */
@@ -72,6 +86,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	Timer r;
 	/**
+	 * Timer for handling the delay button
+	 */
+	Timer d;
+	/**
 	 * number of iterations through the game
 	 */
 	private int timesPlayed;
@@ -79,7 +97,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * True if the tutorial is in progress
 	 */
 	private boolean tutorialMode;
-	
+
 	/**
 	 * constructor for Controller
 	 * instantiates all buttons
@@ -87,22 +105,22 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public Controller() {
 		timesPlayed = 0;
-		 
+
 		listeners  = new HashMap<String, ActionListener>(); 
 		createListeners(); 
 		quizAnswer = new AbstractAction() {
-    		public void actionPerformed(ActionEvent e) {
-    			model.endQuiz(((JButton)e.getSource()).getText().toString()); 
-    			view.endQuiz(); 
-    			t.start(); 
-    		}
-    	};
-    	quizButtons = new ArrayList<JButton>(); 
-    	
+			public void actionPerformed(ActionEvent e) {
+				model.endQuiz(((JButton)e.getSource()).getText().toString()); 
+				view.endQuiz(); 
+				t.start(); 
+			}
+		};
+		quizButtons = new ArrayList<JButton>(); 
+
 		view = new View();
 		model = new Model(view.getFrameWidth(), view.getFrameHeight());
 		for (String s: view.getButtons().keySet()) {
-			
+
 			if (s.substring(0, 4).equals("save")) {
 				view.getButtons().get(s).addActionListener(listeners.get("save"));
 				view.getButtons().get(s).setFocusable(false);
@@ -110,7 +128,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			else {
 				view.getButtons().get(s).addActionListener(listeners.get(s));
 			}
-			
+
 		}
 		view.getFrame().addKeyListener(this);
 		animateAction = new AbstractAction(){
@@ -119,52 +137,67 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				view.nestAnimationUpdate(model.getNestAnimation());
 			}
 		};
-		
+
 		tutorialAction = new AbstractAction(){
 			public void actionPerformed(ActionEvent e) {
 				model.updateTutorial();
 				view.tutorialUpdate(model.getTutorial());
-				
+
+			}
+		};	
+
+		buttonDelayAction = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println(delay);
+				if(!(delay<0)) {
+					delay--;
+				}else {
+					JPanel j = view.getCurrentPanel();
+					if(j.equals(view.getOspreyPlan())) {
+						view.getButtons().get("OPlanButton").setVisible(true);
+					}else {
+						view.getButtons().get("NHPlanButton").setVisible(true);
+					}
+					d.stop();
+				}
 			}
 		};
-		
-		
+
 		view.setPanel("WP");
+		//view.setPanel("B");
 		drawAction = new AbstractAction() {
-    		public void actionPerformed(ActionEvent e) {
-    			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
-    				model.update();
-    				view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),
-    								model.getBackground());
-    			} else if (model.isQuizMode()) {
-    				 
-    				quizButtons.clear(); 
-    				QuizQuestion q = model.startQuiz();
-    				for (String s: q.getAnswers()) {
-    					JButton next = new JButton(s); 
-    					next.addActionListener(quizAnswer); 
-    					quizButtons.add(next); 
-    				}
-    				view.displayQuiz(model.startQuiz(), quizButtons);
-    				t.stop();
-    			} else if (model.isReachedEnd()) {
-    			    t.stop();
-    			    view.getCurrentPanel().remove(view.getScore());
-    			    model.configureNestAnimation();
-    				view.setPanel("NA");
-    				animate();
-    			} 
-    			if (model.birdIsFainted()) {
-    				System.out.println("Resetting the game");
-    				t.stop();
-    				view.getCurrentPanel().getComponent(1).setVisible(true);
+			public void actionPerformed(ActionEvent e) {
+				if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
+					model.update();
+					view.updateView(model.getBird(), model.getOnScreenCollidables(), model.getMiniMap(),
+							model.getBackground());
+				} else if (model.isQuizMode()) {
+
+					quizButtons.clear(); 
+					QuizQuestion q = model.startQuiz();
+					for (String s: q.getAnswers()) {
+						JButton next = new JButton(s); 
+						next.addActionListener(quizAnswer); 
+						quizButtons.add(next); 
+					}
+					view.displayQuiz(model.startQuiz(), quizButtons);
+					t.stop();
+				} else if (model.isReachedEnd()) {
+					t.stop();
+					view.getCurrentPanel().remove(view.getScore());
+					model.configureNestAnimation();
+					view.setPanel("NA");
+					animate();
+				} 
+				if (model.birdIsFainted()) {
+					System.out.println("Resetting the game");
+					t.stop();
+					view.getCurrentPanel().getComponent(1).setVisible(true);
 				}
-    		}
-    	};
-    	
-    	
-} 
-	
+			}
+		};
+	}
+
 	/**
 	 * @return the controller object
 	 */
@@ -218,11 +251,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		listeners.put("OButton", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("OP");
+				delayButton();
 			}
 		}); 
 		listeners.put("NHButton", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("NHP");
+				delayButton();
 			}
 		}); 
 		listeners.put("OPlanButton",  new ActionListener() {
@@ -253,7 +288,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				if(timesPlayed%2==0) {
 					view.show("OButton"); 
 					view.show("NHButton"); 
-					
+
 				}
 				else if(model.getBird().getBirdType().equals("osprey")) {
 					view.hide("OButton"); 
@@ -287,9 +322,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				}
 			}
 		}); 
-		
+
 	}
-	
+
 	/**
 	 * Starts the tutorial. Will continue until the user presses the continue button
 	 * at the end of the tutorial
@@ -304,7 +339,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	
+
 	/**
 	 * Starts the animation. Will continue until the user presses a button
 	 * that will return to the bird selection screen
@@ -317,7 +352,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	
+
 	/**
 	 * Starts the game play. Will then prompt user to choose a bird to play as.
 	 * Will update game as it progresses and end the game when the nest is reached.
@@ -333,7 +368,21 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	
+
+	/**
+	 * Starts the timer fore delaying the button.
+	 */
+	void delayButton() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				delay = BUTTON_DELAY;
+				d = new Timer(BUTTON_DELAY, buttonDelayAction);
+				d.start();
+			}
+		});
+	}
+
+
 	/**
 	 * Required from KeyListener. Will handle any key presses by the player
 	 * @param k The KeyEvent entered by the player
@@ -354,7 +403,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				model.getTutorial().getBird().setDirection(-1);
 			}
 		}
-		
+
 	}
 
 	/**
@@ -387,7 +436,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void keyTyped(KeyEvent k) {}
-	
+
 	/**
 	 * Required from ActionListener. Will handle any buttons pressed by the player
 	 * 
@@ -395,9 +444,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
-	
+
 	/**
 	 * Serialize method which saves the state of the game
 	 * @throws IOException 
@@ -408,7 +457,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		ObjectOutputStream oos = new ObjectOutputStream(out);
 		oos.writeObject(model);
 	}
-	
+
 	/**
 	 * reloads the game at the previously saved point
 	 * restarts the game at that point immediately
@@ -456,5 +505,19 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	public void setModel(Model model) {
 		this.model = model;
+	}
+
+	/**
+	 * @return the delay
+	 */
+	public int getDelay() {
+		return delay;
+	}
+
+	/**
+	 * @param delay the delay to set
+	 */
+	public void setDelay(int delay) {
+		this.delay = delay;
 	}
 }

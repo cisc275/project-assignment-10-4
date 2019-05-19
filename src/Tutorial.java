@@ -1,7 +1,14 @@
 import java.io.Serializable;
-
+/**
+ * Class to handle the tutorial at the beginning of the game
+ * Go through phases of eating food, obstacle collision,
+ * power up status, movement, and minimap.
+ * 
+ * @author 10-4
+ *
+ */
 @SuppressWarnings("serial")
-public class Tutorial implements Serializable{
+public class Tutorial implements Serializable {
 	/**
 	 * The bird for the tutorial the user will control
 	 */
@@ -74,22 +81,31 @@ public class Tutorial implements Serializable{
 	 * True if the power up section of the tutorial should be displayed
 	 */
 	private boolean showInvincible;
-	
-	Tutorial(int frameWidth, int frameHeight){
-		setBird(new Bird(0,0,0,0,Images.NORTHERN_HARRIER.getName()));
+
+	Tutorial(int frameWidth, int frameHeight) {
+		setBird(new Bird(0, 0, 0, 0, Images.NORTHERN_HARRIER.getName()));
 		bird.setBirdType("Northern Harrier");
 		bird.setYloc(300);
 		bird.setStamina(4);
 		bird.updateStaminaImage();
-		setObstacle(new Obstacle(6*frameWidth,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setObstacle(new Obstacle(6 * frameWidth, frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight(), 20,
+				0, Images.FOX.getName(), Images.FOX));
 		obstacle.setType(Images.FOX);
-		setHitObstacle(new Obstacle(5*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setHitObstacle(
+				new Obstacle(5 * frameWidth / 2, frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight(), 20,
+						0, Images.FOX.getName(), Images.FOX));
 		hitObstacle.setType(Images.FOX);
-		setInvincibleObstacle(new Obstacle(19*frameWidth/4,frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight() , 20, 0, Images.FOX.getName(), Images.FOX));
+		setInvincibleObstacle(
+				new Obstacle(19 * frameWidth / 4, frameHeight - Images.getCorrespondingImage(Images.FOX).getHeight(),
+						20, 0, Images.FOX.getName(), Images.FOX));
 		invincibleObstacle.setType(Images.FOX);
-		setFood(new Food(false,3*frameWidth/2,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
+		setFood(new Food(false, 3 * frameWidth / 2,
+				frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(), 20, 0, Images.MOUSE.getName(),
+				Images.MOUSE));
 		food.setType(Images.MOUSE);
-		setGoldenFood(new Food(true,4*frameWidth,frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(),20,0,Images.MOUSE.getName(),Images.MOUSE));
+		setGoldenFood(
+				new Food(true, 4 * frameWidth, frameHeight - Images.getCorrespondingImage(Images.MOUSE).getHeight(), 20,
+						0, Images.MOUSE.getName(), Images.MOUSE));
 		goldenFood.setType(Images.GOLDENMOUSE);
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -102,15 +118,15 @@ public class Tutorial implements Serializable{
 		showMiniMap = false;
 		displayBackArrow = false;
 		showInvincible = false;
-		
+
 	}
-	
+
 	/**
-	 * Updates the tutorial to the different phases to ensure that the player understands
-	 * the different aspects of the game
+	 * Updates the tutorial to the different phases to ensure that the player
+	 * understands the different aspects of the game
 	 */
 	public void updateTutorial() {
-		if(!collectFood && !avoidObstacle && !showMiniMap && !doneTutorial) {
+		if (!collectFood && !avoidObstacle && !showMiniMap && !doneTutorial) {
 			miniMap.updatePositionNH(percent);
 			percent += 0.001;
 			obstacle.update(0);
@@ -118,95 +134,93 @@ public class Tutorial implements Serializable{
 			food.update(0);
 			invincibleObstacle.update(0);
 			goldenFood.update(0);
-			if(food.getXloc()== (frameWidth*3/4)) {
+			if (food.getXloc() == (frameWidth * 3 / 4)) {
 				collectFood = true;
 			}
-			
-			if(obstacle.getXloc() == (frameWidth/2)) {
+
+			if (obstacle.getXloc() == (frameWidth / 2)) {
 				avoidObstacle = true;
 			}
-			
+
 			if (food.polyBounds().intersects(bird.getBounds())) {
 				food.setEaten(true);
 				bird.setStamina(5);
 				bird.updateStaminaImage();
 			}
-			
-			if(goldenFood.polyBounds().intersects(bird.getBounds())) {
+
+			if (goldenFood.polyBounds().intersects(bird.getBounds())) {
 				goldenFood.setEaten(true);
 				bird.setStamina(5);
 				bird.updateStaminaImage();
 				bird.setPoweredUp(true);
 			}
-			
-			if(hitObstacle.polyBounds().intersects(bird.getBounds())) {
+
+			if (hitObstacle.polyBounds().intersects(bird.getBounds())) {
 				bird.setStunned(true);
 				bird.setStunTimer(1);
 				bird.setStamina(4);
 				bird.updateStaminaImage();
 			}
-			
-			if(goldenFood.getXloc()<frameWidth) {
+
+			if (goldenFood.getXloc() < frameWidth) {
 				bird.setStunned(false);
 			}
-			
-			if(!hitAnObstacle && ((food.getXloc() + food.getWidth()) < 0 || (hitObstacle.getXloc() + hitObstacle.getWidth()) < 0)) {
+
+			if (!hitAnObstacle && ((food.getXloc() + food.getWidth()) < 0
+					|| (hitObstacle.getXloc() + hitObstacle.getWidth()) < 0)) {
 				displayArrow = false;
 			}
-			
-			if(hitObstacle.getXloc() == (frameWidth*5/8)) {
+
+			if (hitObstacle.getXloc() == (frameWidth * 5 / 8)) {
 				hitAnObstacle = true;
 				displayArrow = true;
 			}
-			
-			if(obstacle.getXloc() + obstacle.getWidth() < 0) {
+
+			if (obstacle.getXloc() + obstacle.getWidth() < 0) {
 				showMiniMap = true;
 			}
-			
-			if(invincibleObstacle.getXloc()<frameWidth) {
+
+			if (invincibleObstacle.getXloc() < frameWidth) {
 				displayArrow = true;
 			}
-			
-			if(invincibleObstacle.getXloc()+invincibleObstacle.getWidth() < 0) {
+
+			if (invincibleObstacle.getXloc() + invincibleObstacle.getWidth() < 0) {
 				displayArrow = false;
 				bird.setPoweredUp(false);
 			}
 		}
-		
-		if(percent>=1) {
+
+		if (percent >= 1) {
 			displayBackArrow = false;
 			showMiniMap = false;
 			doneTutorial = true;
 			percent = 0;
 		}
-		
-		if(showMiniMap) {
+
+		if (showMiniMap) {
 			displayBackArrow = true;
 			percent += 0.003;
 			miniMap.updatePositionNH(percent);
-			
+
 		}
-		
-		if(collectFood || avoidObstacle) {
+
+		if (collectFood || avoidObstacle) {
 			bird.update(0);
 		}
-		
-		if(collectFood && ((bird.getYloc()+bird.getHeight()/2) >= food.getYloc())) {
+
+		if (collectFood && ((bird.getYloc() + bird.getHeight() / 2) >= food.getYloc())) {
 			collectFood = false;
 			displayArrow = true;
 		}
-		
-		if(avoidObstacle && ((bird.getYloc()+bird.getHeight()*3/2 < obstacle.getYloc()))) {
+
+		if (avoidObstacle && ((bird.getYloc() + bird.getHeight() * 3 / 2 < obstacle.getYloc()))) {
 			avoidObstacle = false;
 		}
-		
-		if(hitAnObstacle && (hitObstacle.getXloc() + hitObstacle.getWidth() < 100)) {
+
+		if (hitAnObstacle && (hitObstacle.getXloc() + hitObstacle.getWidth() < 100)) {
 			hitAnObstacle = false;
 		}
-		
-		
-		
-		
+
 	}
 
 	/**
@@ -216,14 +230,12 @@ public class Tutorial implements Serializable{
 		return bird;
 	}
 
-
 	/**
 	 * @param bird the bird to set
 	 */
 	public void setBird(Bird bird) {
 		this.bird = bird;
 	}
-
 
 	/**
 	 * @return the obstacle
@@ -232,14 +244,12 @@ public class Tutorial implements Serializable{
 		return obstacle;
 	}
 
-
 	/**
 	 * @param obstacle the obstacle to set
 	 */
 	public void setObstacle(Obstacle obstacle) {
 		this.obstacle = obstacle;
 	}
-
 
 	/**
 	 * @return the food
@@ -248,14 +258,12 @@ public class Tutorial implements Serializable{
 		return food;
 	}
 
-
 	/**
 	 * @param food the food to set
 	 */
 	public void setFood(Food food) {
 		this.food = food;
 	}
-
 
 	/**
 	 * @return the collectFood
@@ -264,14 +272,12 @@ public class Tutorial implements Serializable{
 		return collectFood;
 	}
 
-
 	/**
 	 * @param collectFood the collectFood to set
 	 */
 	public void setCollectFood(boolean collectFood) {
 		this.collectFood = collectFood;
 	}
-
 
 	/**
 	 * @return the avoidObstacle
@@ -280,14 +286,12 @@ public class Tutorial implements Serializable{
 		return avoidObstacle;
 	}
 
-
 	/**
 	 * @param avoidObstacle the avoidObstacle to set
 	 */
 	public void setAvoidObstacle(boolean avoidObstacle) {
 		this.avoidObstacle = avoidObstacle;
 	}
-
 
 	/**
 	 * @return the hitObstacle
@@ -296,14 +300,12 @@ public class Tutorial implements Serializable{
 		return hitObstacle;
 	}
 
-
 	/**
 	 * @param hitObstacle the hitObstacle to set
 	 */
 	public void setHitObstacle(Obstacle hitObstacle) {
 		this.hitObstacle = hitObstacle;
 	}
-
 
 	/**
 	 * @return the displayArrow
@@ -312,14 +314,12 @@ public class Tutorial implements Serializable{
 		return displayArrow;
 	}
 
-
 	/**
 	 * @param displayArrow the displayArrow to set
 	 */
 	public void setDisplayArrow(boolean displayArrow) {
 		this.displayArrow = displayArrow;
 	}
-
 
 	/**
 	 * @return the hitAnObstacle
@@ -328,7 +328,6 @@ public class Tutorial implements Serializable{
 		return hitAnObstacle;
 	}
 
-
 	/**
 	 * @param hitAnObstacle the hitAnObstacle to set
 	 */
@@ -336,14 +335,12 @@ public class Tutorial implements Serializable{
 		this.hitAnObstacle = hitAnObstacle;
 	}
 
-
 	/**
 	 * @return the doneTutorial
 	 */
 	public boolean isDoneTutorial() {
 		return doneTutorial;
 	}
-
 
 	/**
 	 * @param doneTutorial the doneTutorial to set
