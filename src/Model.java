@@ -263,6 +263,9 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next();
+			if (tooHigh(curr) || tooLow(curr)) {
+				curr.flipSign(); 
+			}
 			curr.update(bird.getFoodStreak());
 			if (curr.isOffScreen()) {
 				size++;
@@ -276,7 +279,12 @@ public class Model implements Serializable {
 			spawnCount++;
 		}
 	}
-
+	boolean tooHigh(GameElement g) {
+		return g.getYloc() + g.getHeight() >= frameHeight;
+	}
+	boolean tooLow(GameElement g) {
+		return g.getYloc() < 0; 
+	}
 	/**
 	 * Updates the background depending on the distance the player has reached and
 	 * bird's species
