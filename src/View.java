@@ -139,6 +139,8 @@ public class View extends JPanel implements Serializable {
 	
 	private TutorialPanel tutorialPanel;
 	
+	private ButtonPanel welcomePanel;
+	
 	/**
 	 * View constructor, sets up the frame and its contents
 	 * 
@@ -158,7 +160,9 @@ public class View extends JPanel implements Serializable {
 		this.setUpNHPlan();
 		this.setUpAnimation();
 		this.setUpTutorial();
+		this.setUpWelcome();
 
+		cards.add(welcomePanel, "WP");
 		cards.add(tutorialPanel,"TP");
 		cards.add(buttonPanel, "B");
 		cards.add(ospreyPlan, "OP");
@@ -168,7 +172,7 @@ public class View extends JPanel implements Serializable {
 		cards.add(animation, "NA");
 		// cards.add(quizPanel, "Q");
 
-		currentPanel = tutorialPanel;
+		currentPanel = welcomePanel;
 
 		setUpFrame();
 
@@ -188,9 +192,10 @@ public class View extends JPanel implements Serializable {
 		buttons.put("saveGameButtonNH", new JButton("Save Game"));
 		buttons.put("reloadGameButton", new JButton("Reload Game"));
 		buttons.put("endTutorial", new JButton("Click Here To End The Tutorial"));
-		buttons.put("tutorial", new JButton("Tutorial"));
+		buttons.put("tutorial", new JButton("Replay Tutorial"));
 		buttons.put("noStaminaO", new JButton("You Ran Out of Stamina! Return Home"));
 		buttons.put("noStaminaNH", new JButton("You Ran Out of Stamina! Return Home"));
+		buttons.put("startTutorial", new JButton("Click Here To Begin The Tutorial!"));
 	}
 	
 	/**
@@ -205,6 +210,18 @@ public class View extends JPanel implements Serializable {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.pack();
+	}
+	
+	/**
+	 * Sets up the welcome screen panel
+	 */
+	void setUpWelcome() {
+		welcomePanel = new ButtonPanel();
+		welcomePanel.setLayout(null);
+		buttonFont = new Font("Verdana", Font.BOLD, 50);
+		buttons.get("startTutorial").setFont(buttonFont);
+		buttons.get("startTutorial").setBounds(460,0,1000,100);
+		welcomePanel.add(buttons.get("startTutorial"));
 	}
 	
 	/**
@@ -259,7 +276,7 @@ public class View extends JPanel implements Serializable {
 		buttons.get("NHButton").setBounds(100, 20, 600, 100);
 		buttons.get("OButton").setBounds(1300, 20, 400, 100);
 		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH-300, FRAMEHEIGHT-100, 300, 100);
-		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,200,100);
+		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,300,100);
 		
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		JLabel text = new JLabel();
@@ -412,12 +429,6 @@ public class View extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Draws an image onto the frame
-	 */
-	void drawImage() {
-	}
-
-	/**
 	 * Displays a quiz question that will need to be answered by the player to
 	 * progress
 	 */
@@ -504,34 +515,6 @@ public class View extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Updates the display of the bird
-	 */
-	void updateBird() {
-	}
-
-	/**
-	 * Updates the display of the onscreen collidables
-	 * 
-	 * @param bird the bird controlled by the player
-	 */
-	void updateCollidables(Bird bird) {
-	}
-
-	/**
-	 * Updates the display of the minimap based on game progress
-	 * 
-	 * @param miniMap The minimap to be updated and displayed
-	 */
-	void updateMiniMap(MiniMap miniMap) {
-	}
-
-	/**
-	 * update the background based on how far the player has traveled.
-	 */
-	void updateBackground() {
-	}
-
-	/**
 	 * @param String the panel to set
 	 */
 	public void setPanel(String name) {
@@ -557,6 +540,9 @@ public class View extends JPanel implements Serializable {
 			break;
 		case "TP":
 			currentPanel = tutorialPanel;
+			break;
+		case "WP":
+			currentPanel = welcomePanel;
 			break;
 		}
 	}
@@ -732,6 +718,30 @@ public class View extends JPanel implements Serializable {
 	 */
 	public DrawPanel getDrawPanel() {
 		return new DrawPanel();
+	}
+	/**
+	 * @return the ospreyPlan
+	 */
+	public OspreyFlightPlan getOspreyPlan() {
+		return ospreyPlan;
+	}
+	/**
+	 * @param ospreyPlan the ospreyPlan to set
+	 */
+	public void setOspreyPlan(OspreyFlightPlan ospreyPlan) {
+		this.ospreyPlan = ospreyPlan;
+	}
+	/**
+	 * @return the nHPlan
+	 */
+	public NHFlightPlan getNHPlan() {
+		return NHPlan;
+	}
+	/**
+	 * @param nHPlan the nHPlan to set
+	 */
+	public void setNHPlan(NHFlightPlan nHPlan) {
+		NHPlan = nHPlan;
 	}
 
 	/**
@@ -1033,6 +1043,18 @@ public class View extends JPanel implements Serializable {
 		this.score = score;
 	}
 	/**
+	 * @return the nest animation panel
+	 */
+	public NestAnimationPanel getNestAnimationPanel() {
+		return animation;
+	}
+	/**
+	 * @param n the animation to set
+	 */
+	public void setNestAnimationPanel(NestAnimationPanel n) {
+		animation = n;
+	}
+	/**
 	 * @return the tutorialPanel
 	 */
 	public TutorialPanel getTutorialPanel() {
@@ -1043,5 +1065,17 @@ public class View extends JPanel implements Serializable {
 	 */
 	public void setTutorialPanel(TutorialPanel tutorialPanel) {
 		this.tutorialPanel = tutorialPanel;
+	}
+	/**
+	 * @return the welcomePanel
+	 */
+	public ButtonPanel getWelcomePanel() {
+		return welcomePanel;
+	}
+	/**
+	 * @param welcomePanel the welcomePanel to set
+	 */
+	public void setWelcomePanel(ButtonPanel welcomePanel) {
+		this.welcomePanel = welcomePanel;
 	}
 }

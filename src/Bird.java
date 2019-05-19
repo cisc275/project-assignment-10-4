@@ -150,7 +150,6 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
 		staminaImage = staminaPics[5];
-		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
 	
@@ -379,7 +378,6 @@ public class Bird extends GameElement implements Serializable {
 			staminaPics[3] = Images.HEALTH_3_OSPREY;
 			staminaPics[4] = Images.HEALTH_4_OSPREY;
 			staminaPics[5] = Images.HEALTH_5_OSPREY;
-			//staminaImage = staminaPics[0];
 		} else {
 			this.birdType = "northern harrier";
 			this.setType(Images.NORTHERN_HARRIER);
@@ -391,7 +389,6 @@ public class Bird extends GameElement implements Serializable {
 			staminaPics[3] = Images.HEALTH_3;
 			staminaPics[4] = Images.HEALTH_4;
 			staminaPics[5] = Images.HEALTH_5;
-			//staminaImage = staminaPics[0];
 		}
 	}
 

@@ -62,7 +62,11 @@ public abstract class GameElement implements Serializable {
 	 * The polygon of the GameElement
 	 */
 	protected Polygon polygon;
-
+	
+	/**
+	 * y sign flip 
+	 */
+	protected int flip; 
 	/**
 	 * @param x         an int representing the x location of the GameElement
 	 * @param y         an int representing the y location of the GameElement
@@ -75,7 +79,7 @@ public abstract class GameElement implements Serializable {
 		xloc = x;
 		yloc = y;
 		this.xSpeed = xSpeed;
-		this.ySpeed = ySpeed;
+		this.ySpeed = 35; 
 		this.imagePath = imagePath;
 		this.image = type;
 		if (type.equals(Images.BIRD) || type.equals(Images.OSPREY) || 
@@ -90,6 +94,7 @@ public abstract class GameElement implements Serializable {
 		if (xPolyVals.isEmpty()) {
 			putPolyCoords();
 		}
+		this.flip = 1; 
 	}
 	
 	/**
@@ -99,8 +104,6 @@ public abstract class GameElement implements Serializable {
 	void putPolyCoords() {
 		xPolyVals.put(Images.BUILDING, new int[] { 0, 263, 263, 0 });
 		yPolyVals.put(Images.BUILDING, new int[] { 0, 0, 675, 675 });
-		// System.out.println(xPolyVals.get(Images.BUILDING).length ==
-		// yPolyVals.get(Images.BUILDING).length);
 		
 		xPolyVals.put(Images.TRASH, new int[] { 21, 9, 8, 1, 4, 1, 16, 38, 58, 78, 81, 81, 73, 72, 49,
 				47, 33, 32});
@@ -111,29 +114,21 @@ public abstract class GameElement implements Serializable {
 				116, 67, 53, 63, 54, 44, 44, 60, 62, 46, 32, 33, 50, 49, 38, 21, 9 });
 		yPolyVals.put(Images.MOUSE, new int[] { 43, 34, 19, 9, 3, 8, 4, 2, 13, 8, 9, 20, 40, 52, 65, 82, 93, 108, 124,
 				139, 140, 130, 114, 102, 89, 92, 85, 77, 68, 58, 48, 48, 47 });
-		// System.out.println(xPolyVals.get(Images.MOUSE).length ==
-		// yPolyVals.get(Images.MOUSE).length);
 
 		xPolyVals.put(Images.GOLDENFISH, new int[] { 2, 17, 37, 49, 61, 71, 73, 62, 83, 110, 137, 106, 100, 106, 95, 80,
 				63, 69, 56, 47, 32, 17, 5 });
 		yPolyVals.put(Images.GOLDENFISH, new int[] { 68, 59, 48, 33, 26, 26, 43, 49, 67, 58, 63, 76, 90, 106, 104, 87,
 				102, 107, 112, 104, 100, 85, 79 });
-		// System.out.println(xPolyVals.get(Images.GOLDENFISH).length ==
-		// yPolyVals.get(Images.GOLDENFISH).length);
 
 		xPolyVals.put(Images.FISH, new int[] { 1, 15, 33, 47, 64, 85, 82, 71, 88, 105, 138, 114, 109, 118, 110, 101, 92,
 				63, 69, 53, 46, 26, 14, 10, 2 });
 		yPolyVals.put(Images.FISH, new int[] { 36, 35, 26, 23, 5, 5, 29, 28, 49, 37, 37, 54, 79, 81, 89, 83, 64, 86, 95,
 				100, 90, 81, 63, 52, 46 });
-		// System.out.println(xPolyVals.get(Images.FISH).length ==
-		// yPolyVals.get(Images.FISH).length);
 
 		xPolyVals.put(Images.GOLDENMOUSE, new int[] { 9, 13, 26, 39, 37, 42, 50, 56, 63, 69, 73, 99, 117, 129, 131, 128,
 				137, 121, 89, 59, 60, 63, 52, 45, 50, 64, 62, 45, 31, 43, 52, 40, 19 });
 		yPolyVals.put(Images.GOLDENMOUSE, new int[] { 48, 43, 34, 20, 12, 6, 9, 8, 4, 7, 17, 10, 14, 25, 40, 51, 68, 89,
 				99, 113, 129, 137, 136, 124, 106, 98, 90, 90, 83, 71, 61, 51, 49 });
-		// System.out.println(xPolyVals.get(Images.GOLDENMOUSE).length ==
-		// yPolyVals.get(Images.GOLDENMOUSE).length);
 
 		xPolyVals.put(Images.EAGLE,
 				new int[] { 135, 154, 187, 223, 232, 255, 249, 283, 272, 288, 265, 292, 275, 285, 271, 246, 236, 209,
@@ -143,8 +138,6 @@ public abstract class GameElement implements Serializable {
 				new int[] { 98, 91, 52, 27, 28, 10, 27, 4, 25, 19, 40, 38, 48, 50, 64, 89, 95, 120, 123, 135, 138, 151,
 						159, 158, 154, 159, 183, 185, 195, 187, 189, 168, 167, 173, 161, 150, 138, 126, 126, 137, 135,
 						130, 136, 138, 136, 130, 114, 102, 104, 85, 91, 69, 82, 86, 89, 91, 98 });
-		// System.out.println(xPolyVals.get(Images.EAGLE).length ==
-		// yPolyVals.get(Images.EAGLE).length);
 
 		xPolyVals.put(Images.OWL,
 				new int[] { 6, 17, 34, 57, 75, 88, 92, 84, 87, 94, 102, 110, 111, 123, 130, 124, 142, 132, 155, 140,
@@ -154,8 +147,6 @@ public abstract class GameElement implements Serializable {
 				new int[] { 13, 10, 20, 34, 53, 75, 73, 40, 11, 25, 11, 5, 22, 12, 10, 28, 19, 42, 35, 54, 56, 65, 74,
 						97, 115, 128, 128, 128, 139, 150, 181, 190, 195, 192, 182, 173, 165, 150, 144, 138, 133, 139,
 						139, 134, 120, 112, 95, 82, 69, 67, 57, 42 });
-		// System.out.println(xPolyVals.get(Images.OWL).length ==
-		// yPolyVals.get(Images.OWL).length);
 
 		xPolyVals.put(Images.FOX,
 				new int[] { 6, 23, 31, 40, 39, 50, 66, 77, 119, 130, 162, 215, 241, 261, 275, 285, 281, 315, 358, 397,
@@ -167,13 +158,7 @@ public abstract class GameElement implements Serializable {
 						73, 80, 83, 82, 89, 95, 95, 98, 97, 93, 97, 77, 102, 113, 115, 140, 151, 164, 144, 144, 169,
 						190, 190, 182, 174, 149, 132, 114, 91, 101, 104, 141, 168, 175, 168, 136, 127, 137, 157, 153,
 						130, 119, 108, 103, 83, 78, 81, 83 });
-		// System.out.println(xPolyVals.get(Images.FOX).length ==
-		// yPolyVals.get(Images.FOX).length);
 
-		//xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
-		//yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
-		//System.out.println(xPolyVals.get(Images.BIRD).length ==
-		//yPolyVals.get(Images.BIRD).length)
 	}
 
 	/**
@@ -183,7 +168,13 @@ public abstract class GameElement implements Serializable {
 	 */
 	void update(int speedAdjust) {
 		xloc -= (xSpeed + speedAdjust * 2);
-		polygon.translate(-(xSpeed + speedAdjust * 2), 0);
+		if (imagePath.equals("images/owl_1080.png") || imagePath.equals("images/eagle_1080.png")) {
+			yloc -= flip*(ySpeed + speedAdjust * 2); 
+			polygon.translate(-(xSpeed + speedAdjust * 2), -flip*(ySpeed + speedAdjust * 2));
+		} 
+		else {
+			polygon.translate(-(xSpeed + speedAdjust * 2), 0);
+		} 
 	}
 
 	/**
@@ -197,7 +188,13 @@ public abstract class GameElement implements Serializable {
 		polygon = new Polygon(x, y, x.length);
 		polygon.translate(this.xloc, this.yloc);
 	}
-
+	/** 
+	 * 
+	 */
+	public void flipSign() {
+		flip = (-1)*flip; 
+		System.out.println("flipped"); 
+	}
 	/**
 	 * @return the xloc
 	 */

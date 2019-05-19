@@ -124,11 +124,9 @@ public class Model implements Serializable {
 	 * @param frameHeight
 	 */
 	public Model(int frameWidth, int frameHeight) {
-		// bird = new Bird(0,0,0,0,"");
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
-		// theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
 		this.background = new Background(frameWidth);
 		this.quizMode = false;
 		miniMap = (MiniMap) generateImgPath(9);
@@ -259,6 +257,9 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next();
+			if (tooHigh(curr) || tooLow(curr)) {
+				curr.flipSign(); 
+			}
 			curr.update(bird.getFoodStreak());
 			if (curr.isOffScreen()) {
 				size++;
@@ -272,7 +273,12 @@ public class Model implements Serializable {
 			spawnCount++;
 		}
 	}
-
+	boolean tooHigh(GameElement g) {
+		return g.getYloc() + g.getHeight() >= frameHeight;
+	}
+	boolean tooLow(GameElement g) {
+		return g.getYloc() < 0; 
+	}
 	/**
 	 * Updates the background depending on the distance the player has reached and
 	 * bird's species
@@ -337,9 +343,6 @@ public class Model implements Serializable {
 	GameElement collisionDetection() {
 		GameElement collided = null;
 		for (GameElement e : onScreenCollidables) {
-			/*
-			 * if (e.getBounds().intersects(bird.getBounds())) { collided = e; }
-			 */
 			if (e.polyBounds().intersects(bird.getBounds())) {
 				collided = e;
 			}

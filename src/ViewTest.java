@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
+
 
 /**
  * Handles all unit tests of View class
@@ -54,46 +56,57 @@ class ViewTest {
 		assertTrue(v.getFrame().isVisible());
 		assertTrue(v.getFrame().isDisplayable());
 	}
+	
+	@Test
+	void setUpOPanelTest() {
+		Controller c = new Controller();
+		View v = c.getView();
+		v.setUpOPanel();
+		JButton save = v.getButtons().get("saveGameButtonO");
+		JButton noStam = v.getButtons().get("noStaminaO");
+		
+		assertTrue(v.getOPanel().getBackground().equals(Color.gray));
+		assertTrue(save.getBounds().equals(new Rectangle(910,0,100,30)));
+		assertTrue(noStam.getFont().getName().equals("Verdana"));
+		assertEquals(noStam.getFont().getStyle(), Font.BOLD);
+		assertEquals(noStam.getFont().getSize(), 50);
+		assertTrue(noStam.getBounds().equals(new Rectangle(400,500,1120,80)));
+	}
+	
+	@Test
+	void setUpNHPanelTest() {
+		Controller c = new Controller();
+		View v = c.getView();
+		v.setUpNHPanel();
+		JButton save = v.getButtons().get("saveGameButtonNH");
+		JButton noStam = v.getButtons().get("noStaminaNH");
+		
+		assertTrue(v.getOPanel().getBackground().equals(Color.gray));
+		assertTrue(save.getBounds().equals(new Rectangle(910,0,100,30)));
+		assertTrue(noStam.getFont().getName().equals("Verdana"));
+		assertEquals(noStam.getFont().getStyle(), Font.BOLD);
+		assertEquals(noStam.getFont().getSize(), 50);
+		assertTrue(noStam.getBounds().equals(new Rectangle(400,500,1120,80)));
+	}
 
 	@Test
 	void updateViewTest() {
-		// TODO check that this still works with the new images system
 		Controller c = new Controller();
 		View v = c.getView();
-		v.setGameBackground(new Background(1000));
-		Bird b = new Bird(0, 0, 1, 1, "images/big_bird_animate.png");
-		v.setBird(b);
-		List<GameElement> list = new ArrayList<GameElement>();
-		GameElement g1 = new Obstacle(100, 100, 1, 0, "", Images.EAGLE);
-		g1.setImagePath("images/big_bird_animate.png");
-		GameElement g2 = new Obstacle(500, 100, 1, 0, "", Images.FISH);
-		g2.setImage(Images.BIRD);
-		list.add(g1);
-		list.add(g2);
-		v.setElements(list);
-		// what it should look like
-		// Controller c1 = new Controller();
-		View v1 = c.getView();
-		v.setGameBackground(new Background(1500));
-		Bird ba = new Bird(0, 0, 1, 1, "images/big_bird_animate.png");
-		ba.setImage(Images.BIRD);
-		v1.setBird(ba);
-		List<GameElement> list1 = new ArrayList<GameElement>();
-		GameElement g1a = new Obstacle(100, 100, 1, 0, "", Images.EAGLE);
-		g1a.setImage(Images.BIRD);
-		g1a.setImagePath("images/big_bird_animate.png");
-		GameElement g2a = new Obstacle(500, 100, 1, 0, "", Images.FISH);
-		g2a.setImage(Images.BIRD);
-		list1.add(g1a);
-		list1.add(g2a);
-		v.setElements(list1);
-
-		v.updateView(b, list, new MiniMap(5, 5, 5, 5, Images.BIRD, Images.OSPREY_MINIMAP, 0, 0), 
-					new Background(1500));
-		assertEquals(v.getBird().getImage(), v1.getBird().getImage());
-		assertEquals(v.getBackground(), v1.getBackground());
-		assertEquals(v.getElements().get(0).getImage(), v1.getElements().get(0).getImage());
-
+		Bird b = new Bird(0, 0, 0 ,0, "");
+		List<GameElement> e = new ArrayList<GameElement>();
+		GameElement g = new Obstacle(0, 0, 0, 0, "", Images.FOX);
+		e.add(g);
+		MiniMap m = new MiniMap(0,0,0,0,Images.OSPREY_MINIMAP, Images.OSPREY_IMG_FOR_MINIMAP, 0, 0);
+		Background bg = new Background(100);
+		v.setScore(new JLabel("score"));
+		v.updateView(b, e, m, bg);
+		
+		assertTrue(v.getBird().getImage().equals(Images.BIRD));
+		assertTrue(v.getBird().getStaminaPics()[0].equals(Images.HEALTH_0));
+		assertTrue(v.getBird().getPoweredUpPics().equals(Images.POWERUP));
+		assertTrue(v.getScore().getFont().getName().equals("Verdana"));
+		assertTrue(v.getScore().getBounds().equals(new Rectangle(0,0,1300,100)));
 	}
 
 	@Test
@@ -102,14 +115,6 @@ class ViewTest {
 		View view = new View();
 		BufferedImage i = view.createImage("images/test-image.jpg");
 		assertTrue(i != null);
-	}
-
-	@Test
-	void drawImageTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.drawImage();
-		fail("Stub method");
 	}
 
 	@Test
@@ -169,40 +174,6 @@ class ViewTest {
 	}
 
 	@Test
-	void updateBirdTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.updateBird();
-		fail("Stub method");
-	}
-
-	@Test
-	void updateCollidablesTest() {
-		//Controller c = new Controller();
-		Model m = new Model(1000, 1000);
-		View v = new View();
-		v.updateCollidables(m.getBird());
-		fail("Stub method");
-	}
-
-	@Test
-	void updateMiniMapTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		Model m = new Model(1000, 1000);
-		v.updateMiniMap(m.getMiniMap());
-		fail("Stub method");
-	}
-
-	@Test
-	void updateBackgroundTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		v.updateBackground();
-		fail("Stub method");
-	}
-
-	@Test
 	void setPanelTest() {
 		//Controller c = new Controller();
 		View v = new View();
@@ -210,6 +181,18 @@ class ViewTest {
 		assertEquals(v.getCurrentPanel(), v.getOPanel());
 		v.setPanel("NH");
 		assertEquals(v.getCurrentPanel(), v.getNHPanel());
+		v.setPanel("NA");
+		assertEquals(v.getCurrentPanel(), v.getNestAnimationPanel());
+		v.setPanel("OP");
+		assertEquals(v.getCurrentPanel(), v.getOspreyPlan());
+		v.setPanel("NHP");
+		assertEquals(v.getCurrentPanel(), v.getNHPlan());
+		v.setPanel("B");
+		assertEquals(v.getCurrentPanel(), v.getbuttonPanel());
+		v.setPanel("TP");
+		assertEquals(v.getCurrentPanel(), v.getTutorialPanel());
+		v.setPanel("WP");
+		assertEquals(v.getCurrentPanel(), v.getWelcomePanel());
 	}
 
 	@Test

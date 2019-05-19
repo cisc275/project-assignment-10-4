@@ -11,7 +11,7 @@ public class QuizQuestions implements Serializable{
 	 */
 	private QuizQuestion current;
 	
-	//private QuizQuestion last; 
+	private Random rand;
 	
 	/**
 	 * 
@@ -19,14 +19,14 @@ public class QuizQuestions implements Serializable{
 	 * The file format is question, answers, correct, and hint all on separate lines
 	 */
 	public QuizQuestions(String filename) {
+		rand = new Random();
 		this.setUnusedQuestions(new ArrayList<QuizQuestion>());
 		this.current = null; 
 		List<String> qs = new ArrayList<String>(); 
 		qs.add("you gucci"); 
 		qs.add("so powerful"); 
 		qs.add("you is a winner in my <3"); 
-		qs.add("so smart"); 
-		//this.last = new QuizQuestion("Yo you win", qs, "I'm crying bc sad"); 
+		qs.add("so smart");  
 		/**
 		 * Create the questions
 		 */
@@ -75,7 +75,8 @@ public class QuizQuestions implements Serializable{
 	 */
 	public void newQuestion() {
 		if (questionsRemaining() > 0) {
-			QuizQuestion result = getUnusedQuestions().get(0);
+			int q = rand.nextInt(getUnusedQuestions().size());
+			QuizQuestion result = getUnusedQuestions().get(q);
 			getUnusedQuestions().remove(result); 
 			current = result;
 		} 

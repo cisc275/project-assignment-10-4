@@ -44,36 +44,23 @@ class ModelTest {
 	@Test
 	void updateTest() {
 		Model m = new Model(500, 500, "Osprey");
-		//Bird b = new Bird(0, 0, 0, 0, "");
 		m.getBird().setYloc(280);
-		//b.setYloc(280);
-		//m.setBird(b);
 		List<GameElement> list = new ArrayList<GameElement>();
 		GameElement g1 = new Obstacle(100, 100, 1, 0, "", Images.BUILDING);
 		GameElement gOffScreen = new Obstacle(-10, 100, 1, 0, "", Images.BUILDING);
 		gOffScreen.setWidth(10);
 		list.add(gOffScreen);
 		list.add(g1);
-		//m.setOnScreenElements(list); 
 		m.update();
-		//Model model2 = new Model(10, 10, "Osprey");
 		List<GameElement> list2 = new ArrayList<GameElement>();
 		GameElement g12 = new Obstacle(99, 100, 1, 0, "", Images.BUILDING);
 		list2.add(g12);
-		// GameElement rand = new Obstacle(1,10,10,1,1,"");
-		// list2.add(rand);
-		//model2.setOnScreenElements(list2);
-		/*assertEquals(m.getOnScreenCollidables().get(0).xloc, model2.getOnScreenCollidables().get(0).xloc);
-		assertEquals(m.getOnScreenCollidables().size(), model2.getOnScreenCollidables().size());
-		assertEquals(276, m.getBird().getYloc());
-		*/
 		Model model3 = new Model(10, 10, "Osprey");
 		model3.setDistance(0);
 		model3.update();
 		model3.setDistance(10000000);
 		model3.update();
 		assertTrue(true == model3.isReachedEnd() );
-		//assertEquals();
 	}
 
 	@Test
@@ -116,8 +103,6 @@ class ModelTest {
 		GameElement g12 = new Obstacle(99, 100, 1, 0, "", Images.BUILDING);
 		g12.setType(Images.BUILDING);
 		list2.add(g12);
-		// GameElement rand = new Obstacle(1,10,10,1,1,"");
-		// list2.add(rand);
 		model2.setOnScreenElements(list2);
 		assertEquals(model.getOnScreenCollidables().get(0).xloc, model2.getOnScreenCollidables().get(0).xloc);
 		assertEquals(model.getOnScreenCollidables().size(), model2.getOnScreenCollidables().size());
@@ -140,9 +125,7 @@ class ModelTest {
 	void updateMiniMapTest() {
 		Model modelO = new Model(10, 10, "Osprey");
 		modelO.updateMiniMap(0);
-//		modelO.createMiniMap();
 		Model modelH = new Model(10, 10, "Northern Harrier");
-	//	modelH.createMiniMap();
 		modelH.updateMiniMap(0);
 		assertEquals(Images.OSPREY_IMG_FOR_MINIMAP, modelO.getMiniMap().getMapSpriteFile() );
 		modelH.setMiniMap( (MiniMap)modelH.genMap(Images.NH_MINIMAP));
@@ -157,7 +140,6 @@ class ModelTest {
 		Model model = new Model(1000, 1000, "Osprey");
 		final Field field = model.getClass().getDeclaredField("onScreenCollidables");
 		field.setAccessible(true);
-		// field.get(model).add(new Obstacle(0,0,0,0,"images/building.png") );
 		Obstacle obstacle = new Obstacle(10, 500, 0, 0, "images/building.png", Images.BUILDING);
 		obstacle.setType(Images.BUILDING);
 		obstacle.setWidth(100);
@@ -453,7 +435,6 @@ class ModelTest {
 		int xSpeed = 0;
 		int ySpeed = 0;
 		Model modelH = new Model(10, 10, "Northern Harrier");
-		//assertEquals(model.getMiniMap(), new MiniMap(x, y, xSpeed, ySpeed, Images.OSPREY_MINIMAP, Images.OSPREY_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird));
 		
 		assertFalse(modelO.getMiniMap().equals( new MiniMap(x, y, xSpeed, ySpeed, Images.OSPREY_MINIMAP, Images.OSPREY_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird) ));
 		x = modelO.getFrameWidth() - 250;
@@ -461,8 +442,7 @@ class ModelTest {
 		yLocOfBird = MiniMap.NH_INITIAL_SMALL_BIRD_Y_LOC;
 	
 		assertFalse(modelH.getMiniMap().equals( new MiniMap(x, y, xSpeed, ySpeed, Images.NH_MINIMAP, Images.NH_IMG_FOR_MINIMAP, xLocOfBird, yLocOfBird)));
-		//model.setMiniMap(new MiniMap(0, 0, 0, 0, new Image(), new Image(), 0, 0));
-	//	assertNotEquals(old, model.getMiniMap());
+		
 	}
 
 	@Test
@@ -471,10 +451,6 @@ class ModelTest {
 		int oldSize = m.getOnScreenCollidables().size();
 		m.spawnGameElement();
 		assertEquals(m.getOnScreenCollidables().size(), oldSize + 1);
-		// GameElement c = m.getOnScreenCollidables().get(0);
-		// assertEquals(true,c.getYloc() <= 1100 && c.getYloc() >= 0);
-		// assertEquals(c.getxSpeed(),10);
-		// assertEquals(c.getySpeed(),0);
 	}
 
 	@Test
