@@ -16,3 +16,4 @@ offscreen
 onscreen
 faintedness
 countdown
+invincibility

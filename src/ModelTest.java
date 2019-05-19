@@ -56,14 +56,14 @@ class ModelTest {
 		list.add(g1);
 		//m.setOnScreenElements(list); 
 		m.update();
-		Model model2 = new Model(10, 10, "Osprey");
+		//Model model2 = new Model(10, 10, "Osprey");
 		List<GameElement> list2 = new ArrayList<GameElement>();
 		GameElement g12 = new Obstacle(99, 100, 1, 0, "", Images.BUILDING);
 		list2.add(g12);
 		// GameElement rand = new Obstacle(1,10,10,1,1,"");
 		// list2.add(rand);
-	//	model2.setOnScreenElements(list2);
-	/*	assertEquals(m.getOnScreenCollidables().get(0).xloc, model2.getOnScreenCollidables().get(0).xloc);
+		//model2.setOnScreenElements(list2);
+		/*assertEquals(m.getOnScreenCollidables().get(0).xloc, model2.getOnScreenCollidables().get(0).xloc);
 		assertEquals(m.getOnScreenCollidables().size(), model2.getOnScreenCollidables().size());
 		assertEquals(276, m.getBird().getYloc());
 		*/

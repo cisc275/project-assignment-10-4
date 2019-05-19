@@ -43,7 +43,7 @@ public class Tutorial implements Serializable{
 	 */
 	private boolean avoidObstacle;
 	/**
-	 * True if the arrow to highlight the stamina should be dispalyed
+	 * True if the arrow to highlight the stamina should be displayed
 	 */
 	private boolean displayArrow;
 	/**

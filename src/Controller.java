@@ -51,7 +51,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for animating the nesting
 	 */
 	Action animateAction;
-	
+	/**
+	 * Action for animating the tutorial
+	 */
 	Action tutorialAction;
 	/**
 	 * Time between draw events
@@ -278,6 +280,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
+	
 	/**
 	 * Starts the animation. Will continue until the user presses a button
 	 * that will return to the bird selection screen
