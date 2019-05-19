@@ -84,8 +84,8 @@ public class Background implements Serializable {
 	 * @param num the background image to update
 	 */
 	private void updateBackgroundZone(int num) {
-		int randResult = rand.nextInt(4);
-		if (ospreyMode && randResult == 3) {
+		int randResult = rand.nextInt(3);
+		if (ospreyMode && randResult == 2) {
 			if(num == 0) {
 				setBackground(num, Images.WATER_PATH);
 			}
@@ -105,15 +105,14 @@ public class Background implements Serializable {
 
 	/**
 	 * Returns true if the zone to the right is water
+	 * 
 	 * @return boolean indicating if water is the next zone
 	 */
 	public boolean isWaterNextZone() {
 		if (ospreyMode) {
-			if ((bgXs[0] < bgXs[1] && 
-					(bgs[1].equals(Images.WATER_PATH) || bgs[1].equals(Images.WATER_MIRROR_PATH))) 
-					||
-				(bgXs[1] < bgXs[0] && 
-						(bgs[0].equals(Images.WATER_PATH) || bgs[0].equals(Images.WATER_MIRROR_PATH)))){
+			if ((bgXs[0] < bgXs[1] && (bgs[1].equals(Images.WATER_PATH) || bgs[1].equals(Images.WATER_MIRROR_PATH)))
+					|| (bgXs[1] < bgXs[0]
+							&& (bgs[0].equals(Images.WATER_PATH) || bgs[0].equals(Images.WATER_MIRROR_PATH)))) {
 				return true;
 			} else {
 				return false;

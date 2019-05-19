@@ -1,7 +1,5 @@
 import java.io.*;
-import javax.imageio.ImageIO;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Provides the image showing the birds progress through its migratory journey.

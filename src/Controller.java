@@ -276,15 +276,15 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Will update game as it progresses and end the game when the nest is reached.
 	 */
 	void start() {
-			EventQueue.invokeLater(new Runnable(){
-				public void run(){
-					t = new Timer(DRAW_DELAY, drawAction);
-					t.start();
-					if (model.isQuizMode()) {
-						t.stop(); 
-					}
+		EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				t = new Timer(DRAW_DELAY, drawAction);
+				t.start();
+				if (model.isQuizMode()) {
+					t.stop(); 
 				}
-			});
+			}
+		});
 	}
 	
 	/**

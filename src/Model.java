@@ -206,7 +206,7 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Only called 1 time at the time immediately after the user slects the birdType
+	 * Only called 1 time at the time immediately after the user selects the birdType
 	 * for gamePlay Creates the miniMap corresponding to the bird that was selected
 	 */
 	public void createMiniMap() {
@@ -398,8 +398,11 @@ public class Model implements Serializable {
 				}
 			} else {
 				curImage = randImg.nextInt(4) + 5;
-				if (curImage == 6 && !theQuestions.noMoreQuestions()) {
-					curImage = randImg.nextInt(2) + 5; // re-roll on a golden mouse
+				if ((curImage == 6 || curImage == 5) && !theQuestions.noMoreQuestions()) {
+					curImage = randImg.nextInt(4) + 5; // re-roll on a golden mouse or mouse
+					if (curImage == 6) {
+						curImage = randImg.nextInt(4) + 5;
+					}
 				} 
 				else if (theQuestions.noMoreQuestions() && curImage == 6) {
 					curImage -= 1; 
