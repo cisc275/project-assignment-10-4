@@ -16,7 +16,7 @@ public class QuizQuestions implements Serializable{
 	/**
 	 * 
 	 * @param filename: the file that stores all of the quiz questions
-	 * The file format is question, answers, and correct all on separate lines
+	 * The file format is question, answers, correct, and hint all on separate lines
 	 */
 	public QuizQuestions(String filename) {
 		this.setUnusedQuestions(new ArrayList<QuizQuestion>());
