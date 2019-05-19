@@ -309,6 +309,11 @@ public class View extends JPanel implements Serializable {
 		ospreyPlan = new OspreyFlightPlan();
 		buttons.get("OPlanButton").setFont(buttonFont);
 		ospreyPlan.add(buttons.get("OPlanButton"));
+		buttons.get("OPlanButton").setVisible(false);
+		/**
+		c.getOPlanButton().setFont(buttonFont);
+		ospreyPlan.add(c.getOPlanButton());
+		**/ 
 	}
 
 	/**
@@ -318,6 +323,11 @@ public class View extends JPanel implements Serializable {
 		NHPlan = new NHFlightPlan();
 		buttons.get("NHPlanButton").setFont(buttonFont);
 		NHPlan.add(buttons.get("NHPlanButton"));
+		buttons.get("NHPlanButton").setVisible(false);
+		/**
+		c.getNHPlanButton().setFont(buttonFont);
+		NHPlan.add(c.getNHPlanButton());
+		**/ 
 		NHFlightPlanBack = createImage("images/nh_flight_plan_green_background.png");
 		NHFlightPlan = createImage("images/nh_flight_plan_1080.png");
 	}
