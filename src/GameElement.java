@@ -173,8 +173,7 @@ public abstract class GameElement implements Serializable {
 		//xPolyVals.put(Images.BIRD, new int[] { 24, 37, 50, 71, 80, 88, 81, 69, 54, 41, 35, 15, 12, 16 });
 		//yPolyVals.put(Images.BIRD, new int[] { 71, 73, 70, 72, 72, 78, 83, 89, 91, 87, 84, 93, 86, 80 });
 		//System.out.println(xPolyVals.get(Images.BIRD).length ==
-		//yPolyVals.get(Images.BIRD).length);
-
+		//yPolyVals.get(Images.BIRD).length)
 	}
 
 	/**

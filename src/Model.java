@@ -27,7 +27,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 40000;
+	private static final int END_DISTANCE = 40000; 
 	/**
 	 * The Bird the player will control
 	 */
@@ -829,7 +829,7 @@ public class Model implements Serializable {
 	 * @return boolean indicating bird faintedness
 	 */
 	public boolean birdIsFainted() {
-		return bird.isFainted();
+		return bird.isFainted(); 
 	}
 
 	/**
