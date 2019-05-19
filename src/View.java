@@ -188,7 +188,7 @@ public class View extends JPanel implements Serializable {
 		buttons.put("saveGameButtonNH", new JButton("Save Game"));
 		buttons.put("reloadGameButton", new JButton("Reload Game"));
 		buttons.put("endTutorial", new JButton("Click Here To End The Tutorial"));
-		buttons.put("tutorial", new JButton("Tutorial"));
+		buttons.put("tutorial", new JButton("Replay Tutorial"));
 		buttons.put("noStaminaO", new JButton("You Ran Out of Stamina! Return Home"));
 		buttons.put("noStaminaNH", new JButton("You Ran Out of Stamina! Return Home"));
 	}
@@ -259,7 +259,7 @@ public class View extends JPanel implements Serializable {
 		buttons.get("NHButton").setBounds(100, 20, 600, 100);
 		buttons.get("OButton").setBounds(1300, 20, 400, 100);
 		buttons.get("reloadGameButton").setBounds(FRAMEWIDTH-300, FRAMEHEIGHT-100, 300, 100);
-		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,200,100);
+		buttons.get("tutorial").setBounds(0,FRAMEHEIGHT-100,300,100);
 		
 		buttonFont = new Font("Verdana", Font.BOLD, 50);
 		JLabel text = new JLabel();
