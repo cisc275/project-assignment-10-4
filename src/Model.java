@@ -133,7 +133,7 @@ public class Model implements Serializable {
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		 
+		
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		spawnTimer = new Timing(timeToSpawn);

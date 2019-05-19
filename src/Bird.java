@@ -258,6 +258,10 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	public void setPoweredUp(boolean poweredUp) {
 		this.poweredUp = poweredUp;
+		if(poweredUp) {
+			this.powerTimer.reset();
+			System.out.println(powerTimer.getState());
+		}
 	}
 
 	/**
