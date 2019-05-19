@@ -42,6 +42,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 */
 	private List<JButton> quizButtons; 
 	/**
+	 * int to store how much time is left before showing the button
+	 */
+	private int delay;
+	/**
 	 * Holds the Action code
 	 */
 	Action drawAction;
@@ -57,13 +61,18 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Action for animating the tutorial
 	 */
 	Action tutorialAction;
+	/**
+	 * Action for delaying the start flight button
+	 */
 	Action buttonDelayAction;
 	/**
 	 * Time between draw events
 	 */
 	final static int DRAW_DELAY = 30;
+	/**
+	 * Time to wait to display the start flight button
+	 */
 	final static int BUTTON_DELAY = 70;
-	private int delay;
 	/**
 	 * Timer for handling game play
 	 */
@@ -76,6 +85,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	 * Timer for handling the tutorial
 	 */
 	Timer r;
+	/**
+	 * Timer for handling the delay button
+	 */
 	Timer d;
 	/**
 	 * number of iterations through the game
@@ -353,6 +365,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		});
 	}
 
+	/**
+	 * Starts the timer fore delaying the button.
+	 */
 	void delayButton() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
