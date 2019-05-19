@@ -1,11 +1,7 @@
 import java.io.*;
 /**
- * 
- */
-
-/**
  * Main class for running the bird game
- * @author jhdavis
+ * @author 10-4
  */
 @SuppressWarnings("serial")
 public class Main implements Serializable{

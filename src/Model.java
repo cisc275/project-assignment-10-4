@@ -295,6 +295,7 @@ public class Model implements Serializable {
 
 	/**
 	 * Updates the MiniMap to display the current traveled status
+	 * @param percentDistTraveled   a value representing the percent which the game is done
 	 */
 	void updateMiniMap(double percentDistTraveled) {
 		if (percentDistTraveled >= 1) {
@@ -373,6 +374,7 @@ public class Model implements Serializable {
 	/**
 	 * Ends the quiz and restarts the player controlling the bird. Handles powerup
 	 * start if the player answered the quiz correctly. Ends quiz mode
+	 * @param  A string representing the answer to the question
 	 */
 	void endQuiz(String answer) {
 		if (theQuestions.answerQuestion(answer)) {
@@ -488,6 +490,7 @@ public class Model implements Serializable {
 	}
 
 	/**
+	 * @param choice   an int representing the number whihc will be used in the switch statement
 	 * @return A GameElement . Uses the Images enumeration to select the path for an
 	 *         image based off a random number. And depending on which type of image
 	 *         it is, it will generate its starting position appropriately.

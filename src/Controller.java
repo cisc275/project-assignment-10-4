@@ -171,6 +171,10 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	protected Controller getController() {
 		return this;
 	}
+	
+	/**
+	 * Sets up the Listeners, and the buttons needed for the gameplay
+	 */
 	public void createListeners() {
 		listeners.put("startTutorial", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -453,6 +457,4 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	public void setModel(Model model) {
 		this.model = model;
 	}
-	
-	
 }

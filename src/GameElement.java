@@ -74,6 +74,7 @@ public abstract class GameElement implements Serializable {
 	 * @param ySpeed    an int representing the vertical speed of the GameElement
 	 * @param imagePath a string representing the path of the image of the
 	 *                  GameElement
+	 * @param type      The enumeration type of the game element
 	 */
 	public GameElement(int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
 		xloc = x;
@@ -188,7 +189,7 @@ public abstract class GameElement implements Serializable {
 		polygon = new Polygon(x, y, x.length);
 		polygon.translate(this.xloc, this.yloc);
 	}
-	/** 
+	/** When a game element hits the top or the bottom of the screen it goes in the opposite y direction
 	 * 
 	 */
 	public void flipSign() {
@@ -196,7 +197,7 @@ public abstract class GameElement implements Serializable {
 		System.out.println("flipped"); 
 	}
 	/**
-	 * @return the xloc
+	 * @return the xloc of the gameElement
 	 */
 	public int getXloc() {
 		return xloc;
@@ -224,7 +225,6 @@ public abstract class GameElement implements Serializable {
 		if (polygon != null) {
 			this.fixPolygon();
 		}
-
 	}
 
 	/**

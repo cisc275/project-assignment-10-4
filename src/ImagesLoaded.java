@@ -60,7 +60,6 @@ public enum ImagesLoaded {
 	 */	
 	private ImagesLoaded(BufferedImage b){
 		image = b;
-		
 	}
 	/**
 	 * constructor for creating an animated image

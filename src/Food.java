@@ -2,8 +2,7 @@ import java.io.*;
 
 /**
  * In the game food has the property that when it is consumed by the bird, it
- * adds stamina and if it is a special piece of food it gives the bird a
- * powerup.
+ * adds stamina and if it is a special piece of food it gives the bird a powerup.
  * 
  * @author 10-4
  *
@@ -41,6 +40,7 @@ public class Food extends GameElement implements Serializable {
 	 * @param xSpeed    an int representing the horizontal speed of the food
 	 * @param ySpeed    an int representing the vertical speed of the food
 	 * @param imagePath a string representing the path of the image of the food
+	 * @param type      The enumeration type of the game element
 	 */
 	public Food(boolean special, int x, int y, int xSpeed, int ySpeed, String imagePath, Images type) {
 		super(x, y, xSpeed, ySpeed, imagePath, type);
@@ -101,19 +101,22 @@ public class Food extends GameElement implements Serializable {
 	}
 
 	/**
-	 * @return the eaten
+	 * @return the eaten food
 	 */
 	public boolean isEaten() {
 		return eaten;
 	}
 
 	/**
-	 * @param eaten the eaten to set
+	 * @param eaten 	the eaten to set
 	 */
 	public void setEaten(boolean eaten) {
 		this.eaten = eaten;
 	}
-
+	
+	/**
+	 * @return the constant POINT_VALUE
+	 */
 	@Override
 	public int getPointValue() {
 		return POINT_VALUE;

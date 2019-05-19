@@ -81,7 +81,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	private int direction;
 	/**
-	 * An int representing how much energy to bird has, lost over time and when
+	 * An int representing how much energy the bird has, lost over time and when
 	 * damaged, and gained upon eating.
 	 */
 	private int stamina;
@@ -125,7 +125,12 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * A constructor which initializes the attributes for the start of the game. The
 	 * bird's starting location is set, its direction is set to 0 because it is not
-	 * moving up or down. Its xSpeed is set to 0 because it is not moving
+	 * moving up or down. Its xSpeed is set to 0 because it is not moving in the x direction
+	 * @param x, the x location of the bird
+	 * @param y, the y location of the bird
+	 * @param xSpeed, the x directional speed of the bird
+	 * @param ySpeed, the y directional speed of the bird
+	 * @param imagePath, the path of the bird image
 	 */
 	public Bird(int x, int y, int xSpeed, int ySpeed, String imagePath) {
 		super(x, y, xSpeed, ySpeed, imagePath, Images.BIRD);
@@ -158,6 +163,7 @@ public class Bird extends GameElement implements Serializable {
 	 * If direction == 0 then the bird stays in the same y position. If direction ==
 	 * -1 then the bird moves down. Also handles the stunned and powerup status of 
 	 * the bird.
+	 * @param the value which is determined by the number of successive food items consumed by the player
 	 */
 	@Override
 	void update(int speedAdjust) {
@@ -215,14 +221,6 @@ public class Bird extends GameElement implements Serializable {
 		this.image = image;
 		this.width = Images.getCorrespondingImage(image).getWidth() / FRAME_COUNT;
 		this.height = Images.getCorrespondingImage(image).getHeight();
-	}
-
-	/**
-	 * Handles adjusting the birds attributes after it becomes powered up by
-	 * consuming an instance of food with a, true value for its isSpecialFood
-	 * attribute
-	 */
-	void powerUp() {
 	}
 
 	/**
