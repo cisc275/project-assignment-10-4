@@ -172,6 +172,13 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		return this;
 	}
 	public void createListeners() {
+		listeners.put("tutorial",new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.setPanel("TP");
+				tutorialMode = true;
+				executeTutorial();
+			}
+		});
 		listeners.put("endTutorial",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.setPanel("B");
@@ -275,6 +282,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	void executeTutorial() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				model.setTutorial(new Tutorial(view.getFrameWidth(),view.getFrameHeight()));
+				view.getTutorialPanel().getComponent(0).setVisible(false);
 				r = new Timer(DRAW_DELAY, tutorialAction);
 				r.start();
 			}

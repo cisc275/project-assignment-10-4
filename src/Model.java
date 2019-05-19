@@ -147,9 +147,6 @@ public class Model implements Serializable {
 		}
 		this.reachedEnd = false;
 		setNestAnimation(new NestAnimation());
-		tutorial = new Tutorial(frameWidth,frameHeight);
-		tutorial.setMiniMap((MiniMap)generateImgPath(10));
-		tutorial.getMiniMap().setSmallBird(Images.NH_IMG_FOR_MINIMAP);
 	}
 
 	/**
@@ -852,5 +849,7 @@ public class Model implements Serializable {
 	 */
 	public void setTutorial(Tutorial tutorial) {
 		this.tutorial = tutorial;
+		this.tutorial.setMiniMap((MiniMap) generateImgPath(10));
+		this.tutorial.getMiniMap().setSmallBird(Images.NH_IMG_FOR_MINIMAP);
 	}
 }
