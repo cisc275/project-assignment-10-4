@@ -212,6 +212,9 @@ public class View extends JPanel implements Serializable {
 		frame.pack();
 	}
 	
+	/**
+	 * Sets up the welcome screen panel
+	 */
 	void setUpWelcome() {
 		welcomePanel = new ButtonPanel();
 		welcomePanel.setLayout(null);
