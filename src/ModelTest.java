@@ -136,6 +136,7 @@ class ModelTest {
 
 	@Test
 	void collisionDetectionTest() throws NoSuchFieldException, IllegalAccessException {
+		
 		Model model = new Model(1000, 1000, "Osprey");
 		final Field field = model.getClass().getDeclaredField("onScreenCollidables");
 		field.setAccessible(true);

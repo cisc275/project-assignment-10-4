@@ -133,7 +133,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 
 			}
 		};	
-		
+
 		buttonDelayAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(delay);
@@ -151,8 +151,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		};
 
-
-		view.setPanel("B");
+		view.setPanel("WP");
+		//view.setPanel("B");
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
@@ -352,7 +352,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	
+
 	void delayButton() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -362,7 +362,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			}
 		});
 	}
-	
+
 
 	/**
 	 * Required from KeyListener. Will handle any key presses by the player

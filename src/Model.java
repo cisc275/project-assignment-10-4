@@ -27,7 +27,7 @@ public class Model implements Serializable {
 	/**
 	 * The constant representing the total distance needed to be traveled
 	 */
-	private static final int END_DISTANCE = 40000;
+	private static final int END_DISTANCE = 40000; 
 	/**
 	 * The Bird the player will control
 	 */
@@ -257,6 +257,9 @@ public class Model implements Serializable {
 		Iterator<GameElement> iter = this.onScreenCollidables.iterator();
 		while (iter.hasNext()) {
 			GameElement curr = iter.next();
+			if (tooHigh(curr) || tooLow(curr)) {
+				curr.flipSign(); 
+			}
 			curr.update(bird.getFoodStreak());
 			if (curr.isOffScreen()) {
 				size++;
@@ -270,7 +273,14 @@ public class Model implements Serializable {
 			spawnCount++;
 		}
 	}
-
+	
+	boolean tooHigh(GameElement g) {
+		return g.getYloc() <= 0;
+	}
+	
+	boolean tooLow(GameElement g) {
+		return g.getYloc() >= (3*frameHeight/4)-g.getHeight();
+	}
 	/**
 	 * Updates the background depending on the distance the player has reached and
 	 * bird's species
@@ -452,6 +462,12 @@ public class Model implements Serializable {
 		}else {
 			int y = randLoc.nextInt(frameHeight / 2);
 			newGameElement = new Obstacle(frameWidth, y, 20, 0, i.getName(), i);
+			if(randLoc.nextInt(2) == 0) {
+				newGameElement.setFlip(1);
+			}
+			else {
+				newGameElement.setFlip(-1);
+			}
 		}
 		return newGameElement;
 	}
@@ -824,7 +840,7 @@ public class Model implements Serializable {
 	 * @return boolean indicating bird faintedness
 	 */
 	public boolean birdIsFainted() {
-		return bird.isFainted();
+		return bird.isFainted(); 
 	}
 
 	/**
