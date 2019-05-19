@@ -273,11 +273,19 @@ public class Model implements Serializable {
 			spawnCount++;
 		}
 	}
+	
 	boolean tooHigh(GameElement g) {
-		return g.getYloc() + g.getHeight() >= frameHeight;
+		return g.getYloc() <= 0;
 	}
+	
 	boolean tooLow(GameElement g) {
-		return g.getYloc() < 0; 
+		if(bird.getBirdType().equalsIgnoreCase("osprey")){
+			return g.getYloc() >= 810;
+		}
+		else {
+			return g.getYloc() >= 810;
+		}
+		 
 	}
 	/**
 	 * Updates the background depending on the distance the player has reached and

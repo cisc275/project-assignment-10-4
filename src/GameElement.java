@@ -79,7 +79,7 @@ public abstract class GameElement implements Serializable {
 		xloc = x;
 		yloc = y;
 		this.xSpeed = xSpeed;
-		this.ySpeed = 35; 
+		this.ySpeed = 2; 
 		this.imagePath = imagePath;
 		this.image = type;
 		if (type.equals(Images.BIRD) || type.equals(Images.OSPREY) || 
@@ -193,7 +193,6 @@ public abstract class GameElement implements Serializable {
 	 */
 	public void flipSign() {
 		flip = (-1)*flip; 
-		System.out.println("flipped"); 
 	}
 	/**
 	 * @return the xloc

@@ -129,7 +129,8 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		};
 		
 		
-		view.setPanel("WP");
+		//view.setPanel("WP");
+		view.setPanel("B");
 		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
     			if (!model.isQuizMode() && !model.isDoingQuiz() && isGameInProgress && !model.isReachedEnd()) {
