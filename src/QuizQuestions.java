@@ -11,6 +11,7 @@ public class QuizQuestions implements Serializable{
 	 */
 	private QuizQuestion current;
 	
+	private Random rand;
 	//private QuizQuestion last; 
 	
 	/**
@@ -19,6 +20,7 @@ public class QuizQuestions implements Serializable{
 	 * The file format is question, answers, correct, and hint all on separate lines
 	 */
 	public QuizQuestions(String filename) {
+		rand = new Random();
 		this.setUnusedQuestions(new ArrayList<QuizQuestion>());
 		this.current = null; 
 		List<String> qs = new ArrayList<String>(); 
@@ -75,7 +77,8 @@ public class QuizQuestions implements Serializable{
 	 */
 	public void newQuestion() {
 		if (questionsRemaining() > 0) {
-			QuizQuestion result = getUnusedQuestions().get(0);
+			int q = rand.nextInt(getUnusedQuestions().size());
+			QuizQuestion result = getUnusedQuestions().get(q);
 			getUnusedQuestions().remove(result); 
 			current = result;
 		} 

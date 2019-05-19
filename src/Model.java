@@ -140,8 +140,6 @@ public class Model implements Serializable {
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
-		// onScreenCollidables.add(generateImgPath(8));
-		// onScreenCollidables.add(generateImgPath(6));
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
@@ -178,8 +176,6 @@ public class Model implements Serializable {
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		spawnTimer = new Timing(timeToSpawn);
 		onScreenCollidables = new ArrayList<GameElement>();
-		// onScreenCollidables.add(generateImgPath(8));
-		// onScreenCollidables.add(generateImgPath(6));
 		for (int i = 0; i < MAX_GAME_ELEMENTS_ONSCREEN; i++) {
 			spawnCount++;
 		}
@@ -473,7 +469,6 @@ public class Model implements Serializable {
 	public GameElement genMap(Images i) {
 		GameElement newGameElement;
 		int x = this.frameWidth - 250;
-		// x =1120;
 		int y = 0;
 		int xSpeed = 0;
 		int ySpeed = 0;
