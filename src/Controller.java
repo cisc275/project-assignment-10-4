@@ -165,6 +165,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     	};
     	tutorialMode = true;
     	this.executeTutorial();
+    	//view.setPanel("B");
 	}
 	
 	/**
