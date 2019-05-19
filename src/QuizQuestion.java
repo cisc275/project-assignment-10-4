@@ -95,9 +95,15 @@ public class QuizQuestion implements Serializable{
 	public String toString() {
 		return this.question + " " + this.answers + " " + this.correctAnswer + " " + this.hint; 
 	}
+	/**
+	 * @return the hint
+	 */
 	public String getHint() {
 		return hint;
 	}
+	/**
+	 * @param hint the hint to set
+	 */
 	public void setHint(String hint) {
 		this.hint = hint;
 	}
