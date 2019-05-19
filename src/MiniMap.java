@@ -267,7 +267,6 @@ public class MiniMap extends GameElement implements Serializable {
 		birdPath.add( birdPos  );
 		this.setLastMapXLoc(this.getMapXLoc());
 		this.setLastMapYLoc(this.getMapYLoc());
-		//System.out.println(this.lastMapXLoc + "," + this.lastMapYLoc);
 		if (percentDistTraveled <= .5) {
 			int yLoc = OSPREY_INITIAL_SMALL_BIRD_Y_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_Y_DIST * 2 * percentDistTraveled);
 			int xLoc = OSPREY_INITIAL_SMALL_BIRD_X_LOC - (int) (OSPREY_SMALL_BIRD_TOTAL_X_DIST * 2 * percentDistTraveled);
@@ -312,7 +311,6 @@ public class MiniMap extends GameElement implements Serializable {
 			int xLoc = midwayX + (int) (NH_SMALL_BIRD_TOTAL_X_DIST_SECOND_PATH * 3 * percentDistTraveled); 
 			this.setMapYLoc(yLoc);
 			this.setMapXLoc(xLoc);
-			//System.out.println(xLoc + "," + yLoc);
 		}
 		
 		else 

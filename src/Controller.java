@@ -129,7 +129,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 		};
 		
 		
-		//model.setBirdType(view.selectBirdType());
 		view.setPanel("WP");
 		drawAction = new AbstractAction() {
     		public void actionPerformed(ActionEvent e) {
@@ -159,13 +158,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
     				System.out.println("Resetting the game");
     				t.stop();
     				view.getCurrentPanel().getComponent(1).setVisible(true);
-    				//model = new Model(view.getFrameWidth(), view.getFrameHeight(), model.getBird().getBirdType());
-    			}
+				}
     		}
     	};
-    	//tutorialMode = true;
-    	//this.executeTutorial();
-    	//view.setPanel("B");
 	}
 	
 	/**
@@ -231,7 +226,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				model.createQuestions("Osprey");
 				isGameInProgress = true;
 				view.setPanel("O");
-				//System.out.println(model.getBird().getBirdType());
 				start();
 			}
 		}); 
@@ -242,7 +236,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				model.createQuestions("Northern Harrier");
 				isGameInProgress = true;
 				view.setPanel("NH");
-				//System.out.println(model.getBird().getBirdType());
 				start();
 			}
 		}); 
@@ -250,30 +243,22 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			public void actionPerformed(ActionEvent e) {
 				timesPlayed++;
 				s.stop();
-				//doneAnimationButton.setVisible(false);
 				view.hide("doneAnimationButton"); 
 				if(timesPlayed%2==0) {
-					//Obutton.setVisible(true);
-					//NHbutton.setVisible(true);
 					view.show("OButton"); 
 					view.show("NHButton"); 
 					
 				}
 				else if(model.getBird().getBirdType().equals("osprey")) {
-					//Obutton.setVisible(false);
-					//NHbutton.setVisible(true);
 					view.hide("OButton"); 
 					view.show("NHButton"); 
 				}
 				else{
-					//Obutton.setVisible(true);
-					//NHbutton.setVisible(false);
 					view.show("OButton"); 
 					view.hide("NHButton"); 
 				}
 				view.setPanel("B");
 				model = new Model(view.getFrameWidth(), view.getFrameHeight());
-				//view.setNestAnimation(model.getNestAnimation());
 			}
 		}); 
 		listeners.put("save",  new ActionListener() {
@@ -281,7 +266,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 				try {
 					saveGame();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -290,12 +274,9 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					reloadGame();
-					//System.out.println("pressed");
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -378,7 +359,6 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	@Override
 	public void keyReleased(KeyEvent k) {
 		if(!tutorialMode) {
-			//System.out.println("A key has been pressed.");
 			if (k.getKeyCode() == KeyEvent.VK_UP) {
 				model.getBird().setDirection(0);
 			} else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
