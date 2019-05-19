@@ -29,7 +29,7 @@ public class Bird extends GameElement implements Serializable {
 	/**
 	 * Constant for Bird's starting y speed
 	 */
-	private static final int START_Y_SPEED = 10;
+	private static final int START_Y_SPEED = 20;
 	/**
 	 * Constant for Bird's starting y location
 	 */
@@ -149,7 +149,7 @@ public class Bird extends GameElement implements Serializable {
 		staminaPics[3] = Images.HEALTH_3;
 		staminaPics[4] = Images.HEALTH_4;
 		staminaPics[5] = Images.HEALTH_5;
-		staminaImage = staminaPics[0];
+		staminaImage = staminaPics[5];
 		//this.setType(Images.NORTHERN_HARRIER);
 	}
 
@@ -231,7 +231,7 @@ public class Bird extends GameElement implements Serializable {
 	 */
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(this.xloc, this.yloc + 70, this.width - 65, 60);
+		return new Rectangle(this.xloc+30, this.yloc + 80, this.width - 130, 40);
 	}
 
 	/**
@@ -373,7 +373,7 @@ public class Bird extends GameElement implements Serializable {
 			this.setType(Images.OSPREY);
 			this.setPoweredUpPics(Images.POWERUP_OSPREY);
 			staminaPics = new Images[6];
-			staminaPics[0] = Images.HEALTH_0;
+			staminaPics[0] = Images.HEALTH_0_OSPREY;
 			staminaPics[1] = Images.HEALTH_1_OSPREY;
 			staminaPics[2] = Images.HEALTH_2_OSPREY;
 			staminaPics[3] = Images.HEALTH_3_OSPREY;

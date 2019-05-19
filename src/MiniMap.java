@@ -312,7 +312,7 @@ public class MiniMap extends GameElement implements Serializable {
 			int xLoc = midwayX + (int) (NH_SMALL_BIRD_TOTAL_X_DIST_SECOND_PATH * 3 * percentDistTraveled); 
 			this.setMapYLoc(yLoc);
 			this.setMapXLoc(xLoc);
-			System.out.println(xLoc + "," + yLoc);
+			//System.out.println(xLoc + "," + yLoc);
 		}
 		
 		else 

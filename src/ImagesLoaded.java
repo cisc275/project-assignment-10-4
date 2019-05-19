@@ -38,6 +38,7 @@ public enum ImagesLoaded {
 	WATER_PATH_I(createImage(Images.WATER_PATH.getName())),
 	WATER_PATH_MIRROR_I(createImage(Images.WATER_MIRROR_PATH.getName())),
 	HEALTH_0_I(createImage(Images.HEALTH_0.getName())),
+	HEALTH_0_I_OSPREY(createImage(Images.HEALTH_0_OSPREY.getName())),
 	HEALTH_1_I_OSPREY(createImage(Images.HEALTH_1_OSPREY.getName())),
 	HEALTH_2_I_OSPREY(createImage(Images.HEALTH_2_OSPREY.getName())),
 	HEALTH_3_I_OSPREY(createImage(Images.HEALTH_3_OSPREY.getName())),
@@ -48,7 +49,11 @@ public enum ImagesLoaded {
 	HEALTH_3_I(createImage(Images.HEALTH_3.getName())),
 	HEALTH_4_I(createImage(Images.HEALTH_4.getName())),
 	HEALTH_5_I(createImage(Images.HEALTH_5.getName())),
-	TRASH_I(createImage(Images.TRASH.getName()));
+	TRASH_I(createImage(Images.TRASH.getName())),
+	DOWN_ARROW_I(createImage(Images.DOWN_ARROW.getName())),
+	UP_ARROW_I(createImage(Images.UP_ARROW.getName())),
+	RED_ARROW_I(createImage(Images.RED_ARROW.getName())),
+	RED_ARROW_BACKWARD_I(createImage(Images.RED_ARROW_BACKWARD.getName()));
 	
 	/**
 	 * @param a BufferedImage representing the BufferedImage of the GameElement

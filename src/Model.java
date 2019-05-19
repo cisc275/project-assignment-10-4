@@ -112,6 +112,10 @@ public class Model implements Serializable {
 	 * The nesting animation at the end of the game
 	 */
 	private NestAnimation nestAnimation;
+	/**
+	 * The tutorial for the start of the game
+	 */
+	private Tutorial tutorial;
 
 	/**
 	 * Model constructor, sets up frame dimensions
@@ -143,6 +147,9 @@ public class Model implements Serializable {
 		}
 		this.reachedEnd = false;
 		setNestAnimation(new NestAnimation());
+		tutorial = new Tutorial(frameWidth,frameHeight);
+		tutorial.setMiniMap((MiniMap)generateImgPath(10));
+		tutorial.getMiniMap().setSmallBird(Images.NH_IMG_FOR_MINIMAP);
 	}
 
 	/**
@@ -158,7 +165,7 @@ public class Model implements Serializable {
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.endDistance = END_DISTANCE;
-		if (birdType.equals("Osprey")) {
+		if (birdType.equalsIgnoreCase("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
 		} else {
 			theQuestions = new QuizQuestions("quiz/northern_harrier_questions.txt");
@@ -212,9 +219,11 @@ public class Model implements Serializable {
 	public void createMiniMap() {
 		if (bird.getBirdType().equalsIgnoreCase("Osprey")) {
 			miniMap = (MiniMap) generateImgPath(9);
-		} else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
+		}
+		else if (bird.getBirdType().equalsIgnoreCase("Northern Harrier")) {
 			miniMap = (MiniMap) generateImgPath(10);
 		}
+		
 	}
 
 	/**
@@ -312,12 +321,19 @@ public class Model implements Serializable {
 	 * Osprey
 	 */
 	void configureNestAnimation() {
-		if (this.bird.getBirdType().equals("northern harrier")) {
+		if (this.bird.getBirdType().equalsIgnoreCase("northern harrier")) {
 			this.nestAnimation.setEndx(1400);
 			this.nestAnimation.setEndy(950);
 			this.nestAnimation.setXvel(8);
 			this.nestAnimation.setYvel(5);
 		}
+	}
+	
+	/**
+	 * updates the tutorial
+	 */
+	void updateTutorial() {
+		tutorial.updateTutorial();
 	}
 
 	/**
@@ -381,7 +397,6 @@ public class Model implements Serializable {
 	public int randomImage(int choice) {
 		Random randImg = new Random();
 		int curImage = 0;
-		
 		if (choice < 0) {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
@@ -571,7 +586,7 @@ public class Model implements Serializable {
 	 * @param birdType
 	 */
 	public void createQuestions(String birdType) {
-		if (birdType.equals("Osprey")) {
+		if (birdType.equalsIgnoreCase("Osprey")) {
 			theQuestions = new QuizQuestions("quiz/osprey_questions.txt");
 		} else {
 			theQuestions = new QuizQuestions("quiz/northern_harrier_questions.txt");
@@ -823,5 +838,19 @@ public class Model implements Serializable {
 	 */
 	public boolean birdIsFainted() {
 		return bird.isFainted();
+	}
+
+	/**
+	 * @return the tutorial
+	 */
+	public Tutorial getTutorial() {
+		return tutorial;
+	}
+
+	/**
+	 * @param tutorial the tutorial to set
+	 */
+	public void setTutorial(Tutorial tutorial) {
+		this.tutorial = tutorial;
 	}
 }
