@@ -72,7 +72,7 @@ public class Controller implements KeyListener, ActionListener, Serializable{
 	/**
 	 * Time to wait to display the start flight button
 	 */
-	final static int BUTTON_DELAY = 70;
+	final static int BUTTON_DELAY = 50;
 	/**
 	 * Timer for handling game play
 	 */
