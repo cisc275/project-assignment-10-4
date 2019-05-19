@@ -199,8 +199,6 @@ public class View extends JPanel implements Serializable {
 	}
 	/**
 	 * Sets up the JFrame with its attributes
-	 * 
-	 * @param c reference to the Controller object in use
 	 */
 	void setUpFrame() {
 		frame.add(cards);
