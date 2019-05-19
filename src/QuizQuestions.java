@@ -12,7 +12,6 @@ public class QuizQuestions implements Serializable{
 	private QuizQuestion current;
 	
 	private Random rand;
-	//private QuizQuestion last; 
 	
 	/**
 	 * 
@@ -27,8 +26,7 @@ public class QuizQuestions implements Serializable{
 		qs.add("you gucci"); 
 		qs.add("so powerful"); 
 		qs.add("you is a winner in my <3"); 
-		qs.add("so smart"); 
-		//this.last = new QuizQuestion("Yo you win", qs, "I'm crying bc sad"); 
+		qs.add("so smart");  
 		/**
 		 * Create the questions
 		 */

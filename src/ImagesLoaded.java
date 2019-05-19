@@ -14,19 +14,19 @@ public enum ImagesLoaded {
 	/**
 	 * Every BufferedImage is the BufferedImage of the corresponding Images
 	 */
-	NH_MINIMAP_I(createImage(Images.NH_MINIMAP.getName())),   //("images/NHMiniMapp.png"),          306x215
+	NH_MINIMAP_I(createImage(Images.NH_MINIMAP.getName())),
 	OBSTACLE_I(createImage(Images.OBSTACLE.getName())),
-	OSPREY_MINIMAP_I(createImage(Images.OSPREY_MINIMAP.getName())),   //("images/NHMiniMapp.png"),          //250x196
-	NH_IMG_FOR_MINIMAP_I(createImage(Images.NH_IMG_FOR_MINIMAP.getName())),     //32x26
-	OSPREY_IMG_FOR_MINIMAP_I(createImage(Images.OSPREY_IMG_FOR_MINIMAP.getName())),  //31x27
-	BUILDING_I(createImage(Images.BUILDING.getName())), //Osprey
-	MOUSE_I(createImage(Images.MOUSE.getName())),  //Northern Harrier
-	GOLDENFISH_I(createImage(Images.GOLDENFISH.getName())), //Osprey
-	FISH_I(createImage(Images.FISH.getName())), //Osprey
-	GOLDENMOUSE_I(createImage(Images.GOLDENMOUSE.getName())), //Northern Harrier
-	EAGLE_I(createImage(Images.EAGLE.getName())), //Osprey
-	OWL_I(createImage(Images.OWL.getName())), //Northern Harrier
-	FOX_I(createImage(Images.FOX.getName())), //Northern Harrier
+	OSPREY_MINIMAP_I(createImage(Images.OSPREY_MINIMAP.getName())),
+	NH_IMG_FOR_MINIMAP_I(createImage(Images.NH_IMG_FOR_MINIMAP.getName())),
+	OSPREY_IMG_FOR_MINIMAP_I(createImage(Images.OSPREY_IMG_FOR_MINIMAP.getName())),
+	BUILDING_I(createImage(Images.BUILDING.getName())),
+	MOUSE_I(createImage(Images.MOUSE.getName())),
+	GOLDENFISH_I(createImage(Images.GOLDENFISH.getName())),
+	FISH_I(createImage(Images.FISH.getName())),
+	GOLDENMOUSE_I(createImage(Images.GOLDENMOUSE.getName())),
+	EAGLE_I(createImage(Images.EAGLE.getName())),
+	OWL_I(createImage(Images.OWL.getName())),
+	FOX_I(createImage(Images.FOX.getName())),
     OSPREY_I(createImageArray(Images.OSPREY.getName(),5),5),
     NORTHERN_HARRIER_I(createImageArray(Images.NORTHERN_HARRIER.getName(),5),5),
     BIRD_I(createImageArray(Images.BIRD.getName(),5),5),
