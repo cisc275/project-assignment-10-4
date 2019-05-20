@@ -85,7 +85,7 @@ public abstract class GameElement implements Serializable {
 		this.image = type;
 		if (type.equals(Images.BIRD) || type.equals(Images.OSPREY) || 
 				type.equals(Images.NORTHERN_HARRIER) || type.equals(Images.POWERUP) 
-				|| type.equals(Images.POWERUP_OSPREY)) { // TODO this ain't pretty
+				|| type.equals(Images.POWERUP_OSPREY)) {
 			this.width = Images.getCorrespondingImageArray(type)[0].getWidth();
 			this.height = Images.getCorrespondingImageArray(type)[0].getHeight();
 		} else {
