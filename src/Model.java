@@ -436,18 +436,18 @@ public class Model implements Serializable {
 					curImage = 6; 
 					
 				}
-				else  if (distance > 5000 && distance < 8000) {
+				/*else  if (distance > 5000 && distance < 8000) {
 					curImage = 6; 
 					
-				}
+				}*/
 				else  if (distance > 12000 && distance < 13500) {
 					curImage = 6; 
 					
 				}
-				else  if (distance > 20000 && distance < 22000) {
+				/*else  if (distance > 20000 && distance < 22000) {
 					curImage = 6; 
 					
-				}
+				}*/
 				else  if (distance > 32000 && distance < 34000) {
 					curImage = 6; 
 					
