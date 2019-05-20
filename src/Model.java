@@ -421,6 +421,7 @@ public class Model implements Serializable {
 					curImage = rand.nextInt(2);
 				}
 			} else {
+				
 				curImage = rand.nextInt(4) + 5;
 				if ((curImage == 6 || curImage == 5) && !theQuestions.noMoreQuestions()) {
 					curImage = rand.nextInt(4) + 5; // re-roll on a golden mouse or mouse
@@ -430,6 +431,26 @@ public class Model implements Serializable {
 				} 
 				else if (theQuestions.noMoreQuestions() && curImage == 6) {
 					curImage -= 1; 
+				}
+				if (distance > 1500 && distance < 2000) {
+					curImage = 6; 
+					
+				}
+				else  if (distance > 5000 && distance < 8000) {
+					curImage = 6; 
+					
+				}
+				else  if (distance > 12000 && distance < 13500) {
+					curImage = 6; 
+					
+				}
+				else  if (distance > 20000 && distance < 22000) {
+					curImage = 6; 
+					
+				}
+				else  if (distance > 32000 && distance < 34000) {
+					curImage = 6; 
+					
 				}
 			}
 		} else {
