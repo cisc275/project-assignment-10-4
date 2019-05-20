@@ -395,28 +395,27 @@ public class Model implements Serializable {
 	 * @return new randomized choice
 	 */
 	public int randomImage(int choice) {
-		Random randImg = new Random();
 		int curImage = 0;
 		if (choice < 0) {
 			if (getBird().getBirdType().equalsIgnoreCase("osprey")) {
 				if (background.isWaterNextZone()) {
-					curImage = randImg.nextInt(4) + 1;
+					curImage = rand.nextInt(4) + 1;
 					if (curImage == 3 && !theQuestions.noMoreQuestions()) {
-						curImage = randImg.nextInt(2) + 3; // re-roll on a golden fish
+						curImage = rand.nextInt(2) + 3; // re-roll on a golden fish
 					} 
 					else if (theQuestions.noMoreQuestions() && curImage == 3) {
 						curImage += 1; 
 					}
 				
 				} else {
-					curImage = randImg.nextInt(2);
+					curImage = rand.nextInt(2);
 				}
 			} else {
-				curImage = randImg.nextInt(4) + 5;
+				curImage = rand.nextInt(4) + 5;
 				if ((curImage == 6 || curImage == 5) && !theQuestions.noMoreQuestions()) {
-					curImage = randImg.nextInt(4) + 5; // re-roll on a golden mouse or mouse
+					curImage = rand.nextInt(4) + 5; // re-roll on a golden mouse or mouse
 					if (curImage == 6) {
-						curImage = randImg.nextInt(4) + 5;
+						curImage = rand.nextInt(4) + 5;
 					}
 				} 
 				else if (theQuestions.noMoreQuestions() && curImage == 6) {
