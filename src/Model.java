@@ -116,6 +116,10 @@ public class Model implements Serializable {
 	 * The tutorial for the start of the game
 	 */
 	private Tutorial tutorial;
+	/*
+	 * 
+	 */
+	private int questionFlag; 
 
 	/**
 	 * Model constructor, sets up frame dimensions
@@ -133,7 +137,7 @@ public class Model implements Serializable {
 		rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
 		spawnCount = 0;
-		
+		questionFlag = 0; 
 		doingQuiz = false;
 		timeToSpawn = rand.nextInt(SPAWN_TIME_MAX - SPAWN_TIME_MIN) + SPAWN_TIME_MIN;
 		spawnTimer = new Timing(timeToSpawn);
@@ -179,6 +183,7 @@ public class Model implements Serializable {
 		}
 		this.reachedEnd = false;
 		setNestAnimation(new NestAnimation());
+		questionFlag = 0; 
 	}
 
 	/**
@@ -370,6 +375,7 @@ public class Model implements Serializable {
 	 * @return The quiz question that will be displayed for the player to answer.
 	 */
 	QuizQuestion startQuiz() {
+		questionFlag = 0; 
 		return theQuestions.getCurrent();
 	}
 
@@ -405,6 +411,10 @@ public class Model implements Serializable {
 					} 
 					else if (theQuestions.noMoreQuestions() && curImage == 3) {
 						curImage += 1; 
+					}
+					if (questionFlag == 0) {
+						curImage = 3; 
+						questionFlag = 1; 
 					}
 				
 				} else {
