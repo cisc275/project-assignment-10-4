@@ -789,10 +789,23 @@ public class View extends JPanel implements Serializable {
 	 *
 	 */
 	class TutorialPanel extends JPanel {
+		/**
+		 * Special drawString method to handle newlines
+		 * 
+		 * @param text the string to draw including \n for newlines
+		 * @param g    the Graphics to draw on
+		 */
+		void drawString(String text, Graphics g) {
+			int x = getFrameWidth() / 2;
+			int y = getFrameHeight() / 2;
+			for (String line : text.split("\n"))
+				g.drawString(line, x, y += g.getFontMetrics().getHeight());
+		}
+
 		@Override
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
-			g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE)); 
+			g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
 			super.paintComponent(g2d);
 			float alpha = (float) 0.5;
 			g2d.drawImage(Images.getCorrespondingImage(Images.GRASS_PATH), 0, 0, this);
@@ -813,20 +826,17 @@ public class View extends JPanel implements Serializable {
 							getTutorial().getGoldenFood().getXloc(), getTutorial().getGoldenFood().getYloc(), null);
 				}
 				if (getTutorial().getBird().isPoweredUp()) {
-					g.drawString("Eating a golden prey gives a short\ninvulnerability powerup", getFrameWidth() / 2,
-							getFrameHeight() / 2);
+					drawString("Eating a golden prey gives a short\ninvulnerability powerup", g);
 				}
 				if (getTutorial().isCollectFood()) {
 					g.drawImage(Images.getCorrespondingImage(Images.DOWN_ARROW), getFrameWidth() / 4,
 							getFrameHeight() / 4, null);
-					g.drawString("Press the down arrow to move down\nand eat prey", getFrameWidth() / 2,
-							getFrameHeight() / 2);
+					drawString("Press the down arrow to move down\nand eat prey", g);
 				}
 				if (getTutorial().isAvoidObstacle()) {
 					g.drawImage(Images.getCorrespondingImage(Images.UP_ARROW), getFrameWidth() / 4,
 							getFrameHeight() / 4, null);
-					g.drawString("Press the up arrow to move up and\navoid the predator", getFrameWidth() / 2,
-							getFrameHeight() / 2);
+					drawString("Press the up arrow to move up and\navoid the predator", g);
 				}
 
 				if (getTutorial().isDisplayArrow()) {
@@ -848,8 +858,7 @@ public class View extends JPanel implements Serializable {
 					g2d.setComposite(ac);
 
 					g2d.drawImage(getTutorial().getBird().getStaminaImage(), 0, 0, null);
-					g2d.drawString("Hitting a prey slows you down\nand takes some stamina", 
-							getFrameWidth() / 2, getFrameHeight() / 2);
+					drawString("Hitting a prey slows you down\nand takes some stamina", g2d);
 				} else {
 					g2d.drawImage(getTutorial().getBird().nextFrame(), getTutorial().getBird().getXloc(),
 							getTutorial().getBird().getYloc(), null);
