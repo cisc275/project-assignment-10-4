@@ -1,10 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -14,7 +12,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
 
@@ -115,62 +112,6 @@ class ViewTest {
 		View view = new View();
 		BufferedImage i = view.createImage("images/test-image.jpg");
 		assertTrue(i != null);
-	}
-
-	@Test
-	void displayQuizTest() {
-		// before method call
-		//Controller c1 = new Controller();
-		View v1 = new View();
-		List<JButton> l1 = new ArrayList<JButton>();
-		JButton b1 = new JButton();
-		JButton b2 = new JButton();
-		l1.add(b1);
-		l1.add(b2);
-		List<String> answers = new ArrayList<String>();
-		answers.add("a");
-		answers.add("b");
-		QuizQuestion q1 = new QuizQuestion("What?", answers, "a", "");
-
-		// after method call
-		//Controller c2 = new Controller();
-		View v2 = new View();
-		JPanel cd2 = new JPanel(new CardLayout());
-		View.QuizPanel p2 = v2.getQuizPanel();
-		p2.setBackground(Color.gray);
-		Font f = new Font("Verdana", Font.BOLD, v2.getFrameHeight() / 50);
-		Dimension d = new Dimension(v2.getFrameWidth() / 5, v2.getFrameHeight() / 5);
-		JLabel t2 = new JLabel("What?");
-		t2.setFont(f);
-		t2.setPreferredSize(d);
-		p2.add(t2);
-		JButton b3 = new JButton();
-		b3.setFont(f);
-		b3.setPreferredSize(d);
-		JButton b4 = new JButton();
-		b4.setFont(f);
-		b4.setPreferredSize(d);
-		p2.add(b3);
-		p2.add(b4);
-		cd2.add(p2, "Q");
-		v2.setQuizPanel(p2);
-		v2.setCards(cd2);
-		v2.setPanel("Q");
-
-		v1.displayQuiz(q1, l1);
-
-		assertEquals(v1.getQuizPanel().getComponent(1).getFont(), v2.getQuizPanel().getComponent(1).getFont());
-		assertEquals(v1.getQuizPanel().getComponent(1).getName(), v2.getQuizPanel().getComponent(1).getName());
-
-	}
-
-	@Test
-	void nestAnimationTest() {
-		//Controller c = new Controller();
-		View v = new View();
-		NestAnimation nestAnimation = new NestAnimation();
-		v.nestAnimationUpdate(nestAnimation);
-		fail("Stub method");
 	}
 
 	@Test
