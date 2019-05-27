@@ -38,10 +38,6 @@ public class Tutorial implements Serializable {
 	 */
 	private int frameWidth;
 	/**
-	 * The height of the frame
-	 */
-	private int frameHeight;
-	/**
 	 * True if the tutorial is in the food collection phase
 	 */
 	private boolean collectFood;
@@ -77,10 +73,6 @@ public class Tutorial implements Serializable {
 	 * True if the arrow to point at the minimap should be displayed
 	 */
 	private boolean displayBackArrow;
-	/**
-	 * True if the power up section of the tutorial should be displayed
-	 */
-	private boolean showInvincible;
 
 	Tutorial(int frameWidth, int frameHeight) {
 		setBird(new Bird(0, 0, 0, 0, Images.NORTHERN_HARRIER.getName()));
@@ -108,7 +100,7 @@ public class Tutorial implements Serializable {
 						0, Images.MOUSE.getName(), Images.MOUSE));
 		goldenFood.setType(Images.GOLDENMOUSE);
 		this.frameWidth = frameWidth;
-		this.frameHeight = frameHeight;
+		//this.frameHeight = frameHeight;
 		collectFood = false;
 		avoidObstacle = false;
 		displayArrow = false;
@@ -117,7 +109,7 @@ public class Tutorial implements Serializable {
 		percent = 0.0;
 		showMiniMap = false;
 		displayBackArrow = false;
-		showInvincible = false;
+		//showInvincible = false;
 
 	}
 
