@@ -478,4 +478,85 @@ class ModelTest {
 			assertEquals(m.getOnScreenCollidables().get(i).getImagePath(), imgs[i].getName());
 		}		 
 	}
+	@Test 
+	void createQuestionsTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		assertTrue(m.getQuizQuestions()== null);
+		m.createQuestions("Osprey");
+		assertTrue(m.getQuizQuestions() == null); 
+		m.createQuestions("NorthernHarrier");
+		assertTrue(m.getQuizQuestions() == null); 
+		 
+		
+	}
+	@Test 
+	void createMiniMapTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		m.createMiniMap();
+		assertTrue(m.getMiniMap() != null); 
+	    m = new Model(500, 500, "Northern Harrier"); 
+		m.createMiniMap(); 
+		assertTrue(m.getMiniMap() != null); 
+		
+	}
+	@Test
+	void nestAnimationTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		m.configureNestAnimation(); 
+		assertTrue(m.getNestAnimation() != null); 
+		m = new Model(500, 500, "northern harrier"); 
+		m.configureNestAnimation();
+		assertTrue(m.getNestAnimation() != null); 
+	}
+	@Test 
+	void setTutorialTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		Tutorial t = new Tutorial(500, 500);
+		m.setTutorial(t); 
+		assertTrue(new Tutorial(100, 100) != m.getTutorial()); 
+	}
+	@Test 
+	void isFaintedTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		assertFalse(m.birdIsFainted()); 
+		m.getBird().setStamina(-1000);
+		m.getBird().update(20); 
+		assertTrue(m.birdIsFainted());
+		
+	}
+	@Test 
+	void setDoingQuizTest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		m.setDoingQuiz(true); 
+		assertTrue(m.isDoingQuiz());
+	}
+	@Test 
+	void setReachedEndTest() {
+		Model m = new Model(500, 500, "Osprey");
+		m.setReachedEnd(true);
+		assertTrue(m.isReachedEnd()); 
+	}
+	@Test 
+	void testUpdateNest() {
+		Model m = new Model(500, 500, "Osprey"); 
+		m.updateNestAnimation();
+		assertTrue(m.getNestAnimation() != null); 
+	}
+	@Test 
+	void testUpdateTutorial() {
+		Model m = new Model(500, 500, "Osprey"); 
+		m.setTutorial(new Tutorial(500, 500));
+		m.updateTutorial(); 
+		assertTrue(m.getTutorial() != null); 
+	}
+	@Test 
+	void tooHighTooLow() {
+		Model m = new Model(500, 500, "Osprey"); 
+		GameElement g = new Obstacle(0, -100, 0, 0, "bird", Images.TRASH); 
+		assertTrue(m.tooHigh(g)); 
+		assertFalse(m.tooLow(g)); 
+		g = new Obstacle(0, (3*m.getFrameHeight()/4)-g.getHeight(), 0, 0, "bird", Images.TRASH); 
+		assertTrue(m.tooLow(g)); 
+		
+	}
 }
